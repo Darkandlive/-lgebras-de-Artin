@@ -14,26 +14,54 @@
 \usepackage{amsmath,stackengine,scalerel,mathtools}
 \usepackage{tikz-cd}
 
+\usepackage{comment}%Paquete para añadir comentarios largos.
+
 \newcommand{\Z}{\mathbb{Z}}
 
+%Imprime el símbolo de subideal, o bien subgrupo normal
 \def\subnormeq{\mathrel{\scalerel*{\trianglelefteq}{A}}}
 
+%Recibe un paremetro y le coloca dos barras a cada lado, por ejemplo para denotar la cardinalidad. Así $\crdnlty{A}$ imprime |A| 
 \newcommand{\crdnlty}[1]{
     \left|#1\right|
 }
+%Recibe un paremetro y le coloca paréntesis a cada lado, por ejemplo para construir un conjunto. Así $\lrprth{A}$ imprime (A). Lo conveniente del comando es que los paréntesis se ajustan al tamaño del argumento, de modo que si uno introduce, por ejemplo, un cociente, el tamaño de los paréntesis se ajustan a este. Lo mismo sucede con lrbrack, que coloca llaves, y lo hace útil para definir familias o conjuntos. 
 \newcommand{\lrprth}[1]{
     \left(#1\right)
 }
+
+%Coloca llaves
 \newcommand{\lrbrack}[1]{
     \left\{#1\right\}
 }
+
+%Recibe 3 parámetros y con ellos crea un conjunto, de la siguiente manera:
+%$\descset{a}{A}{p}$ imprime {a \in A | p}
+%a son elementos, A es el conjunto del que se toman, y p es la propiedad que deben satisfacer los elementos para pertenecer al conjunto
 \newcommand{\descset}[3]{
     \left\{#1\in#2\ \vline\ #3\right\}
 }
+
+%Recibe seis parámetros, con los cuales construye una aplicación (que puede terminar siendo una función). El primer parámetro es el símbolo que tendra la aplicación, por ejemplo f, el segundo es el dominio de la aplicación, el tercero es el contradominio de la aplicación, el cuarto es el símbolo con el que se denota un elemento del dominio, el quinto es la imagen hacia la que se va a mapear el elemento, y el sexto es un símbolo (que puede ser una coma, un punto, dejarse en blanco, etcétera) para separar la aplicación del texto que vendrá después. Vean que imprime el siguiente código:
+\begin{comment}
+\begin{equation*}
+    \descapp{f}{G/H}{G}{gH}{g}{.}
+\end{equation*}
+\end{comment}
 \newcommand{\descapp}[6]{
     #1: #2 &\rightarrow #3\\
     #4 &\mapsto #5#6 
 }
+
+\begin{comment}
+Permite describir familias de la forma {A_i}_{i\in I}. 
+El primer parámtero es el símbolo de un elemento de la familia, por ejemplo A. 
+El segundo es el subíndice con el que se van a identificar los miembros, por ejemplo i.
+El tercero es el símbolo con el que se denotará a la colección de índices, por ejemplo I.
+Así $\arbtfam{A}{i}{I}$.
+
+Los demás comandos realizan algo similar, pero para familias finitas y para cuando se desea o no se desea expecificar un superíndice.
+\end{comment}
 \newcommand{\arbtfam}[3]{
     {\left\{{#1}_{#2}\right\}}_{#2\in #3}
 }
@@ -49,42 +77,48 @@
 \newcommand{\fntfamsup}[4]{
     \lrbrack{{#1}^{#2}}_{#3=1}^{#4}
 }
+\begin{comment}
+Los siguientes dos comandos permiten escribir uplas de elementos, infinitas el primero y finitas el segundo, de la forma (a_i)_{i\in I}.
+\end{comment}
 \newcommand{\arbtuple}[3]{
     {\left({#1}_{#2}\right)}_{#2\in #3}
 }
 \newcommand{\fntuple}[3]{
     {\left({#1}_{#2}\right)}_{#2=1}^{#3}
 }
+
+%Da la notación para el generado de un conjunto, por ejemplo <A>, con los símbolos < y > ajustados al tamaño del argumento.
 \newcommand{\gengroup}[1]{
     \left< #1\right>
 }
+
+%Este es para el estabilizador, en el contexto de acciones de grupos. Ahora mismo no es necesario.
 \newcommand{\stblzer}[2]{
     St_{#1}\lrprth{#2}
 }
+%Este coloca [] a cada lado del argumento, por ejemplo para escribir el conmutador de dos elementos.
 \newcommand{\cmmttr}[1]{
     \left[#1,#1\right]
 }
+
+%Este permite escribir el indice de un grupo G sobre de un subgrupo H, o algo similar, así: $\grpindx{G}{H}$
 \newcommand{\grpindx}[2]{
     \left[#1:#2\right]
 }
-\newcommand{\syl}[2]{
-    Syl_{#1}\lrprth{#2}
-}
+%Este sirve para escribir el máximo común divisor de dos elementos, y el siguiente comando para el mínimo común múltiplo.
 \newcommand{\grtcd}[2]{
     mcd\lrprth{#1,#2}
 }
 \newcommand{\lsttcm}[2]{
     mcm\lrprth{#1,#2}
 }
-\newcommand{\amntpSyl}[2]{
-    \mu_{#1}\lrprth{#2}
-}
-\newcommand{\gen}[1]{
-    gen\lrprth{#1}
-}
+%Permite escribir el centro de un grupo. Al igual que en los comando previos, la ventaja que tiene es que los paréntesis se ajustan al tamaño del argumento.
+%Así: $\ringcenter{R}$.
 \newcommand{\ringcenter}[1]{
     C\lrprth{#1}
 }
+%Este permite escribir la notación para los Z endomorfismos de un grupo. El primer parámtero es el grupo y el segundo l o r, para saber si son tomados a izquierda o a derecha. 
+%Así: $\zend{A}{l}$.
 \newcommand{\zend}[2]{
     End_{\mathbb{Z}}^{#2}\lrprth{#1}
 }
