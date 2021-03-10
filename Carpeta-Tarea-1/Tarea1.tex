@@ -1,0 +1,363 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{eufrak}
+\usepackage{nicefrac}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{tikz-cd}
+
+\def\subnormeq{\mathrel{\scalerel*{\trianglelefteq}{A}}}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\crdnlty}[1]{
+    \left|#1\right|
+}
+\newcommand{\lrprth}[1]{
+    \left(#1\right)
+}
+\newcommand{\lrbrack}[1]{
+    \left\{#1\right\}
+}
+\newcommand{\descset}[3]{
+    \left\{#1\in#2\ \vline\ #3\right\}
+}
+\newcommand{\descapp}[6]{
+    #1: #2 &\rightarrow #3\\
+    #4 &\mapsto #5#6 
+}
+\newcommand{\arbtfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2\in #3}
+}
+\newcommand{\arbtfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2\in #3}
+}
+\newcommand{\fntfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfamsup}[4]{
+    \lrbrack{{#1}^{#2}}_{#3=1}^{#4}
+}
+\newcommand{\arbtuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2\in #3}
+}
+\newcommand{\fntuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2=1}^{#3}
+}
+\newcommand{\gengroup}[1]{
+    \left< #1\right>
+}
+\newcommand{\stblzer}[2]{
+    St_{#1}\lrprth{#2}
+}
+\newcommand{\cmmttr}[1]{
+    \left[#1,#1\right]
+}
+\newcommand{\grpindx}[2]{
+    \left[#1:#2\right]
+}
+\newcommand{\syl}[2]{
+    Syl_{#1}\lrprth{#2}
+}
+\newcommand{\grtcd}[2]{
+    mcd\lrprth{#1,#2}
+}
+\newcommand{\lsttcm}[2]{
+    mcm\lrprth{#1,#2}
+}
+\newcommand{\amntpSyl}[2]{
+    \mu_{#1}\lrprth{#2}
+}
+\newcommand{\gen}[1]{
+    gen\lrprth{#1}
+}
+\newcommand{\ringcenter}[1]{
+    C\lrprth{#1}
+}
+\newcommand{\zend}[2]{
+    End_{\mathbb{Z}}^{#2}\lrprth{#1}
+}
+\newcommand{\genmod}[2]{
+    \left< #1\right>_{#2}
+}
+\newcommand{\genlin}[1]{
+    \mathscr{L}\lrprth{#1}
+}
+\title{Tarea 1}
+\author{Arruti, Sergio, Jesús}
+\date{\today}
+
+\theoremstyle{definition}
+\newtheorem{define}{Definición}
+
+\theoremstyle{plain}
+\newtheorem{teor}{Teorema}[section]
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proposición}[section]
+
+\theoremstyle{definition}
+\newtheorem{ejemp}{Ejemplo}[section]
+
+\theoremstyle{definition}
+\newtheorem*{coro}{Corolario} 
+
+\theoremstyle{definition}
+\newtheorem*{obs}{Observaci\'on}
+
+\theoremstyle{definition}
+\newtheorem*{pron}{Proposición}
+
+\theoremstyle{definition}
+ 
+\newtheorem{lem}{Lema}
+
+\theoremstyle{definition}
+\newtheorem*{nota}{Nota}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\item \textbf{Ejercicio 1.}\\
+Sea $\varphi : R \longrightarrow S$ un morfismo de anillos.
+\begin{enumerate}
+	\item $im\lrprth{\varphi}\leq S$
+	\item $Ker\lrprth{\varphi}\unlhd R$
+	\item $\forall S' \subseteq S, \varphi^{-1}\lrprth{S'}\leq R$
+\end{enumerate}
+\begin{proof}
+$\boxed{\text{(a)}}$ El hecho de que $\varphi$ sea un morfismo de anillos con uno garantiza que $\varphi\lrprth{1}=1$ y que $im\lrprth{\varphi}\neq\emptyset$.\\
+Por otro lado, sean $a,b \in im\lrprth{\varphi}$. Por definición, existen $x,y \in R$ tales que $\varphi\lrprth{x}=a$ y $\varphi\lrprth{y}=b$. Esto implica que
+\begin{align*}
+a-b=\varphi\lrprth{x}-\varphi\lrprth{y}\\
+=\varphi\lrprth{x-y}
+\intertext{y que}
+ab=\varphi\lrprth{x}\varphi\lrprth{y}\\
+=\varphi\lrprth{xy}
+\end{align*}
+Así $a-b, ab \in im\lrprth{\varphi}$.\\
+Por tanto $im\lrprth{\varphi}\leq S$.
+	
+$\boxed{\text{(b)}}$ Primeramente, como $\varphi\lrprth{0}=0$, tenemos que $Ker\lrprth{\varphi}\neq\emptyset$. De igual manera, $Ker\lrprth{\varphi}\unlhd R$. En efecto, si $x,y \in Ker\lrprth{\varphi}$, entonces $\varphi\lrprth{x+y}=\varphi\lrprth{x}+\varphi\lrprth{y}=0$. Por lo que $x+y \in Ker\lrprth{\varphi}$. Ahora, sean $x \in Ker\lrprth{\varphi}$ y $a \in R$; de manera que $\varphi\lrprth{ax}=\varphi\lrprth{a}\varphi\lrprth{x}=0$ y $\varphi\lrprth{xa}=\varphi\lrprth{x}\varphi\lrprth{a}=0$. Por lo que $ax,xa \in Ker\lrprth{\varphi}$ y por tanto, $Ker\lrprth{\varphi}\unlhd R$.\\
+
+$\boxed{\text{(c)}}$ Sea $S'$ un subanillo de $S$. En este sentido, los hechos de que $1 \in S'$ y de que $\varphi\lrprth{1}=1$ implican que $1 \in \varphi^{-1}\lrprth{S'}\neq\emptyset$.\\
+Finalmente, dados $a,b \in \varphi^{-1}\lrprth{S'}$, se tiene por la propia definición, que $\varphi\lrprth{a}, \varphi\lrprth{b} \in S'$. De tal manera que $\varphi\lrprth{a-b}, \varphi\lrprth{ab} \in S'$. Por tanto, $a-b, ab \in \varphi^{-1} \lrprth{S'}$.\\
+Concluimos que $\varphi^{-1}\lrprth{S'}$ es un subanillo de $S$.
+\end{proof}
+
+\item \textbf{Ejercicio 4.}\\
+Para $\alpha : K \times R \longrightarrow R$, $\lrprth{k,r} \mapsto kr$, en $K_{AC}$-Rings, pruebe que $\varphi_{\alpha} : K \longrightarrow R$, con $\varphi_{\alpha}\lrprth{k}=k \cdot 1_{R}$ es un morfismo de anillos tal que $im\lrprth{\varphi_{\alpha}}\subseteq \ringcenter{R}$.
+\begin{proof}
+Sean $k,r \in K$. Dado que $\alpha$ es una acción, se tiene que
+\begin{align*}
+\varphi_{\alpha}\lrprth{k+r}=\lrprth{k+r}\cdot 1_{R}\\
+=k \cdot 1_{R} + r \cdot 1_{R}\\
+=\varphi_{\alpha}\lrprth{k}+\varphi_{\alpha}\lrprth{r}\\
+\intertext{y}
+\varphi_{\alpha}\lrprth{kr}=\lrprth{kr}\cdot 1_{R}\\
+=k \cdot\lrprth{r \cdot 1_{R}}\\
+=\lrprth{k \cdot 1_{R}}\lrprth{r \cdot 1_{R}}\\
+=\varphi_{\alpha}\lrprth{k}\varphi_{\alpha}\lrprth{r}
+\end{align*}
+
+Además, por la propia regla de correspondencia de $\varphi_{\alpha}$, se cumple la igualdad $\varphi_{\alpha}\lrprth{1}=1_{K} \cdot 1_{R} = 1_{R}$. Por tanto, $\varphi_{\alpha}$ es un morfismo de anillos.\\
+
+Finalmente, de la quinta condición de ser acción a izquierda, se deduce que $im\lrprth{\varphi_{\alpha}}\subseteq\ringcenter{R}$. En efecto, si $k \in K$ y $r \in R$, entonces
+\begin{align*}
+\varphi_{\alpha}\lrprth{k}r=\lrprth{k \cdot 1_{R}}r\\
+=k \cdot\lrprth{1_{R}r}\\
+=k \cdot\lrprth{r1_{R}}\\
+=r \cdot\lrprth{k1_{R}}\\
+=r\varphi_{\alpha}\lrprth{k}
+\end{align*}
+Por lo que $im\lrprth{\varphi_{\alpha}}\subseteq \ringcenter{R}$.
+\end{proof}
+
+\item \textbf{Ejercicio 7.}\\
+Sea $R$ un anillo. Pruebe que
+\begin{enumerate}
+	\item Dada una representación a derecha $\lrprth{M, \rho}$, se tiene una acción a derecha $\beta_{\rho} : M \times R \longrightarrow M$, $\lrprth{m,r} \mapsto mr=\lrprth{m}\rho\lrprth{r}$ tal que $\lrprth{M, \beta_{\rho}}\in Mod_{R}$
+	\item Dado un $R$-módulo a derecha $\lrprth{M, \beta}$, se tiene un morfismo de anillos $\rho_{\beta}:R \longrightarrow \zend{M}{r}$, $\lrprth{m}\rho_{\beta}\lrprth{r}=\beta\lrprth{m,r}=mr$
+	\item Se tiene una biyección $\beta :Rep_{R} \longrightarrow Mod_{R}$, $\lrprth{M, \rho}\mapsto\beta_{\rho}$, donde $\beta_{\rho}:M \times R \mapsto M$ está dada por $\beta_{\rho}\lrprth{m,r}=\lrprth{m}\rho\lrprth{r}$; cuya inversa es $\rho :Mod_{R} \longrightarrow Rep_{R}$, con $\lrprth{\beta :M \times R \longrightarrow M}\mapsto\lrprth{\rho_{\beta}:R \longrightarrow\zend{M}{r}}$, dada por $\lrprth{m}\rho_{\beta}\lrprth{r}=\beta\lrprth{m,r}$
+\end{enumerate}
+\begin{proof}
+$\boxed{\text{(a)}}$ Dado que $M$ es un grupo abeliano, basta probar que se satisfacen las condiciones de la definición de $R$-módulo a derecha. Sean $r_{1},r_{2} \in R$ y $m_{1},m_{2} \in M$.\\
+
+Primero,
+\begin{align*}
+\lrprth{m_{1}+m_{2}} \cdot r_{1}=\lrprth{m_{1}+m_{2}}\rho\lrprth{r_{1}}\\
+=\lrprth{m_{1}} \rho \lrprth{r_{1}} + \lrprth{m_{2}} \rho \lrprth{r_{2}}\\
+=m_{1} \cdot r_{1} + m_{2} \cdot r_{1}
+\end{align*}
+puesto que $\rho \lrprth{r_{1}}$ es un morfismo de grupos abelianos.\\
+	
+Por otro lado, como $\rho$ es un morfismo de anillos, podemos decir que
+\begin{align*}
+m_{1} \cdot \lrprth{r_{1}+r_{2}}=\lrprth{m_{1}} \rho \lrprth{r_{1}+r_{2}}\\
+=\lrprth{m_{1}}[\rho \lrprth{r_{1}} + \rho \lrprth{r_{2}}]\\
+=\lrprth{m_{1}} \rho \lrprth{r_{1}} + \lrprth{m_{1}} \rho \lrprth{r_{2}}\\
+=m_{1} \cdot r_{1} + m_{2} \cdot r_{2}
+\end{align*}
+
+También observemos que
+\begin{align*}
+m_{1} \cdot 1_{R}=\lrprth{m_{1}} \rho \lrprth{1}\\
+=\lrprth{m_{1}}Id_{R}\\
+=m_{1}
+\end{align*}
+	
+Por último, en virtud de que $\rho$ preserva productos, se tiene que
+\begin{align*}
+m_{1} \cdot \lrprth{r_{1}r_{2}}=\lrprth{m_{1}} \rho \lrprth{r_{1}r_{2}}\\
+=\lrprth{m_{1}} \rho \lrprth{r_{1}} \circ \rho \lrprth{r_{2}}\\
+=\lrprth{\lrprth{m_{1}} \rho \lrprth{r_{1}}} \rho \lrprth{r_{2}}\\
+=\lrprth{m_{1} \cdot r_{1}} \rho \lrprth{r_{2}}\\
+=\lrprth{m \cdot r_{1}} \cdot r_{2}
+\end{align*}
+	
+Por tanto, $\lrprth{M, \beta_{\rho}}$ es un $R$-módulo a derecha.\\
+
+$\boxed{\text{(b)}}$ Como en el inciso anterior, bastará con probar que $\rho_{\beta}$ es un morfismo de anillos. Bajo este contexto, sean $m_{1},m_{2} \in M$ y $r_{1},r_{2} \in R$.\\
+	
+Comenzaremos notando que $\rho \lrprth{r_{1}}$ es un homomorfismo de anillos. En efecto,
+\begin{align*}
+\lrprth{m_{1}+m_{2}} \rho \lrprth{r_{1}}=\lrprth{m_{1}+m_{2}} \cdot r_{1}\\
+=m_{1} \cdot r_{1} + m_{2} \cdot r_{1}\\
+=\lrprth{m_{1}} \rho \lrprth{r_{1}} + \lrprth{m_{2}} \rho \lrprth{r_{2}}
+\end{align*}
+Por consiguiente, $\rho\lrprth{r_{1}}\in\zend{M}{r}$.\\
+	
+Análogamente, $\rho_{\beta}$ es un homomorfismo de grupos abelianos, puesto que
+\begin{align*}
+\lrprth{m_{1}} \rho_{\beta} \lrprth{r_{1}+r_{2}}=m_{1} \cdot \lrprth{r_{1}+r_{2}}\\
+=m_{1} \cdot r_{1} + m_{1} \cdot r_{2}\\
+= \lrprth{m_{1}} \rho_{\beta} \lrprth{r_{1}} + \lrprth{m_{1}} \rho_{\beta} \lrprth{r_{2}}
+\end{align*}
+y así $\rho_{\beta} \lrprth{r_{1}+r_{2}} = \rho_{\beta} \lrprth{r_{1}} + \rho_{\beta} \lrprth{r_{2}}$. Más aún, $\rho_{\beta}$ también preserva productos, toda vez que
+\begin{align*}
+\lrprth{m_{1}} \rho_{\beta} \lrprth{r_{1}r_{2}}=m_{1} \cdot \lrprth{r_{1}r_{2}}\\
+=\lrprth{m_{1} \cdot r_{1}} \cdot r_{2}\\
+=\lrprth{\lrprth{m_{1}} \rho_{\beta} \lrprth{r_{1}}} \rho_{\beta} \lrprth{r_{2}}\\
+=\lrprth{m_{1}} [\rho_{\beta} \lrprth{r_{1}} \circ \rho_{\beta} \lrprth{r_{2}}]
+\end{align*}
+	
+Para finalizar, $\rho_{\beta}$ en efecto es un morfismo de anillos porque, adicionalmente, se satisface que $\lrprth{m_{1}} \rho_{\beta} \lrprth{1}=m_{1} \cdot 1_{R}=m_{1}$. Ergo, se concluye el resultado.
+
+$\boxed{\text{(c)}}$ La biyección queda resuelta debido a los 2 incisos anteriores. El primero garantiza que toda representación a derecha tiene estructura de $R$-módulo a derecha; inversamente, todo $R$-módulo a derecha induce una acción a derecha con la cuál el módulo puede ser visto como una representación a derecha de $R$.
+\end{proof}
+
+\item \textbf{Ejercicio 10.}\\
+Sea $K$ un anillo conmutativo.
+\begin{enumerate}
+	\item Para un anillo $R$, pruebe que dar una estructura de $K$-álgebra en $R$ es equivalente a dar una estructura de $K$-módulo a izquierda en $R$, vía una acción a izquierda $K \times R \longrightarrow R$, $\lrprth{k,r} \mapsto k \cdot r$ tal que satisface la propiedad $k \cdot \lrprth{r_{1}r_{2}}\lrprth{k \cdot r_{1}}r_{2}=r_{1}\lrprth{k \cdot r_{2}}$, $\forall k \in K$, $\forall r_{1}, r_{2} \in R$.
+	\item Sean $R,S$ dos $K$-álgebras, $f:R \longrightarrow S$ un morfismo de anillos. Pruebe que $f$ es un morfismo de $K$-álgebras si y sólo si $f$ es un morfismo de $K$-módulos a izquierda, vía la estructura de $K$-módulo en $R$ y en $S$ dada por el primer inciso.
+\end{enumerate}
+\begin{proof}
+$\boxed{\text{(a)}}$ Suponga que $\lrprth{R,K, \varphi }$ tiene estructura de $K$-álgebra. Definimos una acción a izquierda de $K$ sobre $R$ como $\lrprth{k,r} \mapsto \varphi \lrprth{k}r$. Veremos que, bajo este contexto, $R$ es un $K$-módulo a izquierda.\\
+	
+Sean $x,y \in R$ y $k,r \in K$. Entonces se cumple que 
+\begin{align*}
+k \cdot \lrprth{x+y} = \varphi \lrprth{k}\lrprth{x+y}\\
+= \varphi \lrprth{k}x + \varphi \lrprth{k}y\\
+= k \cdot x + k \cdot y
+\intertext{Adicionalmente,}
+\lrprth{k+r} \cdot x = [ \varphi \lrprth{k} + \varphi \lrprth{r} ]x\\
+= \varphi \lrprth{k}x + \varphi \lrprth{r}x\\
+= k \cdot x + r \cdot x
+\end{align*}
+	
+Igualmente, se satisface que
+\begin{align*}
+1_{K} \cdot x = \varphi\lrprth{1_{K}}\\
+=1_{R}x\\
+=x
+\end{align*}
+Y así mísmo, $im\lrprth{ \varphi } \subseteq \ringcenter{R}$, pues $\lrprth{R,K, \varphi }$ es $K$-álgebra. Inclusive, obtenemos
+\begin{align*}
+\lrprth{kr} \cdot x = \varphi \lrprth{kr}x\\
+= [ \varphi \lrprth{k} \varphi \lrprth{r} ]x\\
+= \varphi \lrprth{k} [ \varphi \lrprth{r}x ]\\
+= k \cdot \lrprth{r \cdot x}
+\end{align*}
+	
+Por último, el hecho de que $im\lrprth{ \varphi } \subseteq \ringcenter{R}$ implica las siguientes dos igualdades
+\begin{align*}
+k \cdot \lrprth{xy}=\varphi \lrprth{k}\lrprth{xy}\\
+=\lrprth{ \varphi \lrprth{k}x}y\\
+=\lrprth{k \cdot x}y\\
+\intertext{y}
+k \cdot \lrprth{xy} = \varphi \lrprth{k}\lrprth{xy}\\
+=\lrprth{ \varphi \lrprth{k}x}y
+\\=\lrprth{x \varphi \lrprth{k}}y\\
+=x\lrprth{ \varphi \lrprth{k}y}\\
+=x\lrprth{k \cdot y}
+\end{align*}
+Por lo que $R \in {}_{K}Mod$.\\
+	
+Inversamente, en el supuesto de que $R$ sea un $K$-módulo a izquierda, vía una acción $K \times R \longrightarrow R$, $\lrprth{k,r} \mapsto k \cdot r$ con la propiedad de que para cualesquiera $k \in K$ y $r_{1},r_{2} \in R$ se tiene que$k \cdot \lrprth{r_{1}r_{2}} = \lrprth{k \cdot r_{1}}r_{2} = r_{1} \lrprth{k \cdot r_{2}}$, se puede definir una función $\varphi : K \longrightarrow R$ como $\varphi \lrprth{k} = k \cdot 1_{R}$. Mostraremos que $\varphi$ es un homomorfismo de anillos tal que $im\lrprth{ \varphi } \subseteq \ringcenter{R}$.\\
+	
+Sean $k,r \in K$. Comencemos notando que
+\begin{align*}
+\varphi \lrprth{k+r}=\lrprth{k+r}\cdot 1_{R}\\
+=k \cdot 1_{R}+r \cdot 1_{R}\\
+=\varphi\lrprth{k}+\varphi\lrprth{r}
+\end{align*}
+Y que, a su vez,
+\begin{align*}
+\varphi \lrprth{kr} = \lrprth{kr} \cdot 1_{R}\\
+= k \cdot \lrprth{r \cdot 1_{R}}\\
+= k \cdot \varphi \lrprth{r}\\
+= k \cdot \lrprth{1_{R} \varphi \lrprth{r}}\\
+= \lrprth{k \cdot 1_{R}} \varphi \lrprth{r}\\
+= \varphi \lrprth{k} \varphi \lrprth{r}
+\end{align*}
+
+Incluso, en este sentido, se tiene que $\varphi \lrprth{1_{K}} = 1_{K} \cdot 1_{R} = 1_{R}$. Lo cual implica que $\varphi$ es un homomorfismo de anillos. Para terminar, veamos que $im\lrprth{ \varphi } \subseteq \ringcenter{R}$. Sean $x \in K$, $y \in R$. Por hipótesis,
+\begin{align*}
+\lrprth{k \cdot 1_{R}}r = k \cdot \lrprth{1_{R}r}\\
+= k \cdot r\\
+= k \cdot \lrprth{r1_{R}}\\
+= r\lrprth{k \cdot 1_{R}}
+\intertext{Luego,}
+\varphi \lrprth{k}r=r \varphi \lrprth{k}
+\end{align*}
+En vista de lo anterior, $R$ adquiere estructura de $K$-álgebra.
+
+$\boxed{\text{(b)}}$ Empecemos suponiendo que $f$ es un morfismo de $K$-álgebras, con $\lrprth{R,K, \varphi }$ y $\lrprth{S, K, \psi}$. Sean $k \in K$ y $r \in R$. En virtud de la correspondencia del inciso anterior se tiene que 
+\begin{align*}
+k \cdot r = k \cdot \lrprth{1_{R}r}\\
+= \lrprth{k \cdot 1_{R}}r\\
+= \varphi \lrprth{k}r
+\intertext{Así}
+f\lrprth{k \cdot r} = f\lrprth{ \varphi \lrprth{k}r}\\
+= \psi \lrprth{k}f\lrprth{r}\\
+= k \cdot f\lrprth{r}
+\end{align*}
+Por lo que $f$ es un morfismo de $K$-módulos a izquierda.\\
+	
+De la misma forma, el converso también es válido. Considere las $K$-álgebras $\lrprth{R,K, \varphi }$ y $\lrprth{S,K, \psi }$. Sean $t \in K$ y $x \in R$. Note que 
+\begin{align*}
+\varphi \lrprth{k}r = \lrprth{k \cdot 1_{R}}r\\
+=k \cdot \lrprth{1_{R}r}\\
+=k \cdot r
+\end{align*}
+De esta manera,
+\begin{align*}
+f\lrprth{ \varphi \lrprth{k}r}=f\lrprth{k \cdot r}\\
+=k \cdot f\lrprth{r}\\
+=\psi \lrprth{k}f\lrprth{r}
+\end{align*}
+De ahí, concluimos que $f$ es un morfismo de $K$-álgebras.
+\end{proof}
+\end{enumerate}
+\end{document}
