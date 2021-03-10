@@ -1,0 +1,314 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{eufrak}
+\usepackage{nicefrac}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{tikz-cd}
+
+\usepackage{comment}%Paquete para añadir comentarios largos.
+
+\newcommand{\Z}{\mathbb{Z}}
+
+%Imprime el símbolo de subideal, o bien subgrupo normal
+\def\subnormeq{\mathrel{\scalerel*{\trianglelefteq}{A}}}
+
+%Recibe un paremetro y le coloca dos barras a cada lado, por ejemplo para denotar la cardinalidad. Así $\crdnlty{A}$ imprime |A| 
+\newcommand{\crdnlty}[1]{
+    \left|#1\right|
+}
+%Recibe un paremetro y le coloca paréntesis a cada lado, por ejemplo para construir un conjunto. Así $\lrprth{A}$ imprime (A). Lo conveniente del comando es que los paréntesis se ajustan al tamaño del argumento, de modo que si uno introduce, por ejemplo, un cociente, el tamaño de los paréntesis se ajustan a este. Lo mismo sucede con lrbrack, que coloca llaves, y lo hace útil para definir familias o conjuntos. 
+\newcommand{\lrprth}[1]{
+    \left(#1\right)
+}
+
+%Coloca llaves
+\newcommand{\lrbrack}[1]{
+    \left\{#1\right\}
+}
+
+%Recibe 3 parámetros y con ellos crea un conjunto, de la siguiente manera:
+%$\descset{a}{A}{p}$ imprime {a \in A | p}
+%a son elementos, A es el conjunto del que se toman, y p es la propiedad que deben satisfacer los elementos para pertenecer al conjunto
+\newcommand{\descset}[3]{
+    \left\{#1\in#2\ \vline\ #3\right\}
+}
+
+%Recibe seis parámetros, con los cuales construye una aplicación (que puede terminar siendo una función). El primer parámetro es el símbolo que tendra la aplicación, por ejemplo f, el segundo es el dominio de la aplicación, el tercero es el contradominio de la aplicación, el cuarto es el símbolo con el que se denota un elemento del dominio, el quinto es la imagen hacia la que se va a mapear el elemento, y el sexto es un símbolo (que puede ser una coma, un punto, dejarse en blanco, etcétera) para separar la aplicación del texto que vendrá después. Vean que imprime el siguiente código:
+\begin{comment}
+\begin{equation*}
+    \descapp{f}{G/H}{G}{gH}{g}{.}
+\end{equation*}
+\end{comment}
+\newcommand{\descapp}[6]{
+    #1: #2 &\rightarrow #3\\
+    #4 &\mapsto #5#6 
+}
+
+\begin{comment}
+Permite describir familias de la forma {A_i}_{i\in I}. 
+El primer parámtero es el símbolo de un elemento de la familia, por ejemplo A. 
+El segundo es el subíndice con el que se van a identificar los miembros, por ejemplo i.
+El tercero es el símbolo con el que se denotará a la colección de índices, por ejemplo I.
+Así $\arbtfam{A}{i}{I}$.
+
+Los demás comandos realizan algo similar, pero para familias finitas y para cuando se desea o no se desea expecificar un superíndice.
+\end{comment}
+\newcommand{\arbtfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2\in #3}
+}
+\newcommand{\arbtfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2\in #3}
+}
+\newcommand{\fntfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfamsup}[4]{
+    \lrbrack{{#1}^{#2}}_{#3=1}^{#4}
+}
+\begin{comment}
+Los siguientes dos comandos permiten escribir uplas de elementos, infinitas el primero y finitas el segundo, de la forma (a_i)_{i\in I}.
+\end{comment}
+\newcommand{\arbtuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2\in #3}
+}
+\newcommand{\fntuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2=1}^{#3}
+}
+
+%Da la notación para el generado de un conjunto, por ejemplo <A>, con los símbolos < y > ajustados al tamaño del argumento.
+\newcommand{\gengroup}[1]{
+    \left< #1\right>
+}
+
+%Este es para el estabilizador, en el contexto de acciones de grupos. Ahora mismo no es necesario.
+\newcommand{\stblzer}[2]{
+    St_{#1}\lrprth{#2}
+}
+%Este coloca [] a cada lado del argumento, por ejemplo para escribir el conmutador de dos elementos.
+\newcommand{\cmmttr}[1]{
+    \left[#1,#1\right]
+}
+
+%Este permite escribir el indice de un grupo G sobre de un subgrupo H, o algo similar, así: $\grpindx{G}{H}$
+\newcommand{\grpindx}[2]{
+    \left[#1:#2\right]
+}
+%Este sirve para escribir el máximo común divisor de dos elementos, y el siguiente comando para el mínimo común múltiplo.
+\newcommand{\grtcd}[2]{
+    mcd\lrprth{#1,#2}
+}
+\newcommand{\lsttcm}[2]{
+    mcm\lrprth{#1,#2}
+}
+%Permite escribir el centro de un grupo. Al igual que en los comando previos, la ventaja que tiene es que los paréntesis se ajustan al tamaño del argumento.
+%Así: $\ringcenter{R}$.
+\newcommand{\ringcenter}[1]{
+    C\lrprth{#1}
+}
+%Este permite escribir la notación para los Z endomorfismos de un grupo. El primer parámtero es el grupo y el segundo l o r, para saber si son tomados a izquierda o a derecha. 
+%Así: $\zend{A}{l}$.
+\newcommand{\zend}[2]{
+    End_{\mathbb{Z}}^{#2}\lrprth{#1}
+}
+
+
+\theoremstyle{definition}
+\newtheorem{define}{Definición}
+
+\theoremstyle{plain}
+\newtheorem{teor}{Teorema}[section]
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proposición}[section]
+
+\theoremstyle{definition}
+\newtheorem{ejemp}{Ejemplo}[section]
+
+\theoremstyle{definition}
+\newtheorem*{coro}{Corolario} 
+
+\theoremstyle{definition}
+\newtheorem*{obs}{Observaci\'on}
+
+\theoremstyle{definition}
+\newtheorem*{pron}{Proposición}
+
+\theoremstyle{definition}
+ 
+\newtheorem{lem}{Lema}
+
+\theoremstyle{definition}
+\newtheorem*{nota}{Nota}
+
+\begin{document}
+
+\textbf{Ejercicio 2} \\
+Para un anillo $R$ pruebe que: 
+\begin{itemize}
+\item[a)] $C(R)$ es un subanillo conmutativo de $R$.
+\item[b)] $C(R)=C(R[{op}])$.
+\item[c)] $R=R^{op}$ como anillos\,\, $\Leftrightarrow$ \,\,$C(R)=R$\,\, $\Leftrightarrow$ \,\, $R$ es conmutativo.
+\end{itemize}
+
+\textbf{Demostración.}\\
+\textbf{a)}\quad Sean $a,b\in C(R)$, por definición $ax=xa$ y $bx=xb\quad\forall x\in R$, entonces
+\[(a-b)x=ax-(bx)=xa-(xb)=x(a-b).\]
+Por lo tanto $a-c\in C(R)$. Ahora, $abx=axb=xab$, por lo que $a,b\in C(R)$ y en consecuencia $C(R)\leq R$.\\
+
+\textbf{b)}\quad Sea $*:R^{op}\times R^{op}\to R^{op}$ la operación de anillo en $R^{op}$. Así se tiene que 
+\begin{gather*}
+a\in C(R^{op})\quad \Leftrightarrow\quad  \forall x\in R\quad a*x=x*a
+\\ \Leftrightarrow\quad \forall x\in R\quad xa=ax\\
+\Leftrightarrow\quad \forall x\in R\quad a\in C(R).
+\end{gather*}
+\textbf{c)}\quad $\cdot)\Rightarrow \cdot\cdot)$\quad Supongamos $R=R^{op}$ como anillos, entonces sus operaciones coincides, es decir,
+$\forall a\in R$ se tiene que $\forall x\in R\quad ax=a*x=xa$, entonces $R\subset C(R)\subset R$ por lo que $R=C(R)$.\\
+ 
+$\cdot\cdot)\Rightarrow \cdot\cdot\cdot)$\quad Si $R=C(R)$, entonces $\forall x,y\in R\quad xy=yx$, por lo que $R$ es conmutativo.\\
+  
+$\cdot\cdot\cdot)\Rightarrow \cdot)$\quad Si $R$ es conmutativo, entonces $\forall x,a\in R\quad xa=ax=x*a$, y como $R$ y $R^{op}$ 
+coinciden como grupos abelianos, entonces $R=R^{op}$ como anillos.\\
+
+\textbf{Ejercicio 5} \\
+
+Para un anillo conmutativo $K$, pruebe que se tiene una biyección \\
+$\alpha:K-Alg\longrightarrow K_{AC}-Rings,\quad  (R,K,\varphi)\longmapsto \alpha_{\varphi}$, donde 
+$\alpha_\varphi:K\times R\to R$ está dada por $\alpha_\varphi(k,r):=\varphi(k)r$; cuya inversa está dada por
+ $\varphi_\alpha:=\alpha(k,1_R).$\\
+ 
+\textbf{Demostración.}\\
+Para evitar abusos de notación en la prueba se redefinirán las funciones de la siguiente forma. Sean 
+$D=\{\varphi \,:\, (R,K,\varphi)\in  K-Alg\}$ y 
+\[f:D\longrightarrow K_{AC}-Rings, \quad f(\varphi)=f_\varphi\]
+donde $f_\varphi:K\times R\to R$ está dada por $f_\varphi(k,r):=\varphi(k)r$. Y definimos \\
+$f^{-1}:K_{AC}-Rings\longrightarrow D$ como $f^{-1}(\alpha):=f^{-1}_\alpha$, donde
+ $\alpha:K\times R\to R$ y $f^{-1}_\alpha(k):=\alpha (k,1_R)=K\cdot 1_R$.\\
+ 
+Entonces \[\left((ff^{-1})(\alpha)\right)(k,r)=\left(f(f^{-1}_\alpha)\right)(k,r)=f^{-1}_\alpha(k)r=\alpha(k,1_R)r=\alpha(k,r)\]
+y
+\[\left((f^{-1}f)(\varphi)\right)(k)=\left(f^{-1}f_\varphi\right)(k)=f_\varphi(k,1_R)=\varphi(k)1_R=\varphi(k).\]
+
+Por lo que $f$ es biyectiva con $f^{-1}$ su inversa.\\
+
+\textbf{Ejercicio 8} \\
+
+Sea $R$ un anillo, $(M,+)$ un grupo abeliano y $\varphi:R\times M\to M$ una función. La acción opuesta 
+$\varphi^{op}: M\times R^{op}\to M$, se define como sigue:
+\[\varphi^{op}(m,r^{op}):= \varphi(r,m)\quad \forall r\in R, \,\,\, \forall m\in M.\]
+Pruebe que
+\[(\prescript{}{R}{M},\varphi)\in  \prescript{}{R}{Mod} \Leftrightarrow (M_{R^{op}},\varphi^{op})\in Mod_{R^{op}}.\]
+
+\textbf{Demostración.}\\
+Recordando que $r_2^{op}r_1^{op}=(r_2r_1)^{op}$, se tiene que:\\
+
+$(M_{R^{op}},\varphi^{op})\in Mod_{R^{op}}$\\\\
+$\Leftrightarrow$
+\begin{gather*}
+i)\,\,\varphi^{op}[(m_1+m_2),r^{op}]=\varphi^{op}(m_1,r^{op})+\varphi^{op}(m_2,r^{op})\\
+ii)\,\,\varphi^{op}[m,(r_1^{op}+r_2^{op})]=\varphi^{op}(m,r_1^{op})+\varphi^{op}(m,r_2^{op})\\
+iii)\,\, \varphi^{op}(m,1_R^{op})=m\\
+iv)\,\, \varphi^{op}(m,r_1^{op}r_2^{op})=\varphi^{op}(\varphi^{op}(m,r_1^{op}),r_2^{op}).
+\end{gather*}
+ $\Leftrightarrow$
+\begin{gather*}
+i)\,\,\varphi[r,(m_1+m_2)]=\varphi(r,m_1)+\varphi(r,m_2)\\
+ii)\,\,\varphi[(r_1+r_2),m]=\varphi(r_1,m)+\varphi(r_2,m)\\
+iii)\,\, \varphi(1_R,m)=m\\
+iv)\,\, \varphi(r_2r_1,m)=\varphi(r_2,\varphi(r_1,m)).
+\end{gather*}
+ $\Leftrightarrow$\\
+ 
+ $(\prescript{}{R}{M},\varphi)\in  \prescript{}{R}{Mod}$.\\
+ 
+\textbf{Ejercicio 11} \\
+
+Dado un morfismo de anillos $\varphi:R\to S$, construya la correspondencia análoga (a la de módulos) 
+$F_\varphi:\prescript{}{S}{Rep}\longrightarrow \prescript{}{R}{Rep}$.\\
+
+\textbf{Demostración.}\\
+Sean $\varphi:R\to S$ un morfismo de anillos y $(\lambda,M)\in \prescript{}{S}{Rep}$ una representación a izquierda del anillo
+$S$. Se define la correspondencia \textbf{Cambio de anillos}\\
+ $F_\varphi:\prescript{}{S}{Rep}\longrightarrow \prescript{}{R}{Rep}$. Como grupos abelianos, $F_\lambda(M):= M$ y
+ la representación $R\to End_{\Z}^{\,l}(M),\quad (r)\longmapsto \lambda'(r)$, se define por  $\lambda'(r):=\lambda(\varphi(r))$.
+ Cabe observar que, como $\lambda$ y $\varphi$ son  morfismos de anillos entonces $\lambda'$ es morfismo de anillos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
