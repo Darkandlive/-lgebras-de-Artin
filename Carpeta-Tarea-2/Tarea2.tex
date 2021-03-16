@@ -1,0 +1,443 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{eufrak}
+\usepackage{nicefrac}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{tikz-cd}
+\usepackage{comment}%Paquete para añadir comentarios largos.}
+
+%Imprime el símbolo de subideal, o bien subgrupo normal
+\def\subnormeq{\mathrel{\scalerel*{\trianglelefteq}{A}}}
+
+%Recibe un paremetro y le coloca dos barras a cada lado, por ejemplo para denotar la cardinalidad. Así $\crdnlty{A}$ imprime |A| 
+\newcommand{\crdnlty}[1]{
+    \left|#1\right|
+}
+
+%Recibe un paremetro y le coloca paréntesis a cada lado, por ejemplo para construir un conjunto. Así $\lrprth{A}$ imprime (A). Lo conveniente del comando es que los paréntesis se ajustan al tamaño del argumento, de modo que si uno introduce, por ejemplo, un cociente, el tamaño de los paréntesis se ajustan a este. Lo mismo sucede con lrbrack, que coloca llaves, y lo hace útil para definir familias o conjuntos. 
+\newcommand{\lrprth}[1]{
+    \left(#1\right)
+}
+
+%Idéntico al comando anterior, pero con llaves {}
+\newcommand{\lrbrack}[1]{
+    \left\{#1\right\}
+}
+
+\begin{comment}
+Recibe 3 parámetros y con ellos crea un conjunto, de la siguiente manera:
+$\descset{a}{A}{p}$ imprime {a \in A | p}
+a son elementos, A es el conjunto del que se toman, y p es la propiedad que deben satisfacer los elementos para pertenecer al conjunto
+\end{comment}
+\newcommand{\descset}[3]{
+    \left\{#1\in#2\ \vline\ #3\right\}
+}
+
+\begin{comment}
+Recibe seis parámetros, con los cuales construye una aplicación (que puede terminar siendo una función). El primer parámetro es el símbolo que tendra la aplicación, por ejemplo f, el segundo es el dominio de la aplicación, el tercero es el contradominio de la aplicación, el cuarto es el símbolo con el que se denota un elemento del dominio, el quinto es la imagen hacia la que se va a mapear el elemento, y el sexto es un símbolo (que puede ser una coma, un punto, dejarse en blanco, etcétera) para separar la aplicación del texto que vendrá después. Vean qué imprime el siguiente código:
+\begin{equation*}
+\descapp{f}{G/H}{G}{gH}{g}{.}
+\end{equation*}
+\end{comment}
+\newcommand{\descapp}[6]{
+    #1: #2 &\rightarrow #3\\
+    #4 &\mapsto #5#6 
+}
+
+\begin{comment}
+Permite describir familias de la forma {A_i}_{i\in I}. 
+El primer parámtero es el símbolo de un elemento de la familia, por ejemplo A. 
+El segundo es el subíndice con el que se van a identificar los miembros, por ejemplo i.
+El tercero es el símbolo con el que se denotará a la colección de índices, por ejemplo I.
+Así $\arbtfam{A}{i}{I}$.
+
+Los siguientes cuatro comandos realizan algo similar, pero para familias finitas y para cuando se desea o no se desea expecificar un superíndice.
+\end{comment}
+\newcommand{\arbtfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2\in #3}
+}
+\newcommand{\arbtfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2\in #3}
+}
+\newcommand{\fntfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfamsup}[4]{
+    \lrbrack{{#1}^{#2}}_{#3=1}^{#4}
+}
+
+%Los siguientes dos comandos permiten escribir uplas de elementos, infinitas el primero y finitas el segundo, de la forma (a_i)_{i\in I}.
+\newcommand{\arbtuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2\in #3}
+}
+\newcommand{\fntuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2=1}^{#3}
+}
+
+
+\newcommand{\gengroup}[1]{
+    \left< #1\right>
+}
+
+\begin{comment}
+Permite escribir el centro de un grupo. Al igual que en los comando previos, la ventaja que tiene es que los paréntesis se ajustan al tamaño del argumento.
+Así: $\ringcenter{R}$.
+\end{comment}
+\newcommand{\ringcenter}[1]{
+    C\lrprth{#1}
+}
+
+\begin{comment}
+Este permite escribir la notación para los Z endomorfismos de un grupo. El primer parámtero es el grupo y el segundo l o r, para saber si son tomados a izquierda o a derecha. 
+Así: $\zend{A}{l}$.
+\end{comment}
+\newcommand{\zend}[2]{
+    End_{\mathbb{Z}}^{#2}\lrprth{#1}
+}
+
+\begin{comment}
+Da la notación para el submódulo generado por un conjunto con respecto a un cierto anillo. 
+Así, por ejemplo con $\genmod{R}{X}$, el primer parámetro que recibe es con respecto a qué anillo se genera el submódulo (R) y el segundo es el conjunto que lo genera (X).
+\end{comment}
+\newcommand{\genmod}[2]{
+    \left< #1\right>_{#2}
+}
+
+\begin{comment}
+Da la notación para el reticulado de submódulos de un módulo dado.
+\end{comment}
+\newcommand{\genlin}[1]{
+    \mathscr{L}\lrprth{#1}
+}
+
+%Este coloca "op" como exponente del argumento que recibe. Útil para denotar al anillo opuesto, así como sus elementos, o bien funciones/acciones opuestas.
+\newcommand{\opst}[1]{
+    {#1}^{op}
+}
+
+\begin{comment}
+Este comando permite escribir R-módulos a izquierda, o bien a derecha a través de tres parámetros. Por ejemplo $\ringmod{R}{M}{OPCIONES}$. 
+El primero parámetro es el anillo con respecto al cual se está trabajando.
+El segundo parámtero es el grupo abeliano que tiene estructura de R-módulo.
+El tercer parámetro, OPCIONES, admite uno de los siguientes dos valores: l ó r, con los cuales se indica si el módulo es a izquierda (l) o a derecha (r).
+Así $\ringmod{S}{M}{r}$ imprimirá que M es un S-módulo a derecha.
+\end{comment}
+\newcommand{\ringmod}[3]{
+    \if#3l
+    {}_{#1}#2
+    \else
+        \if#3r
+            #2_{#1}
+        \fi
+    \fi
+}
+
+\begin{comment}
+Este comando permite escribir bimódulos a izquierda, o bien a derecha a través de cuatro parámetros. Por ejemplo $\ringbimod{R}{S}{M}{OPCIONES}$. 
+Los primeros dos parámetros son los anillos con respecto a los cuales se está generando el bimódulo.
+El tercer parámtero es el grupo abeliano que tiene estructura de bimódulo.
+El cuarto parámetro, OPCIONES, admite uno de los siguientes tres valores: l, r ó lr. Con los cuales se indica si el bimódulo es a izquierda (l), a derecha (r) o a izquierda y derecha (lr).
+Así $\ringbimod{R}{S}{M}{lr}$ imprimirá que M es un R-izquierdo y S-derecho bimódulo.
+\end{comment}
+\newcommand{\ringbimod}[4]{
+    \if#4l
+    {}_{#1-#2}#3
+    \else
+        \if#4r
+        #3_{#1-#2}
+        \else 
+            \ifstrequal{#4}{lr}{
+            {}_{#1}#3_{#2}
+            }
+        \fi
+    \fi
+}
+
+\begin{comment}
+Este comando permite escribir el conjunto de morfismos de R-módulos entre dos R-módulos dados, a través de tres parámetros. 
+El primer parámetro es el anillo que actúa sobre los módulos.
+El segundo es el módulo que se tomará como dominio de los morfismos.
+El tercero es el módulo que se tomará como contradominio de los morfismos.
+\end{comment}
+\newcommand{\ringmodhom}[3]{
+	Hom_{#1}\lrprth{#2,#3}
+}
+
+\title{Lista 1}
+\author{}
+\date{}
+
+\theoremstyle{definition}
+\newtheorem{define}{Definición}
+
+\theoremstyle{plain}
+\newtheorem{teor}{Teorema}[section]
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proposición}[section]
+
+\theoremstyle{definition}
+\newtheorem{ejemp}{Ejemplo}[section]
+
+\theoremstyle{definition}
+\newtheorem*{coro}{Corolario} 
+
+\theoremstyle{definition}
+\newtheorem*{obs}{Observaci\'on}
+
+\theoremstyle{definition}
+\newtheorem*{pron}{Proposición}
+
+\theoremstyle{definition}
+ 
+\newtheorem{lem}{Lema}
+
+\theoremstyle{definition}
+\newtheorem*{nota}{Nota}
+\begin{comment}
+\begin{equation*}
+    \descapp{f}{G/H}{G}{gH}{g}{.}
+\end{equation*}
+\end{comment}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+	\item \textbf{Ejercicio 13.}\\
+	Sea $f:\lrprth{L, \leq } \longrightarrow \lrprth{L', \leq '}$ un morfismo de lattices. Pruebe que:
+	\begin{enumerate}
+		\item $f$ es morfismo de posets.
+		\item $f$ es un isomorfosmo de lattices si y sólo si lo es de posets.
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}}$ Sean $x,y \in L$. Probaremos primero que $x \leq y$ si y sólo si $x \wedge y = x$. Si $x \leq y$, entonces $x \leq x \wedge y$, puesto que $x \leq x$ y $x \leq y$. Además, por definición, tenemos que $x \wedge y \leq x$. Así $x = x \wedge y$. Por el contrario, si suponemos que $x = x \wedge y$, entonces observe que $x \leq y$.\\
+	
+		La afirmación anterior será útil en el proceso de probar este inciso. En efecto, supongamos que $x \leq y$. Como $f$ es morfismo de lattices, se tiene que $f\lrprth{x}=f\lrprth{x \wedge y}=f\lrprth{x} \wedge f\lrprth{y}$. $\therefore f\lrprth{x} \leq ' f\lrprth{y}$.\\
+	
+		$\boxed{\text{(b)}} \boxed{\Rightarrow )}$ Suponga que $f$ es isomorfismo de lattices. En primer lugar, por el inciso anterior, $f$ es morfismo de posets. Ahora, por hipótesis, existe $g:L' \longrightarrow L$ un morfismo de lattices tal que $f \circ g = Id_{L'}$ y $g \circ f = Id_{L}$; éste a su vez también es un morfismo de posets. Por tanto, $f$ es un isomorfismo de posets.\\
+
+		$\boxed{\Leftarrow )}$ Consideremos que $f$ es un isomorfismo de posets. Entonces existe $g:L' \longrightarrow L$ un morfismo de posets tal que $f \circ g = Id_{L'}$ y $g \circ f = Id_{L}$. Veremos que $g$ es un morfismo de latices. Sean así $r,t  \in L'$. Dado que $r \wedge t \leq ' r$ y $r \wedge t \leq ' t$, se tiene que $g\lrprth{r \wedge t} \leq g\lrprth{r}$ y $g\lrprth{r \wedge t} \leq g\lrprth{t}$, y por ende $g\lrprth{r \wedge t} \leq g\lrprth{r} \wedge g\lrprth{t}$. Posteriormente, usando el hecho de que $f$ es morfismo de lattices, se deduce que
+		\begin{align*}
+			r \wedge t = f\lrprth{g\lrprth{r \wedge t}}\\
+			\leq' f\lrprth{g\lrprth{r} \wedge g\lrprth{t}}\\
+			=f\lrprth{g\lrprth{r}} \wedge f\lrprth{g\lrprth{t}}\\
+			=r \wedge t
+		\end{align*}
+		De este modo,
+		\begin{align*}
+			g\lrprth{r \wedge t} = g\lrprth{f\lrprth{g\lrprth{r} \wedge g\lrprth{t}}}\\
+			=g\lrprth{r} \wedge g\lrprth{t}
+		\end{align*}
+		Dado que $g$ es morfismo de lattices, podemos concluir que la afirmación es cierta.
+	\end{proof}
+
+	\item\textbf{Ejercicio 16.}\\
+	Sean $M \in {}_{R}Mod$ y $n \leq M$. Consideremos $L_{N}\lrprth{M}=\descset{X}{L\lrprth{M}}{N \leq X}$. Pruebe que el epimorfismo canónico de $R$-módulos a izquierda
+	\begin{align*}
+		\descapp{\pi_{N}}{M}{M/N}{m}{m+N}{ }
+	\end{align*}
+	induce el isomorfismo de lattices
+	\begin{align*}
+		\descapp{\widehat{\pi}_{N}}{L_{N}\lrprth{M}}{L\lrprth{M/N}}{X}{X/N}{ }
+	\end{align*}
+	cuyo inverso es $\widehat{\pi}_{N}^{-1} \lrprth{Z}=\descset{x}{M}{x+N \in Z}$.
+	\begin{proof}
+		Sea $K \in L_{N}\lrprth{M}$ tal que $\widehat{\pi}_{N} \lrprth{K}=0$. Notemos que, si $k \in K$, entonces $k+N=0$. Lo cual implica que $k \in N$, y por ello $K=N$. Esto quiere decir que $\widehat{\pi}_{N}$ es inyectiva.\\
+
+		Así mismo, dado $T \in L\lrprth{M/N}$, se satisface que $\widehat{\pi}_{N}^{-1} \lrprth{T} \in L_{N} \lrprth{M}$. En efecto, para cada $x \in N$, se cumple que $x+N=N \in T$, y en consecuencia $N \subseteq \widehat{\pi}_{N}^{-1} \lrprth{T}$. Adicionalmente, si $x,y \in \widehat{\pi}_{N}^{-1}\lrprth{T}$ y $r \in R$, se cumple que $x+y+N \in T$, $rx+N \in T$. En vista de ésto, se sigue que $x+y, rx \in \widehat{\pi}_{N}^{-1} \lrprth{T}$, y por tanto $\widehat{\pi}_{N}^{-1} \lrprth{T} \in L_{N} \lrprth{M}$.\\
+
+		Por último, observe que
+		\begin{align*}
+			\widehat{\pi}_{N} \lrprth{ \widehat{\pi}_{N}^{-1} \lrprth{T}}=\descset{x+N}{M/N}{x \in \widehat{\pi}_{N}^{-1} \lrprth{T}}\\
+			=\descset{x+N}{M/N}{x \in T}\\
+			=T
+		\end{align*}
+		Más aún, para cualesquiera $T_{1},T_{2} \in L\lrprth{M/N}$, se identifican
+		\begin{align*}
+			\widehat{\pi}_{N}^{-1} \lrprth{T_{1} \cap T_{2}} = \widehat{\pi}_{N}^{-1} \lrprth{T_{1}} \cap \widehat{\pi}_{N}^{-1} \lrprth{T_{2}}\\
+			\intertext{y}
+			\widehat{\pi}_{N}^{-1} \lrprth{T_{1}+T_{2}} = \widehat{\pi}_{N}^{-1} \lrprth{T_{1}} + \widehat{\pi}_{N}^{-1} \lrprth{T_{2}}
+		\end{align*}
+		$\therefore\widehat{\pi}_{N}$ es un isomorfismo de retículas.
+	\end{proof}
+
+	\item\textbf{Ejercicio 19.}\\
+	Pruebe que todo anillo no trivial $R$ admite $R$-módulos simples a izquierda (y a derecha también).
+	\begin{proof}
+	Observe que $R$ es finitamente generado como $R$-módulo, de hecho $R= \langle 1 \rangle$. Entonces, por el \textbf{teorema 1.8.1}, $R$ tiene ideales máximos. Sea $I$ un ideal izquierdo máximo de $R$. Por el \textbf{Ejercicio 16}, $R/I$ es un $R$-módulo simple. De manera análoga, $Mod_{R}$ posee $R$-módulos derechos simples.
+	\end{proof}
+
+	\item \textbf{Ejercicio 22.}\\
+	Sea $\varphi : R \longrightarrow S$ un morfismo de anillos. Pruebe que:
+	\begin{enumerate}
+		\item La correspondencia de cambio de anillos $F_{\varphi} : Mod\lrprth{S} \longrightarrow Mod\lrprth{R}$ es un funtor.
+		\item Para cualesquiera $M,N \in Mod\lrprth{S}$, se tiene que
+		\begin{align*}
+			\ringmodhom{S}{M}{N} \leq \ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\\
+			= \ringmodhom{\varphi \lrprth{R}}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\\
+			\leq \ringmodhom{\mathbb{Z}}{M}{N}
+		\end{align*}
+		como grupos abelianos. En particular, $F_{\varphi}$ es fiel y éste es pleno si $\varphi \lrprth{R}=S$.
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}}$ Primero, por la propia correspondencia, a todo $S$-módulo $M$ se le asigna un $R$-módulo $F_{\varphi} \lrprth{M}=M$. En vista de lo anterior, bastará probar que $F_{\varphi}\lrprth{f} = f \in \ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}$, para $f \in \ringmodhom{S}{M}{N}$ y $M,N \in Mod\lrprth{S}$.\\
+	
+		Sea $f:M \longrightarrow N$ un morfismo de $S$-módulos. Ahora, dados $r \in R$ y $m,n \in M$, se satisface que
+		\begin{align*}
+			F_{\varphi}\lrprth{f}\lrprth{r \cdot m + n}=f\lrprth{\varphi\lrprth{r}*m+n}\\
+			=\varphi \lrprth{r}*f\lrprth{m}+f\lrprth{n}\\
+			=r \cdot f\lrprth{m}+f\lrprth{n}\\
+			=r \cdot F_{\varphi} \lrprth{f}\lrprth{m}+F_{\varphi} \lrprth{f}\lrprth{n}
+		\end{align*}
+		Con lo cual, $F_{\varphi} \lrprth{f}$ es un morfismo de $R$-módulos. $\therefore F_{\varphi}$ es un funtor.\\
+	
+		$\boxed{\text{(b)}}$ Note que, por el inciso anterior, todo morfismo de $S$-módulos es un morfismo de $R$-módulos. Más aún, como todo $R$-módulo es un grupo abeliano y como todo morfismo de $R$-módulos preserva sumas, se tiene que $\ringmodhom{S}{M}{N}\leq\ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\ringmodhom{\varphi \lrprth{R}}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}$ y que $\ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}} \leq \ringmodhom{\mathbb{Z}}{M}{N}$.\\
+	
+		Por otra parte, $F_{\varphi}$ es fiel, toda vez que a cualesquiera 2 morfismos $f \neq g$ se le asignan morfismos $F_{\varphi} \lrprth{f} = f \neq g = F_{\varphi} \lrprth{g}$. Por otro lado, suponga que $\varphi \lrprth{R}=S$. Dado $f \in \ringmodhom{R}{M}{N}$, éste es un morfismo de $S$-módulos. En efecto, si $s \in S$, entonces $s = \varphi \lrprth{r}$, para alguna $r \in R$. De esta forma, definimos $f\lrprth{s*m}$ como $f\lrprth{s*m}=f\lrprth{rm}$, e inclusive tenemos $F_{\varphi^{-1}} \lrprth{f}=f$. $\therefore F_{\varphi}$ es pleno.
+	\end{proof}
+
+	\item\textbf{Ejercicio 25.}\\
+	Sean $R$ y $S$ anillos, y $M \in {}_{R}Mod_{S}$. Pruebe que:
+	\begin{enumerate}
+		\item $\rho :_{R}M_{S} \longrightarrow \ringmodhom{R}{_{R}R_{R}}{_{R}M_{S}}$, con $\rho \lrprth{m}\lrprth{r}=rm$, es un isomorfismo en $_{R}Mod_{S}$
+		\item $\lambda :_{R}M_{S} \longrightarrow \ringmodhom{S}{_{S}S_{S}}{_{R}M_{S}}$, con $\lambda \lrprth{m}\lrprth{s}=ms$, es un isomorfismo en $_{R}Mod_{S}$
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}}$ Sea $m \in M$. Probaremos que $\rho \lrprth{m}$ un morfismo de $R$-$S$-bimódulos. Considere $r,t \in R$, en virtud de que $M$ es un $R$-módulo a izquierda, se tiene que
+		\begin{align*}
+			\rho\lrprth{m}\lrprth{r+t}=\lrprth{r+t}m\\
+			=rm+tm\\
+			=\rho\lrprth{m}\lrprth{r}+\rho \lrprth{m}\lrprth{t}
+		\end{align*}
+		Adicionalmente,
+		\begin{align*}
+			\rho \lrprth{m}\lrprth{rt}=\lrprth{rt}m\\
+			=r\lrprth{tm}\\
+			=r \rho \lrprth{m}\lrprth{t}
+		\end{align*}
+		Por tanto, $\rho \in Hom_{R}\lrprth{_{R}R_{R},_{R}M_{S}}$.\\
+	
+		Además, $\rho$ es un morfismo de $R$-módulos a izquierda. En efecto, si $a,b \in R$ y $x,y \in M$, entonces 
+		\begin{align*}
+			\rho \lrprth{x+y}\lrprth{a}=a\lrprth{x+y}\\
+			=ax+ay\\
+			=\rho \lrprth{x}\lrprth{a} + \rho \lrprth{y}\lrprth{a}
+			\intertext{También}
+			\rho\lrprth{x}\lrprth{ab}=\lrprth{ab}x\\
+			=a\lrprth{bx}\\
+			=a\rho\lrprth{bx}
+		\end{align*}
+	
+		Posteriormente, si $m \in Ker\lrprth{\rho}$, entonces $\rho\lrprth{m}=0$. De esta forma, $rm=0$, para cualquier $r \in R$. Como $M$ es unitario, el único de sus elementos que es anulado por cada elemento de $R$ es el $0$; en este sentido, $Ker\lrprth{ \rho }=0$. Por consiguiente, $\rho$ es monomorfismo.\\
+	
+		Finalmente, sea $g \in \ringmodhom{R}{R}{M}$. Si consideramos $g\lrprth{1}$, se satisface que $\rho \lrprth{g\lrprth{1}}=g$. $\therefore\rho$ es isomorfismo.
+	
+		$\boxed{\text{(b)}}$ De manera análoga al inciso anterior, podemos probar este inciso, por lo cual nos centraremos más en las cuentas. Bajo este contexto, tenemos que:
+		\begin{itemize}
+			\item Sean $m \in M$ y $s,u \in S$.
+			\begin{align*}
+				\rho\lrprth{m}\lrprth{su}=m\lrprth{su}\\
+				=\lrprth{ms}u\\
+				=\rho\lrprth{m}\lrprth{s}u
+			\end{align*}
+			\item Sean $m,n \in M$ y $s \in S$.
+			\begin{align*}
+				\rho\lrprth{m+n}\lrprth{s}=\lrprth{m+n}s\\
+				=ms+ns\\
+				=\rho\lrprth{m}\lrprth{s}+\rho\lrprth{n}\lrprth{s}
+			\end{align*}
+			\item Sean $m \in M$ y $s,u \in S$
+			\begin{align*}
+				\rho\lrprth{m}\lrprth{su}=m\lrprth{su}\\
+				=\lrprth{ms}u\\
+				=\rho\lrprth{m}\lrprth{s}u
+			\end{align*}
+		\end{itemize}
+	
+		Así mismo, $\rho$ es isomorfismo. En efecto, si $x \in Ker\lrprth{ \rho }$, entonces $\rho \lrprth{x}=0$; de donde $x=0$. Más aún, si $g \in \ringmodhom{S}{S}{M}$, entonces $\rho \lrprth{g\lrprth{1}}=g$.\\
+		$\therefore\rho$ es isomorfismo.
+	\end{proof}
+
+	\item\textbf{Ejercicio 28.}\\
+	Para un anillo $R$, pruebe que:
+	\begin{enumerate}
+		\item Para $M \in Mod\lrprth{R}$, se tiene que $M \in Mod\lrprth{End\lrprth{_{R}M}}$, via la acción a izquierda, $End\lrprth{_{R}M} \times M \longrightarrow M$, $\lrprth{f,m} \mapsto f \cdot m = f\lrprth{m}$. Más aún, vale que $M \in {}_{R-End\lrprth{_{R}M}}Mod$.
+		\item Para $N \in Mod\lrprth{\opst{R}}$, se tiene que $N \in Mod\lrprth{End\lrprth{N_{R}}}$, vía la acción a izquierda, $End\lrprth{N_{R}} \times N \longrightarrow N$, $\lrprth{g,n} \mapsto g \cdot n = g\lrprth{n}$. Más aún, vale que $N \in {}_{End\lrprth{N_{R}}}Mod_{R}$.
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}}$ En virtud de que $M$ es un grupo abeliano, bastará probar que la acción a izquierda $\lrprth{f,m} \mapsto f \cdot m = f\lrprth{m}$ induce una estructura de $End\lrprth{_{R}M}$-módulo a izquierda. Para dicho fin, se tiene que:
+		\begin{itemize}
+			\item Sean $f,g \in End\lrprth{_{R}M}$ y $m \in M$
+			\begin{align*}
+				\lrprth{f+g} \cdot m=\lrprth{f+g}\lrprth{m}\\
+				=f\lrprth{m}+g\lrprth{m}\\
+				=f \cdot m+g \cdot m
+			\end{align*}
+			\item Sean $f \in End\lrprth{_{R}M}$ y $m,n \in M$
+			\begin{align*}
+				f \cdot \lrprth{m+n}=f\lrprth{m+n}\\
+				=f\lrprth{m}+f\lrprth{n}\\
+				=f \cdot m+f \cdot n
+			\end{align*}
+			\item Sean $f,g \in End\lrprth{_{R}M}$ y $m \in M$
+			\begin{align*}
+				\lrprth{fg} \cdot m=\lrprth{fg}\lrprth{m}\\
+				=f\lrprth{g\lrprth{m}}\\
+				=f\lrprth{g \cdot m}\\
+				=f \cdot \lrprth{g \cdot m}
+			\end{align*}
+			\item $Id \cdot m=Id\lrprth{m}=m$
+		\end{itemize}
+		Por ello, $M \in End\lrprth{_{R}M}$. Más aún, el hecho de que todo morfismo $h$ preserva productos por escalar garantiza que
+		\begin{align*}
+			h \cdot \lrprth{rx}=h\lrprth{rx}\\
+			=rh\lrprth{x}\\
+			=r\lrprth{h \cdot x}
+		\end{align*}
+		$\therefore M \in {}_{R-End\lrprth{_{R}M}}Mod$.\\
+	
+		$\boxed{\text{(b)}}$ Considere $N \in Mod\lrprth{R^{op}}$. Veremos que bajo la acción a izquierda $\lrprth{g,n} \mapsto g \cdot n = g\lrprth{n}$, $N$ es un $_{End\lrprth{N_{R}}}Mod_{R}$-bimódulo. De tal forma que:
+		\begin{itemize}
+			\item Sean $\varphi , \psi \in End\lrprth{N_{R}}$, $m \in M$
+			\begin{align*}
+				\lrprth{ \varphi + \psi } \cdot m=\lrprth{ \varphi + \psi }\lrprth{m}\\
+				=\varphi \lrprth{m} + \psi \lrprth{m}\\
+				=\varphi \cdot m + \psi \cdot m
+			\end{align*}
+			\item Sean $\varphi\in End\lrprth{N_{R}}$, $m \in M$
+			\begin{align*}
+				\varphi\cdot\lrprth{m+n}=\varphi\lrprth{m+n}\\
+				=\varphi\lrprth{m}+\varphi\lrprth{n}\\
+				=\varphi \cdot m + \varphi \cdot n
+			\end{align*}
+			\item Sean $\varphi , \psi \in End\lrprth{N_{R}}$, $m \in M$
+			\begin{align*}
+				\lrprth{ \varphi\psi } \cdot m=\lrprth{ \varphi\psi }\lrprth{m}\\
+				=\varphi \lrprth{ \psi \lrprth{m}}\\
+				=\varphi \lrprth{ \psi \cdot m}\\
+				=\varphi \cdot \lrprth{ \psi \cdot m}
+			\end{align*}
+			\item $Id \cdot m=Id\lrprth{m}=m$
+		\end{itemize}
+		De aquí, $N$ es un $End\lrprth{N_{R}}$-módulo. Finalmente, apartir de que todo morfismo $\tau$ induce 
+		\begin{align*}
+			\tau \cdot \lrprth{ts} = \tau \lrprth{ts}\\
+			=\tau \lrprth{t}s\\
+			=\lrprth{ \tau \cdot t }s
+		\end{align*}
+		$\therefore N \in {}_{End\lrprth{N_{R}}}Mod_{S}$.
+	\end{proof}
+\end{enumerate}
+\end{document}
