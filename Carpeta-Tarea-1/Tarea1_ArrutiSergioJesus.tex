@@ -1,0 +1,738 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{eufrak}
+\usepackage{nicefrac}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{tikz-cd}
+\usepackage{comment}%Paquete para añadir comentarios largos.}
+
+\newcommand{\Z}{\mathbb{Z}}
+
+%Imprime el símbolo de subideal, o bien subgrupo normal
+\def\subnormeq{\mathrel{\scalerel*{\trianglelefteq}{A}}}
+
+%Recibe un paremetro y le coloca dos barras a cada lado, por ejemplo para denotar la cardinalidad. Así $\crdnlty{A}$ imprime |A| 
+\newcommand{\crdnlty}[1]{
+    \left|#1\right|
+}
+
+%Recibe un paremetro y le coloca paréntesis a cada lado, por ejemplo para construir un conjunto. Así $\lrprth{A}$ imprime (A). Lo conveniente del comando es que los paréntesis se ajustan al tamaño del argumento, de modo que si uno introduce, por ejemplo, un cociente, el tamaño de los paréntesis se ajustan a este. Lo mismo sucede con lrbrack, que coloca llaves, y lo hace útil para definir familias o conjuntos. 
+\newcommand{\lrprth}[1]{
+    \left(#1\right)
+}
+
+%Idéntico al comando anterior, pero con llaves {}
+\newcommand{\lrbrack}[1]{
+    \left\{#1\right\}
+}
+
+\begin{comment}
+Recibe 3 parámetros y con ellos crea un conjunto, de la siguiente manera:
+$\descset{a}{A}{p}$ imprime {a \in A | p}
+a son elementos, A es el conjunto del que se toman, y p es la propiedad que deben satisfacer los elementos para pertenecer al conjunto
+\end{comment}
+\newcommand{\descset}[3]{
+    \left\{#1\in#2\ \vline\ #3\right\}
+}
+
+\begin{comment}
+Recibe seis parámetros, con los cuales construye una aplicación (que puede terminar siendo una función). El primer parámetro es el símbolo que tendra la aplicación, por ejemplo f, el segundo es el dominio de la aplicación, el tercero es el contradominio de la aplicación, el cuarto es el símbolo con el que se denota un elemento del dominio, el quinto es la imagen hacia la que se va a mapear el elemento, y el sexto es un símbolo (que puede ser una coma, un punto, dejarse en blanco, etcétera) para separar la aplicación del texto que vendrá después. Vean qué imprime el siguiente código:
+\begin{equation*}
+\descapp{f}{G/H}{G}{gH}{g}{.}
+\end{equation*}
+\end{comment}
+\newcommand{\descapp}[6]{
+    #1: #2 &\rightarrow #3\\
+    #4 &\mapsto #5#6 
+}
+
+\begin{comment}
+Permite describir familias de la forma {A_i}_{i\in I}. 
+El primer parámtero es el símbolo de un elemento de la familia, por ejemplo A. 
+El segundo es el subíndice con el que se van a identificar los miembros, por ejemplo i.
+El tercero es el símbolo con el que se denotará a la colección de índices, por ejemplo I.
+Así $\arbtfam{A}{i}{I}$.
+
+Los siguientes cuatro comandos realizan algo similar, pero para familias finitas y para cuando se desea o no se desea expecificar un superíndice.
+\end{comment}
+\newcommand{\arbtfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2\in #3}
+}
+\newcommand{\arbtfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2\in #3}
+}
+\newcommand{\fntfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfamsup}[4]{
+    \lrbrack{{#1}^{#2}}_{#3=1}^{#4}
+}
+
+%Los siguientes dos comandos permiten escribir uplas de elementos, infinitas el primero y finitas el segundo, de la forma (a_i)_{i\in I}.
+\newcommand{\arbtuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2\in #3}
+}
+\newcommand{\fntuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2=1}^{#3}
+}
+
+
+\newcommand{\gengroup}[1]{
+    \left< #1\right>
+}
+
+\begin{comment}
+Permite escribir el centro de un grupo. Al igual que en los comando previos, la ventaja que tiene es que los paréntesis se ajustan al tamaño del argumento.
+Así: $\ringcenter{R}$.
+\end{comment}
+\newcommand{\ringcenter}[1]{
+    C\lrprth{#1}
+}
+
+\begin{comment}
+Este permite escribir la notación para los Z endomorfismos de un grupo. El primer parámtero es el grupo y el segundo l o r, para saber si son tomados a izquierda o a derecha. 
+Así: $\zend{A}{l}$.
+\end{comment}
+\newcommand{\zend}[2]{
+    End_{\mathbb{Z}}^{#2}\lrprth{#1}
+}
+
+\begin{comment}
+Da la notación para el submódulo generado por un conjunto con respecto a un cierto anillo. 
+Así, por ejemplo con $\genmod{R}{X}$, el primer parámetro que recibe es con respecto a qué anillo se genera el submódulo (R) y el segundo es el conjunto que lo genera (X).
+\end{comment}
+\newcommand{\genmod}[2]{
+    \left< #1\right>_{#2}
+}
+
+\begin{comment}
+Da la notación para el reticulado de submódulos de un módulo dado.
+\end{comment}
+\newcommand{\genlin}[1]{
+    \mathscr{L}\lrprth{#1}
+}
+
+%Este coloca "op" como exponente del argumento que recibe. Útil para denotar al anillo opuesto, así como sus elementos, o bien funciones/acciones opuestas.
+\newcommand{\opst}[1]{
+    {#1}^{op}
+}
+
+\begin{comment}
+Este comando permite escribir R-módulos a izquierda, o bien a derecha a través de tres parámetros. Por ejemplo $\ringmod{R}{M}{OPCIONES}$. 
+El primero parámetro es el anillo con respecto al cual se está trabajando.
+El segundo parámtero es el grupo abeliano que tiene estructura de R-módulo.
+El tercer parámetro, OPCIONES, admite uno de los siguientes dos valores: l ó r, con los cuales se indica si el módulo es a izquierda (l) o a derecha (r).
+Así $\ringmod{S}{M}{r}$ imprimirá que M es un S-módulo a derecha.
+\end{comment}
+\newcommand{\ringmod}[3]{
+    \if#3l
+    {}_{#1}#2
+    \else
+        \if#3r
+            #2_{#1}
+        \fi
+    \fi
+}
+
+\begin{comment}
+Este comando permite escribir bimódulos a izquierda, o bien a derecha a través de cuatro parámetros. Por ejemplo $\ringbimod{R}{S}{M}{OPCIONES}$. 
+Los primeros dos parámetros son los anillos con respecto a los cuales se está generando el bimódulo.
+El tercer parámtero es el grupo abeliano que tiene estructura de bimódulo.
+El cuarto parámetro, OPCIONES, admite uno de los siguientes tres valores: l, r ó lr. Con los cuales se indica si el bimódulo es a izquierda (l), a derecha (r) o a izquierda y derecha (lr).
+Así $\ringbimod{R}{S}{M}{lr}$ imprimirá que M es un R-izquierdo y S-derecho bimódulo.
+\end{comment}
+\newcommand{\ringbimod}[4]{
+    \if#4l
+    {}_{#1-#2}#3
+    \else
+        \if#4r
+        #3_{#1-#2}
+        \else 
+            \ifstrequal{#4}{lr}{
+            {}_{#1}#3_{#2}
+            }
+        \fi
+    \fi
+}
+
+\begin{comment}
+Este comando permite escribir el conjunto de morfismos de R-módulos entre dos R-módulos dados, a través de tres parámetros. 
+El primer parámetro es el anillo que actúa sobre los módulos.
+El segundo es el módulo que se tomará como dominio de los morfismos.
+El tercero es el módulo que se tomará como contradominio de los morfismos.
+\end{comment}
+\newcommand{\ringmodhom}[3]{
+	Hom_{#1}\lrprth{#2,#3}
+}
+
+\title{Lista 1}
+\author{}
+\date{}
+
+\theoremstyle{definition}
+\newtheorem{define}{Definición}
+
+\theoremstyle{plain}
+\newtheorem{teor}{Teorema}[section]
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proposición}[section]
+
+\theoremstyle{definition}
+\newtheorem{ejemp}{Ejemplo}[section]
+
+\theoremstyle{definition}
+\newtheorem*{coro}{Corolario} 
+
+\theoremstyle{definition}
+\newtheorem*{obs}{Observaci\'on}
+
+\theoremstyle{definition}
+\newtheorem*{pron}{Proposición}
+
+\theoremstyle{definition}
+ 
+\newtheorem{lem}{Lema}
+
+\theoremstyle{definition}
+\newtheorem*{nota}{Nota}
+\begin{comment}
+\begin{equation*}
+    \descapp{f}{G/H}{G}{gH}{g}{.}
+\end{equation*}
+\end{comment}
+\begin{document}
+
+\maketitle
+\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+	\item Sea $\varphi : R \longrightarrow S$ un morfismo de anillos.
+	\begin{enumerate}
+		\item $im\lrprth{\varphi}\leq S$
+		\item $Ker\lrprth{\varphi}\unlhd R$
+		\item $\forall S' \subseteq S, \varphi^{-1}\lrprth{S'}\leq R$
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}}$ El hecho de que $\varphi$ sea un morfismo de anillos con uno garantiza que $\varphi\lrprth{1}=1$ y que $im\lrprth{\varphi}\neq\emptyset$.\\
+		Por otro lado, sean $a,b \in im\lrprth{\varphi}$. Por definición, existen $x,y \in R$ tales que $\varphi\lrprth{x}=a$ y $\varphi\lrprth{y}=b$. Esto implica que
+		\begin{align*}
+			a-b=\varphi\lrprth{x}-\varphi\lrprth{y}\\
+			=\varphi\lrprth{x-y}
+			\intertext{y que}
+			ab=\varphi\lrprth{x}\varphi\lrprth{y}\\
+			=\varphi\lrprth{xy}
+		\end{align*}
+		Así $a-b, ab \in im\lrprth{\varphi}$, y $\therefore im\lrprth{\varphi}\leq S$.
+	
+		$\boxed{\text{(b)}}$ Primeramente, como $\varphi\lrprth{0}=0$, tenemos que $Ker\lrprth{\varphi}\neq\emptyset$. De igual manera, $Ker\lrprth{\varphi}\unlhd R$. En efecto, si $x,y \in Ker\lrprth{\varphi}$, entonces
+		\begin{align*}
+			\varphi\lrprth{x+y}=\varphi\lrprth{x}+\varphi\lrprth{y}=0
+		\end{align*}
+		Por lo que $x+y \in Ker\lrprth{\varphi}$. Ahora, sean $x \in Ker\lrprth{\varphi}$ y $a \in R$; de manera que
+		\begin{align*}
+			\varphi\lrprth{ax}=\varphi\lrprth{a}\varphi\lrprth{x}=0\ y\ \varphi\lrprth{xa}=\varphi\lrprth{x}\varphi\lrprth{a}=0
+		\end{align*}
+		Por lo que $ax,xa \in Ker\lrprth{\varphi}$, y $\therefore Ker\lrprth{\varphi}\unlhd R$.\\
+
+		$\boxed{\text{(c)}}$ Sea $S'$ un subanillo de $S$. En este sentido, $1 \in S'$ y $\varphi\lrprth{1}=1$ implican que $1 \in \varphi^{-1}\lrprth{S'}\neq\emptyset$.\\
+		Finalmente, dados $a,b \in \varphi^{-1}\lrprth{S'}$, se tiene por la propia definición, que $\varphi\lrprth{a}, \varphi\lrprth{b} \in S'$. De tal manera que $\varphi\lrprth{a-b}, \varphi\lrprth{ab} \in S'$. Por tanto, $a-b, ab \in \varphi^{-1} \lrprth{S'}$.\\
+		$\therefore\varphi^{-1}\lrprth{S'}$ es un subanillo de $S$.
+	\end{proof}
+
+    \item
+    Para un anillo $R$ pruebe que: 
+\begin{itemize}
+\item[a)] $C(R)$ es un subanillo conmutativo de $R$.
+\item[b)] $C(R)=C(R^{op})$.
+\item[c)] $R=R^{op}$ como anillos\,\, $\Leftrightarrow$ \,\,$C(R)=R$\,\, $\Leftrightarrow$ \,\, $R$ es conmutativo.
+\end{itemize}
+
+\begin{proof}
+$\boxed{\text{a)}}$ \quad Sean $a,b\in C(R)$, por definición $ax=xa$ y $bx=xb\quad\forall x\in R$, entonces
+\[(a-b)x=ax-(bx)=xa-(xb)=x(a-b).\]
+Por lo tanto $a-c\in C(R)$. Ahora, $abx=axb=xab$, por lo que $a,b\in C(R)$ y en consecuencia $C(R)\leq R$.\\\\
+$\boxed{\text{b)}}$\quad Sea $*:R^{op}\times R^{op}\to R^{op}$ la operación de anillo en $R^{op}$. Así se tiene que 
+\begin{align*}
+a\in C(R^{op})
+&\Leftrightarrow\quad  \forall x\in R\quad a*x=x*a \\
+& \Leftrightarrow\quad \forall x\in R\quad xa=ax\\
+&\Leftrightarrow\quad \forall x\in R\quad a\in C(R).
+\end{align*}
+$\boxed{\text{c)}}$\quad $\boxed{\cdot)\Rightarrow \cdot\cdot)}$\quad Supongamos $R=R^{op}$ como anillos, 
+entonces sus operaciones coincides, es decir,
+$\forall a\in R$ se tiene que $\forall x\in R\quad ax=a*x=xa$, entonces $R\subset C(R)\subset R$ por lo que $R=C(R)$.\\
+ 
+$\boxed{\cdot\cdot)\Rightarrow \cdot\cdot\cdot)}$\quad Si $R=C(R)$, entonces $\forall x,y\in R\quad xy=yx$, por lo que
+ $R$ es conmutativo.\\
+  
+$\boxed{\cdot\cdot\cdot)\Rightarrow \cdot)}$\quad Si $R$ es conmutativo, entonces $\forall x,a\in R\quad xa=ax=x*a$ .
+Además, como $R$ y $R^{op}$ coinciden como grupos abelianos, entonces \\
+$R=R^{op}$ como anillos.
+\end{proof}
+
+    \item Sea $\lrprth{R,K\varphi}\in K-Alg$. La función 
+    \begin{align*}
+        \descapp{\bullet_\varphi}{K\times R}{R}{(k,r)}{k\bullet r:=\varphi\lrprth{k}r}{}
+    \end{align*}
+    es una acción compatible de $K$ en $R$.
+    \begin{proof}
+    Como $\lrprth{R,K,\varphi}\in K-Alg$ entonces $K$ es un anillo conmutativo.\\
+    $\boxed{\text{(AC1)}}$ Sean $k\in K$ y $r_1,r_2\in R$. Así
+    \begin{align*}
+        k\bullet_\varphi\lrprth{r_1+r_2}&=\varphi\lrprth{k}\lrprth{r_1+r_2}\\
+        &=\varphi\lrprth{k}r_1+\varphi\lrprth{k}r_2\\
+        &=k\bullet_\varphi r_1+k\bullet_\varphi r_2.
+    \end{align*}
+    $\boxed{\text{(AC2)}}$ Sean $k_1,k_2\in K$ y $r\in R$. Así
+    \begin{align*}
+        \lrprth{k_1+k_2}\bullet_\varphi r&=\varphi\lrprth{k_1+k_2}r\\
+        &=\lrprth{\varphi(k_1)+\varphi(k_2)}r\\
+        &=\varphi(k_1)r+\varphi(k_2)r\\
+        &=k_1\bullet_\varphi r+k_2\bullet_\varphi r.
+    \end{align*}
+    $\boxed{\text{(AC3)}}$ Sean $k_1,k_2\in K$ y $r\in R$. Así
+    \begin{align*}
+        k_1\bullet_\varphi\lrprth{k_2\bullet_\varphi r}&=\varphi\lrprth{k_1}\lrprth{k_2\bullet_\varphi r}\\
+        &=\varphi\lrprth{k_1}\lrprth{\varphi\lrprth{k_2}r}\\
+        &=\lrprth{\varphi\lrprth{k_1}\varphi\lrprth{k_2}}r\\
+        &=\lrprth{\varphi\lrprth{k_1k_2}}r\\
+        &=\lrprth{k_1k_2}\bullet_\varphi r.
+    \end{align*}
+     $\boxed{\text{(AC4)}}$ Sean $k\in K$ y $r_1,r_2\in R$. Así
+    \begin{align*}
+        k\bullet_\varphi\lrprth{r_1r_2}&=\varphi(k)\lrprth{r_1r_2}\\
+        &=\lrprth{\varphi(k)r_1}r_2\\
+        &=\lrprth{k\bullet\varphi r_1}r_2.
+        \intertext{Pero también}
+        \lrprth{\varphi(k)r_1}r_2&=\lrprth{r_1\varphi(k)}r_2 && ,\ Im\lrprth{\varphi}\subseteq \ringcenter{R}\\
+        &=\lrprth{k\bullet\varphi r_1}r_2.\\
+        &=r_1\lrprth{\varphi(k)r_2}\\
+        &=r_1\lrprth{k\bullet_\varphi r_2}.
+    \end{align*}
+    $\boxed{\text{(AC5)}}$ Sean $r\in R$. Así
+    \begin{align*}
+        1_K\bullet_\varphi r&=\varphi(1_K)r\\
+        &=1_R\cdot r && ,\ \varphi\text{ es un morfismo de anillos.}\\
+        \therefore & \ \lrprth{R,\bullet_\varphi}\in K_{Ac}-Rings.
+    \end{align*}
+    \end{proof}
+    
+    \item Para $\alpha : K \times R \longrightarrow R$, $\lrprth{k,r} \mapsto kr$ en $K_{AC}$-Rings, pruebe que la asignación $\varphi_{\alpha} : K \longrightarrow R$, con $\varphi_{\alpha}\lrprth{k}=k \cdot 1_{R}$ es un morfismo de anillos tal que $im\lrprth{\varphi_{\alpha}}\subseteq \ringcenter{R}$.
+	\begin{proof}
+		Sean $k,r \in K$. Dado que $\alpha$ es una acción, se tiene que
+		\begin{align*}
+			\varphi_{\alpha}\lrprth{k+r}=\lrprth{k+r}\cdot 1_{R}\\
+			=k \cdot 1_{R} + r \cdot 1_{R}\\
+			=\varphi_{\alpha}\lrprth{k}+\varphi_{\alpha}\lrprth{r}\\
+			\intertext{y que}
+			\varphi_{\alpha}\lrprth{kr}=\lrprth{kr}\cdot 1_{R}\\
+			=k \cdot\lrprth{r \cdot 1_{R}}\\
+			=\lrprth{k \cdot 1_{R}}\lrprth{r \cdot 1_{R}}\\
+			=\varphi_{\alpha}\lrprth{k}\varphi_{\alpha}\lrprth{r}
+		\end{align*}
+
+		Además, por la regla de correspondencia de $\varphi_{\alpha}$, $\varphi_{\alpha}\lrprth{1}=1_{K} \cdot 1_{R} = 1_{R}$. Por tanto, $\varphi_{\alpha}$ es un morfismo de anillos.\\
+
+		Finalmente, de la quinta condición de ser acción a izquierda, se deduce que $im\lrprth{\varphi_{\alpha}}\subseteq\ringcenter{R}$. En efecto, si $k \in K$ y $r \in R$, entonces
+		\begin{align*}
+			\varphi_{\alpha}\lrprth{k}r=\lrprth{k \cdot 1_{R}}r\\
+			=k \cdot\lrprth{1_{R}r}\\
+			=k \cdot\lrprth{r1_{R}}\\
+			=r \cdot\lrprth{k1_{R}}\\
+			=r\varphi_{\alpha}\lrprth{k}
+		\end{align*}
+		$\therefore im\lrprth{\varphi_{\alpha}}\subseteq \ringcenter{R}$.
+	\end{proof}
+	
+    \item 
+Para un anillo conmutativo $K$, pruebe que se tiene una biyección \\
+$\alpha:K-Alg\longrightarrow K_{AC}-Rings,\quad  (R,K,\varphi)\longmapsto \alpha_{\varphi}$, donde 
+$\alpha_\varphi:K\times R\to R$ está dada por $\alpha_\varphi(k,r):=\varphi(k)r$; cuya inversa está dada por
+ $\varphi_\alpha:=\alpha(k,1_R).$
+ 
+ \begin{proof}
+Para evitar abusos de notación en la prueba se redefinirán las funciones de la siguiente forma. Sean 
+$D=\{\varphi \,:\, (R,K,\varphi)\in  K-Alg\}$ y 
+\[f:D\longrightarrow K_{AC}-Rings, \quad f(\varphi)=f_\varphi\]
+donde $f_\varphi:K\times R\to R$ está dada por $f_\varphi(k,r):=\varphi(k)r$. Y definimos \\
+$f^{-1}:K_{AC}-Rings\longrightarrow D$ como $f^{-1}(\alpha):=f^{-1}_\alpha$, donde
+ $\alpha:K\times R\to R$ y $f^{-1}_\alpha(k):=\alpha (k,1_R)=k\cdot 1_R$.\\
+ 
+Entonces \[\left((ff^{-1})(\alpha)\right)(k,r)=\left(f(f^{-1}_\alpha)\right)(k,r)=f^{-1}_\alpha(k)r=\alpha(k,1_R)r=\alpha(k,r)\]
+y
+\[\left((f^{-1}f)(\varphi)\right)(k)=\left(f^{-1}f_\varphi\right)(k)=f_\varphi(k,1_R)=\varphi(k)1_R=\varphi(k).\]
+
+Por lo que $f$ es biyectiva con $f^{-1}$ su inversa.
+\end{proof}
+
+\item Sea $R$ un anillo.
+    \begin{enumerate}[label=(\alph*)]
+        \item Si $\lrprth{\lambda, M}\in {}_RRep$ y la función $\bullet_{\lambda}$ está definida como
+        \begin{align*}
+            \descapp{\bullet_{\lambda}}{R\times M}{M}{\lrprth{r,m}}{r\bullet_{\lambda}m:=\lambda(r)\lrprth{m}}{,}
+        \end{align*}
+        entonces $({}_RM,\bullet_{\lambda})\in{}_{R}Mod$.
+        \item Sea $\lrprth{{}_RM,\bullet}\in{}_{R}Mod$ y la función $\lambda_\bullet$ definida como
+        \begin{align*}
+            \descapp{\lambda_\bullet}{R}{End_\mathbb{Z}^{l}}{r}{\lambda_\bullet(r)}{,}
+            \intertext{con}
+            \descapp{\lambda_\bullet\lrprth{r}}{M}{M}{m}{r\bullet m}{.}
+        \end{align*}
+        Entonces $\lrprth{\lambda_\bullet,M}\in {}_RRep$.
+        \item Existe una biyección entre ${}_RRep$ y ${}_RMod$.
+    \end{enumerate}
+    \begin{proof}
+    $\boxed{\text{(a)}}$ Como $\lrprth{\lambda,M}\in{}_RRep$ entonces $M$ es un grupo abeliano.\\
+    $\boxed{\text{(RMI1)}}$ Sean $r\in R, m_1,m_2\in M$. Entonces
+    \begin{align*}
+        r\bullet_{\lambda}\lrprth{m_1+m_2}&=\lambda(r)\lrprth{m_1+m_2}\\
+        &=\lambda(r)\lrprth{m_1}+\lambda(r)\lrprth{m_2} && ,\ \lambda(r)\in \zend{M}{}\\
+        &=r\bullet_\lambda m_1+r\bullet_\lambda m_2.
+    \end{align*}
+    $\boxed{\text{(RMI2)}}$ Sean $r_1,r_2\in R, m\in M$. Entonces
+    \begin{align*}
+        \lrprth{r_1+r_2}\bullet_\lambda m &=\lambda\lrprth{r_1+r_2}\lrprth{m}\\
+        &=\lrprth{\lambda(r_1)+\lambda(r_2)}\lrprth{m} && ,\ \lambda\text{ es un morfismo de anillos}\\
+        &=\lambda(r_1)\lrprth{m}+\lambda(r_2)\lrprth{m}\\
+        &=r_1\bullet_\lambda m+r_2\bullet_\lambda m.
+    \end{align*}
+    $\boxed{\text{(RMI3)}}$ Sean $r_1,r_2\in R, m\in M$. Entonces
+    \begin{align*}
+        r_1\bullet_\lambda\lrprth{r_2\bullet_\lambda m}&= \lambda(r_1)\lrprth{r_2\bullet_\lambda m}\\
+        &=\lambda(r_1)\lrprth{\lambda(r_2)\lrprth{m}}\\
+        &=\lambda(r_1)\circ\lambda(r_2)\lrprth{m}\\
+        &=\lambda(r_1r_2)\lrprth{m} && ,\ \lambda\text{ es un morfismo de anillos}\\
+        &=\lrprth{r_1r_2}\bullet_\lambda m.
+    \end{align*}
+    $\boxed{\text{(RMI4)}}$ Sea $m\in M$. Entonces
+    \begin{align*}
+        1_R\bullet_\lambda m&=\lambda(1_R)\lrprth{m}\\
+        &=Id_M\lrprth{m} && ,\ \lambda\text{ es un morfismo de anillos}\\
+        &=m.\\
+        \therefore\ \lrprth{{}_RM,\bullet_\lambda}\in{}_RMod.
+    \end{align*}
+    $\boxed{\text{(b)}}$ Como $\lrprth{{}_RM,\bullet_\lambda}\in{}_RMod$ entonces $M$ es un grupo abeliano.\\
+    Sea $r\in R$ y $m,n\in M$. Entonces
+    \begin{align*}
+        \lambda_\bullet(r)\lrprth{m+n}&=r\bullet\lrprth{m+n}\\
+        &=r\bullet m+r\bullet n\\
+        &=\lambda_\bullet(r)\lrprth{m}+\lambda_\bullet(r)\lrprth{m}\\
+        &\implies \lambda_\bullet(r)\in\zend{M}{}.
+    \end{align*}
+    Si consideramos la composición usual de funciones $\circ$ entonces $\lambda_\bullet(r)\in\zend{M}{l}$, así la aplicación $\lambda_\bullet$ es una función bien definida.\\
+    Sean $r_1, r_2\in R$. Si $m\in M$ se tiene que
+    \begin{align*}
+        \lambda_\bullet(r_1+r_2)\lrprth{m}&=\lrprth{r_1+r_2}\bullet m\\
+        &=r_1\bullet m+ r_2\bullet m\\
+        &=\lambda_\bullet(r_1)\lrprth{m}+\lambda_\bullet(r_2)\lrprth{m}\\
+        &=\lrprth{\lambda_\bullet(r_1)+\lambda_\bullet(r_1)}\lrprth{m}.\\
+        \implies \lambda_\bullet(r_1+r_2)&={\lambda_\bullet(r_1)+\lambda_\bullet(r_2)}.
+        \intertext{Y}
+        \lambda_\bullet(r_1r_2)\lrprth{m}&=\lrprth{r_1r_2}\bullet m\\
+        &=r_1\bullet \lrprth{r_2\bullet m}\\
+        &=\lambda_\bullet(r_1)\lrprth{r_2\bullet m}\\
+        &=\lambda_\bullet(r_1)\lrprth{\lambda_\bullet(r_2)\lrprth{m}}\\
+        &=\lambda_\bullet(r_1)\circ\lambda_\bullet(r_2)\lrprth{m}\\
+        \implies \lambda_\bullet(r_1r_2)&={\lambda_\bullet(r_1)\circ\lambda_\bullet(r_2)}.
+        \intertext{Finalmente}
+        \lambda_\bullet(1_R)\lrprth{m}&=1_R\bullet m\\
+        &=m\\
+        \implies \lambda_\bullet(1_R)&=Id_{M}.
+    \end{align*}
+    Por lo tanto $\lambda_\bullet:R\rightarrow \zend{M}{l}$ es un morfismo de anillos y así $(\lambda_\bullet, M)\in {}_RRep$.\\
+    $\boxed{\text{(c)}}$ Consideremos las siguientes aplicaciones:
+    \begin{align*}
+        \descapp{f}{{}_RRep}{{}_RMod}{\lrprth{\lambda,M}}{\lrprth{{}_RM,\bullet_\lambda}}{;}
+        \intertext{con $\bullet_\lambda$ definido como en (a).}
+        \descapp{g}{{}_RMod}{{}_RRep}{\lrprth{{}_RM,\bullet}}{\lrprth{\lambda_\bullet,M}}{;}
+    \end{align*}
+    con $\lambda_\bullet$ definido como en (b).\\
+    Por los (a) y (b) las aplicaciones $f$ y $g$ son funciones bien definidas.\\
+    Sea $\lrprth{{}_RM,\bullet}\in {}_RMod$. Entonces
+    \begin{align*}
+        f\circ g\lrprth{\lrprth{{}_RM,\bullet}}&=f\lrprth{g\lrprth{\lrprth{{}_RM,\bullet}}}\\
+        &=f\lrprth{\lrprth{\lambda_\bullet,M}}\\
+        &=\lrprth{{}_RM,\bullet_{\lambda_\bullet}}.
+        \intertext{Sean $r\in R$ y $m\in M$. Así}
+        r\bullet_{\lambda_\bullet}m&=\lambda_\bullet(r)\lrprth{m}\\
+        &=r\bullet m\\
+        &\implies \bullet=\bullet_{\lambda_\bullet}.\\
+        &\implies f\circ g\lrprth{\lrprth{{}_RM,\bullet}}=\lrprth{{}_RM,\bullet}\\
+        \implies f\circ g&=Id_{{}_RMod}.
+        \intertext{Ahora, sea $\lrprth{\lambda,M}\in {}_RRep$. Luego}
+         g\circ f\lrprth{\lrprth{\lambda,M}}&=g\lrprth{f\lrprth{\lrprth{\lambda,M}}}\\
+         &=g\lrprth{\lrprth{{}_RM,\bullet_\lambda}}\\
+         &=\lrprth{\lambda_{\bullet_\lambda},M}.
+         \intertext{Sea $r\in R$ y $m\in M$. Se tiene que}
+         \lambda_{\bullet_\lambda}(r)\lrprth{m}&=r\bullet_\lambda m\\
+         &=\lambda(r)\lrprth{m}\\
+         &\implies \lambda_{\bullet_\lambda}(r)=\lambda(r)\\
+         &\implies \lambda_{\bullet_\lambda}=\lambda\\
+         &\implies g\circ f\lrprth{\lrprth{\lambda,M}}=\lrprth{\lambda, M}\\
+         \implies g\circ f &=Id_{{}_RRep}.
+    \end{align*}
+    De modo que $f$ es invertible, con inversa $g$, y por lo tanto es una biyección, con lo cual se tiene lo deseado.
+    \end{proof}
+
+    \item Sea $R$ un anillo. Pruebe que
+	\begin{enumerate}
+		\item Dada una representación a derecha $\lrprth{M, \rho}$, se tiene una acción a derecha $\beta_{\rho} : M \times R \longrightarrow M$, $\lrprth{m,r} \mapsto mr=\lrprth{m}\rho\lrprth{r}$ tal que $\lrprth{M, \beta_{\rho}}\in Mod_{R}$
+		\item Dado un $R$-módulo a derecha $\lrprth{M, \beta}$, se tiene un morfismo de anillos $\rho_{\beta}:R \longrightarrow \zend{M}{r}$, $\lrprth{m}\rho_{\beta}\lrprth{r}=\beta\lrprth{m,r}=mr$
+		\item Se tiene una biyección $\beta :Rep_{R} \longrightarrow Mod_{R}$, $\lrprth{M, \rho}\mapsto\beta_{\rho}$, donde $\beta_{\rho}:M \times R \mapsto M$ está dada por $\beta_{\rho}\lrprth{m,r}=\lrprth{m}\rho\lrprth{r}$; cuya inversa es $\rho :Mod_{R} \longrightarrow Rep_{R}$, con $\lrprth{\beta :M \times R \longrightarrow M}\mapsto\lrprth{\rho_{\beta}:R \longrightarrow\zend{M}{r}}$, dada por $\lrprth{m}\rho_{\beta}\lrprth{r}=\beta\lrprth{m,r}$
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}}$ Dado que $M$ es un grupo abeliano, basta probar que se satisfacen las condiciones de la definición de $R$-módulo a derecha. Sean $r_{1},r_{2} \in R$ y $m_{1},m_{2} \in M$.\\
+
+		Primero,
+		\begin{align*}
+			\lrprth{m_{1}+m_{2}} \cdot r_{1}=\lrprth{m_{1}+m_{2}}\rho\lrprth{r_{1}}\\
+			=\lrprth{m_{1}} \rho \lrprth{r_{1}} + \lrprth{m_{2}} \rho \lrprth{r_{2}}\\
+			=m_{1} \cdot r_{1} + m_{2} \cdot r_{1}
+		\end{align*}
+		puesto que $\rho \lrprth{r_{1}}$ es un morfismo de grupos abelianos.\\
+	
+		Por otro lado, como $\rho$ es un morfismo de anillos, podemos decir que
+		\begin{align*}
+			m_{1} \cdot \lrprth{r_{1}+r_{2}}=\lrprth{m_{1}} \rho \lrprth{r_{1}+r_{2}}\\
+			=\lrprth{m_{1}}[\rho \lrprth{r_{1}} + \rho \lrprth{r_{2}}]\\
+			=\lrprth{m_{1}} \rho \lrprth{r_{1}} + \lrprth{m_{1}} \rho \lrprth{r_{2}}\\
+			=m_{1} \cdot r_{1} + m_{2} \cdot r_{2}
+		\end{align*}
+
+		También observemos que
+		\begin{align*}
+			m_{1} \cdot 1_{R}=\lrprth{m_{1}} \rho \lrprth{1}\\
+			=\lrprth{m_{1}}Id_{R}\\
+			=m_{1}
+		\end{align*}
+	
+		Por último, en virtud de que $\rho$ preserva productos, se tiene que
+		\begin{align*}
+			m_{1} \cdot \lrprth{r_{1}r_{2}}=\lrprth{m_{1}} \rho \lrprth{r_{1}r_{2}}\\
+			=\lrprth{m_{1}} \rho \lrprth{r_{1}} \circ \rho \lrprth{r_{2}}\\
+			=\lrprth{\lrprth{m_{1}} \rho \lrprth{r_{1}}} \rho \lrprth{r_{2}}\\
+			=\lrprth{m_{1} \cdot r_{1}} \rho \lrprth{r_{2}}\\
+			=\lrprth{m \cdot r_{1}} \cdot r_{2}
+		\end{align*}
+		$\therefore\lrprth{M, \beta_{\rho}}$ es un $R$-módulo a derecha.\\
+
+		$\boxed{\text{(b)}}$ Como en el inciso anterior, bastará con probar que $\rho_{\beta}$ es un morfismo de anillos. Bajo este contexto, sean $m_{1},m_{2} \in M$ y $r_{1},r_{2} \in R$.\\
+	
+		Comenzaremos notando que $\rho \lrprth{r_{1}}$ es un homomorfismo de anillos. En efecto,
+		\begin{align*}
+			\lrprth{m_{1}+m_{2}} \rho \lrprth{r_{1}}=\lrprth{m_{1}+m_{2}} \cdot r_{1}\\
+			=m_{1} \cdot r_{1} + m_{2} \cdot r_{1}\\
+			=\lrprth{m_{1}} \rho \lrprth{r_{1}} + \lrprth{m_{2}} \rho \lrprth{r_{2}}
+		\end{align*}
+		Por consiguiente, $\rho\lrprth{r_{1}}\in\zend{M}{r}$.\\
+	
+		Análogamente, $\rho_{\beta}$ es un homomorfismo de grupos abelianos, puesto que
+		\begin{align*}
+			\lrprth{m_{1}} \rho_{\beta} \lrprth{r_{1}+r_{2}}=m_{1} \cdot \lrprth{r_{1}+r_{2}}\\
+			=m_{1} \cdot r_{1} + m_{1} \cdot r_{2}\\
+			= \lrprth{m_{1}} \rho_{\beta} \lrprth{r_{1}} + \lrprth{m_{1}} \rho_{\beta} \lrprth{r_{2}}
+		\end{align*}
+		y así $\rho_{\beta} \lrprth{r_{1}+r_{2}} = \rho_{\beta} \lrprth{r_{1}} + \rho_{\beta} \lrprth{r_{2}}$. Más aún, $\rho_{\beta}$ también preserva productos, toda vez que
+		\begin{align*}
+			\lrprth{m_{1}} \rho_{\beta} \lrprth{r_{1}r_{2}}=m_{1} \cdot \lrprth{r_{1}r_{2}}\\
+			=\lrprth{m_{1} \cdot r_{1}} \cdot r_{2}\\
+			=\lrprth{\lrprth{m_{1}} \rho_{\beta} \lrprth{r_{1}}} \rho_{\beta} \lrprth{r_{2}}\\
+			=\lrprth{m_{1}} [\rho_{\beta} \lrprth{r_{1}} \circ \rho_{\beta} \lrprth{r_{2}}]
+		\end{align*}
+	
+		Para finalizar, $\rho_{\beta}$ en efecto es un morfismo de anillos porque, adicionalmente, se satisface que $\lrprth{m_{1}} \rho_{\beta} \lrprth{1}=m_{1} \cdot 1_{R}=m_{1}$. Ergo, se concluye el resultado.
+
+		$\boxed{\text{(c)}}$ La biyección queda resuelta debido a los 2 incisos anteriores. El primero garantiza que toda representación a derecha tiene estructura de $R$-módulo a derecha; inversamente, todo $R$-módulo a derecha induce una acción a derecha con la cuál el módulo puede ser visto como una representación a derecha de $R$.
+	\end{proof}
+
+    \item 
+    Sea $R$ un anillo, $(M,+)$ un grupo abeliano y $\varphi:R\times M\to M$ una función. La acción opuesta 
+$\varphi^{op}: M\times R^{op}\to M$, se define como sigue:
+\[\varphi^{op}(m,r^{op}):= \varphi(r,m)\quad \forall r\in R, \,\,\, \forall m\in M.\]
+Pruebe que
+\[(\prescript{}{R}{M},\varphi)\in  \prescript{}{R}{Mod} \Leftrightarrow (M_{R^{op}},\varphi^{op})\in Mod_{R^{op}}.\]
+
+ \begin{proof}
+Recordando que $r_2^{op}r_1^{op}=(r_2r_1)^{op}$, se tiene que:\\
+
+$(M_{R^{op}},\varphi^{op})\in Mod_{R^{op}}$.\\\\
+$\iff$
+\begin{align*}
+& i)\,\,\varphi^{op}[(m_1+m_2),r^{op}]=\varphi^{op}(m_1,r^{op})+\varphi^{op}(m_2,r^{op}).\\
+& ii)\,\,\varphi^{op}[m,(r_1^{op}+r_2^{op})]=\varphi^{op}(m,r_1^{op})+\varphi^{op}(m,r_2^{op}).\\
+& iii)\,\, \varphi^{op}(m,1_R^{op})=m.\\
+& iv)\,\, \varphi^{op}(m,r_1^{op}r_2^{op})=\varphi^{op}(\varphi^{op}(m,r_1^{op}),r_2^{op}).
+\end{align*}
+ $\iff$
+\begin{align*}
+& i)\,\,\varphi[r,(m_1+m_2)]=\varphi(r,m_1)+\varphi(r,m_2).\\
+& ii)\,\,\varphi[(r_1+r_2),m]=\varphi(r_1,m)+\varphi(r_2,m).\\
+& iii)\,\, \varphi(1_R,m)=m.\\
+& iv)\,\, \varphi(r_2r_1,m)=\varphi(r_2,\varphi(r_1,m)).
+\end{align*}
+ $\iff$\\
+ 
+ $(\prescript{}{R}{M},\varphi)\in  \prescript{}{R}{Mod}$.
+ \end{proof}
+ 
+    \item Sea $R$ un anillo con su producto denotado por medio de yuxtaposición. Entonces
+    \begin{enumerate}[label=(\alph*)]
+        \item si la función $\bullet$ está definida como
+        \begin{align*}
+            \descapp{\bullet}{R\times R}{R}{(r,x)}{r\bullet x:=rx}{,}
+        \end{align*}
+        $\lrprth{{}_RR,\bullet}\in {}_RMod$.
+        \item si la función $\bullet$ está definida como
+        \begin{align*}
+            \descapp{\bullet}{R\times R}{R}{(x,r)}{x\bullet r:=xr}{,}
+        \end{align*}
+        $(R_R,\bullet)\in Mod_R$.
+    \end{enumerate}
+    \begin{proof}
+    $\boxed{\text{(a)}}$ 
+    Sean $r,s,t\in R$. Se tiene lo siguiente como consecuencia de la asociatividad de del producto en $R$ y la distributividad de este con respecto a la suma en $R$:
+    \begin{align*}
+        r\bullet\lrprth{s+t}&=r\lrprth{s+t}=rs+st\\
+        &=r\bullet t + s\bullet t.\\
+        \lrprth{r+s}\bullet t&=\lrprth{r+s}\bullet t=rt+st\\
+        &=r\bullet t + s\bullet t.\\
+        r\bullet\lrprth{s\bullet t}&=r\lrprth{st}=\lrprth{rs}t\\
+        &=\lrprth{r\bullet s}\bullet t.\\
+        \lrprth{r+s}\bullet t&=\lrprth{r+s}\bullet t=rt+st\\
+        &=r\bullet t + s\bullet t.\\
+        \intertext{Finalmente, como $1_R$ es el neutro multiplicativo de $R$}
+        1_R\bullet r&= 1_Rr=r.
+        \therefore \ \lrprth{{}_RR,\bullet}&\in {}_RMod.
+    \end{align*}
+    $\boxed{\text{(b)}}$ Es análogo al inciso (a), empleando nuevamente a asociatividad de del producto en $R$ y la distributividad de este con respecto a la suma en $R$, así como la propiedad del neutro multiplicativo. \\
+    \end{proof}
+    
+    \item Sea $K$ un anillo conmutativo.
+	\begin{enumerate}
+		\item Para un anillo $R$, pruebe que dar una estructura de $K$-álgebra en $R$ es equivalente a dar una estructura de $K$-módulo a izquierda en $R$, vía una acción a izquierda $K \times R \longrightarrow R$, $\lrprth{k,r} \mapsto k \cdot r$ tal que satisface la propiedad $k \cdot \lrprth{r_{1}r_{2}}\lrprth{k \cdot r_{1}}r_{2}=r_{1}\lrprth{k \cdot r_{2}}$, $\forall k \in K$, $\forall r_{1}, r_{2} \in R$.
+		\item Sean $R,S$ dos $K$-álgebras, $f:R \longrightarrow S$ un morfismo de anillos. Pruebe que $f$ es un morfismo de $K$-álgebras si y sólo si $f$ es un morfismo de $K$-módulos a izquierda, vía la estructura de $K$-módulo en $R$ y en $S$ dada por el primer inciso.
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}} \boxed{\Rightarrow )}$ Suponga que $\lrprth{R,K, \varphi }$ tiene una estructura de $K$-álgebra. Ahora, definimos una acción a izquierda de $K$ sobre $R$ como $\lrprth{k,r} \mapsto \varphi \lrprth{k}r$. Veremos que, bajo este contexto, $R$ es un $K$-módulo a izquierda.\\
+	
+		Sean $x,y \in R$ y $k,r \in K$. Entonces se cumple que 
+		\begin{align*}
+			k \cdot \lrprth{x+y} = \varphi \lrprth{k}\lrprth{x+y}\\
+			= \varphi \lrprth{k}x + \varphi \lrprth{k}y\\
+			= k \cdot x + k \cdot y
+			\intertext{Adicionalmente,}
+			\lrprth{k+r} \cdot x = [ \varphi \lrprth{k} + \varphi \lrprth{r} ]x\\
+			= \varphi \lrprth{k}x + \varphi \lrprth{r}x\\
+			= k \cdot x + r \cdot x
+		\end{align*}
+	
+		Igualmente,
+		\begin{align*}
+			1_{K} \cdot x = \varphi\lrprth{1_{K}}\\
+			=1_{R}x\\
+			=x
+		\end{align*}
+		Y así mísmo, $im\lrprth{ \varphi } \subseteq \ringcenter{R}$, pues $\lrprth{R,K, \varphi }$ es $K$-álgebra. Inclusive, obtenemos
+		\begin{align*}
+			\lrprth{kr} \cdot x = \varphi \lrprth{kr}x\\
+			= [ \varphi \lrprth{k} \varphi \lrprth{r} ]x\\
+			= \varphi \lrprth{k} [ \varphi \lrprth{r}x ]\\
+			= k \cdot \lrprth{r \cdot x}
+		\end{align*}
+	
+		Por último, $im\lrprth{ \varphi } \subseteq \ringcenter{R}$ implica las siguientes dos igualdades
+		\begin{align*}
+			k \cdot \lrprth{xy}=\varphi \lrprth{k}\lrprth{xy}\\
+			=\lrprth{ \varphi \lrprth{k}x}y\\
+			=\lrprth{k \cdot x}y\\
+			\intertext{y}
+			k \cdot \lrprth{xy} = \varphi \lrprth{k}\lrprth{xy}\\
+			=\lrprth{ \varphi \lrprth{k}x}y
+			\\=\lrprth{x \varphi \lrprth{k}}y\\
+			=x\lrprth{ \varphi \lrprth{k}y}\\
+			=x\lrprth{k \cdot y}
+		\end{align*}
+		$\therefore R \in {}_{K}Mod$.\\
+	
+		$\boxed{\Leftarrow )}$ En el supuesto de que $R$ sea un $K$-módulo a izquierda, vía una acción $K \times R \longrightarrow R$, $\lrprth{k,r} \mapsto k \cdot r$ con la propiedad de que para cualesquiera $k \in K$ y $r_{1},r_{2} \in R$ se tiene que $k \cdot \lrprth{r_{1}r_{2}} = \lrprth{k \cdot r_{1}}r_{2} = r_{1} \lrprth{k \cdot r_{2}}$, se puede definir una función $\varphi : K \longrightarrow R$ como $\varphi \lrprth{k} = k \cdot 1_{R}$. Mostraremos que $\varphi$ es un homomorfismo de anillos tal que $im\lrprth{ \varphi } \subseteq \ringcenter{R}$.\\
+	
+		Sean $k,r \in K$. Comencemos notando que
+		\begin{align*}
+			\varphi \lrprth{k+r}=\lrprth{k+r}\cdot 1_{R}\\
+			=k \cdot 1_{R}+r \cdot 1_{R}\\
+			=\varphi\lrprth{k}+\varphi\lrprth{r}
+		\end{align*}
+		Y que, a su vez,
+		\begin{align*}
+			\varphi \lrprth{kr} = \lrprth{kr} \cdot 1_{R}\\
+			= k \cdot \lrprth{r \cdot 1_{R}}\\
+			= k \cdot \varphi \lrprth{r}\\
+			= k \cdot \lrprth{1_{R} \varphi \lrprth{r}}\\
+			= \lrprth{k \cdot 1_{R}} \varphi \lrprth{r}\\
+			= \varphi \lrprth{k} \varphi \lrprth{r}
+		\end{align*}
+
+		Incluso, en este sentido, se tiene que $\varphi \lrprth{1_{K}} = 1_{K} \cdot 1_{R} = 1_{R}$. Lo cual implica que $\varphi$ es un homomorfismo de anillos. Para terminar, veamos que $im\lrprth{ \varphi } \subseteq \ringcenter{R}$. Sean $x \in K$, $y \in R$. Por hipótesis,
+		\begin{align*}
+			\lrprth{k \cdot 1_{R}}r = k \cdot \lrprth{1_{R}r}\\
+			= k \cdot r\\
+			= k \cdot \lrprth{r1_{R}}\\
+			= r\lrprth{k \cdot 1_{R}}
+			\intertext{Luego,}
+			\varphi \lrprth{k}r=r \varphi \lrprth{k}
+		\end{align*}
+		$\therefore R$ adquiere estructura de $K$-álgebra.
+
+		$\boxed{\text{(b)}} \boxed{\Rightarrow )}$ Empecemos suponiendo que $f$ es un morfismo de $K$-álgebras, con $\lrprth{R,K, \varphi }$ y $\lrprth{S, K, \psi}$ las $K$-álgebras. Sean $k \in K$ y $r \in R$. En virtud de la correspondencia del inciso anterior se tiene que 
+		\begin{align*}
+			k \cdot r = k \cdot \lrprth{1_{R}r}\\
+			= \lrprth{k \cdot 1_{R}}r\\
+			= \varphi \lrprth{k}r
+			\intertext{Así}
+			f\lrprth{k \cdot r} = f\lrprth{ \varphi \lrprth{k}r}\\
+			= \psi \lrprth{k}f\lrprth{r}\\
+			= k \cdot f\lrprth{r}
+		\end{align*}
+		$\therefore f$ es un morfismo de $K$-módulos a izquierda.\\
+	
+		$\boxed{\Leftarrow )}$ Considere las $K$-álgebras $\lrprth{R,K, \varphi }$ y $\lrprth{S,K, \psi }$. Sean $t \in K$ y $x \in R$. Note que 
+		\begin{align*}
+			\varphi \lrprth{k}r = \lrprth{k \cdot 1_{R}}r\\
+			=k \cdot \lrprth{1_{R}r}\\
+			=k \cdot r
+		\end{align*}
+		De esta manera,
+		\begin{align*}
+			f\lrprth{ \varphi \lrprth{k}r}=f\lrprth{k \cdot r}\\
+			=k \cdot f\lrprth{r}\\
+			=\psi \lrprth{k}f\lrprth{r}
+		\end{align*}
+		$\therefore f$ es un morfismo de $K$-álgebras.
+	\end{proof}
+	
+\item
+Dado un morfismo de anillos $\varphi:R\to S$, construya la correspondencia análoga (a la de módulos) 
+$F_\varphi:\prescript{}{S}{Rep}\longrightarrow \prescript{}{R}{Rep}$.
+
+ \begin{proof}
+ 
+Sean $\varphi:R\to S$ un morfismo de anillos y $(\lambda,M)\in \prescript{}{S}{Rep}$ una representación a izquierda del anillo
+$S$. Se define la correspondencia \textbf{Cambio de anillos}
+ $F_\varphi:\prescript{}{S}{Rep}\longrightarrow \prescript{}{R}{Rep}$. Como grupos abelianos, $F_\lambda(M):= M$ y
+ la representación $R\to End_{\Z}^{\,l}(M),\quad (r)\longmapsto \lambda'(r)$, se define por  $\lambda'(r):=\lambda(\varphi(r))$.
+ Cabe observar que, como $\lambda$ y $\varphi$ son  morfismos de anillos entonces $\lambda'$ es morfismo de anillos.
+
+\end{proof}
+
+\end{enumerate}
+\end{document}
