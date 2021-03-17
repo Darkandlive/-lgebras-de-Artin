@@ -220,9 +220,18 @@ El tercero es el módulo que se tomará como contradominio de los morfismos.
 	\begin{enumerate}
 		\item $im\lrprth{\varphi}\leq S$
 		\item $Ker\lrprth{\varphi}\unlhd R$
-		\item $\forall S' \subseteq S, \varphi^{-1}\lrprth{S'}\leq R$
+		\item $\forall S' \leq S, \varphi^{-1}\lrprth{S'}\leq R$
 	\end{enumerate}
 	\begin{proof}
+	
+              Cabe mencionar que el morfismo $\varphi$ que manda cualquier elemento al cero cumple las tres condiciones anteriores pues
+                     \begin{align*}
+                          &Im\lrprth{\varphi}=\{0\}\leq S\\
+                          & Ker\lrprth{\varphi}= R \unlhd R\\
+			  & \forall S' \leq S, \varphi^{-1}\lrprth{S'}=R\leq R
+                     \end{align*}
+              Por lo que podemos considerar sólo a los morfismos no cero. 	\\	
+		
 		$\boxed{\text{(a)}}$ El hecho de que $\varphi$ sea un morfismo de anillos con uno garantiza que $\varphi\lrprth{1}=1$ y que $im\lrprth{\varphi}\neq\emptyset$.\\
 		Por otro lado, sean $a,b \in im\lrprth{\varphi}$. Por definición, existen $x,y \in R$ tales que $\varphi\lrprth{x}=a$ y $\varphi\lrprth{y}=b$. Esto implica que
 		\begin{align*}
@@ -384,7 +393,7 @@ Por lo que $f$ es biyectiva con $f^{-1}$ su inversa.
         entonces $({}_RM,\bullet_{\lambda})\in{}_{R}Mod$.
         \item Sea $\lrprth{{}_RM,\bullet}\in{}_{R}Mod$ y la función $\lambda_\bullet$ definida como
         \begin{align*}
-            \descapp{\lambda_\bullet}{R}{End_\mathbb{Z}^{l}}{r}{\lambda_\bullet(r)}{,}
+            \descapp{\lambda_\bullet}{R}{End_\mathbb{Z}^{l}(M)}{r}{\lambda_\bullet(r)}{,}
             \intertext{con}
             \descapp{\lambda_\bullet\lrprth{r}}{M}{M}{m}{r\bullet m}{.}
         \end{align*}
