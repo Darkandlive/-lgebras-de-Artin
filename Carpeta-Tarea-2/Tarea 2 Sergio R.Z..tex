@@ -1,0 +1,407 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{eufrak}
+\usepackage{nicefrac}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{tikz-cd}
+\usepackage{comment}
+\usepackage{amsmath}
+\usepackage{faktor}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\La}{\mathscr{L}}
+
+
+\def\subnormeq{\mathrel{\scalerel*{\trianglelefteq}{A}}}
+
+\newcommand{\defref}[1]{
+	Definición \ref{#1}
+}
+\newcommand{\crdnlty}[1]{
+	\left|#1\right|
+}
+\newcommand{\lrprth}[1]{
+	\left(#1\right)
+}
+\newcommand{\lrbrack}[1]{
+	\left\{#1\right\}
+}
+\newcommand{\descset}[3]{
+	\left\{#1\in#2\ \vline\ #3\right\}
+}
+\newcommand{\descapp}[6]{
+	#1: #2 &\rightarrow #3\\
+	#4 &\mapsto #5#6 
+}
+\newcommand{\arbtfam}[3]{
+	{\left\{{#1}_{#2}\right\}}_{#2\in #3}
+}
+\newcommand{\arbtfmnsub}[3]{
+	{\left\{{#1}\right\}}_{#2\in #3}
+}
+\newcommand{\fntfmnsub}[3]{
+	{\left\{{#1}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfam}[3]{
+	{\left\{{#1}_{#2}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfamsup}[4]{
+	\lrbrack{{#1}^{#2}}_{#3=1}^{#4}
+}
+\newcommand{\arbtuple}[3]{
+	{\left({#1}_{#2}\right)}_{#2\in #3}
+}
+\newcommand{\fntuple}[3]{
+	{\left({#1}_{#2}\right)}_{#2=1}^{#3}
+}
+\newcommand{\gengroup}[1]{
+	\left< #1\right>
+}
+\newcommand{\stblzer}[2]{
+	St_{#1}\lrprth{#2}
+}
+\newcommand{\cmmttr}[1]{
+	\left[#1,#1\right]
+}
+\newcommand{\grpindx}[2]{
+	\left[#1:#2\right]
+}
+\newcommand{\syl}[2]{
+	Syl_{#1}\lrprth{#2}
+}
+\newcommand{\grtcd}[2]{
+	mcd\lrprth{#1,#2}
+}
+\newcommand{\lsttcm}[2]{
+	mcm\lrprth{#1,#2}
+}
+\newcommand{\amntpSyl}[2]{
+	\mu_{#1}\lrprth{#2}
+}
+\newcommand{\gen}[1]{
+	gen\lrprth{#1}
+}
+\newcommand{\ringcenter}[1]{
+	C\lrprth{#1}
+}
+\newcommand{\zend}[2]{
+	End_{\mathbb{Z}}^{#2}\lrprth{#1}
+}
+\newcommand{\genmod}[2]{
+	\left< #1\right>_{#2}
+}
+\newcommand{\genlin}[1]{
+	\mathscr{L}\lrprth{#1}
+}
+\newcommand{\opst}[1]{
+	{#1}^{op}
+}
+\newcommand{\ringmod}[3]{
+	\if#3l
+	{}_{#1}#2
+	\else
+	\if#3r
+	#2_{#1}
+	\fi
+	\fi
+}
+\newcommand{\ringbimod}[4]{
+	\if#4l
+	{}_{#1-#2}#3
+	\else
+	\if#4r
+	#3_{#1-#2}
+	\else 
+	\ifstrequal{#4}{lr}{
+		{}_{#1}#3_{#2}
+	}
+	\fi
+	\fi
+}
+\newcommand{\ringmodhom}[3]{
+	Hom_{#1}\lrprth{#2,#3}
+}
+\title{Tarea 2}
+\author{Sergio R.Z.}
+\date{}
+
+\theoremstyle{definition}
+\newtheorem{define}{Definición}
+
+\theoremstyle{plain}
+\newtheorem{teor}{Teorema}[section]
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proposición}[section]
+
+\theoremstyle{definition}
+\newtheorem{ejemp}{Ejemplo}[section]
+
+\theoremstyle{definition}
+\newtheorem*{coro}{Corolario} 
+
+\theoremstyle{definition}
+\newtheorem*{obs}{Observaci\'on}
+
+\theoremstyle{definition}
+\newtheorem*{pron}{Proposición}
+
+\theoremstyle{definition}
+
+\newtheorem{lem}{Lema}
+
+\theoremstyle{definition}
+\newtheorem*{nota}{Nota}
+
+\begin{document}
+
+	\maketitle
+\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+		\setcounter{enumi}{11}
+ \item
+ \item
+ \item Sean $X,M\in \prescript{}{R}{Mod}$\,\, tal que\,\, $X\subseteq M$. Pruebe que $X\leq M$ $\iff$ la inclusión $i_X:X\longrightarrow M,
+ i_X(x):=x\quad \forall x\in X,$ es un morfismo de $R$ módulos.
+ 
+ \begin{proof}
+ \boxed{\Rightarrow} Supongamos que $X\leq M$, entonces dados $x,y\in X$ y $r\in R$ se tiene que 
+ \[i_x(rx+y)=rx+y =ri_X(x)+i_X(y). \]
+ Por lo que $i_X$ es morfismo.\\
+ 
+ \boxed{\Leftarrow} Ahora supongamos que  $i_X:X\longrightarrow M$ es un morfismo de $R$ módulos.\\
+ 
+ Sean $x,y\in X$ y $r\in R$, como $X$ es un $R$ módulo a izquierda entonces $x+y\in X$ y como $i_X$ es morfismo
+ se tiene que, si $\cdot: R\times X\longrightarrow X$ es la acción de $R$ módulo en $X$, entonces 
+ $r\cdot x = r\cdot i_X(x) = i_X(rx)=rx $. Así, como $X\subset M$, entonces $X\leq M$.
+  \end{proof}
+ 
+ \item
+ \item
+ \item Para un $M\in \prescript{}{R}{Mod}$, pruebe que las siguientes condiciones son equivalentes.
+ \begin{itemize}
+    \item[a)]  $M$ es simple.
+    \item[b)]  $0$ es un submódulo maximal de $M$.
+    \item[c)]  $M$ es un submódulo minimal de $M$.
+    \item[d)]  $M\neq 0$ y $M=<m>_R\quad \forall m\in M-\{0\}$.
+    \item[e)]  $M\neq 0$ y $\forall X\in \prescript{}{R}{Mod}, \,\forall f\in Hom_R(M,X)$ se tiene que $f=0$ o bien 
+    $Ker(f)=0$.
+    \item[f)]  $M\neq 0$ y $\forall X\in \prescript{}{R}{Mod}, \,\forall g\in Hom_R(X,M)$ se tiene que $g=0$ o bien 
+ $Im(g)=0$..
+ \end{itemize}
+ 
+ \begin{proof}
+Notemos que si $M\neq 0$, ningúna de los incisos se satisface, así que podemos tomar $M\neq 0$.\\
+
+ \boxed{a)\Rightarrow b)} Supongamos $M$ es simple, entonces $\La(M)=\{0,M\}$ por lo que $0$ es el único
+ submódulo de $M$ propio y por lo tanto es maximal.\\
+
+ \boxed{b)\Rightarrow c)} Supongamos $0$ es un submódulo maximal de $M$, como \\ $\forall N\in \La(M)-\{M\}$ se tiene 
+ que $0\leq  N$, entonces \\ $\forall N\in\La(M)-\{M\},\quad N=0$, por lo que $M$ es minimal al ser el único submódulo en 
+ $\left(\La(M)-\{\,0\,\},\leq \right)$ tal que $M\neq 0$ y si $0\lneq N$ entonces \quad $\left(N\leq M\,\,\Rightarrow N=M\right)$.\\
+ 
+ \boxed{c)\Rightarrow d)}Supongamos $M$ es un submódulo minimal de $M$. Por definición $M\neq 0$ entonces 
+ $\forall m\in M-\{0\},$ pasa que $<m>_R\neq 0$, pero \\
+ $<m>_R\in \La(M)$, entonces $<m>_R\geq M$ por ser $M$ minimal.
+ Sin embargo $<m>_R\leq M$ pues $m\in M$, por lo tanto $M=<m>_R\quad \forall m\in M-\{0\}$.\\
+ 
+ \boxed{d)\Rightarrow a)} Como $M\neq 0$, si $N\neq 0$ y $N\in \La(M)$, entonces $N\subset M$,
+  $\forall n\in N-\{0\}\quad n\in M-\{0\}$ y $M=<n>_M\leq N\leq M$. Por lo tanto $N=M$ y $\La(M)=\{0,M\}$.\\
+  
+ Con lo anterior tenemos que las primeras cuatro proposiciones son equivalentes, entonces para terminar se demostrarán 
+ las siguientes equivalencias.\\
+ 
+ \boxed{a)\Rightarrow e)} Ya sabemos que $M\neq 0$. Sea $f\in Hom_R(M,X)$ con $X\in \prescript{}{R}{Mod}$.\\
+ Si $f=0$ no hay nada que demostrar. Supongamos $f\neq 0$, como \\
+ $Ker(f)\leq M$ con $M$ simple, entonces 
+ $Ker(f)=0$ o $Ker(f)=M$, pero $f\neq 0$, entonces $Ker(f)\neq M$ y en consecuencia $Ker(f)=0$.\\
+ 
+ \boxed{e)\Rightarrow f)} Ya sabemos que $M\neq 0$. Sea $g\in Hom_R(X,M)$ con $X\in \prescript{}{R}{Mod}$.\\
+ Si $g=0$ no hay nada que probar. Supongamos $g\neq 0$, como $Im(g)\leq M$ entonces podemos tomar 
+ $\faktor{M}{Im(g)} \in \prescript{}{R}{Mod}$ y así \\
+ $\pi_{IM(g)}\in Hom_R\left(M,\faktor{M}{Im(g)}\right)$, con $\pi_{Im(g)}\neq 0 $. Entonces por e) tenemos  que, $Ker(g)=0$, y así $Im(g)=M$.\\
+ 
+ \boxed{f)\Rightarrow a)} Como $M\neq 0$ tenemos que para cada $ N\in \La(M)-\{0\}$ la inclusión $i_N:N\longrightarrow M$
+  es morfismo y más aun $i_N\neq 0$. Entonces por f) se tiene que $N=Im(i_N)=M$ y así $\La(M)=\{0,M\}$. 
+ \end{proof}
+ 
+\item
+\item
+\item Para una $K$-álgebra $R$, defina de manera natural una estructura de \\ $K$-módulo (a izquierda y a derecha)
+ en $Hom_R(M,N)\quad \forall M,N\in Mod(R).$
+\begin{proof}
+ Sean $M$ y $N$ $R$-módulos a izquierda y $(R,K,\varphi)$ una \\
+ $K$-álgebra. Para toda $k\in K,\,\, f\in Hom_R(M,N),\,\, l\in R$ y $m\in M$, definiremos 
+ $\alpha:K\times Hom_R(M,N)\longrightarrow Hom_R(M,N)$ dada por 
+\[\alpha(k,f)(\varphi)(lm)=k\cdot l(\varphi)(lm):=l*(\varphi(k)*f(m)),\]
+ donde $\cdot$ es la acción a izquierda de $N$ como $R$-módulo.\\
+ Así \\
+ \boxed{AC1} 
+ \begin{align*}
+( k\cdot(f_1+f_2))(lm)
+ &=l*(\varphi(k)*(f_1+f_2)(m))\\
+ &=l*(\varphi(k)*(f_1)(m)+\varphi(k)*(f_2)(m))\\
+ &=l*(\varphi(k)*(f_1)(m))+l*(\varphi(k)*(f_2)(m))\\
+ &=k\cdot(f_1)(lm)+k\cdot(f_2)(lm). 
+  \end{align*}
+ \boxed{AC2}
+  \begin{align*}
+ ((k_1+k_2)\cdot(f))(lm)
+ &=l*(\varphi(k_1+k_2)*f(m))\\
+ &=l*(\varphi(k_1)*f(m)+\varphi(k_2)*f(m))\\
+ &=l*(\varphi(k_1)*f(m))+l*(\varphi(k_2)*f(m))\\
+ &=k_1\cdot f(lm)+k_2\cdot f(lm).
+  \end{align*}
+ \boxed{AC3}
+\begin{align*}
+(1_K\cdot f)(lm)&=l*(\varphi(1_K)*f(m))\\
+&=l*(1_R*f(m))\\
+&=l*(f(m))\\
+&=f(lm).
+\end{align*}
+ \boxed{AC4}
+\begin{align*}
+((k_1k_2)\cdot f)(lm)=&l*(\varphi(k_1k_2)*f(m))\\
+&=l*(\varphi(k_1)\varphi(k_2)*f(m))\\
+&=l*(\varphi(k_1)*(\varphi(k_2)*f(m)))\\
+&=l*[\varphi(k_1)*(k_2\cdot f)(m)]\\
+&=(k_1\cdot(k_2\cdot f))(lm).
+\end{align*}
+
+Entonces $\cdot$ es una acción a izquierda de $R$-módulos.\\
+
+Por el ejercicio 8, se tiene que si $M$ y $N$ son $R$-módulos derechos entonces son $R^{op}$ módulos izquierdos.Asi
+$\cdot$ es  una acción para $Hom_{R^{op}}(M,N)$ y por el ejercicio 8, $\cdot^{op}$ es una acción que vuelve a 
+$Hom_R(M,N)$ un módulo derecho.
+\end{proof}
+
+\item
+\item
+\item Sea $R$ un anillo e $I\lhd R$. Considere el epimorfismo canónico de anillos $\pi:R\longrightarrow \faktor{R}{I}$,\,\,$r\mapsto r+I$.
+\begin{itemize}
+\item[a)] Pruebe que el funtor de cambio de anillos \\
+$F_\pi:Mod\left(\faktor{R}{I}\right)\longrightarrow Mod(R)$ es fiel y pleno.
+\item[b)] Sea $\zeta_I$ la subcategoría plena de $Mod(R)$ cuyos objetos son los \\
+$M\in Mod(R)$ que son aniquilados por $I$, i.e. 
+\[M\in \zeta_I\,\,\iff\,\,I\subseteq ann_R(M):=\{r\in R\,:\, rm=0\,\,\forall m\in M\}.\]
+Pruebe que $F_\pi\left(Mod\left(\faktor{R}{I}\right)\right)=\zeta_I$ y que $F_\pi:Mod\left(\faktor{R}{I}\right)\longrightarrow \zeta_I$ 
+es un isomorfismo de categorías.
+\end{itemize}
+\begin{proof}
+
+\boxed{a)} Sean $A,B\in Mod(R)$. Por el ejercicio 22 a), F es un funtor, y como $\pi(R)=R/I$, entonces  por el ejercicio 22 b), $F_\pi$ es fiel y pleno.\\
+
+\boxed{b)} Sea $A\in Mod\left(\faktor{R}{I}\right)$, entonces tenemos que $F_\pi(A)\in Mod(R)$. Ahora, si $m\in F_\pi(A)$, entonces para cada $x\in I,
+ \,\,\,x\cdot m=\pi(X)*m=0*m=0$, donde $\cdot$ y $*$ son las acciones definidas en $A$ y $F_\pi(A)$ respectivamente.\\
+Por lo tanto $I\subseteq ann_R(M)$ y $F_\pi(A)\in \zeta_I.$\\
+
+Ahora, sea $A\in \zeta_I$, entonces $I\subseteq ann_R(A):=\{r\in R\,:\,rm=0\,\,\forall m\in A\}$, en particular $A\in Mod(R)$, así 
+definimos la función $*:\faktor{R}{I}\times A\longrightarrow A$ dada por $[r]*m=(r+I)*m:=r\cdot m+I\cdot m$ donde $\cdot$ es la 
+acción de $A$ como $R$-módulo, y se tiene que, como $I\cdot m=\{im\,:\,i\in I,\, m\in A\}$ y $A\in \zeta_I$, $I\cdot m=\{0\}.$\\
+
+Por lo tanto, si $r,s\in [x]$ con $\, r=x+k_1$ y $s=x+k_2$, entonces $r*m=s*m,$ en particular $[r]*m=r\cdot m\,\,\forall r\in R$, es decir,
+$*$ es una acción de $A$ (bien definida) como $\faktor{R}{I}$ -módulo, es un $R$-módulo y $[r]*m=r\cdot m\,\,\forall r\in R$,
+es decir, $A\in F_\pi\left(Mod\left(\faktor{R}{I}\right)\right)$. Y en consecuencia $Mod\left(\faktor{R}{I}\right)=\zeta_I$\\
+
+Con esto podemos ver que $F_\pi:Mod\left(\faktor{R}{I}\right)\longrightarrow\zeta_I$ es funtor, y más aun, definiendo 
+$G_\pi:\zeta_I\longrightarrow Mod\left(\faktor{R}{I}\right)$ dado por $G_\pi(M)=M$ para cada $M\in \zeta_I$ y $G_\pi(f)([r]*_{{}_M} m)
+ =[r]*_{{}_N}f(m)$ para cada $f\in Hom(M,N)$ donde $*$ es la acción a izquierda de $M$ como $\faktor{R}{I}$ -módulo,
+es un funtor pues $G_\pi(1_M)([r]*_{{}_M}m)=[r]*_{{}_M}m=1_M([r]*_{{}_M}m)$ y para $ f\in Hom_R(M,N), g\in Hom_R(N,L)$
+\begin{gather*}
+ G_\pi(gf)([r]*_{{}_M}m)=[r]*_{{}_L}gf(m)=G_\pi(g)\left([r]*_{{}_N}f(m)\right)\\
+ =\left(G_\pi(g)\circ G_\pi(f)\right)([r]*_{{}_M}m).
+\end{gather*}
+
+Así $F_\pi\circ G_\pi(A)=A=G_\pi\circ F_\pi(A)\quad \forall A\in Mod\left(\faktor{R}{I}\right)=\zeta_I$, y cumple las siguientes condiciones
+\begin{itemize}
+\item[i)] $F_\pi\circ G_\pi(1_A)=F_\pi(1_A)=1_A=G_\pi(1_A)=G_\pi\circ F_\pi(1_A)$.
+
+\item[ii)] Considerando a $\cdot$ y $*$ como las acciones a izquierda como $R$ -módulo y $\faktor{R}{I}$ -módulo respectivamente.
+Para cualquier $r\in R, m\in M,\\ f\in Hom_R(M,N)$ y $g\in Hom_{\faktor{R}{I}}(M,N)$, se tiene lo siguiente.
+\end{itemize}
+\[\left(F\pi\circ G_\pi(f)\right)(r\cdot_{{}_M}m)=[r] *_{{}_N} G_\pi(f)(m)=[r] *_{{}_N}f(m)=r\cdot_{{}_N}f(m)=f(r\cdot_{{}_M}m).\]
+
+\[\left(G\pi\circ F_\pi(g)\right)([r]*_{{}_M}m)=r \cdot_{{}_N} F_\pi(g)(m)=r\cdot_{{}_N}g(m)=[r]*_{{}_N}g(m)=g([r]*_{{}_M}m).\]
+
+Por lo tanto $F\pi\circ G_\pi(f)=1_{\zeta_I}$\quad y \quad $G\pi\circ F_\pi(g)=1_{Mod\left(\faktor{R}{I}\right)}$, es decir, $F_\pi$ es
+un isomorfismo de categorías.
+
+\end{proof}
+
+
+\item
+\item
+\item Sea $R$ un anillo y $e^2=e\in R$, un idempotente en $R$.
+\begin{itemize}
+\item[a)] Pruebe que la estructura de anillo en $R$ induce, de manera natural, una estructura de anillo en $eRe:=\{ere\,\colon\,r\in R\}$.
+¿Es $eRe$ un subanilo de $R$?
+\item[b)] Para cada $M\in Mod(R)$, pruebe que la acción a izquierda \\
+$eRe\times eM\longrightarrow eM,$ \,\, $(ere,em)\mapsto erem$ 
+induce una estructura de $eRe$-módulo a izquierda en $eM$.
+\item[c)] Pruebe que la correspondencia $m_e:Mod(R)\longrightarrow Mod(eRe)$ , dada por 
+$\left(M \stackrel{f}{\longrightarrow} N\right)\longmapsto \left(eM\stackrel{f|_{eM}}{\longrightarrow} eN\right)$, es funtorial.
+\end{itemize}
+\begin{proof}
+\boxed{a)} Como $R$ es anillo, se tienen los siguientes resultados: $\forall a,b\in R$
+\[eae-ebe=e(ae-be)=e(a-b)e\in eRe\]
+(por lo que $eRe$ es subgrupo abeliano bajo la suma),
+\[(eae)(ebe)=eae^2be=e(aeb)e\in eRe
+\]
+y 
+\[e(eae)=e^2ae=eae=eae^2=(eae)e.
+\]
+Por lo tanto $R$ es un anillo con $e$ su inverso, y por esto mismo no puede ser subanillo de $R$ exepto en el caso en que $e=1_R$. \\
+
+\boxed{b)} Observemos que $\forall a\in eM$ y $\forall s\in eRe$.
+\[a=em\quad \text{y} \quad s=ere\quad \text{para alguna} \quad m\in M\quad \text{y} \quad r\in R,\]
+así, llamando $*$ a la acción que definida como $(ere,em)\mapsto erem$, entonces 
+\[s*a=(ere)(em)=erem=ere^2m=(ere)(em).
+\]
+Por lo que 
+\begin{align*}
+\boxed{i)}\,\,(er_1e+er_2e)*(em)&=(er_1e+er_2e)(em)\\
+&=er_1eem+er_2eem\\
+&=(er_1e)*(em)+(er_2e)*(em).
+\end{align*}
+
+\begin{align*}
+\boxed{ii)}\,\, (ere)*(em_1+em_2)&= (ere)(em_1+em_2)\\
+&=ereem_1+ereem_2\\
+&=(ere)*(em_1)+(ere)*(em_2).
+\end{align*}
+\begin{align*}
+\boxed{iii)}\,\, 1_{eRe}*(em)=e(em)=e^2m=em.
+\end{align*}
+\[\boxed{iv)}\,\,[(er_1e)(er_2e)]*(em)=[(er_1e)(er_2e)](em)=er_1eer_2eem\]
+por otro lado
+\[(er_1e)*[(er_2e)*(em)]=(er_1e)*(er_2eem)=er_1eer_2eem.\]
+Así $*$ es una acción de módulos.\\
+
+\boxed{c)} Para que la correspondencia sea funtorial debe preservar identidades y composición de morfismos, es decir:\\
+
+\boxed{i)}\,\, $m_e(1_M)=1_{me(M)}$.\\
+\boxed{ii)}\,\,Si  $ M \stackrel{f}{\longrightarrow} N \stackrel{g}{\longrightarrow} L,$ se tiene que $m_e(gf)=m_e(g)\circ m_e(f)$.\\
+
+Sea $m\in M$ entonces\\
+
+\boxed{i)}\\
+$m_e(1_M)(em)=1_M|_{eM}(em)=em$, entonces $m_e(1_M)=1_{e_m(M)}=1_{eM}.$\\
+
+\boxed{ii)}
+\begin{gather*}
+m_e(gf)(em)=(gf)|_{eM}(em)=gf(em)=g(f(em))=g(f|_{eM}(em))\\
+=g(f|_{eM}(em))=g|_{eM}(f|_{eM}(em))=(g|_{eM}\circ f|_{eM})(em).
+\end{gather*}
+\end{proof}
+
+
+
+
+\end{enumerate}
+\end{document}
