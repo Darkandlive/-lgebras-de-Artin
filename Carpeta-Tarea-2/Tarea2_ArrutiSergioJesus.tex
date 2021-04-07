@@ -12,1228 +12,1056 @@
 \usepackage{xparse, tikz-cd, pgfplots}
 \usepackage{comment}
 \usepackage{faktor}
-\def\subnormeq{\mathrel{\scalerel*{\trianglelefteq}{A}}}
-
-
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\La}{\mathscr{L}}
-\newcommand{\crdnlty}[1]{
-	\left|#1\right|
-}
-\newcommand{\lrprth}[1]{
-	\left(#1\right)
-}
-\newcommand{\lrbrack}[1]{
-	\left\{#1\right\}
-}
-\newcommand{\descset}[3]{
-	\left\{#1\in#2\ \vline\ #3\right\}
-}
-\newcommand{\descapp}[6]{
-	#1: #2 &\rightarrow #3\\
-	#4 &\mapsto #5#6 
-}
-\newcommand{\arbtfam}[3]{
-	{\left\{{#1}_{#2}\right\}}_{#2\in #3}
-}
-\newcommand{\arbtfmnsub}[3]{
-	{\left\{{#1}\right\}}_{#2\in #3}
-}
-\newcommand{\fntfmnsub}[3]{
-	{\left\{{#1}\right\}}_{#2=1}^{#3}
-}
-\newcommand{\fntfam}[3]{
-	{\left\{{#1}_{#2}\right\}}_{#2=1}^{#3}
-}
-\newcommand{\fntfamsup}[4]{
-	\lrbrack{{#1}^{#2}}_{#3=1}^{#4}
-}
-\newcommand{\arbtuple}[3]{
-	{\left({#1}_{#2}\right)}_{#2\in #3}
-}
-\newcommand{\fntuple}[3]{
-	{\left({#1}_{#2}\right)}_{#2=1}^{#3}
-}
-\newcommand{\gengroup}[1]{
-	\left< #1\right>
-}
-\newcommand{\stblzer}[2]{
-	St_{#1}\lrprth{#2}
-}
-\newcommand{\cmmttr}[1]{
-	\left[#1,#1\right]
-}
-\newcommand{\grpindx}[2]{
-	\left[#1:#2\right]
-}
-\newcommand{\syl}[2]{
-	Syl_{#1}\lrprth{#2}
-}
-\newcommand{\grtcd}[2]{
-	mcd\lrprth{#1,#2}
-}
-\newcommand{\lsttcm}[2]{
-	mcm\lrprth{#1,#2}
-}
-\newcommand{\amntpSyl}[2]{
-	\mu_{#1}\lrprth{#2}
-}
-\newcommand{\gen}[1]{
-	gen\lrprth{#1}
-}
-\newcommand{\ringcenter}[1]{
-	C\lrprth{#1}
-}
-\newcommand{\zend}[2]{
-	End_{\mathbb{Z}}^{#2}\lrprth{#1}
-}
-\newcommand{\genmod}[2]{
-	\left< #1\right>_{#2}
-}
-\newcommand{\genlin}[1]{
-	\mathscr{L}\lrprth{#1}
-}
-\newcommand{\opst}[1]{
-	{#1}^{op}
-}
-\newcommand{\ringmod}[3]{
-	\if#3l
-	{}_{#1}#2
-	\else
-	\if#3r
-	#2_{#1}
-	\fi
-	\fi
-}
-\newcommand{\ringbimod}[4]{
-	\if#4l
-	{}_{#1-#2}#3
-	\else
-	\if#4r
-	#3_{#1-#2}
-	\else 
-	\ifstrequal{#4}{lr}{
-		{}_{#1}#3_{#2}
-	}
-	\fi
-	\fi
-}
-\newcommand{\ringmodhom}[3]{
-	Hom_{#1}\lrprth{#2,#3}
-}
-
-\ExplSyntaxOn
-
-\NewDocumentCommand{\functor}{O{}m}
-{
-	\group_begin:
-		\keys_set:nn {nicolas/functor}{#2}
-		\nicolas_functor:n {#1}
-	\group_end:
-}
-
-\keys_define:nn {nicolas/functor}
-{
-	name     .tl_set:N = \l_nicolas_functor_name_tl,
-	dom   .tl_set:N = \l_nicolas_functor_dom_tl,
-	codom .tl_set:N = \l_nicolas_functor_codom_tl,
-	arrow      .tl_set:N = \l_nicolas_functor_arrow_tl,
-	source   .tl_set:N = \l_nicolas_functor_source_tl,
-	target   .tl_set:N = \l_nicolas_functor_target_tl,
-	Farrow      .tl_set:N = \l_nicolas_functor_Farrow_tl,
-	Fsource   .tl_set:N = \l_nicolas_functor_Fsource_tl,
-	Ftarget   .tl_set:N = \l_nicolas_functor_Ftarget_tl,	
-	delimiter .tl_set:N= \_nicolas_functor_delimiter_tl,	
-}
-
-\dim_new:N \g_nicolas_functor_space_dim
-
-\cs_new:Nn \nicolas_functor:n
-{
-	\begin{tikzcd}[ampersand~replacement=\&,#1]
-		\dim_gset:Nn \g_nicolas_functor_space_dim {\pgfmatrixrowsep}		
-		\l_nicolas_functor_dom_tl
-		\arrow[r,"\l_nicolas_functor_name_tl"] \&
-		\l_nicolas_functor_codom_tl
-		\\[\dim_eval:n {1ex-\g_nicolas_functor_space_dim}]
-		\l_nicolas_functor_source_tl
-		\xrightarrow{\l_nicolas_functor_arrow_tl}
-		\l_nicolas_functor_target_tl
-		\arrow[r,mapsto] \&
-		\l_nicolas_functor_Fsource_tl
-		\xrightarrow{\l_nicolas_functor_Farrow_tl}
-		\l_nicolas_functor_Ftarget_tl
-		\_nicolas_functor_delimiter_tl
-	\end{tikzcd}
-}
-\ExplSyntaxOff
-
+\input{Comandos Anillos Artin}
 \title{Lista 2}
 \author{Arruti, Sergio, Jesús}
 \date{}
 
-\theoremstyle{definition}
-\newtheorem{define}{Definición}
-
-\theoremstyle{plain}
-\newtheorem{teor}{Teorema}[section]
-
-\theoremstyle{plain}
-\newtheorem{prop}{Proposición}[section]
-
-\theoremstyle{definition}
-\newtheorem{ejemp}{Ejemplo}[section]
-
-\theoremstyle{definition}
-\newtheorem*{coro}{Corolario} 
-
-\theoremstyle{definition}
-\newtheorem*{obs}{Observaci\'on}
-
-\theoremstyle{definition}
-\newtheorem*{pron}{Proposición}
-
-\theoremstyle{definition}
-
-\newtheorem{lem}{Lema}
-
-\theoremstyle{definition}
-\newtheorem*{nota}{Nota}
-
 \begin{document}
-\maketitle
-%%%%% Definición %%%%%
-\begin{define}
-	Sean $R$ y $S$ anillos. Decimos que un grupo abeliano, $M$, es un $R$-derecho y $S$-derecho bimódulo si
-	\begin{enumerate}[label=\roman*)]
-		\item $M\in\ringmod{R}{\text{Mod}}{r}\cap\ringmod{S}{\text{Mod}}{r}$;
-		\item $(mr)s=(ms)r$, $\forall\ r\in R$, $\forall\ s\in S$ y $\forall\ m\in M$.
-	\end{enumerate}
-	En tal caso denotamos a $M$ como $\ringbimod{R}{S}{M}{r}$.
-\end{define}
-\begin{enumerate}[label=\textbf{Ej \arabic*.}]
-\setcounter{enumi}{11}
-
-%%%%% Ejercicio 12 %%%%%
-\item Sea $M\in\ringmod{R}{\text{Mod}}{l}\cap\ringmod{S}{\text{Mod}}{l}$. Entonces $M\in\ringbimod{R}{S}{\text{Mod}}{l}$ si y sólo si $M\in\ringbimod{R}{\opst{S}}{\text{Mod}}{lr}$.
-\begin{proof}
-	Como $M\in\ringmod{R}{\text{Mod}}{l}\cap\ringmod{S}{\text{Mod}}{l}$ y, por el Ej. 8, $M\in\ringmod{\opst{S}}{\text{Mod}}{r}$, entonces $M\in\ringmod{R}{\text{Mod}}{l}\cap\ringmod{\opst{M}}{\text{Mod}}{r}$.\\ Sean $r\in R$, $s\in S$ y $m\in M$. 
-	Dado que, ver Ej 8, $sm=ms^{op}$ entonces 
-	\begin{align*}
-		r(sm)=s(rm)&\iff r(m\opst{s})=(rm)\opst{s}\\
-		\therefore\  M\in\ringbimod{R}{S}{\text{Mod}}{l}&\iff M\in\ringbimod{R}{\opst{S}}{\text{Mod}}{lr}.
-	\end{align*}
-\end{proof}
-
-%%%%% Ejercicio 13
-\item Sea $f:\lrprth{L, \leq } \longrightarrow \lrprth{L', \leq '}$ un morfismo de lattices. Pruebe que:
-\begin{enumerate}
-	\item $f$ es morfismo de posets.
-	\item $f$ es un isomorfismo de lattices si y sólo si lo es de posets.
-\end{enumerate}
-\begin{proof}
-	$\boxed{\text{(a)}}$ Sean $x,y \in L$. Probaremos primero que $x \leq y$ si y sólo si $x \wedge y = x$. Si $x \leq y$, entonces $x \leq x \wedge y$, puesto que $x \leq x$ y $x \leq y$. Además, por definición, tenemos que $x \wedge y \leq x$. Así $x = x \wedge y$. Por el contrario, si suponemos que $x = x \wedge y$, entonces observe que $x \leq y$.\\
-	
-	La afirmación anterior será útil en el proceso de probar este inciso. En efecto, supongamos que $x \leq y$. Como $f$ es morfismo de lattices, se tiene que $f\lrprth{x}=f\lrprth{x \wedge y}=f\lrprth{x} \wedge f\lrprth{y}$. $\therefore f\lrprth{x} \leq ' f\lrprth{y}$.\\
-	
-	$\boxed{\text{(b)}} \boxed{\Rightarrow )}$ Suponga que $f$ es isomorfismo de lattices. En primer lugar, por el inciso anterior, $f$ es morfismo de posets. Ahora, por hipótesis, existe $g:L' \longrightarrow L$ un morfismo de lattices tal que $f \circ g = Id_{L'}$ y $g \circ f = Id_{L}$; éste a su vez también es un morfismo de posets. Por tanto, $f$ es un isomorfismo de posets.\\
-	
-	$\boxed{\Leftarrow )}$ Consideremos que $f$ es un isomorfismo de posets. Entonces existe $g:L' \longrightarrow L$ un morfismo de posets tal que $f \circ g = Id_{L'}$ y $g \circ f = Id_{L}$. Veremos que $g$ es un morfismo de latices. Sean así $r,t  \in L'$. Dado que $r \wedge t \leq ' r$ y $r \wedge t \leq ' t$, se tiene que $g\lrprth{r \wedge t} \leq g\lrprth{r}$ y $g\lrprth{r \wedge t} \leq g\lrprth{t}$, y por ende $g\lrprth{r \wedge t} \leq g\lrprth{r} \wedge g\lrprth{t}$. Posteriormente, usando el hecho de que $f$ es morfismo de lattices, se deduce que
-	\begin{align*}
-		r \wedge t &= f\lrprth{g\lrprth{r \wedge t}}\\
-		&\leq' f\lrprth{g\lrprth{r} \wedge g\lrprth{t}}\\
-		&=f\lrprth{g\lrprth{r}} \wedge f\lrprth{g\lrprth{t}}\\
-		&=r \wedge t.
-	\end{align*}
-	De este modo,
-	\begin{align*}
-		g\lrprth{r \wedge t} &= g\lrprth{f\lrprth{g\lrprth{r} \wedge g\lrprth{t}}}\\
-		&=g\lrprth{r} \wedge g\lrprth{t}.
-	\end{align*}
-	Dado que $g$ es morfismo de lattices, podemos concluir que la afirmación es cierta.
-\end{proof}
-
-%%%%% Ejercicio 14 %%%%%
-\item Sean $X,M\in \prescript{}{R}{Mod}$\,\, tal que\,\, $X\subseteq M$. Pruebe que $X\leq M$ $\iff$ la inclusión $i_X:X\longrightarrow M,
-i_X(x):=x\quad \forall x\in X,$ es un morfismo de $R$ módulos.
-
-\begin{proof}
-	$\boxed{\Rightarrow}$ Supongamos que $X\leq M$, entonces dados $x,y\in X$ y $r\in R$ se tiene que 
-	\[i_x(rx+y)=rx+y =ri_X(x)+i_X(y). \]
-	Por lo que $i_X$ es morfismo.\\
-	
-	$\boxed{\Leftarrow}$ Ahora supongamos que  $i_X:X\longrightarrow M$ es un morfismo de $R$ módulos.\\
-	
-	Sean $x,y\in X$ y $r\in R$, como $X$ es un $R$ módulo a izquierda entonces $x+y\in X$ y como $i_X$ es morfismo
-	se tiene que, si $\cdot: R\times X\longrightarrow X$ es la acción de $R$ módulo en $X$, entonces 
-	$r\cdot x = r\cdot i_X(x) = i_X(rx)=rx $. Así, como $X\subset M$, entonces $X\leq M$.\\
-\end{proof}
-
-%%%%% Definición %%%%%
-\begin{define}
-	Sean $M\in\ringmod{R}{\text{Mod}}{l}$ y $\arbtfam{X}{i}{I}$ una familia de $R$-submódulos de $M$. Definimos la suma de la familia $\arbtfam{X}{i}{I}$ como
-	\begin{equation*}
-		\sum_{i\in I}X_i:=\gengroup{\bigcup_{i\in I}X_i}_R.
-	\end{equation*}
-\end{define}
-
-%%%%% Ejercicio 15 %%%%%
-\item Sean $M\in\ringmod{R}{\text{Mod}}{l}$ y $\arbtfam{X}{i}{I}$ una familia de $R$-submódulos de $M$. Entonces
-\begin{enumerate}[label=(\alph*)]
-	\item \begin{equation*}
-		\sum_{i\in I}X_i=\left\{\begin{tabular}{cc}
-			$\lrbrack{0}$ &, $I=\varnothing$  \\
-			\(\displaystyle
-			\lrbrack{\sum_{j\in\lrbrack{i_1,\dotsc,i_n}\subseteq I}x_j\ \vline\ x_j\in X_j,\ n\in\mathbb{N}\setminus\lrbrack{0}}\) & , $I\neq\varnothing$
-		\end{tabular}\right.
-	\end{equation*}
-	\item $\lrbrack{\genlin{M},\leq}$ es un reticulado completo. Más aún, si $\arbtfam{X}{i}{I}$ es una familia no vacía de $R$-submódulos de $M$,
-	\begin{align*}
-		sup\arbtfam{X}{i}{I}&=\sum_{i\in I}X_i,\\
-		inf\arbtfam{X}{i}{I}&=\bigcap_{i\in I}X_i.
-	\end{align*}
-\end{enumerate}
-\begin{proof}
-	Verifiquemos primeramente el siguiente lema:
-	%%%%% Lema %%%%%
-	\begin{lem}
-		Sea $M\in\ringmod{R}{\text{Mod}}{l}$. Si $\mathcal{A}\subseteq\genlin{M}$ entonces $\bigcap \mathcal{A}\in\genlin{M}$.
-	\end{lem}
-	\begin{proof}
-		Notemos que 
-		\begin{align*}
-			0+0&=0;\\
-			r\bullet 0&=r\bullet(0+0)=r\bullet 0+r\bullet 0\\
-			&\implies r\bullet 0=0,\ \forall\ r\in R.\\
-			\implies &\lrbrack{0}\in\genlin{M}.
-			\intertext{Además}
-			0_R\bullet x&=\lrprth{0_R+0_R}\bullet x=0_R\bullet x+0_R\bullet x\\
-			&\implies 0_R\bullet x=0,\ \forall\ x\in M.
-			\intertext{Por lo anterior, y dado que si $X\in\genlin{M}$ entonces $X\neq\varnothing$, se tiene que}
-			&\lrbrack{0}\subseteq X,\ \forall\ X\in \genlin{M}.
-		\end{align*}
-		Con lo cual $\bigcap \mathcal{A}\neq\varnothing$, pues $\lrbrack{0}\subseteq \bigcap \mathcal{A}$. Sean $r\in R,\ a,b\in \bigcap\mathcal{A}$ y $A\in\mathcal{A}$. Como $A\leq M$
-		\begin{align*}
-			ra,a+b&\in A\\
-			\implies ra,a+b&\in A, \forall\ A\in\mathcal{A}\\
-			\implies ra,a+b&\in A, \forall\ \bigcap\mathcal{A}\\
-			&\implies \bigcap\mathcal{A}\in\genlin{M}.
-		\end{align*}
-	\end{proof}
-	Por el lema anterior el submódulo generado por un conjunto $A\supseteq X$ está bien definido y, más aún, es el mínimo submódulo de $M$, con respecto a $\subseteq$, que contiene a $A$.
-	$\boxed{\text{(a)}}$
-	Supongamos que $I=\varnothing$, entonces $\bigcup_{i\in I}X_i=\varnothing$, y así 
-	\begin{align*}
-		\sum_{i\in I}X_i&=\bigcap\descset{X}{\genlin{M}}{\varnothing\subseteq X}\\
-		&=\bigcap\genlin{M}.
-		\intertext{Del lema se tiene que $0\in X,\ \forall\ X\in \genlin{M}$ y que $\lrbrack{0}\in\genlin{M}$, con lo cual}
-		\lrbrack{0}&\subseteq\bigcap_{X\in\genlin{M}}X=\bigcap\genlin{M}\subseteq\lrbrack{0}\\
-		&\therefore\ \sum_{i\in I}X_i=\lrbrack{0}.
-	\end{align*}
-	Supongamos ahora que $I\neq\varnothing$. Si 
-	\begin{equation*}
-		S:=\lrbrack{\sum_{j\in\lrbrack{i_1,\dotsc,i_n}\subseteq I}x_j\ \vline\ x_j\in X_j,\ n\in\mathbb{N}\setminus\lrbrack{0}}
-	\end{equation*}
-	afirmamos que $S\in\genlin{M}$. En efecto:\\
-	Como $I\neq\varnothing$ y $X_i\neq\varnothing$, $\forall\ i\in I$, entonces $S\neq\varnothing$. Sean $r\in R$ y $a,b\in S$, luego $\exists\ n,m\in\mathbb{N}$ tales que
-	\begin{align*}
-		a&=\sum_{j\in\lrbrack{i_1,\dotsc,i_n}}x_j\\
-		b&=\sum_{j\in\lrbrack{k_1,\dotsc,k_m}}y_j.
-		\intertext{En caso que $\lrbrack{i_1,\dotsc,i_n}= \lrbrack{k_1,\dotsc,k_n}$}
-		a+b&=\sum_{j\in\lrbrack{i_1,\dotsc,i_n}}\lrprth{x_j+y_j}
-		\intertext{Como $X_j\leq M$, $x_j+y_j\in X_j$, $\forall\ j\in\lrbrack{i_1,\dotsc,i_n}$; luego $a+b\in S$. Si ahora $\lrbrack{i_1,\dotsc,i_n}\cap
-			\lrbrack{k_1,\dotsc,k_n}=\varnothing$ consideremos}
-		l_r&:=i_r,\ \forall r\in[1,n]\\
-		l_{n+r}&:=k_r,\ \forall r\in[1,m].
-		\intertext{Así}
-		a+b&=\sum_{j\in\lrbrack{l_1,\dotsc,l_{n+m}}}z_j\\
-		&\implies a+b\in S.
-		\intertext{Finalmente, reetiquetando de ser necesario, si}
-		A&:=\lrbrack{i_1,\dotsc,i_n}\\
-		B&:=\lrbrack{k_1,\dotsc,k_m}\\
-		D&:=\lrbrack{i_1,\dotsc,i_n}\cap
-		\lrbrack{k_1,\dotsc,k_n}\\
-		E&:=\lrbrack{i_1,\dotsc,i_n}\cup
-		\lrbrack{k_1,\dotsc,k_n}=\lrbrack{l_1,\dotsc,l_{r},l_{r+1},\dotsc,l_{t}},\\
-		\intertext{con $\crdnlty{D}=r>0$, $\crdnlty{E\setminus D}=t>0$, entonces}
-		a+b&=\sum_{j\in D}\lrprth{x_j+y_j}+\sum_{j\in A\setminus D}x_j+\sum_{j\in B\setminus D}y_j \\
-		&=\sum_{j\in E}z_j\\
-		&\implies a+b\in S.
-	\end{align*}
-	Por otro lado
-	\begin{align*}
-		r\bullet a&=r\bullet\sum_{j\in A}x_j=\sum_{j\in A}r\bullet x_j.
-	\end{align*}
-	De modo que $r\bullet a\in S$, pues $A\subseteq I$ es finito y, como $X_j\leq M$, $r\bullet x_j\in X_j$, $\forall\ j\in A$; y por lo tanto $S\leq M$. \\
-	Como $\lrbrack{i}\subseteq I$, $\forall\ i\in I$, entonces
-	$\bigcup_{i\in I}X_i\subseteq S$. De modo que
-	\begin{equation*}
-		\sum_{i\in I}X_i=\gengroup{\bigcup_{i\in I}X_i}_R\subseteq S.
-	\end{equation*}
-	Ahora si $Y\leq M$ es tal que $Y\supseteq \bigcup_{i\in I}X_i$, $J:=\lrbrack{i_1,\dotsc,i_n}\subseteq I$ y $a_j\in X_j\subseteq\bigcup_{i\in I}X_i,\ \forall\ j\in J$, entonces
-	\begin{align*}
-		\sum_{j\in J}a_j&\in Y\\
-		\implies S&\subseteq Y,\ \forall\ Y\in\genlin{M}\text{ tal que } Y\supseteq \bigcup_{i\in I}X_i\\
-		\implies S&\subseteq \gengroup{\bigcup_{i\in I}X_i}_R=\sum_{i\in I}X_i\\
-		&\therefore\ S=\sum_{i\in I}X_i.
-	\end{align*}
-	$\boxed{\text{(b)}}$ El par $(\genlin{M},\leq)$ es un CPO puesto que la relación $\subseteq$ es un orden parcial.\\
-	Sea $C\leq M$ cota superior de $S$. Entonces $X_i\leq C$, $\forall\ i\in I$; luego $C\supseteq \bigcup_{i\in I}X_i$. Dado $\sum_{i\in I}X_i$ es el mínimo submódulo, con respecto a $\subseteq$, que contiene a $\bigcup_{i\in I}X_i$ se tiene que $\sum_{i\in I}X_i\leq C$ y por lo tanto $sup\lrprth{S}=\sum_{i\in I}X_i$.\\
-	Sea $c\leq M$ cota inferior de $S$. Entonces $c\leq X_i$, $\forall\ i\in I$; luego $c\subseteq \bigcap_{i\in I}X_i$. Como $\bigcap_{i\in I}X_i\in\genlin{M}$ y $\bigcap_{i\in I}X_i$ es cota inferior de $S$ se sigue que $inf\lrprth{S}=\bigcap_{i\in I}X_i$.
-	\begin{equation*}
-		\therefore\ \lrprth{\genlin{M},\leq}\text{ es un reticulado completo.}
-	\end{equation*}
-\end{proof}
-
-%%%%% Ejercicio 16 %%%%%
-\item Sean $M \in {}_{R}Mod$ y $N \leq M$. Consideremos $L_{N}\lrprth{M}=\descset{X}{L\lrprth{M}}{N \leq X}$. Pruebe que el epimorfismo canónico de $R$-módulos a izquierda
-\begin{align*}
-	\descapp{\pi_{N}}{M}{M/N}{m}{m+N}{ }
-\end{align*}
-induce el isomorfismo de lattices
-\begin{align*}
-	\descapp{\widehat{\pi}_{N}}{L_{N}\lrprth{M}}{L\lrprth{M/N}}{X}{X/N}{ }
-\end{align*}
-cuyo inverso es $\widehat{\pi}_{N}^{-1} \lrprth{Z}=\descset{x}{M}{x+N \in Z}$.
-\begin{proof}
-	Sea $K \in L_{N}\lrprth{M}$ tal que $\widehat{\pi}_{N} \lrprth{K}=0$. Notemos que, si $k \in K$, entonces $k+N=0$. Lo cual implica que $k \in N$, y por ello $K=N$. Esto quiere decir que $\widehat{\pi}_{N}$ es inyectiva.\\
-	
-	Así mismo, dado $T \in L\lrprth{M/N}$, se satisface que $\widehat{\pi}_{N}^{-1} \lrprth{T} \in L_{N} \lrprth{M}$. En efecto, para cada $x \in N$, se cumple que $x+N=N \in T$, y en consecuencia $N \subseteq \widehat{\pi}_{N}^{-1} \lrprth{T}$. Adicionalmente, si $x,y \in \widehat{\pi}_{N}^{-1}\lrprth{T}$ y $r \in R$, se cumple que $x+y+N \in T$, $rx+N \in T$. En vista de ésto, se sigue que $x+y, rx \in \widehat{\pi}_{N}^{-1} \lrprth{T}$, y por tanto $\widehat{\pi}_{N}^{-1} \lrprth{T} \in L_{N} \lrprth{M}$.\\
-	
-	Por último, observe que
-	\begin{align*}
-		\widehat{\pi}_{N} \lrprth{ \widehat{\pi}_{N}^{-1} \lrprth{T}}&=\descset{x+N}{M/N}{x \in \widehat{\pi}_{N}^{-1} \lrprth{T}}\\
-		&=\descset{x+N}{M/N}{x+N \in T}\\
-		&=T.
-	\end{align*}
-	Más aún, para cualesquiera $T_{1},T_{2} \in L\lrprth{M/N}$, se identifican
-	\begin{align*}
-		\widehat{\pi}_{N}^{-1} \lrprth{T_{1} \cap T_{2}} &= \widehat{\pi}_{N}^{-1} \lrprth{T_{1}} \cap \widehat{\pi}_{N}^{-1} \lrprth{T_{2}}\\
-		\intertext{y}
-		\widehat{\pi}_{N}^{-1} \lrprth{T_{1}+T_{2}} &= \widehat{\pi}_{N}^{-1} \lrprth{T_{1}} + \widehat{\pi}_{N}^{-1} \lrprth{T_{2}}.
-	\end{align*}
-	$\therefore\ \widehat{\pi}_{N}$ es un isomorfismo de retículas.\\
-\end{proof}
-
-%%%%% Ejercicio 17 %%%%%
-\item Para un $M\in \prescript{}{R}{Mod}$, pruebe que las siguientes condiciones son equivalentes.
-\begin{itemize}
-	\item[a)]  $M$ es simple.
-	\item[b)]  $0$ es un submódulo maximal de $M$.
-	\item[c)]  $M$ es un submódulo minimal de $M$.
-	\item[d)]  $M\neq 0$ y $M=<m>_R\quad \forall m\in M-\{0\}$.
-	\item[e)]  $M\neq 0$ y $\forall X\in \prescript{}{R}{Mod}, \,\forall f\in Hom_R(M,X)$ se tiene que $f=0$ o bien 
-	$Ker(f)=0$.
-	\item[f)]  $M\neq 0$ y $\forall X\in \prescript{}{R}{Mod}, \,\forall g\in Hom_R(X,M)$ se tiene que $g=0$ o bien 
-	$Im(g)=0$..
-\end{itemize}
-\begin{proof}
-	Notemos que si $M=0$, ningúna de los incisos se satisface, así que podemos tomar $M\neq 0$.\\
-	
-	\boxed{a)\Rightarrow b)} Supongamos $M$ es simple, entonces $\La(M)=\{0,M\}$ por lo que $0$ es el único
-	submódulo de $M$ propio y por lo tanto es maximal.\\
-	
-	\boxed{b)\Rightarrow c)} Supongamos $0$ es un submódulo maximal de $M$, como \\ $\forall N\in \La(M)-\{M\}$ se tiene 
-	que $0\leq  N$, entonces \\ $\forall N\in\La(M)-\{M\},\quad N=0$, por lo que $M$ es minimal al ser el único submódulo en 
-	$\left(\La(M)-\{\,0\,\},\leq \right)$ tal que $M\neq 0$ y si $0\lneq N$ entonces \quad $\left(N\leq M\,\,\Rightarrow N=M\right)$.\\
-	
-	\boxed{c)\Rightarrow d)}Supongamos $M$ es un submódulo minimal de $M$. Por definición $M\neq 0$ entonces 
-	$\forall m\in M-\{0\},$ pasa que $<m>_R\neq 0$, pero \\
-	$<m>_R\in \La(M)$, entonces $<m>_R\geq M$ por ser $M$ minimal.
-	Sin embargo $<m>_R\leq M$ pues $m\in M$, por lo tanto $M=<m>_R\quad \forall m\in M-\{0\}$.\\
-	
-	\boxed{d)\Rightarrow a)} Como $M\neq 0$, si $N\neq 0$ y $N\in \La(M)$, entonces $N\subset M$,
-	$\forall n\in N-\{0\}\quad n\in M-\{0\}$ y $M=<n>_M\leq N\leq M$. Por lo tanto $N=M$ y $\La(M)=\{0,M\}$.\\
-	
-	Con lo anterior tenemos que las primeras cuatro proposiciones son equivalentes, entonces para terminar se demostrarán 
-	las siguientes equivalencias.\\
-	
-	\boxed{a)\Rightarrow e)} Ya sabemos que $M\neq 0$. Sea $f\in Hom_R(M,X)$ con $X\in \prescript{}{R}{Mod}$.\\
-	Si $f=0$ no hay nada que demostrar. Supongamos $f\neq 0$, como \\
-	$Ker(f)\leq M$ con $M$ simple, entonces 
-	$Ker(f)=0$ o $Ker(f)=M$, pero $f\neq 0$, entonces $Ker(f)\neq M$ y en consecuencia $Ker(f)=0$.\\
-	
-	\boxed{e)\Rightarrow f)} Ya sabemos que $M\neq 0$. Sea $g\in Hom_R(X,M)$ con $X\in \prescript{}{R}{Mod}$.\\
-	Si $g=0$ no hay nada que probar. Supongamos $g\neq 0$, como $Im(g)\leq M$ entonces podemos tomar 
-	$\faktor{M}{Im(g)} \in \prescript{}{R}{Mod}$ y así \\
-	$\pi_{Im(g)}\in Hom_R\left(M,\faktor{M}{Im(g)}\right)$, con $\pi_{Im(g)}\neq 0 $. Entonces por e) tenemos  que, $Ker(g)=0$, y así $Im(g)=M$.\\
-	
-	\boxed{f)\Rightarrow a)} Como $M\neq 0$ tenemos que para cada $ N\in \La(M)-\{0\}$ la inclusión $i_N:N\longrightarrow M$
-	es morfismo y más aun $i_N\neq 0$. Entonces por f) se tiene que $N=Im(i_N)=M$ y así $\La(M)=\{0,M\}$. 
-\end{proof}
-
-%%%%% Ejercicio 18 %%%%%
-\item Sea $M\in\ringmod{R}{\text{Mod}}{l}$. Las siguientes condiciones son equivalentes:
-\begin{enumerate}[label=(\alph*)]
-	\item $M$ es finitamente generado.
-	\item $\exists\ n\in\mathbb{N}\setminus\lrbrack{0}$ y $f:\mathbb{R}^n\rightarrow M$ epimorfismo de $R$-módulos.
-\end{enumerate}
-\begin{proof}
-	Verifiquemos primero el siguiente lema:
-	%%%%% Lema %%%%%
-	\begin{lem}
-		Sea $M\in\ringmod{R}{\text{Mod}}{l}$. Si $X\subseteq M$ entonces
-		\begin{equation*}
-			\genmod{X}{R}=\left\{\begin{tabular}{cl}
-				$\lrbrack{0}$ & , $X=\varnothing$\\
-				$\lrbrack{\sum_{i=1}^nr_ix_i\ \vline\ n\in\mathbb{N}\setminus\lrbrack{0},\ r_i\in R,\ x_i\in X\ \forall\ i\in[1,n]}$ & , $X\neq\varnothing$
-			\end{tabular}\right.
-		\end{equation*}
-	\end{lem}
-	\begin{proof}
-		El caso $X=\varnothing$ se verificó en el Ej. 15(a) (en el caso $I=\varnothing$). Supongamos que $X\neq\varnothing$.\\
-		Sea $S:=\lrbrack{\sum_{i=1}^nr_ix_i\ \vline\ n\in\mathbb{N}\setminus\lrbrack{0},\ r_i\in R,\ x_i\in X\ \forall\ i\in[1,n]}$. $S\neq\varnothing$, pues $R\neq\varnothing\neq X$ y $S\subseteq M$, pues $M\in\ringmod{R}{\text{Mod}}{l}$.\\
-		Sean $a,b\in S$. Existen $n,m\in\mathbb{N}\setminus\lrbrack{0}$ y $r_i,s_i\in R$, $x_i,y_i\in X$ tales que $a=\sum_{i=1}^{n}r_ix_i$ y $b=\sum_{i=1}^{m}s_iy_i$ y
-		\begin{align*}
-			t_i&=\left\{\begin{tabular}{cc}
-				$r_i$ & , $i\in[1,n]$\\
-				$s_{i-n}$ & , $i\in[n+1,n+m]$
-			\end{tabular}\right.\\
-			z_i&=\left\{\begin{tabular}{cc}
-				$r_i$ & , $i\in[1,n]$\\
-				$s_{i-n}$ & , $i\in[n+1,n+m]$
-			\end{tabular}\right.  .
-		\intertext{Entonces}
-			a+b&=\sum_{i=1}^{n}r_ix_i + \sum_{i=1}^{m}s_iy_i\\
-				&=\sum_{i=1}^{n+m}t_iz_i\\
-			&\implies a+b\in S.\\
-			\intertext{Sea $r\in R$. Entonces}
-			ra&=r\lrprth{\sum_{i=1}^{n}r_ix_i}=\sum_{i=1}^{n}\lrprth{rr_i}x_i
-			\intertext{Si $u_i:=rr_i$ entonces}						ra&=\sum_{i=1}^{n}u_ix_i\in S\\
-			\implies & S\in\genlin{M}.
-		\end{align*}
-	Además, si $x\in X$ entonces $x=1_Rx\in S$, con lo cual $X\subseteq S$ y por lo tanto $\genmod{X}{R}\subseteq S$.\\
-	Por otro lado, si $Y\leq M$, $X\subseteq Y$, $r_i\in R, x_i\in X\ \forall\ i\in[1,n], n\in\mathbb{N}\setminus\lrbrack{0}$ entonces
-	\begin{align*}
-		\sum_{i=1}^{n}r_ix_i&\in Y\\
-		&\implies S\subseteq Y\\
-		&\implies S\subseteq \genmod{X}{R}\\
-		\therefore\ & S=\genmod{X}{R}.
-	\end{align*}
-	\end{proof}
-	$\boxed{\implies}$ Existe $X\subseteq M$ finito tal que $M=\genmod{X}{R}$. Si $X=\varnothing$ entonces $M=\lrbrack{0}$ y en tal caso la aplicación
-	\begin{align*}
-		\descapp{f}{R}{M}{r}{0}{}
-	\end{align*}
-	es un epimorfismo de $R$-módulos a izquierda. \\
-	Supongamos ahora que $X\neq\varnothing$. Entonces $\exists\ m\in\mathbb{N}\setminus\lrbrack{0}$ tal que $X=\lrbrack{x_1,\dotsc,x_m}$. Consideremos la aplicación
-		\begin{align*}
-			\descapp{f}{R^m}{M}{\fntuple{r}{i}{m}}{\sum_{i=1}^{m}r_ix_i}{.}
-		\end{align*}
-	Sean $r\in R$ y $\fntuple{s}{i}{m},\fntuple{t}{i}{m}\in R^m$
-	\begin{align*}
-		f\lrprth{r\lrprth{\fntuple{s}{i}{m}+\fntuple{t}{i}{m}}}&=		f\lrprth{\lrprth{rs_i+rt_i}_{i=1}^m}=\sum_{i=1}^{m}\lrprth{rs_i+rt_i}x_i\\
-		&=\sum_{i=1}^{m}(rs_i)x_i+\sum_{i=1}^{m}(rt_i)x_i=r\lrprth{\sum_{i=1}^{m}s_ix_i+\sum_{i=1}^{n}t_ix_i}\\
-		&=r\lrprth{f\lrprth{\fntuple{s}{i}{n}}+f\lrprth{\fntuple{t}{i}{n}}}\\
-		\implies & f \text{ es un morfismo de $R$ módulos a izquierda.}
-	\end{align*}
-	Notemos que por el Lema 2, dado que $X=\lrbrack{x_1,\dotsc,x_m}$ y, $\forall\ m\in M$, $0_Rm=0$, se tiene que
-	\begin{equation*}
-		\genmod{X}{R}=\lrbrack{\sum_{i=1}^mr_ix_i\ \vline\ r_i\in R\ \forall\ i\in[1,n]}.
-	\end{equation*}
-	Sea $y\in M=\genmod{X}{R}$. Por la observación anterior $\exists\ r_i\in R$ tales que $y=\sum_{i=1}^{m}x_i$, con lo cual, si $x:=\fntuple{r}{i}{m}$, $y=f(x)$. Por lo tanto $f$ es un epimorfismo de $R$-módulos a izquierda.\\
-	$\boxed{\impliedby}$ Verifiquemos primero los siguientes resultados:
-	%%%%% Lema %%%%%
-	\begin{lem}
-		Sea $f:M\rightarrow N$ un morfismo de $R$-módulos a izquierda. Entonces $f\lrprth{A}\in\genlin{N}$, $\forall\ A\in\genlin{M}$.
-	\end{lem}
-	\begin{proof}
-		Sea $A\in \genlin{M}$. Como $A\neq\varnothing$ entonces $f\lrprth{A}\neq\varnothing$, además $f(A)\subseteq M$. Sean $r\in R$ y $x,y\in f(A)$. Existen $a,b\in A$ tales que $f(a)=x$ y $f(b)=y$. Así
-		\begin{align*}
-			rx+y&=rf(x)+f(b)=f(rx+b) && f\in\ringmodhom{R}{M}{N}\\
-			f(rx+b)&\in f\lrprth{A} && A\in\genlin{M}\\
-			\implies & f(A)\in\genlin{N}.
-		\end{align*}
-	\end{proof}
-	%%%%% Lema %%%%%
-	\begin{lem}
-	Sea $f:M\rightarrow N$ un morfismo de $R$-módulos a izquierda. Entonces $f\lrprth{\genmod{A}{R}}=\genmod{f\lrprth{A}}{R}$, $\forall\ A\subseteq M$.
-	\end{lem}
-	\begin{proof}
-		Sea $A\subseteq M$. Como $A\subseteq\genmod{A}{R}$ entonces $f\lrprth{A}\subseteq f\lrprth{\genmod{A}{R}}$, de modo que, por el Lema 3, $f\lrprth{\genmod{A}{R}}$ es un $R$-submódulo de $N$ que contiene a $f(A)$ y por lo tanto $\genmod{f(A)}{R}\subseteq f\lrprth{\genmod{A}{R}}$.\\
-		Sean $n\in\mathbb{N}\setminus\lrbrack{0}$ y, $\forall\ i\in[1,n], r_i\in R$ y $x_i\in A$. Así, como $f\in\ringmodhom{R}{M}{N}$,
-		\begin{align*}
-			f\lrprth{\sum_{i=1}^{n}r_ix_i}&=\sum_{i=1}^{n}r_i f(x_i)\in\genmod{f(A)}{R}\\
-			 & \implies f\lrprth{\genmod{A}{R}} \subseteq \genmod{f(A)}{R}\\
-			 \therefore\ & f\lrprth{\genmod{A}{R}} = \genmod{f(A)}{R}.
-		\end{align*}
-	\end{proof}
-	%%%%% Lema %%%%%
-	\begin{lem}
-		Sea $f:M\rightarrow N$ un epimorfismo de $R$-módulos a izquierda. Si $M\in\ringmod{R}{\text{mod}}{l}$ entonces $N\in\ringmod{R}{\text{mod}}{l}$.
-	\end{lem}
-	\begin{proof}
-		Como $M\in\ringmod{R}{\text{mod}}{l}$ $\exists\ X\subseteq M$ finito tal que $M=\genmod{X}{R}$ y así
-		\begin{align*}
-			N&=f(M) && f\text{ es sobre}\\
-			&=f\lrprth{\genmod{X}{R}}=\genmod{f(X)}{R} && \text{Lema 4}
-		\end{align*}
-	Y como $\crdnlty{f(X)}\leq\crdnlty{X}$ entonces $f(X)$ es finito. Por lo tanto $N\in\ringmod{R}{\text{mod}}{l}$.\\
-	\end{proof}
-	Así, como $\exists\ n\in\mathbb{N}\setminus\lrbrack{0}$ y $f:R^n\rightarrow M$ epimorfismo de $R$-módulos a izquierda, por el Lema 5 basta verificar que $R^n\in\ringmod{R}{\text{mod}}{l}$.\\
-	Sean $e_j:=\lrprth{u_i^j}_{i=1}^n\in R^n$, donde
-		\begin{equation*}
-		u_i^j=\left\{
-		\begin{tabular}{cc}
-			$0_R$ & , $i\neq j$ \\
-			$1_R$ & , $i=j$ 
-		\end{tabular}
-		\right. ,
-	\end{equation*}
-	$\forall\ j\in[1,n]$, y $E:=\lrbrack{e_1,\dotsc,e_n}$. Así si $\fntuple{r}{i}{n}\in R^n$, entonces $\fntuple{r}{i}{n}=\sum_{i=1}^{n}r_ie_i$, con lo cual $R^n=\genmod{E}{R}$. Por lo tanto $R^n\in\ringmod{R}{\text{mod}}{l}$.\\
-\end{proof}
-
-%%%%% Ejercicio 19 %%%%%
-\item Pruebe que todo anillo no trivial $R$ admite $R$-módulos simples a izquierda (y a derecha también).
-\begin{proof}
-	Observe que $R$ es finitamente generado como $R$-módulo, de hecho $R= \langle 1 \rangle$. Entonces, por el \textbf{teorema 1.8.1}, $R$ tiene ideales máximos. Sea $I$ un ideal izquierdo máximo de $R$. Por el \textbf{Ejercicio 16}, $R/I$ es un $R$-módulo simple. De manera análoga, $Mod_{R}$ posee $R$-módulos derechos simples.\\
-\end{proof}
-
-%%%%% Ejercicio 20 %%%%%
-\item Para una $K$-álgebra $R$, defina de manera natural una estructura de \\ $K$-módulo (a izquierda y a derecha)
-en $Hom_R(M,N)\quad \forall M,N\in Mod(R).$
-\begin{proof}
-	Sean $M$ y $N$ $R$-módulos a izquierda y $(R,K,\varphi)$ una \\
-	$K$-álgebra. Para toda $k\in K,\,\, f\in Hom_R(M,N),\,\, l\in R$ y $m\in M$, definiremos 
-	$\alpha:K\times Hom_R(M,N)\longrightarrow Hom_R(M,N)$ dada por 
-	\[\alpha(k,f)(\varphi)(lm)=k\cdot l(\varphi)(lm):=l*(\varphi(k)*f(m)),\]
-	donde $\cdot$ es la acción a izquierda de $N$ como $R$-módulo.\\
-	Así \\
-	\boxed{AC1} 
-	\begin{align*}
-		( k\cdot(f_1+f_2))(lm)
-		&=l*(\varphi(k)*(f_1+f_2)(m))\\
-		&=l*(\varphi(k)*(f_1)(m)+\varphi(k)*(f_2)(m))\\
-		&=l*(\varphi(k)*(f_1)(m))+l*(\varphi(k)*(f_2)(m))\\
-		&=k\cdot(f_1)(lm)+k\cdot(f_2)(lm). 
-	\end{align*}
-	\boxed{AC2}
-	\begin{align*}
-		((k_1+k_2)\cdot(f))(lm)
-		&=l*(\varphi(k_1+k_2)*f(m))\\
-		&=l*(\varphi(k_1)*f(m)+\varphi(k_2)*f(m))\\
-		&=l*(\varphi(k_1)*f(m))+l*(\varphi(k_2)*f(m))\\
-		&=k_1\cdot f(lm)+k_2\cdot f(lm).
-	\end{align*}
-	\boxed{AC3}
-	\begin{align*}
-		(1_K\cdot f)(lm)&=l*(\varphi(1_K)*f(m))\\
-		&=l*(1_R*f(m))\\
-		&=l*(f(m))\\
-		&=f(lm).
-	\end{align*}
-	\boxed{AC4}
-	\begin{align*}
-		((k_1k_2)\cdot f)(lm)=&l*(\varphi(k_1k_2)*f(m))\\
-		&=l*(\varphi(k_1)\varphi(k_2)*f(m))\\
-		&=l*(\varphi(k_1)*(\varphi(k_2)*f(m)))\\
-		&=l*[\varphi(k_1)*(k_2\cdot f)(m)]\\
-		&=(k_1\cdot(k_2\cdot f))(lm).
-	\end{align*}
-	
-	Entonces $\cdot$ es una acción a izquierda de $R$-módulos.\\
-	
-	Por el ejercicio 8, se tiene que si $M$ y $N$ son $R$-módulos derechos entonces son $R^{op}$ módulos izquierdos.Asi
-	$\cdot$ es  una acción para $Hom_{R^{op}}(M,N)$ y por el ejercicio 8, $\cdot^{op}$ es una acción que vuelve a 
-	$Hom_R(M,N)$ un módulo derecho.\\
-\end{proof}
-
-%%%%% Ejercicio 21 %%%%%
-\item Sean $R$ y $S$ anillos.
-\begin{enumerate}[label=(\alph*)]
-	\item Sean 
-	\begin{align*}
-		Obj\lrprth{\mathcal{C}}&:=\ringbimod{R}{S}{\text{Mod}}{r},\\
-		Hom\lrprth{\mathcal{C}}&:=\bigcup_{\lrprth{M,N}\in Obj\lrprth{\mathcal{C}}^2}Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}},\\
-		\intertext{con}
-		Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}&:=Hom_R\lrprth{\ringmod{R}{M}{r},\ringmod{R}{N}{r}}\cap Hom_S\lrprth{\ringmod{S}{M}{r},\ringmod{S}{N}{r}},
-	\end{align*}
-	y $\circ$ la composición usual de funciones.\\ Entonces la clase $\ringbimod{R}{S}{\text{Mod}}{r}$ tiene estructura de categoría por medio de la tercia $\lrprth{Obj\lrprth{\mathcal{C}},Hom\lrprth{\mathcal{C}},\circ}$.
-	\item $\ringbimod{R}{S}{\text{Mod}}{lr}\simeq\ringbimod{\opst{R}}{S}{\text{Mod}}{r}$, $\ringbimod{R}{S}{\text{Mod}}{lr}\simeq\ringbimod{R}{\opst{S}}{\text{Mod}}{l}$ y $\ringbimod{R}{S}{\text{Mod}}{l}\simeq\ringbimod{R}{\opst{S}}{\text{Mod}}{lr}$.
-\end{enumerate}
-\begin{proof}
-	$\boxed{\text{(a)}}$ Si $M,N\in\ringbimod{R}{S}{\text{Mod}}{r}$, entonces $M$ y $N$ son conjuntos, con lo cual 
-	\begin{equation*}
-		N^M:=\lrbrack{f:M\rightarrow N\ |\ f\text{ es una función}}
-	\end{equation*} 
-    es un conjunto y así $\ringmodhom{R}{M_R}{N_R}$ es un conjunto, pues $$\ringmodhom{R}{M_R}{N_R}\subseteq B^A.$$
-     Similarmente se encuentra que $\ringmodhom{S}{M_S}{N_S}$ es un conjunto, y así $Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}$ es un conjunto $\forall\ M, N\in\ringbimod{R}{S}{\text{Mod}}{r}$. Además por definición $Hom\lrprth{\mathcal{C}}=\bigcup_{\lrprth{M,N}\in Obj\lrprth{\mathcal{C}}^2}Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}$, con lo cual se satisface (P1).\\
-Recordemos que, si $W,X,Y,Z$ son conjuntos y $f:W\rightarrow X, g:Y\rightarrow Z$ son funciones entonces $f=g$ si y sólo si $W=Y$, $X=Z$ y $f(w)=g(w)\ \forall\ w\in W$. Con lo cual si $(M,N)\neq\lrprth{O,P}$ entonces $N^M\cap P^O=\varnothing$ y por lo tanto $Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}\cap Hom\lrprth{\ringbimod{R}{S}{O}{r},\ringbimod{R}{S}{P}{r}}=\varnothing$. Por lo tanto se satisface (P2).\\
-Finalmente para verificar que (P3) se satisface, dado que la composición usual de funciones es asociativa y claramente $Id_X\in Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{
-		M}{r}}$ $\forall\ M\in\ringbimod{R}{S}{\text{Mod}}{r}$, basta probar que si $f\in\ringmodhom{R}{N}{O}, g\in\ringmodhom{R}{M}{N}$ entonces $f\circ g\in\ringmodhom{R}{M}{O}$; ya que en tal caso se tiene que la composición usual de funciones se restringe a una función asociativa
-\begin{equation*}
-	\circ:Hom\lrprth{\ringbimod{R}{S}{N}{r},\ringbimod{R}{S}{
-			O}{r}}\times Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}\rightarrow Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{
-			O}{r}}
-\end{equation*}  
-que admite identidades.\\
-	Sean $f\in\ringmodhom{R}{N}{O}]$ y $g\in\ringmodhom{R}{M}{N}$. En partícular $f:N\rightarrow O$ y $g:M\rightarrow N$ son morfismos de grupo abelianos, con lo cual $f\circ g$ es un morfismo de grupos abelianos. Sean $r\in R$ y $m\in M$, así
-	\begin{align*}
-		f\circ g (rm)&=f\lrprth{g\lrprth{rm}}=f\lrprth{rg(m)}=rf\lrprth{g\lrprth{m}}\\
-		&=r\lrprth{f\circ g(m)}.\\
-		\implies & f\circ g\in\ringmodhom{R}{M}{O}.
-	\end{align*} 
-	$\boxed{\text{(b)}}$ Recordemos que, por el Ej. 8, $\lrprth{M,\bullet}\in\ringmod{R}{M}{l}$ si y sólo si $\lrprth{M,\opst{\bullet}}\in\ringmod{\opst{R}}{M}{r}$ (en adelante no haremos mención explícita de $\bullet$ y $\opst{\bullet}$). Por lo cual, si $r\in R, s\in S$ y $m\in M,$
-	\begin{align*}
-		r(ms)=(rm)s&\iff (ms)\opst{r}=(m\opst{r})s \tag{$*$}\label{lriffrr}
-		\intertext{y así}
-		M\in\ringbimod{R}{S}{\text{Mod}}{lr}&\iff M\in\ringbimod{\opst{R}}{S}{\text{Mod}}{r}.\tag{I}\label{lrbiffrrb}
-	\end{align*}
- Más aún, si $f:M\rightarrow N$ es un morfismo de grupos abelianos, entonces
-	\begin{align*}
-		f\lrprth{r(ms)}=r\lrprth{f(m)s}&\iff 		f\lrprth{(ms)\opst{r}}=\lrprth{f(m)s}\opst{r}, \\& \forall\ r\in R, \forall\ s\in S,\forall\ m\in M.
-		\intertext{De modo que, considerando el caso partícular $s=1_S$, se tiene que}
-		f\in\ringmodhom{R}{\ringmod{R}{M}{l}}{\ringmod{R}{N}{l}}&\iff f\in\ringmodhom{\opst{R}}{\ringmod{\opst{R}}{M}{r}}{\ringmod{\opst{R}}{N}{r}}\\
-		 \therefore\ f\in Hom\lrprth{\ringbimod{R}{S}{M}{lr},\ringbimod{R}{S}{N}{lr}}&\iff f\in Hom\lrprth{\ringbimod{\opst{R}}{S}{M}{r},\ringbimod{\opst{R}}{S}{N}{r}}.\tag{II}\label{lrmiffrrm}
-	\end{align*}
-	 De (\ref{lrbiffrrb}) y (\ref{lrmiffrrm}) se sigue que la correspondencia de categorías
-	\begin{center}
-		\functor{
-			name=F_1,
-			dom=\ringbimod{R}{S}{\text{Mod}}{lr},
-			codom=\ringbimod{\opst{R}}{S}{\text{Mod}}{r},
-			arrow=f,
-			source=\ringbimod{R}{S}{M}{lr},
-			target=\ringbimod{R}{S}{N}{lr},
-			Farrow=f,
-			Fsource=\ringbimod{\opst{R}}{S}{M}{r},
-			Ftarget=\ringbimod{\opst{R}}{S}{N}{r},
-		}
-	\end{center}
-	está bien definida y, más aún, por construcción $F\lrprth{Id_M}=Id_{F\lrprth{M}},\ \forall M\in\ringbimod{R}{S}{\text{Mod}}{lr}$. \\
-	Sean $M\xrightarrow{f}N,N\xrightarrow{g} O\in\ringbimod{R}{S}{\text{Mod}}{lr}$, entonces
-	\begin{align*}
-		F\lrprth{g\circ f}&=g\circ f=F(g)\circ F(f)\\
-		&\therefore\ F\text{ es un funtor.}
-	\end{align*}
-	Empleando que $\opst{\lrprth{\opst{R}}}=R$ en conjunto a los puntos (\ref{lriffrr}), (\ref{lrbiffrrb}) y (\ref{lrmiffrrm}), se tiene que la correspondencia de categorías
-	\begin{center}
-		\functor{
-			name=G_1,
-			codom=\ringbimod{R}{S}{\text{Mod}}{lr},
-			dom=\ringbimod{\opst{R}}{S}{\text{Mod}}{r},
-			arrow=g,
-			Fsource=\ringbimod{R}{S}{M}{lr},
-			Ftarget=\ringbimod{R}{S}{N}{lr},
-			Farrow=g,
-			source=\ringbimod{\opst{R}}{S}{M}{r},
-			target=\ringbimod{\opst{R}}{S}{N}{r},
-		}
-	\end{center}
- es un funtor que satisface $G_1F_1=1_{\ringbimod{R}{S}{\text{Mod}}{lr}}$ y $F_1G_1=1_{\ringbimod{\opst{R}}{S}{\text{Mod}}{r}}$, y por lo tanto $\ringbimod{R}{S}{\text{Mod}}{lr}\simeq\ringbimod{\opst{R}}{S}{\text{Mod}}{r}$.\\
- Aplicando ahora el Ej. 8 al anillo $S$, por medio de un procedimiento análogo a lo previamente desarrollado, se verifica que $M\in\ringbimod{R}{S}{\text{Mod}}{lr}$ si y sólo si  $M\in\ringbimod{R}{\opst{S}}{\text{Mod}}{l}$, y que $f\in Hom\lrprth{\ringbimod{R}{S}{M}{lr},\ringbimod{R}{S}{N}{lr}}$ si y sólo si $f\in Hom\lrprth{\ringbimod{\opst{R}}{S}{M}{l},\ringbimod{\opst{R}}{S}{N}{l}}$. De modo que
- \begin{center}
- 	\functor{
- 		name=F_2,
- 		dom=\ringbimod{R}{S}{\text{Mod}}{lr},
- 		codom=\ringbimod{R}{\opst{S}}{\text{Mod}}{l},
- 		arrow=f,
- 		source=\ringbimod{R}{S}{M}{lr},
- 		target=\ringbimod{R}{S}{N}{lr},
- 		Farrow=f,
- 		Fsource=\ringbimod{R}{\opst{S}}{M}{l},
- 		Ftarget=\ringbimod{R}{\opst{S}}{N}{l},
- 	}
- \end{center}
-es un isomorfismo de categorías, con inversa
- \begin{center}
- 	\functor{
- 		name=G_2,
- 		codom=\ringbimod{R}{S}{\text{Mod}}{lr},
-		dom=\ringbimod{R}{\opst{S}}{\text{Mod}}{l},
-		arrow=g,
-		Fsource=\ringbimod{R}{S}{M}{lr},
-		Ftarget=\ringbimod{R}{S}{N}{lr},
-		Farrow=g,
-		source=\ringbimod{R}{\opst{S}}{M}{l},
-		target=\ringbimod{R}{\opst{S}}{N}{l},
-		delimiter=\text{.},
- 	}
- \end{center}
-  Finalmente empleando, el Ej. 12 y un procedimiento análogo al previamente desarrollado se verifica que $M\in\ringbimod{R}{S}{\text{Mod}}{l}$ si y sólo si  $M\in\ringbimod{R}{\opst{S}}{\text{Mod}}{lr}$, y que $f\in Hom\lrprth{\ringbimod{R}{S}{M}{l},\ringbimod{R}{S}{N}{l}}$ si y sólo si $f\in Hom\lrprth{\ringbimod{R}{\opst{S}}{M}{lr},\ringbimod{R}{\opst{S}}{N}{lr}}$; y así
-  \begin{center}
-  	\functor{
-  		name=F_3,
-  		dom=\ringbimod{R}{S}{\text{Mod}}{l},
-  		codom=\ringbimod{R}{\opst{S}}{\text{Mod}}{lr},
-  		arrow=f,
-  		source=\ringbimod{R}{S}{M}{l},
-  		target=\ringbimod{R}{S}{N}{l},
-  		Farrow=f,
-  		Fsource=\ringbimod{R}{\opst{S}}{M}{lr},
-  		Ftarget=\ringbimod{R}{\opst{S}}{N}{lr},
-  	}
-  \end{center}
-  es un isomorfismo de categorías, con inversa
-  \begin{center}
-  	\functor{
-  		name=G_3,
-  		codom=\ringbimod{R}{S}{\text{Mod}}{lr},
-  		dom=\ringbimod{R}{\opst{S}}{\text{Mod}}{l},
-  		arrow=g,
-  		Fsource=\ringbimod{R}{S}{M}{lr},
-  		Ftarget=\ringbimod{R}{S}{N}{lr},
-  		Farrow=g,
-  		source=\ringbimod{R}{\opst{S}}{M}{l},
-  		target=\ringbimod{R}{\opst{S}}{N}{l},
-  		delimiter=\text{.},
-  	}
-  \end{center}
-\end{proof}
-
-%%%%% Ejercicio 22 %%%%%
-\item Sea $\varphi : R \longrightarrow S$ un morfismo de anillos. Pruebe que:
-\begin{enumerate}
-	\item La correspondencia de cambio de anillos $F_{\varphi} : Mod\lrprth{S} \longrightarrow Mod\lrprth{R}$ es un funtor.
-	\item Para cualesquiera $M,N \in Mod\lrprth{S}$, se tiene que
-	\begin{align*}
-		\ringmodhom{S}{M}{N} &\leq \ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\\
-		&= \ringmodhom{\varphi \lrprth{R}}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\\
-		&\leq \ringmodhom{\mathbb{Z}}{M}{N}
-	\end{align*}
-	como grupos abelianos. En particular, $F_{\varphi}$ es fiel y éste es pleno si $\varphi \lrprth{R}=S$.
-\end{enumerate}
-\begin{proof}
-	$\boxed{\text{(a)}}$ Primero, por la propia correspondencia, a todo $S$-módulo $M$ se le asigna un $R$-módulo $F_{\varphi} \lrprth{M}=M$. En vista de lo anterior, bastará probar que $F_{\varphi}\lrprth{f} = f \in \ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}$, para $f \in \ringmodhom{S}{M}{N}$ y $M,N \in Mod\lrprth{S}$.\\
-	
-	Sea $f:M \longrightarrow N$ un morfismo de $S$-módulos. Ahora, dados $r \in R$ y $m,n \in M$, se satisface que
-	\begin{align*}
-		F_{\varphi}\lrprth{f}\lrprth{r \cdot m + n}&=f\lrprth{\varphi\lrprth{r}*m+n}\\
-		&=\varphi \lrprth{r}*f\lrprth{m}+f\lrprth{n}\\
-		&=r \cdot f\lrprth{m}+f\lrprth{n}\\
-		&=r \cdot F_{\varphi} \lrprth{f}\lrprth{m}+F_{\varphi} \lrprth{f}\lrprth{n}
-	\end{align*}
-	Con lo cual, $F_{\varphi} \lrprth{f}$ es un morfismo de $R$-módulos. $\therefore F_{\varphi}$ es un funtor.\\
-	
-	$\boxed{\text{(b)}}$ Note que, por el inciso anterior, todo morfismo de $S$-módulos es un morfismo de $R$-módulos. Más aún, como todo $R$-módulo es un grupo abeliano y como todo morfismo de $R$-módulos preserva sumas, se tiene que $\ringmodhom{S}{M}{N}\leq\ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\ringmodhom{\varphi \lrprth{R}}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}$ y que $\ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}} \leq \ringmodhom{\mathbb{Z}}{M}{N}$.\\
-	
-	Por otra parte, $F_{\varphi}$ es fiel, toda vez que a cualesquiera 2 morfismos $f \neq g$ se le asignan morfismos $F_{\varphi} \lrprth{f} = f \neq g = F_{\varphi} \lrprth{g}$. Por otro lado, suponga que $\varphi \lrprth{R}=S$. Dado $f \in \ringmodhom{R}{M}{N}$, éste es un morfismo de $S$-módulos. En efecto, si $s \in S$, entonces $s = \varphi \lrprth{r}$, para alguna $r \in R$. De esta forma, definimos $f\lrprth{s*m}$ como $f\lrprth{s*m}=f\lrprth{rm}$, e inclusive tenemos $F_{\varphi^{-1}} \lrprth{f}=f$. $\therefore F_{\varphi}$ es pleno.\\
-\end{proof}
-
-%%%%% Ejercicio 23 %%%%%
-\item Sea $R$ un anillo e $I\lhd R$. Considere el epimorfismo canónico de anillos $\pi:R\longrightarrow \faktor{R}{I}$,\,\,$r\mapsto r+I$.
-\begin{itemize}
-	\item[a)] Pruebe que el funtor de cambio de anillos \\
-	$F_\pi:Mod\left(\faktor{R}{I}\right)\longrightarrow Mod(R)$ es fiel y pleno.
-	\item[b)] Sea $\zeta_I$ la subcategoría plena de $Mod(R)$ cuyos objetos son los \\
-	$M\in Mod(R)$ que son aniquilados por $I$, i.e. 
-	\[M\in \zeta_I\,\,\iff\,\,I\subseteq ann_R(M):=\{r\in R\,:\, rm=0\,\,\forall m\in M\}.\]
-	Pruebe que $F_\pi\left(Mod\left(\faktor{R}{I}\right)\right)=\zeta_I$ y que $F_\pi:Mod\left(\faktor{R}{I}\right)\longrightarrow \zeta_I$ 
-	es un isomorfismo de categorías.
-\end{itemize}
-\begin{proof}
-	
-	\boxed{a)} Sean $A,B\in Mod(R)$. Por el ejercicio 22 a), F es un funtor, y como $\pi(R)=R/I$, entonces  por el ejercicio 22 b), $F_\pi$ es fiel y pleno.\\
-	
-	\boxed{b)} Sea $A\in Mod\left(\faktor{R}{I}\right)$, entonces tenemos que $F_\pi(A)\in Mod(R)$. Ahora, si $m\in F_\pi(A)$, entonces para cada $x\in I,
-	\,\,\,x\cdot m=\pi(X)*m=0*m=0$, donde $\cdot$ y $*$ son las acciones definidas en $A$ y $F_\pi(A)$ respectivamente.\\
-	Por lo tanto $I\subseteq ann_R(M)$ y $F_\pi(A)\in \zeta_I.$\\
-	
-	Ahora, sea $A\in \zeta_I$, entonces $I\subseteq ann_R(A):=\{r\in R\,:\,rm=0\,\,\forall m\in A\}$, en particular $A\in Mod(R)$, así 
-	definimos la función $*:\faktor{R}{I}\times A\longrightarrow A$ dada por $[r]*m=(r+I)*m:=r\cdot m+I\cdot m$ donde $\cdot$ es la 
-	acción de $A$ como $R$-módulo, y se tiene que, como $I\cdot m=\{im\,:\,i\in I,\, m\in A\}$ y $A\in \zeta_I$, $I\cdot m=\{0\}.$\\
-	
-	Por lo tanto, si $r,s\in [x]$ con $\, r=x+k_1$ y $s=x+k_2$, entonces $r*m=s*m,$ en particular $[r]*m=r\cdot m\,\,\forall r\in R$, es decir,
-	$*$ es una acción de $A$ (bien definida) como $\faktor{R}{I}$ -módulo, es un $R$-módulo y $[r]*m=r\cdot m\,\,\forall r\in R$,
-	es decir, $A\in F_\pi\left(Mod\left(\faktor{R}{I}\right)\right)$. Y en consecuencia $Mod\left(\faktor{R}{I}\right)=\zeta_I$\\
-	
-	Con esto podemos ver que $F_\pi:Mod\left(\faktor{R}{I}\right)\longrightarrow\zeta_I$ es funtor, y más aun, definiendo 
-	$G_\pi:\zeta_I\longrightarrow Mod\left(\faktor{R}{I}\right)$ dado por $G_\pi(M)=M$ para cada $M\in \zeta_I$ y $G_\pi(f)([r]*_{{}_M} m)
-	=[r]*_{{}_N}f(m)$ para cada $f\in Hom(M,N)$ donde $*$ es la acción a izquierda de $M$ como $\faktor{R}{I}$ -módulo,
-	es un funtor pues $G_\pi(1_M)([r]*_{{}_M}m)=[r]*_{{}_M}m=1_M([r]*_{{}_M}m)$ y para $ f\in Hom_R(M,N), g\in Hom_R(N,L)$
-	\begin{align*}
-		G_\pi(gf)([r]*_{{}_M}m)=&[r]*_{{}_L}gf(m)=G_\pi(g)\left([r]*_{{}_N}f(m)\right)\\
-		&=\left(G_\pi(g)\circ G_\pi(f)\right)([r]*_{{}_M}m).
-	\end{align*}
-	
-	Así $F_\pi\circ G_\pi(A)=A=G_\pi\circ F_\pi(A)\quad \forall A\in Mod\left(\faktor{R}{I}\right)=\zeta_I$, y cumple las siguientes condiciones
-	\begin{itemize}
-		\item[i)] $F_\pi\circ G_\pi(1_A)=F_\pi(1_A)=1_A=G_\pi(1_A)=G_\pi\circ F_\pi(1_A)$.
+	\maketitle
+	%%%%% Definición %%%%%
+	\begin{define}
+		Sean $R$ y $S$ anillos. Decimos que un grupo abeliano, $M$, es un $R$-derecho y $S$-derecho bimódulo si
+		\begin{enumerate}[label=\roman*)]
+			\item $M\in\ringmod{R}{\text{Mod}}{r}\cap\ringmod{S}{\text{Mod}}{r}$;
+			\item $(mr)s=(ms)r$, $\forall\ r\in R$, $\forall\ s\in S$ y $\forall\ m\in M$.
+		\end{enumerate}
+		En tal caso denotamos a $M$ como $\ringbimod{R}{S}{M}{r}$.
+	\end{define}
+	\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+		\setcounter{enumi}{11}
 		
-		\item[ii)] Considerando a $\cdot$ y $*$ como las acciones a izquierda como $R$ -módulo y $\faktor{R}{I}$ -módulo respectivamente.
-		Para cualquier $r\in R, m\in M,\\ f\in Hom_R(M,N)$ y $g\in Hom_{\faktor{R}{I}}(M,N)$, se tiene lo siguiente.
-	\end{itemize}
-	\[\left(F\pi\circ G_\pi(f)\right)(r\cdot_{{}_M}m)=[r] *_{{}_N} G_\pi(f)(m)=[r] *_{{}_N}f(m)=r\cdot_{{}_N}f(m)=f(r\cdot_{{}_M}m).\]
-	
-	\[\left(G\pi\circ F_\pi(g)\right)([r]*_{{}_M}m)=r \cdot_{{}_N} F_\pi(g)(m)=r\cdot_{{}_N}g(m)=[r]*_{{}_N}g(m)=g([r]*_{{}_M}m).\]
-	
-	Por lo tanto $F\pi\circ G_\pi(f)=1_{\zeta_I}$\quad y \quad $G\pi\circ F_\pi(g)=1_{Mod\left(\faktor{R}{I}\right)}$, es decir, $F_\pi$ es
-	un isomorfismo de categorías.
-\end{proof}
-
-%%%%% Ejercicio 24 %%%%%
-\item Sean $R$, $S$ y $T$ anillos.
-\begin{enumerate}[label=(\alph*)]
-	\item Sean $M\in\ringbimod{R}{S}{\text{Mod}}{lr}$, $N\in\ringbimod{R}{T}{\text{Mod}}{lr}$, $H:=\ringmodhom{R}{\ringbimod{R}{S}{M}{lr}}{\ringbimod{R}{T}{N}{lr}}$ y las siguientes aplicaciones, denotadas por medio del mismo simbolo para simplificar la notación,
-	\begin{align*}
-		\descapp{\bullet}{S\times H}{H}{(s,f)}{s\bullet f}{,}
-		\intertext{con}
-		\descapp{s\bullet f}{M}{N}{x}{f(xs)}{;}\\
-		\descapp{\bullet}{H\times T}{H}{(f,t)}{f\bullet t}{,}
-		\intertext{con}
-		\descapp{f\bullet t}{M}{N}{x}{f(x)t}{.}
-	\end{align*}
-	A través de las aplicaciones anteriores  $H\in\ringbimod{S}{T}{\text{Mod}}{lr}$.
-	\item Sean $M\in\ringbimod{S}{R}{\text{Mod}}{lr}$, $N\in\ringbimod{T}{R}{\text{Mod}}{lr}$, $H':=\ringmodhom{R}{\ringbimod{S}{R}{M}{lr}}{\ringbimod{T}{R}{N}{lr}}$ y las siguientes aplicaciones, denotadas por medio del mismo simbolo para simplificar la notación,
-	\begin{align*}
-		\descapp{\bullet}{T\times H}{H}{(t,f)}{t\bullet f}{,}
-		\intertext{con}
-		\descapp{t\bullet f}{M}{N}{x}{tf(x)}{;}\\
-		\descapp{\bullet}{H\times S}{H}{(f,s)}{f\bullet s}{,}
-		\intertext{con}
-		\descapp{f\bullet s}{M}{N}{x}{f(sx)}{.}
-	\end{align*}
-	A través de las aplicaciones anteriores $H\in\ringbimod{T}{S}{\text{Mod}}{lr}$.
-\end{enumerate}
-\begin{proof}
-	$\boxed{\text{(a)}}$ Notemos primeramente que $G:=Hom\lrprth{M,N}$ es un grupo con la suma usual de funciones, pues $M$ y $N$ lo son con sus respectivas operaciones, y que, si $f,g\in H$, $r\in R$ y $m\in M$, entonces
-	\begin{align*}
-		\lrprth{f-g}(rm)&=f(rm)-g(rm)=rf(m)-rg(m)=r\lrprth{f(m)-g(m)}\\
-		&=r\lrprth{\lrprth{f-g}(m)}.\\
-		&\implies f-g\in H\\
-		&\implies H\leq G.
-	\end{align*}
-	Así, en partícular, $H$ es un grupo abeliano. Verifiquemos ahora que por medio de la primera aplicación $H\in\ringmod{S}{\text{Mod}}{l}$. Sean $f,g\in H, s,s'\in S$ y $m\in M$, entonces
-	\begin{align*}
-		\lrprth{\lrprth{s+s'}\bullet f}(m)&=f\lrprth{m\lrprth{s+s'}}\\
-		&=f\lrprth{ms+ms'} && M\in\ringmod{S}{\text{Mod}}{r}\\
-		&=f\lrprth{ms}+f\lrprth{ms'} && f\in Hom\lrprth{M,N}\\
-		&=s\bullet f (m)+s'\bullet f (m)\\
-		&=\lrprth{s\bullet f+ s'\bullet f}(m).\\
-		\implies \lrprth{s+s'}\bullet f&= s\bullet f+ s'\bullet f.\\
-		\lrprth{s\bullet\lrprth{f+g}}(m)&=\lrprth{f+g}\lrprth{ms}\\
-		&=f(ms)+g(ms)\\
-		&=s\bullet f (m)+ s\bullet g (m)\\
-		&=\lrprth{s\bullet f+ s\bullet g }(m).\\
-		\implies s\bullet\lrprth{f+g}&= s\bullet f+ s\bullet g.\\
-		\lrprth{s\bullet\lrprth{s'\bullet f}}(m)&=\lrprth{s'\bullet f}\lrbrack{ms}\\
-		&=f\lrprth{(ms)s'}\\
-		&=f\lrprth{m(ss')} && M\in\ringmod{S}{\text{Mod}}{r}\\
-		&=\lrprth{\lrprth{ss'}\bullet f}(m).\\
-		\implies s\bullet\lrprth{s'\bullet f}&= \lrprth{ss'}\bullet f.\\
-		\lrprth{1_S\bullet f}(m)&=f\lrprth{m1_s}\\
-		&=f(m) && M\in\ringmod{S}{\text{Mod}}{r}.\\
-		\implies 1_S\bullet f&= f.\\
-		&\therefore\ H\in\ringmod{S}{\text{Mod}}{l}.
-	\end{align*} 
-	Verifiquemos ahora que por medio de la segunda aplicación $H\in\ringmod{T}{\text{Mod}}{r}$. Sean $f,g\in H, t,t'\in S$ y $m\in M$, entonces
-	\begin{align*}
-		\lrprth{\lrprth{f+g}\bullet t}(m)&=\lrprth{\lrprth{f+g}(m)}t\\
-		&=\lrprth{f(m)+g(m)}t\\
-		&=f(m)t+g(m)t && N\in\ringmod{T}{\text{Mod}}{r}\\
-		&=f\bullet t(m)+g\bullet t(m)\\
-		&=\lrprth{\lrprth{f+g}\bullet t}(m).\\
-		\implies \lrprth{f+g}\bullet t&= \lrprth{f+g}\bullet t.\\
-		\lrprth{f\bullet\lrprth{t+t'}}(m)&=f(m)\lrprth{t+t'}\\
-		&=f(m)t+f(m)t'\\
-		&=f\bullet t(m)+ f\bullet t' (m)\\
-		&=\lrprth{f\bullet t+ f\bullet t' }(m).\\
-		\implies f\bullet\lrprth{t+t'}&= f\bullet t+ f\bullet t'.\\
-		\lrprth{\lrprth{f\bullet t}\bullet t'}(m)&=\lrprth{\lrprth{f\bullet t}(m)}t'\\
-		&=\lrprth{f(m)t}t'\\
-		&=f(m)\lrprth{tt'} && N\in\ringmod{T}{\text{Mod}}{r}\\
-		&=\lrprth{f\bullet\lrprth{tt'}}(m).\\
-		\implies \lrprth{f\bullet t}\bullet t'&= f\bullet\lrprth{tt'}.\\
-		\lrprth{f\bullet 1_T}(m)&=f(m)1_T\\
-		&=f(m) && N\in\ringmod{T}{\text{Mod}}{r}.\\
-		\implies f\bullet 1_T&= f.\\
-		&\therefore\ H\in\ringmod{T}{\text{Mod}}{r}.\\
-		\intertext{Así}
-		H&\in\ringmod{S}{\text{Mod}}{l}\cap \ringmod{T}{\text{Mod}}{r}.\\
-		\intertext{Finalmente, notemos que}
-		\lrprth{\lrprth{s\bullet f}\bullet t}(m)&=\lrprth{\lrprth{s\bullet f}(m)}t\\
-		&=f(ms)t\\
-		&=\lrprth{f\bullet t}(ms)\\
-		&=\lrprth{s\bullet\lrprth{f\bullet t}}(m).\\
-		\implies \lrprth{s\bullet f}\bullet t&= s\bullet\lrprth{f\bullet t}.\\
-		&\therefore\ H\in\ringbimod{S}{T}{\text{Mod}}{lr}.
-	\end{align*} 
-	$\boxed{\text{(b)}}$ Es análogo a lo demostrado en (a), empleando ahora las propiedades de los morfismos de $R$-módulos a derecha para verificar que $H'$ es un grupo abeliano con la suma usual de funciones, y que $M\in\ringmod{S}{\text{Mod}}{l}, N\in\ringmod{T}{\text{Mod}}{l}$ para verificar que $H\in\ringbimod{T}{S}{\text{Mod}}{lr}$.
-\end{proof}
-
-%%%%% Ejercicio 25 %%%%%
-\item Sean $R$ y $S$ anillos, y $M \in {}_{R}Mod_{S}$. Pruebe que:
-\begin{enumerate}
-	\item $\rho :_{R}M_{S} \longrightarrow \ringmodhom{R}{_{R}R_{R}}{_{R}M_{S}}$, con $\rho \lrprth{m}\lrprth{r}=rm$, es un isomorfismo en $_{R}Mod_{S}$
-	\item $\lambda :_{R}M_{S} \longrightarrow \ringmodhom{S}{_{S}S_{S}}{_{R}M_{S}}$, con $\lambda \lrprth{m}\lrprth{s}=ms$, es un isomorfismo en $_{R}Mod_{S}$
-\end{enumerate}
-\begin{proof}
-	$\boxed{\text{(a)}}$ Sea $m \in M$. Probaremos que $\rho \lrprth{m}$ un morfismo de $R$-$S$-bimódulos. Considere $r,t \in R$, en virtud de que $M$ es un $R$-módulo a izquierda, se tiene que
-	\begin{align*}
-		\rho\lrprth{m}\lrprth{r+t}&=\lrprth{r+t}m\\
-		&=rm+tm\\
-		&=\rho\lrprth{m}\lrprth{r}+\rho \lrprth{m}\lrprth{t}.
-	\end{align*}
-	Adicionalmente,
-	\begin{align*}
-		\rho \lrprth{m}\lrprth{rt}&=\lrprth{rt}m\\
-		&=r\lrprth{tm}\\
-		&=r \rho \lrprth{m}\lrprth{t}.
-	\end{align*}
-	Por tanto, $\rho \in Hom_{R}\lrprth{_{R}R_{R},_{R}M_{S}}$.\\
-	
-	Además, $\rho$ es un morfismo de $R$-módulos a izquierda. En efecto, si $a,b \in R$ y $x,y \in M$, entonces 
-	\begin{align*}
-		\rho \lrprth{x+y}\lrprth{a}&=a\lrprth{x+y}\\
-		&=ax+ay\\
-		&=\rho \lrprth{x}\lrprth{a} + \rho \lrprth{y}\lrprth{a}.
-		\intertext{También}
-		\rho\lrprth{x}\lrprth{ab}&=\lrprth{ab}x\\
-		&=a\lrprth{bx}\\
-		&=a\rho\lrprth{bx}.
-	\end{align*}
-	
-	Posteriormente, si $m \in Ker\lrprth{\rho}$, entonces $\rho\lrprth{m}=0$. De esta forma, $rm=0$, para cualquier $r \in R$. Como $M$ es unitario, el único de sus elementos que es anulado por cada elemento de $R$ es el $0$; en este sentido, $Ker\lrprth{ \rho }=0$. Por consiguiente, $\rho$ es monomorfismo.\\
-	
-	Finalmente, sea $g \in \ringmodhom{R}{R}{M}$. Si consideramos $g\lrprth{1}$, se satisface que $\rho \lrprth{g\lrprth{1}}=g$. $\therefore\rho$ es isomorfismo.
-	
-	$\boxed{\text{(b)}}$ De manera análoga al inciso anterior, podemos probar este inciso, por lo cual nos centraremos más en las cuentas. Bajo este contexto, tenemos que:
-	\begin{itemize}
-		\item Sean $m \in M$ y $s,u \in S$.
+		%%%%% Ejercicio 12 %%%%%
+		\item Sea $M\in\ringmod{R}{\text{Mod}}{l}\cap\ringmod{S}{\text{Mod}}{l}$. Entonces $M\in\ringbimod{R}{S}{\text{Mod}}{l}$ si y sólo si $M\in\ringbimod{R}{\opst{S}}{\text{Mod}}{lr}$.
+		\begin{proof}
+			Como $M\in\ringmod{R}{\text{Mod}}{l}\cap\ringmod{S}{\text{Mod}}{l}$ y, por el Ej. 8, $M\in\ringmod{\opst{S}}{\text{Mod}}{r}$, entonces $M\in\ringmod{R}{\text{Mod}}{l}\cap\ringmod{\opst{M}}{\text{Mod}}{r}$.\\ Sean $r\in R$, $s\in S$ y $m\in M$. 
+			Dado que, ver Ej 8, $sm=ms^{op}$ entonces 
+			\begin{align*}
+				r(sm)=s(rm)&\iff r(m\opst{s})=(rm)\opst{s}\\
+				\therefore\  M\in\ringbimod{R}{S}{\text{Mod}}{l}&\iff M\in\ringbimod{R}{\opst{S}}{\text{Mod}}{lr}.
+			\end{align*}
+		\end{proof}
+		
+		%%%%% Ejercicio 13
+		\item Sea $f:\lrprth{L, \leq } \longrightarrow \lrprth{L', \leq '}$ un morfismo de lattices. Pruebe que:
+		\begin{enumerate}
+			\item $f$ es morfismo de posets.
+			\item $f$ es un isomorfismo de lattices si y sólo si lo es de posets.
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{(a)}}$ Sean $x,y \in L$. Probaremos primero que $x \leq y$ si y sólo si $x \wedge y = x$. Si $x \leq y$, entonces $x \leq x \wedge y$, puesto que $x \leq x$ y $x \leq y$. Además, por definición, tenemos que $x \wedge y \leq x$. Así $x = x \wedge y$. Por el contrario, si suponemos que $x = x \wedge y$, entonces observe que $x \leq y$.\\
+			
+			La afirmación anterior será útil en el proceso de probar este inciso. En efecto, supongamos que $x \leq y$. Como $f$ es morfismo de lattices, se tiene que $f\lrprth{x}=f\lrprth{x \wedge y}=f\lrprth{x} \wedge f\lrprth{y}$. $\therefore f\lrprth{x} \leq ' f\lrprth{y}$.\\
+			
+			$\boxed{\text{(b)}} \boxed{\Rightarrow )}$ Suponga que $f$ es isomorfismo de lattices. En primer lugar, por el inciso anterior, $f$ es morfismo de posets. Ahora, por hipótesis, existe $g:L' \longrightarrow L$ un morfismo de lattices tal que $f \circ g = Id_{L'}$ y $g \circ f = Id_{L}$; éste a su vez también es un morfismo de posets. Por tanto, $f$ es un isomorfismo de posets.\\
+			
+			$\boxed{\Leftarrow )}$ Consideremos que $f$ es un isomorfismo de posets. Entonces existe $g:L' \longrightarrow L$ un morfismo de posets tal que $f \circ g = Id_{L'}$ y $g \circ f = Id_{L}$. Veremos que $g$ es un morfismo de latices. Sean así $r,t  \in L'$. Dado que $r \wedge t \leq ' r$ y $r \wedge t \leq ' t$, se tiene que $g\lrprth{r \wedge t} \leq g\lrprth{r}$ y $g\lrprth{r \wedge t} \leq g\lrprth{t}$, y por ende $g\lrprth{r \wedge t} \leq g\lrprth{r} \wedge g\lrprth{t}$. Posteriormente, usando el hecho de que $f$ es morfismo de lattices, se deduce que
+			\begin{align*}
+				r \wedge t &= f\lrprth{g\lrprth{r \wedge t}}\\
+				&\leq' f\lrprth{g\lrprth{r} \wedge g\lrprth{t}}\\
+				&=f\lrprth{g\lrprth{r}} \wedge f\lrprth{g\lrprth{t}}\\
+				&=r \wedge t.
+			\end{align*}
+			De este modo,
+			\begin{align*}
+				g\lrprth{r \wedge t} &= g\lrprth{f\lrprth{g\lrprth{r} \wedge g\lrprth{t}}}\\
+				&=g\lrprth{r} \wedge g\lrprth{t}.
+			\end{align*}
+			Dado que $g$ es morfismo de lattices, podemos concluir que la afirmación es cierta.
+		\end{proof}
+		
+		%%%%% Ejercicio 14 %%%%%
+		\item Sean $X,M\in \prescript{}{R}{Mod}$\,\, tal que\,\, $X\subseteq M$. Pruebe que $X\leq M$ $\iff$ la inclusión $i_X:X\longrightarrow M,
+		i_X(x):=x\quad \forall x\in X,$ es un morfismo de $R$ módulos.
+		
+		\begin{proof}
+			$\boxed{\Rightarrow}$ Supongamos que $X\leq M$, entonces dados $x,y\in X$ y $r\in R$ se tiene que 
+			\[i_x(rx+y)=rx+y =ri_X(x)+i_X(y). \]
+			Por lo que $i_X$ es morfismo.\\
+			
+			$\boxed{\Leftarrow}$ Ahora supongamos que  $i_X:X\longrightarrow M$ es un morfismo de $R$ módulos.\\
+			
+			Sean $x,y\in X$ y $r\in R$, como $X$ es un $R$ módulo a izquierda entonces $x+y\in X$ y como $i_X$ es morfismo
+			se tiene que, si $\cdot: R\times X\longrightarrow X$ es la acción de $R$ módulo en $X$, entonces 
+			$r\cdot x = r\cdot i_X(x) = i_X(rx)=rx $. Así, como $X\subset M$, entonces $X\leq M$.\\
+		\end{proof}
+		
+		%%%%% Definición %%%%%
+		\begin{define}
+			Sean $M\in\ringmod{R}{\text{Mod}}{l}$ y $\arbtfam{X}{i}{I}$ una familia de $R$-submódulos de $M$. Definimos la suma de la familia $\arbtfam{X}{i}{I}$ como
+			\begin{equation*}
+				\sum_{i\in I}X_i:=\gengroup{\bigcup_{i\in I}X_i}_R.
+			\end{equation*}
+		\end{define}
+		
+		%%%%% Ejercicio 15 %%%%%
+		\item Sean $M\in\ringmod{R}{\text{Mod}}{l}$ y $\arbtfam{X}{i}{I}$ una familia de $R$-submódulos de $M$. Entonces
+		\begin{enumerate}[label=(\alph*)]
+			\item \begin{equation*}
+				\sum_{i\in I}X_i=\left\{\begin{tabular}{cc}
+					$\lrbrack{0}$ &, $I=\varnothing$  \\
+					\(\displaystyle
+					\lrbrack{\sum_{j\in\lrbrack{i_1,\dotsc,i_n}\subseteq I}x_j\ \vline\ x_j\in X_j,\ n\in\mathbb{N}\setminus\lrbrack{0}}\) & , $I\neq\varnothing$
+				\end{tabular}\right.
+			\end{equation*}
+			\item $\lrbrack{\genlin{M},\leq}$ es un reticulado completo. Más aún, si $\arbtfam{X}{i}{I}$ es una familia no vacía de $R$-submódulos de $M$,
+			\begin{align*}
+				sup\arbtfam{X}{i}{I}&=\sum_{i\in I}X_i,\\
+				inf\arbtfam{X}{i}{I}&=\bigcap_{i\in I}X_i.
+			\end{align*}
+		\end{enumerate}
+		\begin{proof}
+			Verifiquemos primeramente el siguiente lema:
+			%%%%% Lema %%%%%
+			\begin{lem}
+				Sea $M\in\ringmod{R}{\text{Mod}}{l}$. Si $\mathcal{A}\subseteq\genlin{M}$ entonces $\bigcap \mathcal{A}\in\genlin{M}$.
+			\end{lem}
+			\begin{proof}
+				Notemos que 
+				\begin{align*}
+					0+0&=0;\\
+					r\bullet 0&=r\bullet(0+0)=r\bullet 0+r\bullet 0\\
+					&\implies r\bullet 0=0,\ \forall\ r\in R.\\
+					\implies &\lrbrack{0}\in\genlin{M}.
+					\intertext{Además}
+					0_R\bullet x&=\lrprth{0_R+0_R}\bullet x=0_R\bullet x+0_R\bullet x\\
+					&\implies 0_R\bullet x=0,\ \forall\ x\in M.
+					\intertext{Por lo anterior, y dado que si $X\in\genlin{M}$ entonces $X\neq\varnothing$, se tiene que}
+					&\lrbrack{0}\subseteq X,\ \forall\ X\in \genlin{M}.
+				\end{align*}
+				Con lo cual $\bigcap \mathcal{A}\neq\varnothing$, pues $\lrbrack{0}\subseteq \bigcap \mathcal{A}$. Sean $r\in R,\ a,b\in \bigcap\mathcal{A}$ y $A\in\mathcal{A}$. Como $A\leq M$
+				\begin{align*}
+					ra,a+b&\in A\\
+					\implies ra,a+b&\in A, \forall\ A\in\mathcal{A}\\
+					\implies ra,a+b&\in A, \forall\ \bigcap\mathcal{A}\\
+					&\implies \bigcap\mathcal{A}\in\genlin{M}.
+				\end{align*}
+			\end{proof}
+			Por el lema anterior el submódulo generado por un conjunto $A\supseteq X$ está bien definido y, más aún, es el mínimo submódulo de $M$, con respecto a $\subseteq$, que contiene a $A$.
+			$\boxed{\text{(a)}}$
+			Supongamos que $I=\varnothing$, entonces $\bigcup_{i\in I}X_i=\varnothing$, y así 
+			\begin{align*}
+				\sum_{i\in I}X_i&=\bigcap\descset{X}{\genlin{M}}{\varnothing\subseteq X}\\
+				&=\bigcap\genlin{M}.
+				\intertext{Del lema se tiene que $0\in X,\ \forall\ X\in \genlin{M}$ y que $\lrbrack{0}\in\genlin{M}$, con lo cual}
+				\lrbrack{0}&\subseteq\bigcap_{X\in\genlin{M}}X=\bigcap\genlin{M}\subseteq\lrbrack{0}\\
+				&\therefore\ \sum_{i\in I}X_i=\lrbrack{0}.
+			\end{align*}
+			Supongamos ahora que $I\neq\varnothing$. Si 
+			\begin{equation*}
+				S:=\lrbrack{\sum_{j\in\lrbrack{i_1,\dotsc,i_n}\subseteq I}x_j\ \vline\ x_j\in X_j,\ n\in\mathbb{N}\setminus\lrbrack{0}}
+			\end{equation*}
+			afirmamos que $S\in\genlin{M}$. En efecto:\\
+			Como $I\neq\varnothing$ y $X_i\neq\varnothing$, $\forall\ i\in I$, entonces $S\neq\varnothing$. Sean $r\in R$ y $a,b\in S$, luego $\exists\ n,m\in\mathbb{N}$ tales que
+			\begin{align*}
+				a&=\sum_{j\in\lrbrack{i_1,\dotsc,i_n}}x_j\\
+				b&=\sum_{j\in\lrbrack{k_1,\dotsc,k_m}}y_j.
+				\intertext{En caso que $\lrbrack{i_1,\dotsc,i_n}= \lrbrack{k_1,\dotsc,k_n}$}
+				a+b&=\sum_{j\in\lrbrack{i_1,\dotsc,i_n}}\lrprth{x_j+y_j}
+				\intertext{Como $X_j\leq M$, $x_j+y_j\in X_j$, $\forall\ j\in\lrbrack{i_1,\dotsc,i_n}$; luego $a+b\in S$. Si ahora $\lrbrack{i_1,\dotsc,i_n}\cap
+					\lrbrack{k_1,\dotsc,k_n}=\varnothing$ consideremos}
+				l_r&:=i_r,\ \forall r\in[1,n]\\
+				l_{n+r}&:=k_r,\ \forall r\in[1,m].
+				\intertext{Así}
+				a+b&=\sum_{j\in\lrbrack{l_1,\dotsc,l_{n+m}}}z_j\\
+				&\implies a+b\in S.
+				\intertext{Finalmente, reetiquetando de ser necesario, si}
+				A&:=\lrbrack{i_1,\dotsc,i_n}\\
+				B&:=\lrbrack{k_1,\dotsc,k_m}\\
+				D&:=\lrbrack{i_1,\dotsc,i_n}\cap
+				\lrbrack{k_1,\dotsc,k_n}\\
+				E&:=\lrbrack{i_1,\dotsc,i_n}\cup
+				\lrbrack{k_1,\dotsc,k_n}=\lrbrack{l_1,\dotsc,l_{r},l_{r+1},\dotsc,l_{t}},\\
+				\intertext{con $\crdnlty{D}=r>0$, $\crdnlty{E\setminus D}=t>0$, entonces}
+				a+b&=\sum_{j\in D}\lrprth{x_j+y_j}+\sum_{j\in A\setminus D}x_j+\sum_{j\in B\setminus D}y_j \\
+				&=\sum_{j\in E}z_j\\
+				&\implies a+b\in S.
+			\end{align*}
+			Por otro lado
+			\begin{align*}
+				r\bullet a&=r\bullet\sum_{j\in A}x_j=\sum_{j\in A}r\bullet x_j.
+			\end{align*}
+			De modo que $r\bullet a\in S$, pues $A\subseteq I$ es finito y, como $X_j\leq M$, $r\bullet x_j\in X_j$, $\forall\ j\in A$; y por lo tanto $S\leq M$. \\
+			Como $\lrbrack{i}\subseteq I$, $\forall\ i\in I$, entonces
+			$\bigcup_{i\in I}X_i\subseteq S$. De modo que
+			\begin{equation*}
+				\sum_{i\in I}X_i=\gengroup{\bigcup_{i\in I}X_i}_R\subseteq S.
+			\end{equation*}
+			Ahora si $Y\leq M$ es tal que $Y\supseteq \bigcup_{i\in I}X_i$, $J:=\lrbrack{i_1,\dotsc,i_n}\subseteq I$ y $a_j\in X_j\subseteq\bigcup_{i\in I}X_i,\ \forall\ j\in J$, entonces
+			\begin{align*}
+				\sum_{j\in J}a_j&\in Y\\
+				\implies S&\subseteq Y,\ \forall\ Y\in\genlin{M}\text{ tal que } Y\supseteq \bigcup_{i\in I}X_i\\
+				\implies S&\subseteq \gengroup{\bigcup_{i\in I}X_i}_R=\sum_{i\in I}X_i\\
+				&\therefore\ S=\sum_{i\in I}X_i.
+			\end{align*}
+			$\boxed{\text{(b)}}$ El par $(\genlin{M},\leq)$ es un CPO puesto que la relación $\subseteq$ es un orden parcial.\\
+			Sea $C\leq M$ cota superior de $S$. Entonces $X_i\leq C$, $\forall\ i\in I$; luego $C\supseteq \bigcup_{i\in I}X_i$. Dado $\sum_{i\in I}X_i$ es el mínimo submódulo, con respecto a $\subseteq$, que contiene a $\bigcup_{i\in I}X_i$ se tiene que $\sum_{i\in I}X_i\leq C$ y por lo tanto $sup\lrprth{S}=\sum_{i\in I}X_i$.\\
+			Sea $c\leq M$ cota inferior de $S$. Entonces $c\leq X_i$, $\forall\ i\in I$; luego $c\subseteq \bigcap_{i\in I}X_i$. Como $\bigcap_{i\in I}X_i\in\genlin{M}$ y $\bigcap_{i\in I}X_i$ es cota inferior de $S$ se sigue que $inf\lrprth{S}=\bigcap_{i\in I}X_i$.
+			\begin{equation*}
+				\therefore\ \lrprth{\genlin{M},\leq}\text{ es un reticulado completo.}
+			\end{equation*}
+		\end{proof}
+		
+		%%%%% Ejercicio 16 %%%%%
+		\item Sean $M \in {}_{R}Mod$ y $N \leq M$. Consideremos $L_{N}\lrprth{M}=\descset{X}{L\lrprth{M}}{N \leq X}$. Pruebe que el epimorfismo canónico de $R$-módulos a izquierda
 		\begin{align*}
-			\rho\lrprth{m}\lrprth{su}&=m\lrprth{su}\\
-			&=\lrprth{ms}u\\
-			&=\rho\lrprth{m}\lrprth{s}u
+			\descapp{\pi_{N}}{M}{M/N}{m}{m+N}{ }
 		\end{align*}
-		\item Sean $m,n \in M$ y $s \in S$.
+		induce el isomorfismo de lattices
 		\begin{align*}
-			\rho\lrprth{m+n}\lrprth{s}&=\lrprth{m+n}s\\
-			&=ms+ns\\
-			&=\rho\lrprth{m}\lrprth{s}+\rho\lrprth{n}\lrprth{s}
+			\descapp{\widehat{\pi}_{N}}{L_{N}\lrprth{M}}{L\lrprth{M/N}}{X}{X/N}{ }
 		\end{align*}
-		\item Sean $m \in M$ y $s,u \in S$
-		\begin{align*}
-			\rho\lrprth{m}\lrprth{su}&=m\lrprth{su}\\
-			&=\lrprth{ms}u\\
-			&=\rho\lrprth{m}\lrprth{s}u
-		\end{align*}
-	\end{itemize}
-	
-	Así mismo, $\rho$ es un isomorfismo. En efecto, si $x \in Ker\lrprth{ \rho }$, entonces $\rho \lrprth{x}=0$; de donde $x=0$. Más aún, si $g \in \ringmodhom{S}{S}{M}$, entonces $\rho \lrprth{g\lrprth{1}}=g$.\\
-	$\therefore\rho$ es un isomorfismo.\\
-\end{proof}
-
-%%%%% Ejercicio 26 %%%%%
-\item Sea $R$ un anillo y $e^2=e\in R$, un idempotente en $R$.
-\begin{itemize}
-	\item[a)] Pruebe que la estructura de anillo en $R$ induce, de manera natural, una estructura de anillo en $eRe:=\{ere\,\colon\,r\in R\}$.
-	¿Es $eRe$ un subanilo de $R$?
-	\item[b)] Para cada $M\in Mod(R)$, pruebe que la acción a izquierda \\
-	$eRe\times eM\longrightarrow eM,$ \,\, $(ere,em)\mapsto erem$ 
-	induce una estructura de $eRe$-módulo a izquierda en $eM$.
-	\item[c)] Pruebe que la correspondencia $m_e:Mod(R)\longrightarrow Mod(eRe)$ , dada por 
-	$\left(M \stackrel{f}{\longrightarrow} N\right)\longmapsto \left(eM\stackrel{f|_{eM}}{\longrightarrow} eN\right)$, es funtorial.
-\end{itemize}
-\begin{proof}
-	\boxed{a)} Como $R$ es anillo, se tienen los siguientes resultados: $\forall a,b\in R$
-	\[eae-ebe=e(ae-be)=e(a-b)e\in eRe\]
-	(por lo que $eRe$ es subgrupo abeliano bajo la suma),
-	\[(eae)(ebe)=eae^2be=e(aeb)e\in eRe
-	\]
-	y 
-	\[e(eae)=e^2ae=eae=eae^2=(eae)e.
-	\]
-	Por lo tanto $R$ es un anillo con $e$ su inverso, y por esto mismo no puede ser subanillo de $R$ exepto en el caso en que $e=1_R$. \\
-	
-	\boxed{b)} Observemos que $\forall a\in eM$ y $\forall s\in eRe$.
-	\[a=em\quad \text{y} \quad s=ere\quad \text{para alguna} \quad m\in M\quad \text{y} \quad r\in R,\]
-	así, llamando $*$ a la acción que definida como $(ere,em)\mapsto erem$, entonces 
-	\[s*a=(ere)(em)=erem=ere^2m=(ere)(em).
-	\]
-	Por lo que 
-	\begin{align*}
-(er_1e+er_2e)*(em)&=(er_1e+er_2e)(em)\\
-		&=er_1eem+er_2eem\\
-		&=(er_1e)*(em)+(er_2e)*(em).\\
-(ere)*(em_1+em_2)&= (ere)(em_1+em_2)\\
-		&=ereem_1+ereem_2\\
-		&=(ere)*(em_1)+(ere)*(em_2).\\
-1_{eRe}*(em)&=e(em)=e^2m=em.
-	\end{align*}
-	\[[(er_1e)(er_2e)]*(em)=[(er_1e)(er_2e)](em)=er_1eer_2eem.\]
-	Por otro lado
-	\[(er_1e)*[(er_2e)*(em)]=(er_1e)*(er_2eem)=er_1eer_2eem.\]
-	Así $*$ es una acción de módulos.\\
-	
-	\boxed{c)} Para que la correspondencia sea funtorial debe preservar identidades y composición de morfismos, es decir:\\
-	
-	\boxed{i)}\,\, $m_e(1_M)=1_{me(M)}$.\\
-	\boxed{ii)}\,\,Si  $ M \stackrel{f}{\longrightarrow} N \stackrel{g}{\longrightarrow} L,$ se tiene que $m_e(gf)=m_e(g)\circ m_e(f)$.\\
-	
-	Sea $m\in M$ entonces\\
-	
-	\boxed{i)} $m_e(1_M)(em)=1_M|_{eM}(em)=em$, entonces $m_e(1_M)=1_{e_m(M)}=1_{eM}.$
-	\begin{align*}
-		\boxed{ii)}\ m_e(gf)(em)&=(gf)|_{eM}(em)=gf(em)=g(f(em))=g(f|_{eM}(em))\\
-		&=g(f|_{eM}(em))=g|_{eM}(f|_{eM}(em))\\
-		&=(g|_{eM}\circ f|_{eM})(em).
-	\end{align*}
-\end{proof}
-
-%%%%% Ejercicio 27 %%%%%
-\item Sean $R$ y $S$ anillos, $e\in R$ y $\epsilon\in S$ idempotentes, $M\in\ringbimod{R}{S}{\text{Mod}}{lr}$, $R':=eRe$ y $S':=\epsilon S\epsilon$. Entonces:
-\begin{enumerate}[label=(\alph*)]
-	\item existen acciones tales que $Re\in\ringbimod{R}{R'}{\text{Mod}}{lr}$, $\epsilon S\in\ringbimod{S'}{S}{\text{Mod}}{lr}$, $eM\in\ringbimod{R'}{S}{\text{Mod}}{lr}$ y $M\epsilon\in\ringbimod{R}{S'}{\text{Mod}}{lr}$;
-	\item las siguientes aplicaciones son morfismos de bimódulos
-	\begin{enumerate}[label=(\roman*)]
-		\item \begin{align*}
-			\descapp{\rho}{\ringbimod{R'}{S}{eM}{lr}}{\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}}{em}{\rho(em)}{,}
-			\intertext{con}
-			\descapp{\rho\lrprth{em}}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}{re}{\lrprth{re}m}{;}
-		\end{align*}
-		\item \begin{align*}
-			\descapp{\lambda}{\ringbimod{R}{S'}{M\epsilon}{lr}}{\ringmodhom{S}{\ringbimod{S'}{S}{\epsilon S}{lr}}{\ringbimod{R}{S}{M}{lr}}}{m\epsilon}{\lambda(m\epsilon)}{,}
-			\intertext{con}
-			\descapp{\lambda\lrprth{m\epsilon}}{\ringbimod{S'}{S}{\epsilon S}{lr}}{\ringbimod{R}{S}{M}{lr}}{\epsilon s}{m\epsilon s}{;}
-		\end{align*}
+		cuyo inverso es $\widehat{\pi}_{N}^{-1} \lrprth{Z}=\descset{x}{M}{x+N \in Z}$.
+		\begin{proof}
+			Sea $K \in L_{N}\lrprth{M}$ tal que $\widehat{\pi}_{N} \lrprth{K}=0$. Notemos que, si $k \in K$, entonces $k+N=0$. Lo cual implica que $k \in N$, y por ello $K=N$. Esto quiere decir que $\widehat{\pi}_{N}$ es inyectiva.\\
+			
+			Así mismo, dado $T \in L\lrprth{M/N}$, se satisface que $\widehat{\pi}_{N}^{-1} \lrprth{T} \in L_{N} \lrprth{M}$. En efecto, para cada $x \in N$, se cumple que $x+N=N \in T$, y en consecuencia $N \subseteq \widehat{\pi}_{N}^{-1} \lrprth{T}$. Adicionalmente, si $x,y \in \widehat{\pi}_{N}^{-1}\lrprth{T}$ y $r \in R$, se cumple que $x+y+N \in T$, $rx+N \in T$. En vista de ésto, se sigue que $x+y, rx \in \widehat{\pi}_{N}^{-1} \lrprth{T}$, y por tanto $\widehat{\pi}_{N}^{-1} \lrprth{T} \in L_{N} \lrprth{M}$.\\
+			
+			Por último, observe que
+			\begin{align*}
+				\widehat{\pi}_{N} \lrprth{ \widehat{\pi}_{N}^{-1} \lrprth{T}}&=\descset{x+N}{M/N}{x \in \widehat{\pi}_{N}^{-1} \lrprth{T}}\\
+				&=\descset{x+N}{M/N}{x+N \in T}\\
+				&=T.
+			\end{align*}
+			Más aún, para cualesquiera $T_{1},T_{2} \in L\lrprth{M/N}$, se identifican
+			\begin{align*}
+				\widehat{\pi}_{N}^{-1} \lrprth{T_{1} \cap T_{2}} &= \widehat{\pi}_{N}^{-1} \lrprth{T_{1}} \cap \widehat{\pi}_{N}^{-1} \lrprth{T_{2}}\\
+				\intertext{y}
+				\widehat{\pi}_{N}^{-1} \lrprth{T_{1}+T_{2}} &= \widehat{\pi}_{N}^{-1} \lrprth{T_{1}} + \widehat{\pi}_{N}^{-1} \lrprth{T_{2}}.
+			\end{align*}
+			$\therefore\ \widehat{\pi}_{N}$ es un isomorfismo de retículas.\\
+		\end{proof}
+		
+		%%%%% Ejercicio 17 %%%%%
+		\item Para un $M\in \prescript{}{R}{Mod}$, pruebe que las siguientes condiciones son equivalentes.
+		\begin{itemize}
+			\item[a)]  $M$ es simple.
+			\item[b)]  $0$ es un submódulo maximal de $M$.
+			\item[c)]  $M$ es un submódulo minimal de $M$.
+			\item[d)]  $M\neq 0$ y $M=<m>_R\quad \forall m\in M-\{0\}$.
+			\item[e)]  $M\neq 0$ y $\forall X\in \prescript{}{R}{Mod}, \,\forall f\in Hom_R(M,X)$ se tiene que $f=0$ o bien 
+			$Ker(f)=0$.
+			\item[f)]  $M\neq 0$ y $\forall X\in \prescript{}{R}{Mod}, \,\forall g\in Hom_R(X,M)$ se tiene que $g=0$ o bien 
+			$Im(g)=0$..
+		\end{itemize}
+		\begin{proof}
+			Notemos que si $M=0$, ningúna de los incisos se satisface, así que podemos tomar $M\neq 0$.\\
+			
+			\boxed{a)\Rightarrow b)} Supongamos $M$ es simple, entonces $\La(M)=\{0,M\}$ por lo que $0$ es el único
+			submódulo de $M$ propio y por lo tanto es maximal.\\
+			
+			\boxed{b)\Rightarrow c)} Supongamos $0$ es un submódulo maximal de $M$, como \\ $\forall N\in \La(M)-\{M\}$ se tiene 
+			que $0\leq  N$, entonces \\ $\forall N\in\La(M)-\{M\},\quad N=0$, por lo que $M$ es minimal al ser el único submódulo en 
+			$\left(\La(M)-\{\,0\,\},\leq \right)$ tal que $M\neq 0$ y si $0\lneq N$ entonces \quad $\left(N\leq M\,\,\Rightarrow N=M\right)$.\\
+			
+			\boxed{c)\Rightarrow d)}Supongamos $M$ es un submódulo minimal de $M$. Por definición $M\neq 0$ entonces 
+			$\forall m\in M-\{0\},$ pasa que $<m>_R\neq 0$, pero \\
+			$<m>_R\in \La(M)$, entonces $<m>_R\geq M$ por ser $M$ minimal.
+			Sin embargo $<m>_R\leq M$ pues $m\in M$, por lo tanto $M=<m>_R\quad \forall m\in M-\{0\}$.\\
+			
+			\boxed{d)\Rightarrow a)} Como $M\neq 0$, si $N\neq 0$ y $N\in \La(M)$, entonces $N\subset M$,
+			$\forall n\in N-\{0\}\quad n\in M-\{0\}$ y $M=<n>_M\leq N\leq M$. Por lo tanto $N=M$ y $\La(M)=\{0,M\}$.\\
+			
+			Con lo anterior tenemos que las primeras cuatro proposiciones son equivalentes, entonces para terminar se demostrarán 
+			las siguientes equivalencias.\\
+			
+			\boxed{a)\Rightarrow e)} Ya sabemos que $M\neq 0$. Sea $f\in Hom_R(M,X)$ con $X\in \prescript{}{R}{Mod}$.\\
+			Si $f=0$ no hay nada que demostrar. Supongamos $f\neq 0$, como \\
+			$Ker(f)\leq M$ con $M$ simple, entonces 
+			$Ker(f)=0$ o $Ker(f)=M$, pero $f\neq 0$, entonces $Ker(f)\neq M$ y en consecuencia $Ker(f)=0$.\\
+			
+			\boxed{e)\Rightarrow f)} Ya sabemos que $M\neq 0$. Sea $g\in Hom_R(X,M)$ con $X\in \prescript{}{R}{Mod}$.\\
+			Si $g=0$ no hay nada que probar. Supongamos $g\neq 0$, como $Im(g)\leq M$ entonces podemos tomar 
+			$\faktor{M}{Im(g)} \in \prescript{}{R}{Mod}$ y así \\
+			$\pi_{Im(g)}\in Hom_R\left(M,\faktor{M}{Im(g)}\right)$, con $\pi_{Im(g)}\neq 0 $. Entonces por e) tenemos  que, $Ker(g)=0$, y así $Im(g)=M$.\\
+			
+			\boxed{f)\Rightarrow a)} Como $M\neq 0$ tenemos que para cada $ N\in \La(M)-\{0\}$ la inclusión $i_N:N\longrightarrow M$
+			es morfismo y más aun $i_N\neq 0$. Entonces por f) se tiene que $N=Im(i_N)=M$ y así $\La(M)=\{0,M\}$. 
+		\end{proof}
+		
+		%%%%% Ejercicio 18 %%%%%
+		\item Sea $M\in\ringmod{R}{\text{Mod}}{l}$. Las siguientes condiciones son equivalentes:
+		\begin{enumerate}[label=(\alph*)]
+			\item $M$ es finitamente generado.
+			\item $\exists\ n\in\mathbb{N}\setminus\lrbrack{0}$ y $f:\mathbb{R}^n\rightarrow M$ epimorfismo de $R$-módulos.
+		\end{enumerate}
+		\begin{proof}
+			Verifiquemos primero el siguiente lema:
+			%%%%% Lema %%%%%
+			\begin{lem}
+				Sea $M\in\ringmod{R}{\text{Mod}}{l}$. Si $X\subseteq M$ entonces
+				\begin{equation*}
+					\genmod{X}{R}=\left\{\begin{tabular}{cl}
+						$\lrbrack{0}$ & , $X=\varnothing$\\
+						$\lrbrack{\sum_{i=1}^nr_ix_i\ \vline\ n\in\mathbb{N}\setminus\lrbrack{0},\ r_i\in R,\ x_i\in X\ \forall\ i\in[1,n]}$ & , $X\neq\varnothing$
+					\end{tabular}\right.
+				\end{equation*}
+			\end{lem}
+			\begin{proof}
+				El caso $X=\varnothing$ se verificó en el Ej. 15(a) (en el caso $I=\varnothing$). Supongamos que $X\neq\varnothing$.\\
+				Sea $S:=\lrbrack{\sum_{i=1}^nr_ix_i\ \vline\ n\in\mathbb{N}\setminus\lrbrack{0},\ r_i\in R,\ x_i\in X\ \forall\ i\in[1,n]}$. $S\neq\varnothing$, pues $R\neq\varnothing\neq X$ y $S\subseteq M$, pues $M\in\ringmod{R}{\text{Mod}}{l}$.\\
+				Sean $a,b\in S$. Existen $n,m\in\mathbb{N}\setminus\lrbrack{0}$ y $r_i,s_i\in R$, $x_i,y_i\in X$ tales que $a=\sum_{i=1}^{n}r_ix_i$ y $b=\sum_{i=1}^{m}s_iy_i$ y
+				\begin{align*}
+					t_i&=\left\{\begin{tabular}{cc}
+						$r_i$ & , $i\in[1,n]$\\
+						$s_{i-n}$ & , $i\in[n+1,n+m]$
+					\end{tabular}\right.\\
+					z_i&=\left\{\begin{tabular}{cc}
+						$r_i$ & , $i\in[1,n]$\\
+						$s_{i-n}$ & , $i\in[n+1,n+m]$
+					\end{tabular}\right.  .
+					\intertext{Entonces}
+					a+b&=\sum_{i=1}^{n}r_ix_i + \sum_{i=1}^{m}s_iy_i\\
+					&=\sum_{i=1}^{n+m}t_iz_i\\
+					&\implies a+b\in S.\\
+					\intertext{Sea $r\in R$. Entonces}
+					ra&=r\lrprth{\sum_{i=1}^{n}r_ix_i}=\sum_{i=1}^{n}\lrprth{rr_i}x_i
+					\intertext{Si $u_i:=rr_i$ entonces}						ra&=\sum_{i=1}^{n}u_ix_i\in S\\
+					\implies & S\in\genlin{M}.
+				\end{align*}
+				Además, si $x\in X$ entonces $x=1_Rx\in S$, con lo cual $X\subseteq S$ y por lo tanto $\genmod{X}{R}\subseteq S$.\\
+				Por otro lado, si $Y\leq M$, $X\subseteq Y$, $r_i\in R, x_i\in X\ \forall\ i\in[1,n], n\in\mathbb{N}\setminus\lrbrack{0}$ entonces
+				\begin{align*}
+					\sum_{i=1}^{n}r_ix_i&\in Y\\
+					&\implies S\subseteq Y\\
+					&\implies S\subseteq \genmod{X}{R}\\
+					\therefore\ & S=\genmod{X}{R}.
+				\end{align*}
+			\end{proof}
+			$\boxed{\implies}$ Existe $X\subseteq M$ finito tal que $M=\genmod{X}{R}$. Si $X=\varnothing$ entonces $M=\lrbrack{0}$ y en tal caso la aplicación
+			\begin{align*}
+				\descapp{f}{R}{M}{r}{0}{}
+			\end{align*}
+			es un epimorfismo de $R$-módulos a izquierda. \\
+			Supongamos ahora que $X\neq\varnothing$. Entonces $\exists\ m\in\mathbb{N}\setminus\lrbrack{0}$ tal que $X=\lrbrack{x_1,\dotsc,x_m}$. Consideremos la aplicación
+			\begin{align*}
+				\descapp{f}{R^m}{M}{\fntuple{r}{i}{m}}{\sum_{i=1}^{m}r_ix_i}{.}
+			\end{align*}
+			Sean $r\in R$ y $\fntuple{s}{i}{m},\fntuple{t}{i}{m}\in R^m$
+			\begin{align*}
+				f\lrprth{r\lrprth{\fntuple{s}{i}{m}+\fntuple{t}{i}{m}}}&=		f\lrprth{\lrprth{rs_i+rt_i}_{i=1}^m}=\sum_{i=1}^{m}\lrprth{rs_i+rt_i}x_i\\
+				&=\sum_{i=1}^{m}(rs_i)x_i+\sum_{i=1}^{m}(rt_i)x_i=r\lrprth{\sum_{i=1}^{m}s_ix_i+\sum_{i=1}^{n}t_ix_i}\\
+				&=r\lrprth{f\lrprth{\fntuple{s}{i}{n}}+f\lrprth{\fntuple{t}{i}{n}}}\\
+				\implies & f \text{ es un morfismo de $R$ módulos a izquierda.}
+			\end{align*}
+			Notemos que por el Lema 2, dado que $X=\lrbrack{x_1,\dotsc,x_m}$ y, $\forall\ m\in M$, $0_Rm=0$, se tiene que
+			\begin{equation*}
+				\genmod{X}{R}=\lrbrack{\sum_{i=1}^mr_ix_i\ \vline\ r_i\in R\ \forall\ i\in[1,n]}.
+			\end{equation*}
+			Sea $y\in M=\genmod{X}{R}$. Por la observación anterior $\exists\ r_i\in R$ tales que $y=\sum_{i=1}^{m}x_i$, con lo cual, si $x:=\fntuple{r}{i}{m}$, $y=f(x)$. Por lo tanto $f$ es un epimorfismo de $R$-módulos a izquierda.\\
+			$\boxed{\impliedby}$ Verifiquemos primero los siguientes resultados:
+			%%%%% Lema %%%%%
+			\begin{lem}
+				Sea $f:M\rightarrow N$ un morfismo de $R$-módulos a izquierda. Entonces $f\lrprth{A}\in\genlin{N}$, $\forall\ A\in\genlin{M}$.
+			\end{lem}
+			\begin{proof}
+				Sea $A\in \genlin{M}$. Como $A\neq\varnothing$ entonces $f\lrprth{A}\neq\varnothing$, además $f(A)\subseteq M$. Sean $r\in R$ y $x,y\in f(A)$. Existen $a,b\in A$ tales que $f(a)=x$ y $f(b)=y$. Así
+				\begin{align*}
+					rx+y&=rf(x)+f(b)=f(rx+b) && f\in\ringmodhom{R}{M}{N}\\
+					f(rx+b)&\in f\lrprth{A} && A\in\genlin{M}\\
+					\implies & f(A)\in\genlin{N}.
+				\end{align*}
+			\end{proof}
+			%%%%% Lema %%%%%
+			\begin{lem}
+				Sea $f:M\rightarrow N$ un morfismo de $R$-módulos a izquierda. Entonces $f\lrprth{\genmod{A}{R}}=\genmod{f\lrprth{A}}{R}$, $\forall\ A\subseteq M$.
+			\end{lem}
+			\begin{proof}
+				Sea $A\subseteq M$. Como $A\subseteq\genmod{A}{R}$ entonces $f\lrprth{A}\subseteq f\lrprth{\genmod{A}{R}}$, de modo que, por el Lema 3, $f\lrprth{\genmod{A}{R}}$ es un $R$-submódulo de $N$ que contiene a $f(A)$ y por lo tanto $\genmod{f(A)}{R}\subseteq f\lrprth{\genmod{A}{R}}$.\\
+				Sean $n\in\mathbb{N}\setminus\lrbrack{0}$ y, $\forall\ i\in[1,n], r_i\in R$ y $x_i\in A$. Así, como $f\in\ringmodhom{R}{M}{N}$,
+				\begin{align*}
+					f\lrprth{\sum_{i=1}^{n}r_ix_i}&=\sum_{i=1}^{n}r_i f(x_i)\in\genmod{f(A)}{R}\\
+					& \implies f\lrprth{\genmod{A}{R}} \subseteq \genmod{f(A)}{R}\\
+					\therefore\ & f\lrprth{\genmod{A}{R}} = \genmod{f(A)}{R}.
+				\end{align*}
+			\end{proof}
+			%%%%% Lema %%%%%
+			\begin{lem}
+				Sea $f:M\rightarrow N$ un epimorfismo de $R$-módulos a izquierda. Si $M\in\ringmod{R}{\text{mod}}{l}$ entonces $N\in\ringmod{R}{\text{mod}}{l}$.
+			\end{lem}
+			\begin{proof}
+				Como $M\in\ringmod{R}{\text{mod}}{l}$ $\exists\ X\subseteq M$ finito tal que $M=\genmod{X}{R}$ y así
+				\begin{align*}
+					N&=f(M) && f\text{ es sobre}\\
+					&=f\lrprth{\genmod{X}{R}}=\genmod{f(X)}{R} && \text{Lema 4}
+				\end{align*}
+				Y como $\crdnlty{f(X)}\leq\crdnlty{X}$ entonces $f(X)$ es finito. Por lo tanto $N\in\ringmod{R}{\text{mod}}{l}$.\\
+			\end{proof}
+			Así, como $\exists\ n\in\mathbb{N}\setminus\lrbrack{0}$ y $f:R^n\rightarrow M$ epimorfismo de $R$-módulos a izquierda, por el Lema 5 basta verificar que $R^n\in\ringmod{R}{\text{mod}}{l}$.\\
+			Sean $e_j:=\lrprth{u_i^j}_{i=1}^n\in R^n$, donde
+			\begin{equation*}
+				u_i^j=\left\{
+				\begin{tabular}{cc}
+					$0_R$ & , $i\neq j$ \\
+					$1_R$ & , $i=j$ 
+				\end{tabular}
+				\right. ,
+			\end{equation*}
+			$\forall\ j\in[1,n]$, y $E:=\lrbrack{e_1,\dotsc,e_n}$. Así si $\fntuple{r}{i}{n}\in R^n$, entonces $\fntuple{r}{i}{n}=\sum_{i=1}^{n}r_ie_i$, con lo cual $R^n=\genmod{E}{R}$. Por lo tanto $R^n\in\ringmod{R}{\text{mod}}{l}$.\\
+		\end{proof}
+		
+		%%%%% Ejercicio 19 %%%%%
+		\item Pruebe que todo anillo no trivial $R$ admite $R$-módulos simples a izquierda (y a derecha también).
+		\begin{proof}
+			Observe que $R$ es finitamente generado como $R$-módulo, de hecho $R= \langle 1 \rangle$. Entonces, por el \textbf{teorema 1.8.1}, $R$ tiene ideales máximos. Sea $I$ un ideal izquierdo máximo de $R$. Por el \textbf{Ejercicio 16}, $R/I$ es un $R$-módulo simple. De manera análoga, $Mod_{R}$ posee $R$-módulos derechos simples.\\
+		\end{proof}
+		
+		%%%%% Ejercicio 20 %%%%%
+		\item Para una $K$-álgebra $R$, defina de manera natural una estructura de \\ $K$-módulo (a izquierda y a derecha)
+		en $Hom_R(M,N)\quad \forall M,N\in Mod(R).$
+		\begin{proof}
+			Sean $M$ y $N$ $R$-módulos a izquierda y $(R,K,\varphi)$ una \\
+			$K$-álgebra. Para toda $k\in K,\,\, f\in Hom_R(M,N),\,\, l\in R$ y $m\in M$, definiremos 
+			$\alpha:K\times Hom_R(M,N)\longrightarrow Hom_R(M,N)$ dada por 
+			\[\alpha(k,f)(\varphi)(lm)=k\cdot l(\varphi)(lm):=l*(\varphi(k)*f(m)),\]
+			donde $\cdot$ es la acción a izquierda de $N$ como $R$-módulo.\\
+			Así \\
+			\boxed{AC1} 
+			\begin{align*}
+				( k\cdot(f_1+f_2))(lm)
+				&=l*(\varphi(k)*(f_1+f_2)(m))\\
+				&=l*(\varphi(k)*(f_1)(m)+\varphi(k)*(f_2)(m))\\
+				&=l*(\varphi(k)*(f_1)(m))+l*(\varphi(k)*(f_2)(m))\\
+				&=k\cdot(f_1)(lm)+k\cdot(f_2)(lm). 
+			\end{align*}
+			\boxed{AC2}
+			\begin{align*}
+				((k_1+k_2)\cdot(f))(lm)
+				&=l*(\varphi(k_1+k_2)*f(m))\\
+				&=l*(\varphi(k_1)*f(m)+\varphi(k_2)*f(m))\\
+				&=l*(\varphi(k_1)*f(m))+l*(\varphi(k_2)*f(m))\\
+				&=k_1\cdot f(lm)+k_2\cdot f(lm).
+			\end{align*}
+			\boxed{AC3}
+			\begin{align*}
+				(1_K\cdot f)(lm)&=l*(\varphi(1_K)*f(m))\\
+				&=l*(1_R*f(m))\\
+				&=l*(f(m))\\
+				&=f(lm).
+			\end{align*}
+			\boxed{AC4}
+			\begin{align*}
+				((k_1k_2)\cdot f)(lm)=&l*(\varphi(k_1k_2)*f(m))\\
+				&=l*(\varphi(k_1)\varphi(k_2)*f(m))\\
+				&=l*(\varphi(k_1)*(\varphi(k_2)*f(m)))\\
+				&=l*[\varphi(k_1)*(k_2\cdot f)(m)]\\
+				&=(k_1\cdot(k_2\cdot f))(lm).
+			\end{align*}
+			
+			Entonces $\cdot$ es una acción a izquierda de $R$-módulos.\\
+			
+			Por el ejercicio 8, se tiene que si $M$ y $N$ son $R$-módulos derechos entonces son $R^{op}$ módulos izquierdos.Asi
+			$\cdot$ es  una acción para $Hom_{R^{op}}(M,N)$ y por el ejercicio 8, $\cdot^{op}$ es una acción que vuelve a 
+			$Hom_R(M,N)$ un módulo derecho.\\
+		\end{proof}
+		
+		%%%%% Ejercicio 21 %%%%%
+		\item Sean $R$ y $S$ anillos.
+		\begin{enumerate}[label=(\alph*)]
+			\item Sean 
+			\begin{align*}
+				Obj\lrprth{\mathcal{C}}&:=\ringbimod{R}{S}{\text{Mod}}{r},\\
+				Hom\lrprth{\mathcal{C}}&:=\bigcup_{\lrprth{M,N}\in Obj\lrprth{\mathcal{C}}^2}Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}},\\
+				\intertext{con}
+				Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}&:=Hom_R\lrprth{\ringmod{R}{M}{r},\ringmod{R}{N}{r}}\cap Hom_S\lrprth{\ringmod{S}{M}{r},\ringmod{S}{N}{r}},
+			\end{align*}
+			y $\circ$ la composición usual de funciones.\\ Entonces la clase $\ringbimod{R}{S}{\text{Mod}}{r}$ tiene estructura de categoría por medio de la tercia $\lrprth{Obj\lrprth{\mathcal{C}},Hom\lrprth{\mathcal{C}},\circ}$.
+			\item $\ringbimod{R}{S}{\text{Mod}}{lr}\simeq\ringbimod{\opst{R}}{S}{\text{Mod}}{r}$, $\ringbimod{R}{S}{\text{Mod}}{lr}\simeq\ringbimod{R}{\opst{S}}{\text{Mod}}{l}$ y $\ringbimod{R}{S}{\text{Mod}}{l}\simeq\ringbimod{R}{\opst{S}}{\text{Mod}}{lr}$.
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{(a)}}$ Si $M,N\in\ringbimod{R}{S}{\text{Mod}}{r}$, entonces $M$ y $N$ son conjuntos, con lo cual 
+			\begin{equation*}
+				N^M:=\lrbrack{f:M\rightarrow N\ |\ f\text{ es una función}}
+			\end{equation*} 
+			es un conjunto y así $\ringmodhom{R}{M_R}{N_R}$ es un conjunto, pues $$\ringmodhom{R}{M_R}{N_R}\subseteq B^A.$$
+			Similarmente se encuentra que $\ringmodhom{S}{M_S}{N_S}$ es un conjunto, y así $Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}$ es un conjunto $\forall\ M, N\in\ringbimod{R}{S}{\text{Mod}}{r}$. Además por definición $Hom\lrprth{\mathcal{C}}=\bigcup_{\lrprth{M,N}\in Obj\lrprth{\mathcal{C}}^2}Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}$, con lo cual se satisface (P1).\\
+			Recordemos que, si $W,X,Y,Z$ son conjuntos y $f:W\rightarrow X, g:Y\rightarrow Z$ son funciones entonces $f=g$ si y sólo si $W=Y$, $X=Z$ y $f(w)=g(w)\ \forall\ w\in W$. Con lo cual si $(M,N)\neq\lrprth{O,P}$ entonces $N^M\cap P^O=\varnothing$ y por lo tanto $Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}\cap Hom\lrprth{\ringbimod{R}{S}{O}{r},\ringbimod{R}{S}{P}{r}}=\varnothing$. Por lo tanto se satisface (P2).\\
+			Finalmente para verificar que (P3) se satisface, dado que la composición usual de funciones es asociativa y claramente $Id_X\in Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{
+					M}{r}}$ $\forall\ M\in\ringbimod{R}{S}{\text{Mod}}{r}$, basta probar que si $f\in\ringmodhom{R}{N}{O}, g\in\ringmodhom{R}{M}{N}$ entonces $f\circ g\in\ringmodhom{R}{M}{O}$; ya que en tal caso se tiene que la composición usual de funciones se restringe a una función asociativa
+			\begin{equation*}
+				\circ:Hom\lrprth{\ringbimod{R}{S}{N}{r},\ringbimod{R}{S}{
+						O}{r}}\times Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{N}{r}}\rightarrow Hom\lrprth{\ringbimod{R}{S}{M}{r},\ringbimod{R}{S}{
+						O}{r}}
+			\end{equation*}  
+			que admite identidades.\\
+			Sean $f\in\ringmodhom{R}{N}{O}]$ y $g\in\ringmodhom{R}{M}{N}$. En partícular $f:N\rightarrow O$ y $g:M\rightarrow N$ son morfismos de grupo abelianos, con lo cual $f\circ g$ es un morfismo de grupos abelianos. Sean $r\in R$ y $m\in M$, así
+			\begin{align*}
+				f\circ g (rm)&=f\lrprth{g\lrprth{rm}}=f\lrprth{rg(m)}=rf\lrprth{g\lrprth{m}}\\
+				&=r\lrprth{f\circ g(m)}.\\
+				\implies & f\circ g\in\ringmodhom{R}{M}{O}.
+			\end{align*} 
+			$\boxed{\text{(b)}}$ Recordemos que, por el Ej. 8, $\lrprth{M,\bullet}\in\ringmod{R}{M}{l}$ si y sólo si $\lrprth{M,\opst{\bullet}}\in\ringmod{\opst{R}}{M}{r}$ (en adelante no haremos mención explícita de $\bullet$ y $\opst{\bullet}$). Por lo cual, si $r\in R, s\in S$ y $m\in M,$
+			\begin{align*}
+				r(ms)=(rm)s&\iff (ms)\opst{r}=(m\opst{r})s \tag{$*$}\label{lriffrr}
+				\intertext{y así}
+				M\in\ringbimod{R}{S}{\text{Mod}}{lr}&\iff M\in\ringbimod{\opst{R}}{S}{\text{Mod}}{r}.\tag{I}\label{lrbiffrrb}
+			\end{align*}
+			Más aún, si $f:M\rightarrow N$ es un morfismo de grupos abelianos, entonces
+			\begin{align*}
+				f\lrprth{r(ms)}=r\lrprth{f(m)s}&\iff 		f\lrprth{(ms)\opst{r}}=\lrprth{f(m)s}\opst{r}, \\& \forall\ r\in R, \forall\ s\in S,\forall\ m\in M.
+				\intertext{De modo que, considerando el caso partícular $s=1_S$, se tiene que}
+				f\in\ringmodhom{R}{\ringmod{R}{M}{l}}{\ringmod{R}{N}{l}}&\iff f\in\ringmodhom{\opst{R}}{\ringmod{\opst{R}}{M}{r}}{\ringmod{\opst{R}}{N}{r}}\\
+				\therefore\ f\in Hom\lrprth{\ringbimod{R}{S}{M}{lr},\ringbimod{R}{S}{N}{lr}}&\iff f\in Hom\lrprth{\ringbimod{\opst{R}}{S}{M}{r},\ringbimod{\opst{R}}{S}{N}{r}}.\tag{II}\label{lrmiffrrm}
+			\end{align*}
+			De (\ref{lrbiffrrb}) y (\ref{lrmiffrrm}) se sigue que la correspondencia de categorías
+			\begin{center}
+				\functor{
+					name=F_1,
+					dom=\ringbimod{R}{S}{\text{Mod}}{lr},
+					codom=\ringbimod{\opst{R}}{S}{\text{Mod}}{r},
+					arrow=f,
+					source=\ringbimod{R}{S}{M}{lr},
+					target=\ringbimod{R}{S}{N}{lr},
+					Farrow=f,
+					Fsource=\ringbimod{\opst{R}}{S}{M}{r},
+					Ftarget=\ringbimod{\opst{R}}{S}{N}{r},
+				}
+			\end{center}
+			está bien definida y, más aún, por construcción $F\lrprth{Id_M}=Id_{F\lrprth{M}},\ \forall M\in\ringbimod{R}{S}{\text{Mod}}{lr}$. \\
+			Sean $M\xrightarrow{f}N,N\xrightarrow{g} O\in\ringbimod{R}{S}{\text{Mod}}{lr}$, entonces
+			\begin{align*}
+				F\lrprth{g\circ f}&=g\circ f=F(g)\circ F(f)\\
+				&\therefore\ F\text{ es un funtor.}
+			\end{align*}
+			Empleando que $\opst{\lrprth{\opst{R}}}=R$ en conjunto a los puntos (\ref{lriffrr}), (\ref{lrbiffrrb}) y (\ref{lrmiffrrm}), se tiene que la correspondencia de categorías
+			\begin{center}
+				\functor{
+					name=G_1,
+					codom=\ringbimod{R}{S}{\text{Mod}}{lr},
+					dom=\ringbimod{\opst{R}}{S}{\text{Mod}}{r},
+					arrow=g,
+					Fsource=\ringbimod{R}{S}{M}{lr},
+					Ftarget=\ringbimod{R}{S}{N}{lr},
+					Farrow=g,
+					source=\ringbimod{\opst{R}}{S}{M}{r},
+					target=\ringbimod{\opst{R}}{S}{N}{r},
+				}
+			\end{center}
+			es un funtor que satisface $G_1F_1=1_{\ringbimod{R}{S}{\text{Mod}}{lr}}$ y $F_1G_1=1_{\ringbimod{\opst{R}}{S}{\text{Mod}}{r}}$, y por lo tanto $\ringbimod{R}{S}{\text{Mod}}{lr}\simeq\ringbimod{\opst{R}}{S}{\text{Mod}}{r}$.\\
+			Aplicando ahora el Ej. 8 al anillo $S$, por medio de un procedimiento análogo a lo previamente desarrollado, se verifica que $M\in\ringbimod{R}{S}{\text{Mod}}{lr}$ si y sólo si  $M\in\ringbimod{R}{\opst{S}}{\text{Mod}}{l}$, y que $f\in Hom\lrprth{\ringbimod{R}{S}{M}{lr},\ringbimod{R}{S}{N}{lr}}$ si y sólo si $f\in Hom\lrprth{\ringbimod{\opst{R}}{S}{M}{l},\ringbimod{\opst{R}}{S}{N}{l}}$. De modo que
+			\begin{center}
+				\functor{
+					name=F_2,
+					dom=\ringbimod{R}{S}{\text{Mod}}{lr},
+					codom=\ringbimod{R}{\opst{S}}{\text{Mod}}{l},
+					arrow=f,
+					source=\ringbimod{R}{S}{M}{lr},
+					target=\ringbimod{R}{S}{N}{lr},
+					Farrow=f,
+					Fsource=\ringbimod{R}{\opst{S}}{M}{l},
+					Ftarget=\ringbimod{R}{\opst{S}}{N}{l},
+				}
+			\end{center}
+			es un isomorfismo de categorías, con inversa
+			\begin{center}
+				\functor{
+					name=G_2,
+					codom=\ringbimod{R}{S}{\text{Mod}}{lr},
+					dom=\ringbimod{R}{\opst{S}}{\text{Mod}}{l},
+					arrow=g,
+					Fsource=\ringbimod{R}{S}{M}{lr},
+					Ftarget=\ringbimod{R}{S}{N}{lr},
+					Farrow=g,
+					source=\ringbimod{R}{\opst{S}}{M}{l},
+					target=\ringbimod{R}{\opst{S}}{N}{l},
+					delimiter=\text{.},
+				}
+			\end{center}
+			Finalmente empleando, el Ej. 12 y un procedimiento análogo al previamente desarrollado se verifica que $M\in\ringbimod{R}{S}{\text{Mod}}{l}$ si y sólo si  $M\in\ringbimod{R}{\opst{S}}{\text{Mod}}{lr}$, y que $f\in Hom\lrprth{\ringbimod{R}{S}{M}{l},\ringbimod{R}{S}{N}{l}}$ si y sólo si $f\in Hom\lrprth{\ringbimod{R}{\opst{S}}{M}{lr},\ringbimod{R}{\opst{S}}{N}{lr}}$; y así
+			\begin{center}
+				\functor{
+					name=F_3,
+					dom=\ringbimod{R}{S}{\text{Mod}}{l},
+					codom=\ringbimod{R}{\opst{S}}{\text{Mod}}{lr},
+					arrow=f,
+					source=\ringbimod{R}{S}{M}{l},
+					target=\ringbimod{R}{S}{N}{l},
+					Farrow=f,
+					Fsource=\ringbimod{R}{\opst{S}}{M}{lr},
+					Ftarget=\ringbimod{R}{\opst{S}}{N}{lr},
+				}
+			\end{center}
+			es un isomorfismo de categorías, con inversa
+			\begin{center}
+				\functor{
+					name=G_3,
+					codom=\ringbimod{R}{S}{\text{Mod}}{lr},
+					dom=\ringbimod{R}{\opst{S}}{\text{Mod}}{l},
+					arrow=g,
+					Fsource=\ringbimod{R}{S}{M}{lr},
+					Ftarget=\ringbimod{R}{S}{N}{lr},
+					Farrow=g,
+					source=\ringbimod{R}{\opst{S}}{M}{l},
+					target=\ringbimod{R}{\opst{S}}{N}{l},
+					delimiter=\text{.},
+				}
+			\end{center}
+		\end{proof}
+		
+		%%%%% Ejercicio 22 %%%%%
+		\item Sea $\varphi : R \longrightarrow S$ un morfismo de anillos. Pruebe que:
+		\begin{enumerate}
+			\item La correspondencia de cambio de anillos $F_{\varphi} : Mod\lrprth{S} \longrightarrow Mod\lrprth{R}$ es un funtor.
+			\item Para cualesquiera $M,N \in Mod\lrprth{S}$, se tiene que
+			\begin{align*}
+				\ringmodhom{S}{M}{N} &\leq \ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\\
+				&= \ringmodhom{\varphi \lrprth{R}}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\\
+				&\leq \ringmodhom{\mathbb{Z}}{M}{N}
+			\end{align*}
+			como grupos abelianos. En particular, $F_{\varphi}$ es fiel y éste es pleno si $\varphi \lrprth{R}=S$.
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{(a)}}$ Primero, por la propia correspondencia, a todo $S$-módulo $M$ se le asigna un $R$-módulo $F_{\varphi} \lrprth{M}=M$. En vista de lo anterior, bastará probar que $F_{\varphi}\lrprth{f} = f \in \ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}$, para $f \in \ringmodhom{S}{M}{N}$ y $M,N \in Mod\lrprth{S}$.\\
+			
+			Sea $f:M \longrightarrow N$ un morfismo de $S$-módulos. Ahora, dados $r \in R$ y $m,n \in M$, se satisface que
+			\begin{align*}
+				F_{\varphi}\lrprth{f}\lrprth{r \cdot m + n}&=f\lrprth{\varphi\lrprth{r}*m+n}\\
+				&=\varphi \lrprth{r}*f\lrprth{m}+f\lrprth{n}\\
+				&=r \cdot f\lrprth{m}+f\lrprth{n}\\
+				&=r \cdot F_{\varphi} \lrprth{f}\lrprth{m}+F_{\varphi} \lrprth{f}\lrprth{n}
+			\end{align*}
+			Con lo cual, $F_{\varphi} \lrprth{f}$ es un morfismo de $R$-módulos. $\therefore F_{\varphi}$ es un funtor.\\
+			
+			$\boxed{\text{(b)}}$ Note que, por el inciso anterior, todo morfismo de $S$-módulos es un morfismo de $R$-módulos. Más aún, como todo $R$-módulo es un grupo abeliano y como todo morfismo de $R$-módulos preserva sumas, se tiene que $\ringmodhom{S}{M}{N}\leq\ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\ringmodhom{\varphi \lrprth{R}}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}$ y que $\ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}} \leq \ringmodhom{\mathbb{Z}}{M}{N}$.\\
+			
+			Por otra parte, $F_{\varphi}$ es fiel, toda vez que a cualesquiera 2 morfismos $f \neq g$ se le asignan morfismos $F_{\varphi} \lrprth{f} = f \neq g = F_{\varphi} \lrprth{g}$. Por otro lado, suponga que $\varphi \lrprth{R}=S$. Dado $f \in \ringmodhom{R}{M}{N}$, éste es un morfismo de $S$-módulos. En efecto, si $s \in S$, entonces $s = \varphi \lrprth{r}$, para alguna $r \in R$. De esta forma, definimos $f\lrprth{s*m}$ como $f\lrprth{s*m}=f\lrprth{rm}$, e inclusive tenemos $F_{\varphi^{-1}} \lrprth{f}=f$. $\therefore F_{\varphi}$ es pleno.\\
+		\end{proof}
+		
+		%%%%% Ejercicio 23 %%%%%
+		\item Sea $R$ un anillo e $I\lhd R$. Considere el epimorfismo canónico de anillos $\pi:R\longrightarrow \faktor{R}{I}$,\,\,$r\mapsto r+I$.
+		\begin{itemize}
+			\item[a)] Pruebe que el funtor de cambio de anillos \\
+			$F_\pi:Mod\left(\faktor{R}{I}\right)\longrightarrow Mod(R)$ es fiel y pleno.
+			\item[b)] Sea $\zeta_I$ la subcategoría plena de $Mod(R)$ cuyos objetos son los \\
+			$M\in Mod(R)$ que son aniquilados por $I$, i.e. 
+			\[M\in \zeta_I\,\,\iff\,\,I\subseteq ann_R(M):=\{r\in R\,:\, rm=0\,\,\forall m\in M\}.\]
+			Pruebe que $F_\pi\left(Mod\left(\faktor{R}{I}\right)\right)=\zeta_I$ y que $F_\pi:Mod\left(\faktor{R}{I}\right)\longrightarrow \zeta_I$ 
+			es un isomorfismo de categorías.
+		\end{itemize}
+		\begin{proof}
+			
+			\boxed{a)} Sean $A,B\in Mod(R)$. Por el ejercicio 22 a), F es un funtor, y como $\pi(R)=R/I$, entonces  por el ejercicio 22 b), $F_\pi$ es fiel y pleno.\\
+			
+			\boxed{b)} Sea $A\in Mod\left(\faktor{R}{I}\right)$, entonces tenemos que $F_\pi(A)\in Mod(R)$. Ahora, si $m\in F_\pi(A)$, entonces para cada $x\in I,
+			\,\,\,x\cdot m=\pi(X)*m=0*m=0$, donde $\cdot$ y $*$ son las acciones definidas en $A$ y $F_\pi(A)$ respectivamente.\\
+			Por lo tanto $I\subseteq ann_R(M)$ y $F_\pi(A)\in \zeta_I.$\\
+			
+			Ahora, sea $A\in \zeta_I$, entonces $I\subseteq ann_R(A):=\{r\in R\,:\,rm=0\,\,\forall m\in A\}$, en particular $A\in Mod(R)$, así 
+			definimos la función $*:\faktor{R}{I}\times A\longrightarrow A$ dada por $[r]*m=(r+I)*m:=r\cdot m+I\cdot m$ donde $\cdot$ es la 
+			acción de $A$ como $R$-módulo, y se tiene que, como $I\cdot m=\{im\,:\,i\in I,\, m\in A\}$ y $A\in \zeta_I$, $I\cdot m=\{0\}.$\\
+			
+			Por lo tanto, si $r,s\in [x]$ con $\, r=x+k_1$ y $s=x+k_2$, entonces $r*m=s*m,$ en particular $[r]*m=r\cdot m\,\,\forall r\in R$, es decir,
+			$*$ es una acción de $A$ (bien definida) como $\faktor{R}{I}$ -módulo, es un $R$-módulo y $[r]*m=r\cdot m\,\,\forall r\in R$,
+			es decir, $A\in F_\pi\left(Mod\left(\faktor{R}{I}\right)\right)$. Y en consecuencia $Mod\left(\faktor{R}{I}\right)=\zeta_I$\\
+			
+			Con esto podemos ver que $F_\pi:Mod\left(\faktor{R}{I}\right)\longrightarrow\zeta_I$ es funtor, y más aun, definiendo 
+			$G_\pi:\zeta_I\longrightarrow Mod\left(\faktor{R}{I}\right)$ dado por $G_\pi(M)=M$ para cada $M\in \zeta_I$ y $G_\pi(f)([r]*_{{}_M} m)
+			=[r]*_{{}_N}f(m)$ para cada $f\in Hom(M,N)$ donde $*$ es la acción a izquierda de $M$ como $\faktor{R}{I}$ -módulo,
+			es un funtor pues $G_\pi(1_M)([r]*_{{}_M}m)=[r]*_{{}_M}m=1_M([r]*_{{}_M}m)$ y para $ f\in Hom_R(M,N), g\in Hom_R(N,L)$
+			\begin{align*}
+				G_\pi(gf)([r]*_{{}_M}m)=&[r]*_{{}_L}gf(m)=G_\pi(g)\left([r]*_{{}_N}f(m)\right)\\
+				&=\left(G_\pi(g)\circ G_\pi(f)\right)([r]*_{{}_M}m).
+			\end{align*}
+			
+			Así $F_\pi\circ G_\pi(A)=A=G_\pi\circ F_\pi(A)\quad \forall A\in Mod\left(\faktor{R}{I}\right)=\zeta_I$, y cumple las siguientes condiciones
+			\begin{itemize}
+				\item[i)] $F_\pi\circ G_\pi(1_A)=F_\pi(1_A)=1_A=G_\pi(1_A)=G_\pi\circ F_\pi(1_A)$.
+				
+				\item[ii)] Considerando a $\cdot$ y $*$ como las acciones a izquierda como $R$ -módulo y $\faktor{R}{I}$ -módulo respectivamente.
+				Para cualquier $r\in R, m\in M,\\ f\in Hom_R(M,N)$ y $g\in Hom_{\faktor{R}{I}}(M,N)$, se tiene lo siguiente.
+			\end{itemize}
+			\[\left(F\pi\circ G_\pi(f)\right)(r\cdot_{{}_M}m)=[r] *_{{}_N} G_\pi(f)(m)=[r] *_{{}_N}f(m)=r\cdot_{{}_N}f(m)=f(r\cdot_{{}_M}m).\]
+			
+			\[\left(G\pi\circ F_\pi(g)\right)([r]*_{{}_M}m)=r \cdot_{{}_N} F_\pi(g)(m)=r\cdot_{{}_N}g(m)=[r]*_{{}_N}g(m)=g([r]*_{{}_M}m).\]
+			
+			Por lo tanto $F\pi\circ G_\pi(f)=1_{\zeta_I}$\quad y \quad $G\pi\circ F_\pi(g)=1_{Mod\left(\faktor{R}{I}\right)}$, es decir, $F_\pi$ es
+			un isomorfismo de categorías.
+		\end{proof}
+		
+		%%%%% Ejercicio 24 %%%%%
+		\item Sean $R$, $S$ y $T$ anillos.
+		\begin{enumerate}[label=(\alph*)]
+			\item Sean $M\in\ringbimod{R}{S}{\text{Mod}}{lr}$, $N\in\ringbimod{R}{T}{\text{Mod}}{lr}$, $H:=\ringmodhom{R}{\ringbimod{R}{S}{M}{lr}}{\ringbimod{R}{T}{N}{lr}}$ y las siguientes aplicaciones, denotadas por medio del mismo simbolo para simplificar la notación,
+			\begin{align*}
+				\descapp{\bullet}{S\times H}{H}{(s,f)}{s\bullet f}{,}
+				\intertext{con}
+				\descapp{s\bullet f}{M}{N}{x}{f(xs)}{;}\\
+				\descapp{\bullet}{H\times T}{H}{(f,t)}{f\bullet t}{,}
+				\intertext{con}
+				\descapp{f\bullet t}{M}{N}{x}{f(x)t}{.}
+			\end{align*}
+			A través de las aplicaciones anteriores  $H\in\ringbimod{S}{T}{\text{Mod}}{lr}$.
+			\item Sean $M\in\ringbimod{S}{R}{\text{Mod}}{lr}$, $N\in\ringbimod{T}{R}{\text{Mod}}{lr}$, $H':=\ringmodhom{R}{\ringbimod{S}{R}{M}{lr}}{\ringbimod{T}{R}{N}{lr}}$ y las siguientes aplicaciones, denotadas por medio del mismo simbolo para simplificar la notación,
+			\begin{align*}
+				\descapp{\bullet}{T\times H}{H}{(t,f)}{t\bullet f}{,}
+				\intertext{con}
+				\descapp{t\bullet f}{M}{N}{x}{tf(x)}{;}\\
+				\descapp{\bullet}{H\times S}{H}{(f,s)}{f\bullet s}{,}
+				\intertext{con}
+				\descapp{f\bullet s}{M}{N}{x}{f(sx)}{.}
+			\end{align*}
+			A través de las aplicaciones anteriores $H\in\ringbimod{T}{S}{\text{Mod}}{lr}$.
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{(a)}}$ Notemos primeramente que $G:=Hom\lrprth{M,N}$ es un grupo con la suma usual de funciones, pues $M$ y $N$ lo son con sus respectivas operaciones, y que, si $f,g\in H$, $r\in R$ y $m\in M$, entonces
+			\begin{align*}
+				\lrprth{f-g}(rm)&=f(rm)-g(rm)=rf(m)-rg(m)=r\lrprth{f(m)-g(m)}\\
+				&=r\lrprth{\lrprth{f-g}(m)}.\\
+				&\implies f-g\in H\\
+				&\implies H\leq G.
+			\end{align*}
+			Así, en partícular, $H$ es un grupo abeliano. Verifiquemos ahora que por medio de la primera aplicación $H\in\ringmod{S}{\text{Mod}}{l}$. Sean $f,g\in H, s,s'\in S$ y $m\in M$, entonces
+			\begin{align*}
+				\lrprth{\lrprth{s+s'}\bullet f}(m)&=f\lrprth{m\lrprth{s+s'}}\\
+				&=f\lrprth{ms+ms'} && M\in\ringmod{S}{\text{Mod}}{r}\\
+				&=f\lrprth{ms}+f\lrprth{ms'} && f\in Hom\lrprth{M,N}\\
+				&=s\bullet f (m)+s'\bullet f (m)\\
+				&=\lrprth{s\bullet f+ s'\bullet f}(m).\\
+				\implies \lrprth{s+s'}\bullet f&= s\bullet f+ s'\bullet f.\\
+				\lrprth{s\bullet\lrprth{f+g}}(m)&=\lrprth{f+g}\lrprth{ms}\\
+				&=f(ms)+g(ms)\\
+				&=s\bullet f (m)+ s\bullet g (m)\\
+				&=\lrprth{s\bullet f+ s\bullet g }(m).\\
+				\implies s\bullet\lrprth{f+g}&= s\bullet f+ s\bullet g.\\
+				\lrprth{s\bullet\lrprth{s'\bullet f}}(m)&=\lrprth{s'\bullet f}\lrbrack{ms}\\
+				&=f\lrprth{(ms)s'}\\
+				&=f\lrprth{m(ss')} && M\in\ringmod{S}{\text{Mod}}{r}\\
+				&=\lrprth{\lrprth{ss'}\bullet f}(m).\\
+				\implies s\bullet\lrprth{s'\bullet f}&= \lrprth{ss'}\bullet f.\\
+				\lrprth{1_S\bullet f}(m)&=f\lrprth{m1_s}\\
+				&=f(m) && M\in\ringmod{S}{\text{Mod}}{r}.\\
+				\implies 1_S\bullet f&= f.\\
+				&\therefore\ H\in\ringmod{S}{\text{Mod}}{l}.
+			\end{align*} 
+			Verifiquemos ahora que por medio de la segunda aplicación $H\in\ringmod{T}{\text{Mod}}{r}$. Sean $f,g\in H, t,t'\in S$ y $m\in M$, entonces
+			\begin{align*}
+				\lrprth{\lrprth{f+g}\bullet t}(m)&=\lrprth{\lrprth{f+g}(m)}t\\
+				&=\lrprth{f(m)+g(m)}t\\
+				&=f(m)t+g(m)t && N\in\ringmod{T}{\text{Mod}}{r}\\
+				&=f\bullet t(m)+g\bullet t(m)\\
+				&=\lrprth{\lrprth{f+g}\bullet t}(m).\\
+				\implies \lrprth{f+g}\bullet t&= \lrprth{f+g}\bullet t.\\
+				\lrprth{f\bullet\lrprth{t+t'}}(m)&=f(m)\lrprth{t+t'}\\
+				&=f(m)t+f(m)t'\\
+				&=f\bullet t(m)+ f\bullet t' (m)\\
+				&=\lrprth{f\bullet t+ f\bullet t' }(m).\\
+				\implies f\bullet\lrprth{t+t'}&= f\bullet t+ f\bullet t'.\\
+				\lrprth{\lrprth{f\bullet t}\bullet t'}(m)&=\lrprth{\lrprth{f\bullet t}(m)}t'\\
+				&=\lrprth{f(m)t}t'\\
+				&=f(m)\lrprth{tt'} && N\in\ringmod{T}{\text{Mod}}{r}\\
+				&=\lrprth{f\bullet\lrprth{tt'}}(m).\\
+				\implies \lrprth{f\bullet t}\bullet t'&= f\bullet\lrprth{tt'}.\\
+				\lrprth{f\bullet 1_T}(m)&=f(m)1_T\\
+				&=f(m) && N\in\ringmod{T}{\text{Mod}}{r}.\\
+				\implies f\bullet 1_T&= f.\\
+				&\therefore\ H\in\ringmod{T}{\text{Mod}}{r}.\\
+				\intertext{Así}
+				H&\in\ringmod{S}{\text{Mod}}{l}\cap \ringmod{T}{\text{Mod}}{r}.\\
+				\intertext{Finalmente, notemos que}
+				\lrprth{\lrprth{s\bullet f}\bullet t}(m)&=\lrprth{\lrprth{s\bullet f}(m)}t\\
+				&=f(ms)t\\
+				&=\lrprth{f\bullet t}(ms)\\
+				&=\lrprth{s\bullet\lrprth{f\bullet t}}(m).\\
+				\implies \lrprth{s\bullet f}\bullet t&= s\bullet\lrprth{f\bullet t}.\\
+				&\therefore\ H\in\ringbimod{S}{T}{\text{Mod}}{lr}.
+			\end{align*} 
+			$\boxed{\text{(b)}}$ Es análogo a lo demostrado en (a), empleando ahora las propiedades de los morfismos de $R$-módulos a derecha para verificar que $H'$ es un grupo abeliano con la suma usual de funciones, y que $M\in\ringmod{S}{\text{Mod}}{l}, N\in\ringmod{T}{\text{Mod}}{l}$ para verificar que $H\in\ringbimod{T}{S}{\text{Mod}}{lr}$.
+		\end{proof}
+		
+		%%%%% Ejercicio 25 %%%%%
+		\item Sean $R$ y $S$ anillos, y $M \in {}_{R}Mod_{S}$. Pruebe que:
+		\begin{enumerate}
+			\item $\rho :_{R}M_{S} \longrightarrow \ringmodhom{R}{_{R}R_{R}}{_{R}M_{S}}$, con $\rho \lrprth{m}\lrprth{r}=rm$, es un isomorfismo en $_{R}Mod_{S}$
+			\item $\lambda :_{R}M_{S} \longrightarrow \ringmodhom{S}{_{S}S_{S}}{_{R}M_{S}}$, con $\lambda \lrprth{m}\lrprth{s}=ms$, es un isomorfismo en $_{R}Mod_{S}$
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{(a)}}$ Sea $m \in M$. Probaremos que $\rho \lrprth{m}$ un morfismo de $R$-$S$-bimódulos. Considere $r,t \in R$, en virtud de que $M$ es un $R$-módulo a izquierda, se tiene que
+			\begin{align*}
+				\rho\lrprth{m}\lrprth{r+t}&=\lrprth{r+t}m\\
+				&=rm+tm\\
+				&=\rho\lrprth{m}\lrprth{r}+\rho \lrprth{m}\lrprth{t}.
+			\end{align*}
+			Adicionalmente,
+			\begin{align*}
+				\rho \lrprth{m}\lrprth{rt}&=\lrprth{rt}m\\
+				&=r\lrprth{tm}\\
+				&=r \rho \lrprth{m}\lrprth{t}.
+			\end{align*}
+			Por tanto, $\rho \in Hom_{R}\lrprth{_{R}R_{R},_{R}M_{S}}$.\\
+			
+			Además, $\rho$ es un morfismo de $R$-módulos a izquierda. En efecto, si $a,b \in R$ y $x,y \in M$, entonces 
+			\begin{align*}
+				\rho \lrprth{x+y}\lrprth{a}&=a\lrprth{x+y}\\
+				&=ax+ay\\
+				&=\rho \lrprth{x}\lrprth{a} + \rho \lrprth{y}\lrprth{a}.
+				\intertext{También}
+				\rho\lrprth{x}\lrprth{ab}&=\lrprth{ab}x\\
+				&=a\lrprth{bx}\\
+				&=a\rho\lrprth{bx}.
+			\end{align*}
+			
+			Posteriormente, si $m \in Ker\lrprth{\rho}$, entonces $\rho\lrprth{m}=0$. De esta forma, $rm=0$, para cualquier $r \in R$. Como $M$ es unitario, el único de sus elementos que es anulado por cada elemento de $R$ es el $0$; en este sentido, $Ker\lrprth{ \rho }=0$. Por consiguiente, $\rho$ es monomorfismo.\\
+			
+			Finalmente, sea $g \in \ringmodhom{R}{R}{M}$. Si consideramos $g\lrprth{1}$, se satisface que $\rho \lrprth{g\lrprth{1}}=g$. $\therefore\rho$ es isomorfismo.
+			
+			$\boxed{\text{(b)}}$ De manera análoga al inciso anterior, podemos probar este inciso, por lo cual nos centraremos más en las cuentas. Bajo este contexto, tenemos que:
+			\begin{itemize}
+				\item Sean $m \in M$ y $s,u \in S$.
+				\begin{align*}
+					\rho\lrprth{m}\lrprth{su}&=m\lrprth{su}\\
+					&=\lrprth{ms}u\\
+					&=\rho\lrprth{m}\lrprth{s}u
+				\end{align*}
+				\item Sean $m,n \in M$ y $s \in S$.
+				\begin{align*}
+					\rho\lrprth{m+n}\lrprth{s}&=\lrprth{m+n}s\\
+					&=ms+ns\\
+					&=\rho\lrprth{m}\lrprth{s}+\rho\lrprth{n}\lrprth{s}
+				\end{align*}
+				\item Sean $m \in M$ y $s,u \in S$
+				\begin{align*}
+					\rho\lrprth{m}\lrprth{su}&=m\lrprth{su}\\
+					&=\lrprth{ms}u\\
+					&=\rho\lrprth{m}\lrprth{s}u
+				\end{align*}
+			\end{itemize}
+			
+			Así mismo, $\rho$ es un isomorfismo. En efecto, si $x \in Ker\lrprth{ \rho }$, entonces $\rho \lrprth{x}=0$; de donde $x=0$. Más aún, si $g \in \ringmodhom{S}{S}{M}$, entonces $\rho \lrprth{g\lrprth{1}}=g$.\\
+			$\therefore\rho$ es un isomorfismo.\\
+		\end{proof}
+		
+		%%%%% Ejercicio 26 %%%%%
+		\item Sea $R$ un anillo y $e^2=e\in R$, un idempotente en $R$.
+		\begin{itemize}
+			\item[a)] Pruebe que la estructura de anillo en $R$ induce, de manera natural, una estructura de anillo en $eRe:=\{ere\,\colon\,r\in R\}$.
+			¿Es $eRe$ un subanilo de $R$?
+			\item[b)] Para cada $M\in Mod(R)$, pruebe que la acción a izquierda \\
+			$eRe\times eM\longrightarrow eM,$ \,\, $(ere,em)\mapsto erem$ 
+			induce una estructura de $eRe$-módulo a izquierda en $eM$.
+			\item[c)] Pruebe que la correspondencia $m_e:Mod(R)\longrightarrow Mod(eRe)$ , dada por 
+			$\left(M \stackrel{f}{\longrightarrow} N\right)\longmapsto \left(eM\stackrel{f|_{eM}}{\longrightarrow} eN\right)$, es funtorial.
+		\end{itemize}
+		\begin{proof}
+			\boxed{a)} Como $R$ es anillo, se tienen los siguientes resultados: $\forall a,b\in R$
+			\[eae-ebe=e(ae-be)=e(a-b)e\in eRe\]
+			(por lo que $eRe$ es subgrupo abeliano bajo la suma),
+			\[(eae)(ebe)=eae^2be=e(aeb)e\in eRe
+			\]
+			y 
+			\[e(eae)=e^2ae=eae=eae^2=(eae)e.
+			\]
+			Por lo tanto $R$ es un anillo con $e$ su inverso, y por esto mismo no puede ser subanillo de $R$ exepto en el caso en que $e=1_R$. \\
+			
+			\boxed{b)} Observemos que $\forall a\in eM$ y $\forall s\in eRe$.
+			\[a=em\quad \text{y} \quad s=ere\quad \text{para alguna} \quad m\in M\quad \text{y} \quad r\in R,\]
+			así, llamando $*$ a la acción que definida como $(ere,em)\mapsto erem$, entonces 
+			\[s*a=(ere)(em)=erem=ere^2m=(ere)(em).
+			\]
+			Por lo que 
+			\begin{align*}
+				(er_1e+er_2e)*(em)&=(er_1e+er_2e)(em)\\
+				&=er_1eem+er_2eem\\
+				&=(er_1e)*(em)+(er_2e)*(em).\\
+				(ere)*(em_1+em_2)&= (ere)(em_1+em_2)\\
+				&=ereem_1+ereem_2\\
+				&=(ere)*(em_1)+(ere)*(em_2).\\
+				1_{eRe}*(em)&=e(em)=e^2m=em.
+			\end{align*}
+			\[[(er_1e)(er_2e)]*(em)=[(er_1e)(er_2e)](em)=er_1eer_2eem.\]
+			Por otro lado
+			\[(er_1e)*[(er_2e)*(em)]=(er_1e)*(er_2eem)=er_1eer_2eem.\]
+			Así $*$ es una acción de módulos.\\
+			
+			\boxed{c)} Para que la correspondencia sea funtorial debe preservar identidades y composición de morfismos, es decir:\\
+			
+			\boxed{i)}\,\, $m_e(1_M)=1_{me(M)}$.\\
+			\boxed{ii)}\,\,Si  $ M \stackrel{f}{\longrightarrow} N \stackrel{g}{\longrightarrow} L,$ se tiene que $m_e(gf)=m_e(g)\circ m_e(f)$.\\
+			
+			Sea $m\in M$ entonces\\
+			
+			\boxed{i)} $m_e(1_M)(em)=1_M|_{eM}(em)=em$, entonces $m_e(1_M)=1_{e_m(M)}=1_{eM}.$
+			\begin{align*}
+				\boxed{ii)}\ m_e(gf)(em)&=(gf)|_{eM}(em)=gf(em)=g(f(em))=g(f|_{eM}(em))\\
+				&=g(f|_{eM}(em))=g|_{eM}(f|_{eM}(em))\\
+				&=(g|_{eM}\circ f|_{eM})(em).
+			\end{align*}
+		\end{proof}
+		
+		%%%%% Ejercicio 27 %%%%%
+		\item Sean $R$ y $S$ anillos, $e\in R$ y $\epsilon\in S$ idempotentes, $M\in\ringbimod{R}{S}{\text{Mod}}{lr}$, $R':=eRe$ y $S':=\epsilon S\epsilon$. Entonces:
+		\begin{enumerate}[label=(\alph*)]
+			\item existen acciones tales que $Re\in\ringbimod{R}{R'}{\text{Mod}}{lr}$, $\epsilon S\in\ringbimod{S'}{S}{\text{Mod}}{lr}$, $eM\in\ringbimod{R'}{S}{\text{Mod}}{lr}$ y $M\epsilon\in\ringbimod{R}{S'}{\text{Mod}}{lr}$;
+			\item las siguientes aplicaciones son morfismos de bimódulos
+			\begin{enumerate}[label=(\roman*)]
+				\item \begin{align*}
+					\descapp{\rho}{\ringbimod{R'}{S}{eM}{lr}}{\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}}{em}{\rho(em)}{,}
+					\intertext{con}
+					\descapp{\rho\lrprth{em}}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}{re}{\lrprth{re}m}{;}
+				\end{align*}
+				\item \begin{align*}
+					\descapp{\lambda}{\ringbimod{R}{S'}{M\epsilon}{lr}}{\ringmodhom{S}{\ringbimod{S'}{S}{\epsilon S}{lr}}{\ringbimod{R}{S}{M}{lr}}}{m\epsilon}{\lambda(m\epsilon)}{,}
+					\intertext{con}
+					\descapp{\lambda\lrprth{m\epsilon}}{\ringbimod{S'}{S}{\epsilon S}{lr}}{\ringbimod{R}{S}{M}{lr}}{\epsilon s}{m\epsilon s}{;}
+				\end{align*}
+			\end{enumerate}
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{(a)}}$ Por el Ej. 26 $R'$ y $S'$ son anillos. Además, notemos que $R\in\ringbimod{R}{R}{\text{Mod}}{lr}$, a través de las acciones naturales inducidas por el producto en $R$. Así pues, si se considera $M=R=S$ y $e=\epsilon$, se tiene que $Re\in\ringbimod{R}{R'}{\text{Mod}}{lr}$ como consecuencia de que $M\epsilon\in\ringbimod{R}{S'}{\text{Mod}}{lr}$; similarmente  $\epsilon S\in\ringbimod{S'}{S}{\text{Mod}}{lr}$ se sigue de que $eM\in\ringbimod{R'}{S}{\text{Mod}}{lr}$.\\
+			Sea $s\in S$. Notemos que 
+			\begin{align*}
+				ms+(-m)s&=\lrprth{m-m}s=0_Ms=0_M.\\
+				&\implies -\lrprth{ms}=(-m)s.
+				\intertext{Por lo anterior, si $ms\in Ms$ entonces $-(ms)\in Ms$. Además, si $m's\in Ms$,}
+				ms+m's&=\lrprth{m+m'}s\in Ms.\\
+				&\implies Ms\leq M.
+			\end{align*}
+			Así, en partícular $M\epsilon$ es un grupo abeliano.\\
+			Consideremos las siguientes aplicaciones, denotadas por medio del mismo simbolo para simplificar la notación e inducidas a partir de las acciones como $R$-izquierdo $S$-derecho bimódulo en $M$,
+			\begin{align*}
+				\descapp{*}{R\times M\epsilon}{M\epsilon}{(r,m\epsilon)}{rm\epsilon}{,}\\
+				\descapp{*}{M\epsilon\times S'}{M\epsilon}{(m\epsilon,\epsilon s\epsilon)}{m\epsilon s\epsilon}{.}
+			\end{align*}
+			Sean $m,m'\in M$, $r,r'\in R$. Entonces
+			\begin{align*}
+				\lrprth{r+r'}*m\epsilon&=\lrprth{r+r'}m\epsilon=\lrprth{rm+r'm}\epsilon=rm\epsilon+r'm\epsilon\\
+				&=r*m\epsilon+r'*m\epsilon.\\
+				r*\lrprth{m\epsilon+m'\epsilon}&=r*\lrprth{m+m'}\epsilon=\lrprth{r\lrprth{m+m'}}\epsilon=rm\epsilon+rm'\epsilon\\
+				&=r*m\epsilon+r*m'\epsilon.\\
+				\intertext{Como $\epsilon^2=\epsilon$}
+				\lrprth{rr'}*\lrprth{m\epsilon}&=\lrprth{rr'}m\epsilon=\lrprth{r\lrprth{r'm}}\epsilon\epsilon=r\lrprth{r'm\epsilon}\epsilon\\
+				&=r*\lrprth{r'*m\epsilon}.\\
+				1_R*\lrprth{m\epsilon}&=\lrprth{1_Rm}\epsilon=m\epsilon.\\
+				&\implies M\in\ringmod{R}{\text{Mod}}{l}.
+				\intertext{Ahora, sean $s,s'\in S$. Entonces}
+				m\epsilon*\lrprth{\epsilon s\epsilon+\epsilon s'\epsilon}&=m\epsilon*\lrprth{\epsilon\lrprth{s+s'}\epsilon}=\lrprth{m\epsilon\lrprth{s+s'}}\epsilon\\&=\lrprth{m\epsilon s}\epsilon+\lrprth{m\epsilon s'}\epsilon
+				=m\epsilon*\epsilon s\epsilon+{m\epsilon}*{\epsilon s'\epsilon}.\\
+				\lrprth{m\epsilon+m'\epsilon}*{\epsilon s\epsilon}&={\lrprth{m+m'}\epsilon}*{\epsilon s\epsilon}={\lrprth{m+m'}\epsilon s}\epsilon\\&={m\epsilon s}\epsilon+{m'\epsilon s}\epsilon
+				=m\epsilon*{\epsilon s\epsilon}+m'\epsilon*{\epsilon s\epsilon}.\\
+				\intertext{Como $\epsilon^2=\epsilon$}
+				{m\epsilon}*\lrprth{\lrprth{\epsilon s\epsilon}\lrprth{\epsilon s'\epsilon}}&={m\epsilon}*\epsilon \lrprth{s\epsilon s'}\epsilon=\lrprth{m\epsilon\lrprth{s\epsilon s'}}\epsilon=\lrprth{\lrprth{m\epsilon s}\epsilon\epsilon}s\epsilon\\
+				&=\lrprth{m\epsilon s\epsilon}s\epsilon=\lrprth{m\epsilon*\epsilon s\epsilon}*\epsilon s'\epsilon.\\
+				\lrprth{m\epsilon}*1_{S'}&=\lrprth{m\epsilon}*\epsilon=\lrprth{m\epsilon}\epsilon=m\lrprth{\epsilon\epsilon}\\&=m\epsilon.\\
+				&\implies M\in\ringmod{S'}{\text{Mod}}{r}.\\		
+			\end{align*}
+			Finalmente
+			\begin{align*}
+				{r*\lrprth{{m\epsilon}*{\epsilon s\epsilon}}}&=r*\lrprth{{m\epsilon s}\epsilon}={r\lrprth{m\epsilon s}}\epsilon\\
+				&={\lrprth{rm}\epsilon s}\epsilon && M\in\ringbimod{R}{S}{\text{Mod}}{lr}\\
+				&={\lrprth{rm}\epsilon}*{\epsilon s\epsilon}\\
+				&=\lrprth{r*{m\epsilon}}*{\epsilon s\epsilon}.\\
+				&\implies M\epsilon\in\ringbimod{R}{S'}{\text{Mod}}{lr}.
+			\end{align*}
+			En forma análoga a lo desarrollado anteriormente se verifica que, a través de las aplicaciones
+			\begin{align*}
+				\descapp{\cdot}{R'\times eM}{eM}{(ere,em)}{e{rem}}{,}\\
+				\descapp{\cdot}{eM\times S}{eM}{(em,s)}{e{ms}}{,}
+			\end{align*}
+			$eM\in\ringbimod{R'}{S}{\text{Mod}}{lr}$.\\
+			$\boxed{\text{(b)}}$ Sean $a,b,r\in R$. Entonces
+			\begin{align*}
+				{\rho\lrprth{em}}\lrprth{r\lrprth{ae+be}}&=\lrprth{r\lrprth{ae+be}}m=r\lrprth{\lrprth{ae+be}m}\\
+				&=r\lrprth{\lrprth{ae}m+\lrprth{be}m}\\
+				&=r\lrprth{\rho\lrprth{em}(ae)+\rho\lrprth{em}(be)}.\\
+				&\implies \rho\lrprth{em}\in\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}.
+			\end{align*}
+			Por lo anterior, y dado que por el Ej. 24  $\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}\in\ringbimod{R'}{S}{\text{Mod}}{lr}$, $\rho$ es una función bien definida. Ahora, sean $m,m'\in M$, $s\in S$ y $x\in R$ y $\bullet$ las acciones definidas en el Ej. 24(a), entonces 
+			\begin{align*}
+				\rho\lrprth{ere\cdot\lrprth{em+em'}\cdot s}\lrprth{xe}&=\rho\lrprth{{ere}\cdot{e{\lrprth{m+m'}}\cdot s}}(xe)\\
+				&=\rho\lrprth{ere\lrprth{m+m'}s}(xe)\\
+				&=\lrprth{xe}\lrprth{re\lrprth{m+m'}s}\\
+				&=\lrprth{xe}\lrprth{rems+rem's}\\
+				&=\lrprth{xe}{rems}+\lrprth{xe}{rem's}\\
+				&=\lrprth{\lrprth{xere}m}s+\lrprth{\lrprth{xere}m'}s\\
+				&=\lrprth{\rho\lrprth{em}\lrprth{xere}}s+\lrprth{\rho\lrprth{em'}\lrprth{xere}}s\\
+				&=\lrprth{\rho\lrprth{em}\lrprth{xe*ere}}s+\lrprth{\rho\lrprth{em'}\lrprth{xe*ere}}s\\
+				&=\lrprth{ere\bullet\rho\lrprth{em}\lrprth{xe}}s+\lrprth{ere\bullet\rho\lrprth{em'}\lrprth{xe}}s\\
+				&=\lrprth{ere\bullet\rho\lrprth{em}\bullet s}\lrprth{xe}+\lrprth{ere\bullet\rho\lrprth{em'}\bullet s}\lrprth{xe}\\
+				&=\lrprth{ere\bullet\rho\lrprth{em}\bullet s+ere\bullet\rho\lrprth{em'}\bullet s}\lrprth{xe}\\
+				\implies \rho\lrprth{{ere}\cdot\lrprth{em+em'}\cdot s}&=ere\bullet\rho\lrprth{em}\bullet s+ere\bullet\rho\lrprth{em'}\bullet s\\
+				\therefore\  \rho&\in\ringmodhom{}{\ringbimod{R'}{S}{eM}{lr}}{\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}}.
+			\end{align*}
+			i.e. $\rho$ es un morfismo de $R$-izquierda $S'$-derecha bimódulos, de $eM$ en $\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}$. En forma análoga, empleando ahora las acciones previamente definidas en conjunto a las acciones definidas en el Ej. 24(b), se verifica que $\lambda$ un morfismo de $R'$-izquierda $S$-derecha bimódulos, de $M\epsilon$ en $\ringmodhom{S}{\ringbimod{S'}{S }{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}$.\\
+		\end{proof}
+		
+		%%%%% Ejercicio 28 %%%%%
+		\item Para un anillo $R$, pruebe que:
+		\begin{enumerate}
+			\item Para $M \in Mod\lrprth{R}$, se tiene que $M \in Mod\lrprth{End\lrprth{_{R}M}}$, via la acción a izquierda, $End\lrprth{_{R}M} \times M \longrightarrow M$, $\lrprth{f,m} \mapsto f \cdot m = f\lrprth{m}$. Más aún, vale que $M \in {}_{R-End\lrprth{_{R}M}}Mod$.
+			\item Para $N \in Mod\lrprth{\opst{R}}$, se tiene que $N \in Mod\lrprth{End\lrprth{N_{R}}}$, vía la acción a izquierda, $End\lrprth{N_{R}} \times N \longrightarrow N$, $\lrprth{g,n} \mapsto g \cdot n = g\lrprth{n}$. Más aún, vale que $N \in {}_{End\lrprth{N_{R}}}Mod_{R}$.
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{(a)}}$ En virtud de que $M$ es un grupo abeliano, bastará probar que la acción a izquierda $\lrprth{f,m} \mapsto f \cdot m = f\lrprth{m}$ induce una estructura de $End\lrprth{_{R}M}$-módulo a izquierda. Para dicho fin, se tiene que:
+			\begin{itemize}
+				\item Sean $f,g \in End\lrprth{_{R}M}$ y $m \in M$
+				\begin{align*}
+					\lrprth{f+g} \cdot m&=\lrprth{f+g}\lrprth{m}\\
+					&=f\lrprth{m}+g\lrprth{m}\\
+					&=f \cdot m+g \cdot m.
+				\end{align*}
+				\item Sean $f \in End\lrprth{_{R}M}$ y $m,n \in M$
+				\begin{align*}
+					f \cdot \lrprth{m+n}&=f\lrprth{m+n}\\
+					&=f\lrprth{m}+f\lrprth{n}\\
+					&=f \cdot m+f \cdot n.
+				\end{align*}
+				\item Sean $f,g \in End\lrprth{_{R}M}$ y $m \in M$
+				\begin{align*}
+					\lrprth{fg} \cdot m&=\lrprth{fg}\lrprth{m}\\
+					&=f\lrprth{g\lrprth{m}}\\
+					&=f\lrprth{g \cdot m}\\
+					&=f \cdot \lrprth{g \cdot m}.
+				\end{align*}
+				\item $Id \cdot m=Id\lrprth{m}=m$.
+			\end{itemize}
+			Por ello, $M \in End\lrprth{_{R}M}$. Más aún, el hecho de que todo morfismo $h$ preserva productos por escalar garantiza que
+			\begin{align*}
+				h \cdot \lrprth{rx}&=h\lrprth{rx}\\
+				&=rh\lrprth{x}\\
+				&=r\lrprth{h \cdot x}
+			\end{align*}
+			$\therefore M \in {}_{R-End\lrprth{_{R}M}}Mod$.\\
+			
+			$\boxed{\text{(b)}}$ Considere $N \in Mod\lrprth{R^{op}}$. Veremos que bajo la acción a izquierda $\lrprth{g,n} \mapsto g \cdot n = g\lrprth{n}$, $N$ es un $_{End\lrprth{N_{R}}}Mod_{R}$-bimódulo. De tal forma que:
+			\begin{itemize}
+				\item Sean $\varphi , \psi \in End\lrprth{N_{R}}$, $m \in M$
+				\begin{align*}
+					\lrprth{ \varphi + \psi } \cdot m&=\lrprth{ \varphi + \psi }\lrprth{m}\\
+					&=\varphi \lrprth{m} + \psi \lrprth{m}\\
+					&=\varphi \cdot m + \psi \cdot m.
+				\end{align*}
+				\item Sean $\varphi\in End\lrprth{N_{R}}$, $m \in M$
+				\begin{align*}
+					\varphi\cdot\lrprth{m+n}&=\varphi\lrprth{m+n}\\
+					&=\varphi\lrprth{m}+\varphi\lrprth{n}\\
+					&=\varphi \cdot m + \varphi \cdot n.
+				\end{align*}
+				\item Sean $\varphi , \psi \in End\lrprth{N_{R}}$, $m \in M$
+				\begin{align*}
+					\lrprth{ \varphi\psi } \cdot m&=\lrprth{ \varphi\psi }\lrprth{m}\\
+					&=\varphi \lrprth{ \psi \lrprth{m}}\\
+					&=\varphi \lrprth{ \psi \cdot m}\\
+					&=\varphi \cdot \lrprth{ \psi \cdot m}.
+				\end{align*}
+				\item $Id \cdot m=Id\lrprth{m}=m$.
+			\end{itemize}
+			De aquí, $N$ es un $End\lrprth{N_{R}}$-módulo. Finalmente, a partir de que todo morfismo $\tau$ induce 
+			\begin{align*}
+				\tau \cdot \lrprth{ts} &= \tau \lrprth{ts}\\
+				&=\tau \lrprth{t}s\\
+				&=\lrprth{ \tau \cdot t }s.
+			\end{align*}
+			$\therefore\ N \in {}_{End\lrprth{N_{R}}}Mod_{S}$.\\
+		\end{proof}
 	\end{enumerate}
-\end{enumerate}
-\begin{proof}
-	$\boxed{\text{(a)}}$ Por el Ej. 26 $R'$ y $S'$ son anillos. Además, notemos que $R\in\ringbimod{R}{R}{\text{Mod}}{lr}$, a través de las acciones naturales inducidas por el producto en $R$. Así pues, si se considera $M=R=S$ y $e=\epsilon$, se tiene que $Re\in\ringbimod{R}{R'}{\text{Mod}}{lr}$ como consecuencia de que $M\epsilon\in\ringbimod{R}{S'}{\text{Mod}}{lr}$; similarmente  $\epsilon S\in\ringbimod{S'}{S}{\text{Mod}}{lr}$ se sigue de que $eM\in\ringbimod{R'}{S}{\text{Mod}}{lr}$.\\
-	Sea $s\in S$. Notemos que 
-	\begin{align*}
-		ms+(-m)s&=\lrprth{m-m}s=0_Ms=0_M.\\
-		&\implies -\lrprth{ms}=(-m)s.
-		\intertext{Por lo anterior, si $ms\in Ms$ entonces $-(ms)\in Ms$. Además, si $m's\in Ms$,}
-		ms+m's&=\lrprth{m+m'}s\in Ms.\\
-		&\implies Ms\leq M.
-	\end{align*}
-Así, en partícular $M\epsilon$ es un grupo abeliano.\\
-	Consideremos las siguientes aplicaciones, denotadas por medio del mismo simbolo para simplificar la notación e inducidas a partir de las acciones como $R$-izquierdo $S$-derecho bimódulo en $M$,
-	\begin{align*}
-		\descapp{*}{R\times M\epsilon}{M\epsilon}{(r,m\epsilon)}{rm\epsilon}{,}\\
-		\descapp{*}{M\epsilon\times S'}{M\epsilon}{(m\epsilon,\epsilon s\epsilon)}{m\epsilon s\epsilon}{.}
-	\end{align*}
-	Sean $m,m'\in M$, $r,r'\in R$. Entonces
-	\begin{align*}
-		\lrprth{r+r'}*m\epsilon&=\lrprth{r+r'}m\epsilon=\lrprth{rm+r'm}\epsilon=rm\epsilon+r'm\epsilon\\
-		&=r*m\epsilon+r'*m\epsilon.\\
-		r*\lrprth{m\epsilon+m'\epsilon}&=r*\lrprth{m+m'}\epsilon=\lrprth{r\lrprth{m+m'}}\epsilon=rm\epsilon+rm'\epsilon\\
-		&=r*m\epsilon+r*m'\epsilon.\\
-		\intertext{Como $\epsilon^2=\epsilon$}
-		\lrprth{rr'}*\lrprth{m\epsilon}&=\lrprth{rr'}m\epsilon=\lrprth{r\lrprth{r'm}}\epsilon\epsilon=r\lrprth{r'm\epsilon}\epsilon\\
-		&=r*\lrprth{r'*m\epsilon}.\\
-		1_R*\lrprth{m\epsilon}&=\lrprth{1_Rm}\epsilon=m\epsilon.\\
-		&\implies M\in\ringmod{R}{\text{Mod}}{l}.
-		\intertext{Ahora, sean $s,s'\in S$. Entonces}
-		m\epsilon*\lrprth{\epsilon s\epsilon+\epsilon s'\epsilon}&=m\epsilon*\lrprth{\epsilon\lrprth{s+s'}\epsilon}=\lrprth{m\epsilon\lrprth{s+s'}}\epsilon\\&=\lrprth{m\epsilon s}\epsilon+\lrprth{m\epsilon s'}\epsilon
-		=m\epsilon*\epsilon s\epsilon+{m\epsilon}*{\epsilon s'\epsilon}.\\
-		\lrprth{m\epsilon+m'\epsilon}*{\epsilon s\epsilon}&={\lrprth{m+m'}\epsilon}*{\epsilon s\epsilon}={\lrprth{m+m'}\epsilon s}\epsilon\\&={m\epsilon s}\epsilon+{m'\epsilon s}\epsilon
-		=m\epsilon*{\epsilon s\epsilon}+m'\epsilon*{\epsilon s\epsilon}.\\
-		\intertext{Como $\epsilon^2=\epsilon$}
-		{m\epsilon}*\lrprth{\lrprth{\epsilon s\epsilon}\lrprth{\epsilon s'\epsilon}}&={m\epsilon}*\epsilon \lrprth{s\epsilon s'}\epsilon=\lrprth{m\epsilon\lrprth{s\epsilon s'}}\epsilon=\lrprth{\lrprth{m\epsilon s}\epsilon\epsilon}s\epsilon\\
-		&=\lrprth{m\epsilon s\epsilon}s\epsilon=\lrprth{m\epsilon*\epsilon s\epsilon}*\epsilon s'\epsilon.\\
-		\lrprth{m\epsilon}*1_{S'}&=\lrprth{m\epsilon}*\epsilon=\lrprth{m\epsilon}\epsilon=m\lrprth{\epsilon\epsilon}\\&=m\epsilon.\\
-		&\implies M\in\ringmod{S'}{\text{Mod}}{r}.\\		
-	\end{align*}
-	Finalmente
-\begin{align*}
-		{r*\lrprth{{m\epsilon}*{\epsilon s\epsilon}}}&=r*\lrprth{{m\epsilon s}\epsilon}={r\lrprth{m\epsilon s}}\epsilon\\
-	&={\lrprth{rm}\epsilon s}\epsilon && M\in\ringbimod{R}{S}{\text{Mod}}{lr}\\
-	&={\lrprth{rm}\epsilon}*{\epsilon s\epsilon}\\
-	&=\lrprth{r*{m\epsilon}}*{\epsilon s\epsilon}.\\
-	&\implies M\epsilon\in\ringbimod{R}{S'}{\text{Mod}}{lr}.
-\end{align*}
-	En forma análoga a lo desarrollado anteriormente se verifica que, a través de las aplicaciones
-	\begin{align*}
-		\descapp{\cdot}{R'\times eM}{eM}{(ere,em)}{e{rem}}{,}\\
-		\descapp{\cdot}{eM\times S}{eM}{(em,s)}{e{ms}}{,}
-	\end{align*}
-	$eM\in\ringbimod{R'}{S}{\text{Mod}}{lr}$.\\
-	$\boxed{\text{(b)}}$ Sean $a,b,r\in R$. Entonces
-	\begin{align*}
-		{\rho\lrprth{em}}\lrprth{r\lrprth{ae+be}}&=\lrprth{r\lrprth{ae+be}}m=r\lrprth{\lrprth{ae+be}m}\\
-		&=r\lrprth{\lrprth{ae}m+\lrprth{be}m}\\
-		&=r\lrprth{\rho\lrprth{em}(ae)+\rho\lrprth{em}(be)}.\\
-		&\implies \rho\lrprth{em}\in\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}.
-	\end{align*}
-	Por lo anterior, y dado que por el Ej. 24  $\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}\in\ringbimod{R'}{S}{\text{Mod}}{lr}$, $\rho$ es una función bien definida. Ahora, sean $m,m'\in M$, $s\in S$ y $x\in R$ y $\bullet$ las acciones definidas en el Ej. 24(a), entonces 
-	\begin{align*}
-		\rho\lrprth{ere\cdot\lrprth{em+em'}\cdot s}\lrprth{xe}&=\rho\lrprth{{ere}\cdot{e{\lrprth{m+m'}}\cdot s}}(xe)\\
-		&=\rho\lrprth{ere\lrprth{m+m'}s}(xe)\\
-		&=\lrprth{xe}\lrprth{re\lrprth{m+m'}s}\\
-		&=\lrprth{xe}\lrprth{rems+rem's}\\
-		&=\lrprth{xe}{rems}+\lrprth{xe}{rem's}\\
-		&=\lrprth{\lrprth{xere}m}s+\lrprth{\lrprth{xere}m'}s\\
-		&=\lrprth{\rho\lrprth{em}\lrprth{xere}}s+\lrprth{\rho\lrprth{em'}\lrprth{xere}}s\\
-		&=\lrprth{\rho\lrprth{em}\lrprth{xe*ere}}s+\lrprth{\rho\lrprth{em'}\lrprth{xe*ere}}s\\
-		&=\lrprth{ere\bullet\rho\lrprth{em}\lrprth{xe}}s+\lrprth{ere\bullet\rho\lrprth{em'}\lrprth{xe}}s\\
-		&=\lrprth{ere\bullet\rho\lrprth{em}\bullet s}\lrprth{xe}+\lrprth{ere\bullet\rho\lrprth{em'}\bullet s}\lrprth{xe}\\
-		&=\lrprth{ere\bullet\rho\lrprth{em}\bullet s+ere\bullet\rho\lrprth{em'}\bullet s}\lrprth{xe}\\
-		\implies \rho\lrprth{{ere}\cdot\lrprth{em+em'}\cdot s}&=ere\bullet\rho\lrprth{em}\bullet s+ere\bullet\rho\lrprth{em'}\bullet s\\
-		\therefore\  \rho&\in\ringmodhom{}{\ringbimod{R'}{S}{eM}{lr}}{\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}}.
-	\end{align*}
-i.e. $\rho$ es un morfismo de $R$-izquierda $S'$-derecha bimódulos, de $eM$ en $\ringmodhom{R}{\ringbimod{R}{R'}{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}$. En forma análoga, empleando ahora las acciones previamente definidas en conjunto a las acciones definidas en el Ej. 24(b), se verifica que $\lambda$ un morfismo de $R'$-izquierda $S$-derecha bimódulos, de $M\epsilon$ en $\ringmodhom{S}{\ringbimod{S'}{S }{Re}{lr}}{\ringbimod{R}{S}{M}{lr}}$.\\
-\end{proof}
-
-%%%%% Ejercicio 28 %%%%%
-\item Para un anillo $R$, pruebe que:
-\begin{enumerate}
-	\item Para $M \in Mod\lrprth{R}$, se tiene que $M \in Mod\lrprth{End\lrprth{_{R}M}}$, via la acción a izquierda, $End\lrprth{_{R}M} \times M \longrightarrow M$, $\lrprth{f,m} \mapsto f \cdot m = f\lrprth{m}$. Más aún, vale que $M \in {}_{R-End\lrprth{_{R}M}}Mod$.
-	\item Para $N \in Mod\lrprth{\opst{R}}$, se tiene que $N \in Mod\lrprth{End\lrprth{N_{R}}}$, vía la acción a izquierda, $End\lrprth{N_{R}} \times N \longrightarrow N$, $\lrprth{g,n} \mapsto g \cdot n = g\lrprth{n}$. Más aún, vale que $N \in {}_{End\lrprth{N_{R}}}Mod_{R}$.
-\end{enumerate}
-\begin{proof}
-	$\boxed{\text{(a)}}$ En virtud de que $M$ es un grupo abeliano, bastará probar que la acción a izquierda $\lrprth{f,m} \mapsto f \cdot m = f\lrprth{m}$ induce una estructura de $End\lrprth{_{R}M}$-módulo a izquierda. Para dicho fin, se tiene que:
-	\begin{itemize}
-		\item Sean $f,g \in End\lrprth{_{R}M}$ y $m \in M$
+\begin{lem}
+	Sean $\mathcal{A}$ una categoria y $f:A\to B \in Hom\lrprth{\mathcal{A}}$. Si $f$ es un split-epi y un monomorfismo, entonces $f$ es un isomorfismo.	
+\end{lem}
+	\begin{proof}
+		Dado que $f$ es un isomorfismo si y sólo si es un monomorfismo y un epimorfismo basta con probar que, bajo estas condiciones, $f$ es un epimorfismo. Sean $C\in Obj(\mathcal{A})$ y $g,h:B\to C\in Hom\lrprth{\mathcal{A}}$ tales que $gf=hf$. Como $f$ es un split-epi $\exists\ k:B\to A\in Hom\lrprth{\mathcal{A}}$ tal que $fk=1_B$, entonces
 		\begin{align*}
-			\lrprth{f+g} \cdot m&=\lrprth{f+g}\lrprth{m}\\
-			&=f\lrprth{m}+g\lrprth{m}\\
-			&=f \cdot m+g \cdot m.
+			\lrprth{gf}k=\lrprth{hf}k&\implies g\lrprth{fk}=h\lrprth{fk}\\
+			&\implies g1_B=h1_B\\
+			&\implies g=h.
 		\end{align*}
-		\item Sean $f \in End\lrprth{_{R}M}$ y $m,n \in M$
-		\begin{align*}
-			f \cdot \lrprth{m+n}&=f\lrprth{m+n}\\
-			&=f\lrprth{m}+f\lrprth{n}\\
-			&=f \cdot m+f \cdot n.
-		\end{align*}
-		\item Sean $f,g \in End\lrprth{_{R}M}$ y $m \in M$
-		\begin{align*}
-			\lrprth{fg} \cdot m&=\lrprth{fg}\lrprth{m}\\
-			&=f\lrprth{g\lrprth{m}}\\
-			&=f\lrprth{g \cdot m}\\
-			&=f \cdot \lrprth{g \cdot m}.
-		\end{align*}
-		\item $Id \cdot m=Id\lrprth{m}=m$.
-	\end{itemize}
-	Por ello, $M \in End\lrprth{_{R}M}$. Más aún, el hecho de que todo morfismo $h$ preserva productos por escalar garantiza que
-	\begin{align*}
-		h \cdot \lrprth{rx}&=h\lrprth{rx}\\
-		&=rh\lrprth{x}\\
-		&=r\lrprth{h \cdot x}
-	\end{align*}
-	$\therefore M \in {}_{R-End\lrprth{_{R}M}}Mod$.\\
-	
-	$\boxed{\text{(b)}}$ Considere $N \in Mod\lrprth{R^{op}}$. Veremos que bajo la acción a izquierda $\lrprth{g,n} \mapsto g \cdot n = g\lrprth{n}$, $N$ es un $_{End\lrprth{N_{R}}}Mod_{R}$-bimódulo. De tal forma que:
-	\begin{itemize}
-		\item Sean $\varphi , \psi \in End\lrprth{N_{R}}$, $m \in M$
-		\begin{align*}
-			\lrprth{ \varphi + \psi } \cdot m&=\lrprth{ \varphi + \psi }\lrprth{m}\\
-			&=\varphi \lrprth{m} + \psi \lrprth{m}\\
-			&=\varphi \cdot m + \psi \cdot m.
-		\end{align*}
-		\item Sean $\varphi\in End\lrprth{N_{R}}$, $m \in M$
-		\begin{align*}
-			\varphi\cdot\lrprth{m+n}&=\varphi\lrprth{m+n}\\
-			&=\varphi\lrprth{m}+\varphi\lrprth{n}\\
-			&=\varphi \cdot m + \varphi \cdot n.
-		\end{align*}
-		\item Sean $\varphi , \psi \in End\lrprth{N_{R}}$, $m \in M$
-		\begin{align*}
-			\lrprth{ \varphi\psi } \cdot m&=\lrprth{ \varphi\psi }\lrprth{m}\\
-			&=\varphi \lrprth{ \psi \lrprth{m}}\\
-			&=\varphi \lrprth{ \psi \cdot m}\\
-			&=\varphi \cdot \lrprth{ \psi \cdot m}.
-		\end{align*}
-		\item $Id \cdot m=Id\lrprth{m}=m$.
-	\end{itemize}
-	De aquí, $N$ es un $End\lrprth{N_{R}}$-módulo. Finalmente, a partir de que todo morfismo $\tau$ induce 
-	\begin{align*}
-		\tau \cdot \lrprth{ts} &= \tau \lrprth{ts}\\
-		&=\tau \lrprth{t}s\\
-		&=\lrprth{ \tau \cdot t }s.
-	\end{align*}
-	$\therefore\ N \in {}_{End\lrprth{N_{R}}}Mod_{S}$.\\
-\end{proof}
-\end{enumerate}
+	\end{proof}
 \end{document}
