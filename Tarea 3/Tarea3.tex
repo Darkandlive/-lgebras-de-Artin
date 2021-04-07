@@ -1,0 +1,322 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{eufrak}
+\usepackage{nicefrac}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{tikz-cd}
+\usepackage{comment}%Paquete para añadir comentarios largos.}
+
+%Imprime el símbolo de subideal, o bien subgrupo normal
+\def\subnormeq{\mathrel{\scalerel*{\trianglelefteq}{A}}}
+
+%Recibe un paremetro y le coloca dos barras a cada lado, por ejemplo para denotar la cardinalidad. Así $\crdnlty{A}$ imprime |A| 
+\newcommand{\crdnlty}[1]{
+    \left|#1\right|
+}
+
+%Recibe un paremetro y le coloca paréntesis a cada lado, por ejemplo para construir un conjunto. Así $\lrprth{A}$ imprime (A). Lo conveniente del comando es que los paréntesis se ajustan al tamaño del argumento, de modo que si uno introduce, por ejemplo, un cociente, el tamaño de los paréntesis se ajustan a este. Lo mismo sucede con lrbrack, que coloca llaves, y lo hace útil para definir familias o conjuntos. 
+\newcommand{\lrprth}[1]{
+    \left(#1\right)
+}
+
+%Idéntico al comando anterior, pero con llaves {}
+\newcommand{\lrbrack}[1]{
+    \left\{#1\right\}
+}
+
+\begin{comment}
+Recibe 3 parámetros y con ellos crea un conjunto, de la siguiente manera:
+$\descset{a}{A}{p}$ imprime {a \in A | p}
+a son elementos, A es el conjunto del que se toman, y p es la propiedad que deben satisfacer los elementos para pertenecer al conjunto
+\end{comment}
+\newcommand{\descset}[3]{
+    \left\{#1\in#2\ \vline\ #3\right\}
+}
+
+\begin{comment}
+Recibe seis parámetros, con los cuales construye una aplicación (que puede terminar siendo una función). El primer parámetro es el símbolo que tendra la aplicación, por ejemplo f, el segundo es el dominio de la aplicación, el tercero es el contradominio de la aplicación, el cuarto es el símbolo con el que se denota un elemento del dominio, el quinto es la imagen hacia la que se va a mapear el elemento, y el sexto es un símbolo (que puede ser una coma, un punto, dejarse en blanco, etcétera) para separar la aplicación del texto que vendrá después. Vean qué imprime el siguiente código:
+\begin{equation*}
+\descapp{f}{G/H}{G}{gH}{g}{.}
+\end{equation*}
+\end{comment}
+\newcommand{\descapp}[6]{
+    #1: #2 &\rightarrow #3\\
+    #4 &\mapsto #5#6 
+}
+
+\begin{comment}
+Permite describir familias de la forma {A_i}_{i\in I}. 
+El primer parámtero es el símbolo de un elemento de la familia, por ejemplo A. 
+El segundo es el subíndice con el que se van a identificar los miembros, por ejemplo i.
+El tercero es el símbolo con el que se denotará a la colección de índices, por ejemplo I.
+Así $\arbtfam{A}{i}{I}$.
+
+Los siguientes cuatro comandos realizan algo similar, pero para familias finitas y para cuando se desea o no se desea expecificar un superíndice.
+\end{comment}
+\newcommand{\arbtfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2\in #3}
+}
+\newcommand{\arbtfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2\in #3}
+}
+\newcommand{\fntfmnsub}[3]{
+    {\left\{{#1}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfam}[3]{
+    {\left\{{#1}_{#2}\right\}}_{#2=1}^{#3}
+}
+\newcommand{\fntfamsup}[4]{
+    \lrbrack{{#1}^{#2}}_{#3=1}^{#4}
+}
+
+%Los siguientes dos comandos permiten escribir uplas de elementos, infinitas el primero y finitas el segundo, de la forma (a_i)_{i\in I}.
+\newcommand{\arbtuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2\in #3}
+}
+\newcommand{\fntuple}[3]{
+    {\left({#1}_{#2}\right)}_{#2=1}^{#3}
+}
+
+
+\newcommand{\gengroup}[1]{
+    \left< #1\right>
+}
+
+\begin{comment}
+Permite escribir el centro de un grupo. Al igual que en los comando previos, la ventaja que tiene es que los paréntesis se ajustan al tamaño del argumento.
+Así: $\ringcenter{R}$.
+\end{comment}
+\newcommand{\ringcenter}[1]{
+    C\lrprth{#1}
+}
+
+\begin{comment}
+Este permite escribir la notación para los Z endomorfismos de un grupo. El primer parámtero es el grupo y el segundo l o r, para saber si son tomados a izquierda o a derecha. 
+Así: $\zend{A}{l}$.
+\end{comment}
+\newcommand{\zend}[2]{
+    End_{\mathbb{Z}}^{#2}\lrprth{#1}
+}
+
+\begin{comment}
+Da la notación para el submódulo generado por un conjunto con respecto a un cierto anillo. 
+Así, por ejemplo con $\genmod{R}{X}$, el primer parámetro que recibe es con respecto a qué anillo se genera el submódulo (R) y el segundo es el conjunto que lo genera (X).
+\end{comment}
+\newcommand{\genmod}[2]{
+    \left< #1\right>_{#2}
+}
+
+\begin{comment}
+Da la notación para el reticulado de submódulos de un módulo dado.
+\end{comment}
+\newcommand{\genlin}[1]{
+    \mathscr{L}\lrprth{#1}
+}
+
+%Este coloca "op" como exponente del argumento que recibe. Útil para denotar al anillo opuesto, así como sus elementos, o bien funciones/acciones opuestas.
+\newcommand{\opst}[1]{
+    {#1}^{op}
+}
+
+\begin{comment}
+Este comando permite escribir R-módulos a izquierda, o bien a derecha a través de tres parámetros. Por ejemplo $\ringmod{R}{M}{OPCIONES}$. 
+El primero parámetro es el anillo con respecto al cual se está trabajando.
+El segundo parámtero es el grupo abeliano que tiene estructura de R-módulo.
+El tercer parámetro, OPCIONES, admite uno de los siguientes dos valores: l ó r, con los cuales se indica si el módulo es a izquierda (l) o a derecha (r).
+Así $\ringmod{S}{M}{r}$ imprimirá que M es un S-módulo a derecha.
+\end{comment}
+\newcommand{\ringmod}[3]{
+    \if#3l
+    {}_{#1}#2
+    \else
+        \if#3r
+            #2_{#1}
+        \fi
+    \fi
+}
+
+\begin{comment}
+Este comando permite escribir bimódulos a izquierda, o bien a derecha a través de cuatro parámetros. Por ejemplo $\ringbimod{R}{S}{M}{OPCIONES}$. 
+Los primeros dos parámetros son los anillos con respecto a los cuales se está generando el bimódulo.
+El tercer parámtero es el grupo abeliano que tiene estructura de bimódulo.
+El cuarto parámetro, OPCIONES, admite uno de los siguientes tres valores: l, r ó lr. Con los cuales se indica si el bimódulo es a izquierda (l), a derecha (r) o a izquierda y derecha (lr).
+Así $\ringbimod{R}{S}{M}{lr}$ imprimirá que M es un R-izquierdo y S-derecho bimódulo.
+\end{comment}
+\newcommand{\ringbimod}[4]{
+    \if#4l
+    {}_{#1-#2}#3
+    \else
+        \if#4r
+        #3_{#1-#2}
+        \else 
+            \ifstrequal{#4}{lr}{
+            {}_{#1}#3_{#2}
+            }
+        \fi
+    \fi
+}
+
+\begin{comment}
+Este comando permite escribir el conjunto de morfismos de R-módulos entre dos R-módulos dados, a través de tres parámetros. 
+El primer parámetro es el anillo que actúa sobre los módulos.
+El segundo es el módulo que se tomará como dominio de los morfismos.
+El tercero es el módulo que se tomará como contradominio de los morfismos.
+\end{comment}
+\newcommand{\ringmodhom}[3]{
+	Hom_{#1}\lrprth{#2,#3}
+}
+
+\title{Lista 3}
+\author{}
+\date{}
+
+\theoremstyle{definition}
+\newtheorem{define}{Definición}
+
+\theoremstyle{plain}
+\newtheorem{teor}{Teorema}[section]
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proposición}[section]
+
+\theoremstyle{definition}
+\newtheorem{ejemp}{Ejemplo}[section]
+
+\theoremstyle{definition}
+\newtheorem*{coro}{Corolario} 
+
+\theoremstyle{definition}
+\newtheorem*{obs}{Observaci\'on}
+
+\theoremstyle{definition}
+\newtheorem*{pron}{Proposición}
+
+\theoremstyle{definition}
+ 
+\newtheorem{lem}{Lema}
+
+\theoremstyle{definition}
+\newtheorem*{nota}{Nota}
+\begin{comment}
+\begin{equation*}
+    \descapp{f}{G/H}{G}{gH}{g}{.}
+\end{equation*}
+\end{comment}
+\newcommand\equivalencia{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny \sim}}}{\longrightarrow}}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+	\item \textbf{Ejercicio 31.}\\
+	Sea $\arbtfam{M}{i}{I}$ una familia no vacía en $Mod(R)$. Pruebe que:
+	\begin{enumerate}
+		\item Para cada $i \in I$, las inclusiones $i$-ésimas
+		\begin{equation*}
+		\begin{split}
+		inc_{i}:M_{i}\longrightarrow\displaystyle\coprod_{i \in I}M_{i},\ \lrprth{inc_{i}\lrprth{x}}_{t}=\{x\ si\ x=t\\0\ si\ x \neq t\\
+		Inc_{i}:M_{i}\longrightarrow\displaystyle\prod_{i \in I}M_{i},\ \lrprth{Inc_{i}\lrprth{x}}_{t}=\lrprth{inc_{i}\lrprth{x}}_{t}
+		\end{split}
+		\end{equation*}
+		son monomorfismos en $Mod\lrprth{R}$.
+	
+		\item Para cada $i \in I$, las proyecciones $i$-ésimas
+		\begin{equation*}
+		\begin{split}
+		Proy_{i}:\displaystyle\prod_{i \in I} M_{i} \longrightarrow M_{i},\ Proy_{i}\lrprth{m}=m_{i}\\
+		proy_{i}:\displaystyle\coprod_{i \in I} M_{i} \longrightarrow M_{i},\ proy_{i}\lrprth{m}=m_{i}
+		\end{split}
+		\end{equation*}
+		son epimorfismos en $Mod\lrprth{R}$.
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}}$ Primero, sean $i \in I$ y $x \in Ker\lrprth{inc_{i}}$. Entonces $\lrprth{inc_{i}\lrprth{x}}_{t}=\lrprth{0}_{t}$. Es decir, en cada entrada $inc_{i}\lrprth{x}$ es $0$. En particular, para $t=x$. En consecuencia, $x=0$. Por tanto, $inc_{i}\lrprth{x}$ es monomorfismo.\\
+		
+		Por otro lado, sean $i \in I$ y $x \in Ker\lrprth{Inc_{i}}$. De esta forma, $x \in Ker\lrprth{inc_{i}}$. Como $inc_{i}$ es monomorfismo, $x=0$. Por lo que $Inc_{i}$ también lo es.\\
+		
+		$\boxed{\text{(b)}}$ Sea $i \in I$. $Proy_{i}$ es un epimorfismo. Dado $x \in M_{i}$, el elemento $m=\lrprth{Inc_{i}\lrprth{x}}_{t}\in\displaystyle\prod_{i \in I} M_{i}$ satisface que $Proy_{i}\lrprth{m}=x$.\\
+		
+		De manera análoga, para cada $i \in I$, la proyección $proy_{i}$ es un epimorfismo, sustituyendo $Inc_{i}$ por $inc_{i}$.
+	\end{proof}
+
+	\item \textbf{Ejercicio 34.}\\
+	Sea $\arbtfam{M}{i}{I}$ en $Mod\lrprth{R}$, $P \in Mod\lrprth{R}$ y $\lrbrack{\pi_{i}: P \longrightarrow M_{i}}_{i \in I}$. Pruebe que las siguientes condiciones son equivalentes.
+	\begin{enumerate}
+		\item Existe $\varphi : \displaystyle\prod_{\in I} Mi \longrightarrow P$ en $Mod(R)$ tal que para $i \in I$, $\pi_{i}\circ\varphi = Proy_{i}$
+		\item $P$ y $\lrbrack{\pi_{i}: P \longrightarrow M_{i}}_{i \in I}$ son un producto para $\arbtfam{M}{i}{I}$
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\lrprth{a}\Rightarrow\lrprth{b}}$ Sean $M \in Mod\lrprth{R}$ y $\{f_{i}:M \longrightarrow M_{i}\}{i \in I}$ una familia de morfismos en $Mod\lrprth{R}$. Dado que $\displaystyle\prod_{i \in I}M_{i}$ es un producto para $\arbtfam{M}{i}{I}$, existe un único morfismo $f:M\longrightarrow\displaystyle\prod_{i \in I}M_{i}$ tal que, para cada $i \in I$, $Proy_{i} \circ f = f_{i}$. Además, por hipótesis, existe $\varphi : \displaystyle\prod_{\in I} Mi \longrightarrow P$ en $Mod(R)$ tal que para $i \in I$, $\pi_{i}\circ\varphi = Proy_{i}$. De modo que 
+		\begin{align*}
+			\pi_{i}\circ\varphi\circ f = Proy_{i} \circ f = f_{i}
+		\end{align*}
+		Más aún, esta $f$ es única. En efecto, si $g:M \longrightarrow P$ un morfismo tal que, para $i \in I$, $\pi_{i}\circ\varphi\circ g = f_{i}$, entonces
+		\begin{align*}
+			Proy_{i} \circ g = \pi_{i}\circ\varphi\circ g = f_{i}
+		\end{align*}
+		Como $\displaystyle\prod_{i \in I}M_{i}$ es un producto para $\arbtfam{M}{i}{I}$, $f=g$. En consecuencia, $P$ y $\lrbrack{\pi_{i}: P \longrightarrow M_{i}}_{i \in I}$ son un producto para $\arbtfam{M}{i}{I}$.\\
+		
+		$\boxed{\lrprth{b}\Rightarrow\lrprth{a}}$ Observe que $\lrbrack{Proy_{i}:\displaystyle\prod_{i \in I} M_{i} \longrightarrow M_{i}}_{i \in I}$ es una familia de morfismos en $Mod\lrprth{R}$. En virtud de que $P$ y $\lrbrack{\pi_{i}:P \longrightarrow M_{i}}_{i \in I}$ son un producto para $\arbtfam{M}{i}{I}$ , existe un único morfismo $\varphi:\displaystyle\prod_{i \in I} M_{i} \longrightarrow P$ tal que, para cada $i \in I$, $\pi_{i}\circ\varphi = Proy_{i}$. En vista de ésto, se concluye el resultado.
+	\end{proof}
+
+	\item \textbf{Ejercicio 37.}\\
+	Para $M \in f.l.\lrprth{R}$, pruebe que:
+	\begin{enumerate}
+		\item $l\lrprth{M}=0$ si y sólo si $M=0$
+		\item $l\lrprth{M}=1$ si y sólo si $M$ es simple
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}}$ Observe que si $M=0$, entonces $0=M_{0}=M$ es la única serie de composición de $M$, salvo repeticiones. De esta manera $l\lrprth{M}=0$. Inversamente, si $l\lrprth{M}=0$, entonces la única serie de composición de $M$, salvo repeticiones, es $0=M_{0}=M$. $\therefore M=0$.\\
+
+		$\boxed{\text{(b)}}$ Para este inciso suponga que $M$ es un $R$-módulo simple. En consecuencia, $L(M)=\{0,M\}$. Con lo cual, $M$ tiene una serie de composición $0=M_{0} \leq M_{1}=M$. De modo que $l\lrprth{M}=1$. Por otro lado, suponga que $l\lrprth{M}=1$, y sea $0=M_{0} \leq M_{1}=M$ una serie de composición para $M$. $\therefore M \cong M/0 \cong M_{1}/M_{0}$ es simple.
+	\end{proof}
+
+	\item \textbf{Ejercicio 40.}\\
+	Para una sucesión exacta
+	\begin{tikzcd}
+		0 \arrow{r} & A \arrow{r}{f} & B \arrow{r}{g} & C \arrow{r} & 0
+	\end{tikzcd}
+	en $Mod\lrprth{R}$, pruebe que: $B \in f.l.\lrprth{R}$ si y sólo si $A,C \in f.l.\lrprth{R}$
+	\begin{proof}
+		$\boxed{\Rightarrow )}$ Suponga que $B \in f.l.\lrprth{R}$. Entonces $B$ tiene una serie de composición $\mathfrak{F}$. Por el \textbf{Lema 2.1.1.a)}, tanto $f^{-1}\lrprth{\mathfrak{F}}$ como $g\lrprth{\mathbb{F}}$ son series de composición de $A$ y de $C$ respectivamente. En consecuencia, $A,C \in f.l.\lrprth{R}$.\\
+
+		$\boxed{\Leftarrow )}$ Sean $\mathfrak{A}=\fntfam{A}{i}{n}$ y $\mathfrak{C}=\fntfam{C}{j}{m}$ series de composición para $A$ y $C$, respectivamente. Luego, los $f(A_{i})$ y los $g^{-1}(C_{j})$ son submódulos de $B$. Definimos la serie $\mathfrak{B}=\fntfam{B}{t}{m+n}$, donde $B_{t}=f(A_{t})$ si $t \leq n$ y $B_{t}=g^{-1}(C_{t-n})$ si $n+1 \leq t \leq n+m$.\\
+		
+		Ahora, dado que $f$ es un monomorfismo, se tiene que $B_{t} \cong A_{t}$, para $t \leq n$. Y por otro lado, el teorema de la correspondencia y el tercer teorema de isomorfismo garantizan que $\displaystyle\frac{B_{t+1}}{B_{t}} = \displaystyle\frac{g^{-1}(C_{t+1})}{g^{-1}(C_{t})} \cong \displaystyle\frac{C_{t-n+1}}{C_{t-n}}$ para cada $n+1 \leq t \leq n+m$. Más aún, tenemos que los cocientes $\displaystyle\frac{B_{t+1}}{B_{t}}$ son simples, toda vez que los cocientes $\displaystyle\frac{A_{i+1}}{A_{i}}$ y $\displaystyle\frac{C_{j+1}}{C_{j}}$ lo son. De esta forma $\mathfrak{B}$ es una serie de composición para $B$. $\therefore B \in f.l.\lrprth{R}$
+	\end{proof}
+
+	\item \textbf{Ejercicio 43.}\\
+	Para $M \in Mod\lrprth{R}$, pruebe que las siguientes condiciones son equivalentes.
+	\begin{enumerate}
+		\item $M$ es artiniano
+		\item Para toda $\mathfrak{F}\subseteq L\lrprth{M}$, con $\mathfrak{F}\neq\emptyset$, existe un elemento mínimo en en $\lrprth{\mathfrak{F},\leq}$
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}\Rightarrow\text{(b)}}$ Dada $\mathfrak{F}$ una familia no vacía de submódulos de $M$, sea $N_{1}\in\mathfrak{F}$. Suponga que $N_{1}$ no es un elemento mínimo de $\mathfrak{F}$, de este modo existe $N_{2}\in\mathfrak{F}$ tal que $N_{2} \lneqq N_{1}$. Repitiendo este argumento, obtenemos una cadena de submódulos $N_{1} \geq N_{2} \geq \cdots$ en $\mathfrak{F}$. En virtud de que $M$ es artiniano, existe $k\in\mathbb{N}$ tal que para cada $t\in\mathbb{N}$, $N_{k}=N_{k+t}$. $\therefore N_{k}$ es un elemento mínimo de $\mathfrak{F}$.\\
+
+		$\boxed{\text{(b)}\Rightarrow\text{(a)}}$ Sea $N_{1} \gneqq N_{2} \gneqq \cdots$ una cadena de submódulos de $M$. Considere $\mathfrak{F}=\arbtfam{N}{k}{\mathbb{N}}$. Entonces, por hipótesis, $\mathfrak{F}$ tiene elementos mínimos. Sea $N_{k}$ uno de dichos mínimos. Dado que $\mathfrak{F}$ es una cadena, $N_{k}=N_{k+t}$, para toda $t\in\mathbb{N}$. $\therefore M$ es artiniano.
+	\end{proof}
+
+	\item \textbf{Ejercicio 46.}\\
+	Para $M,N \in f.l.\lrprth{R}$, pruebe que $M \coprod N \in f.l.\lrprth{R}$ y que $l\lrprth{M \coprod N}=l\lrprth{M}+l\lrprth{N}$.
+	\begin{proof}
+		Primero, del \textbf{Ejercicio 40} y de la exactitud de la sucesión
+		\begin{tikzcd}
+			0 \arrow{r} & M \arrow{r}{f} & M \coprod N \arrow{r}{g} & N \arrow{r} & 0
+		\end{tikzcd}
+		, se tiene que $M \coprod N \in f.l.\lrprth{R}$, ya que $M,N$ tienen longitud finita. Más aún, dada una serie de composición $\mathfrak{F}$ para $M \coprod N$, el \textbf{Lema 2.1.1.b)} garantiza que 
+		\begin{align*}
+			l_{\mathfrak{F}}\lrprth{M \coprod N}=l_{f^{-1}\lrprth{\mathfrak{F}}}\lrprth{M}+l_{g\lrprth{\mathfrak{F}}}\lrprth{N}
+		\end{align*}
+		$\therefore l\lrprth{M \coprod N}=l\lrprth{M}+l\lrprth{N}$.
+	\end{proof}
+\end{enumerate}
+\end{document}
