@@ -611,7 +611,7 @@
 			como grupos abelianos. En particular, $F_{\varphi}$ es fiel y éste es pleno si $\varphi \lrprth{R}=S$.
 		\end{enumerate}
 		\begin{proof}
-			$\boxed{\text{(a)}}$ Primero, por la propia correspondencia, a todo $S$-módulo $M$ se le asigna un $R$-módulo $F_{\varphi} \lrprth{M}=M$. En vista de lo anterior, bastará probar que $F_{\varphi}\lrprth{f} = f \in \ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}$, para $f \in \ringmodhom{S}{M}{N}$ y $M,N \in Mod\lrprth{S}$.\\
+			$\boxed{\text{(a)}}$ Primero, por la propia correspondencia, a todo $S$-módulo $M$ se le asigna un $R$-módulo $F_{\varphi} \lrprth{M}=M$. En vista de lo anterior, bastará probar que $F_{\varphi}\lrprth{f} = f \in \ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}$, para $f \in \ringmodhom{S}{M}{N}$ y $M,N \in Mod\lrprth{S}$; y que $F_{\varphi}\lrprth{fg}=F_{\varphi}\lrprth{f}F_{\varphi}\lrprth{g}$, para $f,g\in\ringmodhom{S}{M}{N}$.\\
 			
 			Sea $f:M \longrightarrow N$ un morfismo de $S$-módulos. Ahora, dados $r \in R$ y $m,n \in M$, se satisface que
 			\begin{align*}
@@ -620,7 +620,13 @@
 				&=r \cdot f\lrprth{m}+f\lrprth{n}\\
 				&=r \cdot F_{\varphi} \lrprth{f}\lrprth{m}+F_{\varphi} \lrprth{f}\lrprth{n}
 			\end{align*}
-			Con lo cual, $F_{\varphi} \lrprth{f}$ es un morfismo de $R$-módulos. $\therefore F_{\varphi}$ es un funtor.\\
+			Con lo cual, $F_{\varphi} \lrprth{f}$ es un morfismo de $R$-módulos.\\
+			
+			Por otro lado, sean $f,g:M \longrightarrow N$ morfismos de $S$-módulos y $x \in M$. Entonces se tiene que
+			\begin{align*}
+				F_{\varphi}\lrprth{fg}\lrprth{x}=\lrprth{fg}\lrprth{x}=f\lrprth{g\lrprth{x}}=F_{\varphi}\lrprth{f}F_{\varphi}\lrprth{g}\lrprth{x}
+			\end{align*}
+			Por tanto, $F_{\varphi}\lrprth{fg}=F_{\varphi}\lrprth{f}F_{\varphi}\lrprth{g}\ \therefore F_{\varphi}$ es un funtor.\\
 			
 			$\boxed{\text{(b)}}$ Note que, por el inciso anterior, todo morfismo de $S$-módulos es un morfismo de $R$-módulos. Más aún, como todo $R$-módulo es un grupo abeliano y como todo morfismo de $R$-módulos preserva sumas, se tiene que $\ringmodhom{S}{M}{N}\leq\ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}\ringmodhom{\varphi \lrprth{R}}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}}$ y que $\ringmodhom{R}{F_{\varphi}\lrprth{M}}{F_{\varphi}\lrprth{N}} \leq \ringmodhom{\mathbb{Z}}{M}{N}$.\\
 			
