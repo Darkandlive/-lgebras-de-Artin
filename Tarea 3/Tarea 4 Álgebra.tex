@@ -1,0 +1,584 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{xparse, tikz-cd, pgfplots}
+\usepackage{comment}
+\usepackage{faktor}
+\usepackage[all]{xy}
+
+\input{Comandos Anillos Artin}
+\title{Lista 3	}
+\author{Arruti, Sergio, Jesús}
+\date{}
+
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+		\setcounter{enumi}{28}
+		
+	%Ej 29%	
+		
+\item Sea ${M_i}_{\in I}$ una familia de grupos abelianos. Pruebe que $\displaystyle\coprod_{i\in I}M_i$ 
+es un subgrupo abeliano de $\displaystyle\prod_{i\in I}M_i$.\\
+
+\begin{proof}
+Sean $x,y\in \displaystyle\coprod_{i\in I}M_i$, entonces $x,y\in \displaystyle\prod_{i\in I}M_i$ y\\ $|supp(x)|<\infty,\,\, |supp(y)|<\infty$. 
+Entonces $x-y=(x_i-y_i)_{i\in I}\in \displaystyle\prod_{i\in I}M_i$, pero $x_i=0, y_j=0$ para casi toda $i\in I,\,\,j\in I$, así $(x_i-y_i)\neq 0$ a lo más en
+$|supp(x)|+|supp(y)|<\infty$ puntos. Por lo tanto $|supp(x-y)|<\infty$ y por lo tanto $(x-y)\in \displaystyle\coprod_{i\in I}M_i$, es decir,
+ $\displaystyle\coprod_{i\in I}M_i$ es subgrupo de $\displaystyle\prod_{i\in I}M_i$.
+
+\end{proof}		
+		
+		%Ej 30%
+		\item Sea $\arbtfam{M}{i}{I}$ una familia en $Mod\lrprth{R}$. Entonces $\coprod_{i\in I}M_i$ es un submódulo de $\prod_{i\in I}M_i$.
+		\begin{proof}
+			Sean $G:=\prod_{i\in I}M_i$ y $H:=\coprod_{i\in I}M_i$. Si $I=\varnothing$ se tiene lo deseado, pues  en tal caso $G=H=\lrbrack{0}$.\\
+		Supongamos que $I\neq\varnothing$.
+		 Por el Ej. 30 $H$ es un subgrupo de $G$ y así, en patícular, $\forall\ a,b\in H$, $a+b\in H$. Sea $r\in R$ y $a=\arbtuple{a}{i}{I}\in H$. Dado que $r\bullet 0_i=0_i$, $\forall\ i\in I$, se sigue que
+			\begin{align*}
+			\descset{i}{I}{r\bullet a_i\neq 0}&\subseteq\descset{i}{i}{a_i\neq 0},\\
+			\implies supp\lrprth{r\bullet a}&\subseteq supp\lrprth{a}.
+			\end{align*} 
+		Con lo cual $r\bullet a$ tiene soporte finito, pues $a$ lo tiene. De modo que $r\bullet a\in H$ y por lo tanto $H\in\genlin{G}$.\\
+		\end{proof}
+		\item Sea $\arbtfam{M}{i}{I}$ una familia no vacía en $Mod(R)$. Pruebe que:
+		\begin{enumerate}
+
+		\item %Ej 31%
+		Para cada $i \in I$, las inclusiones $i$-ésimas
+		\begin{align*}									
+			\descapp{inc_{i}}{M_{i}}{\coprod_{i \in I}M_{i}}{x}{\lrprth{y_t}_{t\in I}}{}
+			\intertext{con}
+			y_t&=\left\{
+			\begin{tabular}{cc}
+				$x$ & $t=i$\\
+				$0$ & $t\neq i$\\
+			\end{tabular}
+			\right.\\
+			\descapp{Inc_{i}}{M_{i}}{\prod_{i \in I}M_{i}}{x}{inc_i\lrprth{x}}{,}
+			\end{align*}
+			son monomorfismos en $Mod\lrprth{R}$.
+			
+			\item Para cada $i \in I$, las proyecciones $i$-ésimas
+			\begin{equation*}
+				\begin{split}
+					Proy_{i}:\displaystyle\prod_{i \in I} M_{i} \longrightarrow M_{i},\ Proy_{i}\lrprth{m}=m_{i}\\
+					proy_{i}:\displaystyle\coprod_{i \in I} M_{i} \longrightarrow M_{i},\ proy_{i}\lrprth{m}=m_{i}
+				\end{split}
+			\end{equation*}
+%			\begin{align*}									\descapp{inc_{i}}{M_{i}}{\coprod_{i \in I}M_{i}}{x}{\lrprth{y_t}_{t\in I}}{}
+%				\intertext{con}
+%				y_t&=\left\{
+%				\begin{tabular}{cc}
+%					$x$ & $t=i$\\
+%					$0$ & $t\neq i$\\
+%				\end{tabular}
+%				\right.
+%			\end{align*}
+			son epimorfismos en $Mod\lrprth{R}$.
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{(a)}}$ Primero veamos que estas funciones son morfismos. Considere $i \in I$. En vista que $Inc_{i}$ está determinada por $inc_{i}$, bastará con mostrar que el ser morfismo se satisface para $inc_{i}$. Sean $x,y \in M_{i}$ y $r \in R$. Entonces
+			\begin{align*}
+				\lrprth{inc_{i}\lrprth{x+y}}_{t}&=\left\{\begin{array}{cc} x+y\ & si\ i=t\\0\ & si\ i \neq t \end{array}\right.\\
+				&=\lrprth{inc_{i}\lrprth{x}}_{t}+\lrprth{inc_{i}\lrprth{y}}_{t}\\
+				\intertext{e}
+				\lrprth{inc_{i}\lrprth{rx}}_{t}&=\left\{\begin{array}{cc} rx\ & si\ i=t\\0\ & si\ i \neq t \end{array}\right.\\
+				&=r\left\{\begin{array}{cc} x\ & si\ i=t\\0\ & si\ i \neq t \end{array}\right.\\
+				&=r\lrprth{inc_{i}\lrprth{x}}_{t}
+			\end{align*}
+			Por lo que $inc_{i}$ e $Inc_{i}$ son morfismos.\\
+		
+			Ahora, sean $i \in I$ y $x \in Ker\lrprth{inc_{i}}$. Entonces $\lrprth{inc_{i}\lrprth{x}}_{t}=\lrprth{0}_{t}$. Es decir, en cada entrada $inc_{i}\lrprth{x}$ es $0$. En particular, para $t=x$. En consecuencia, $x=0$. Por tanto, $inc_{i}\lrprth{x}$ es monomorfismo.\\
+		
+			Por otro lado, sean $i \in I$ y $x \in Ker\lrprth{Inc_{i}}$. De esta forma, $x \in Ker\lrprth{inc_{i}}$. Como $inc_{i}$ es monomorfismo, $x=0$. Por lo que $Inc_{i}$ también lo es.\\
+		
+			$\boxed{\text{(b)}}$ Sea $i \in I$. $Proy_{i}$ es un epimorfismo. Dado $x \in M_{i}$, el elemento $m=\lrprth{Inc_{i}\lrprth{x}}_{t}\in\displaystyle\prod_{i \in I} M_{i}$ satisface que $Proy_{i}\lrprth{m}=x$.\\
+		
+			De manera análoga, para cada $i \in I$, la proyección $proy_{i}$ es un epimorfismo, sustituyendo $Inc_{i}$ por $inc_{i}$.
+		\end{proof}
+				
+		%Ej 32%
+\item Sea $C=\displaystyle\coprod_{i\in I}M_i$ en $Mod(R)$, via las inclusiones naturales \\$\{\mu_i\colon M_i\longrightarrow C\}_{i\in I}$.
+Pruebe  que, para cada $H\in Mod(R)$, la función $\varphi_H\colon \operatorname{Hom}\left(\displaystyle\coprod_{i\in I}M_i,H\right)\longrightarrow
+\prod_{i\in I}\operatorname{Hom}_R\left(M_i,H\right),\,\, g\mapsto (g\circ \mu_i)_{i\in I}$, es un isomorfismo de grupos abelianos.
+
+\begin{proof}
+Morfismo: \\Sean $f,g\in  \operatorname{Hom}\left(\displaystyle\coprod_{i\in I}M_i,H\right)$ entonces
+\begin{gather*}
+\varphi_H(f+g)(m)=((f+g)\circ \mu_i)_{i\in I}(m)= [(f+g)(\mu_i(m))]_{i\in I} \\
+=(f(\mu_i(m_i)))_{i\in I}+(g(\mu_i(m_i)))_{i\in I}\\
+=(f\circ \mu_i)_{i\in I}(m)+(g\circ \mu_i)_{i\in I}(m)\\
+=\varphi_H(f)(m)+\varphi_H(g)(m).
+\end{gather*}
+Por lo tanto es morfismo de grupos.\\
+
+Inyectividad y buena definición.\\
+
+Como $\varphi_H(g)= (g\circ \mu_i)_{i\in I}$ entonces $\varphi$ es el producto de composiciones de funciones, así que está bien definida. Ahora,
+si $\varphi_H(f)=\varphi_H(g)$ entonces $ f_i=(f\circ \mu_i)=(g\circ \mu_i)=g_i\quad \forall i\in I $ y se tienen los siguientes diagramas conmutativos
+
+\xymatrix {
+& &\displaystyle\coprod_{i\in I} M_i\ar[r]^f & H & & &\displaystyle\coprod_{i\in I} M_i\ar[r]^g &H\\
+& & M_i\ar[u]^{\mu_i}\ar[ru]_{f_i=f\circ \mu_i}& & & & M_i\ar[u]^{\mu_i}\ar[ru]_{g_i=g\circ \mu_i}
+}
+
+por la propiedad universal del coproducto existe un único morfismo $h$ tal que $h\circ\mu_i=g_i=f_i=h\circ\mu_i$, por lo que $f=g$.\\
+
+Suprayectividad:\\
+Sea $f\in \prod_{i\in I}\operatorname{Hom}_R\left(M_i,H\right)$, entonces $f=(f_i)_{i\in I}$ con $f_i\in \operatorname{Hom}_R\left(M_i,H\right)$. 
+Así por la propiedad universal del coproducto existe una única \\$g\colon\displaystyle\coprod_{i\in I}M_i\longrightarrow H$ en $Mod(R)$
+tal que $g\circ \mu_i=f_i\quad \forall i\in I$. Por lo tanto $\varphi_H(g)=(g\circ\mu_i)_{i\in I}=(f_i)_{i\in I}=f$ por lo que $\varphi_H$ es isomorfismo.
+\end{proof}
+
+
+		%Ej 33%
+		\item Sea $\arbtfam{M}{i}{I}$ una familia en $Mod\lrprth{R}$, $N\in Mod\lrprth{R}$ y $\lrbrack{g_i:N\to M_i}_{i\in I}$ una familia de morfismos de $R$-módulos. Entonces $\exists !$ $g:N\to\prod_{i\in I}M_i$ morfismo de $R$-módulos  tal que $Proy_i\circ g=g_i$, $\forall\ i\in I$.
+		\begin{proof}
+			Si $I=\varnothing$ entonces $\prod_{i\in I}M_i=\lrbrack{0}$ y el enunciado se reduce a verificar que existe un único morfismo de $R$-módulos de $N$ en $\lrbrack{0}$, lo cual es inmediato.\\
+		Supongamos que $I\neq\varnothing$. Notemos que la función
+		\begin{align*}
+			\descapp{g}{N}{\prod_{i\in I}M_i}{n}{\lrprth{g_i\lrprth{n}}_{i\in I}}{}
+		\end{align*}
+es un morfismo de $R$-módulos, pues $g_i$ lo es $\forall\ i\in I$, $\arbtuple{a}{i}{I}+\arbtuple{b}{i}{I}=\lrprth{a_i+b_i}_{i\in I}$ y $r\bullet\arbtuple{a}{i}{I}=\lrprth{r\bullet a_i}_{i\in I}$. Sea $j\in I$, entonces
+		\begin{align*}
+			Proy_j\lrprth{g\lrprth{n}}&=Proy_j\lrprth{\lrprth{g_i\lrprth{n}}_{i\in I}}\\
+			&=g_j\lrprth{n}.\\
+			\implies Proy_j\circ g&=g_j,\ \forall\ j\in I.
+\end{align*}
+Finalmente, verifiquemos la unicidad. Sea $h:N\to\prod_{i\in I}M_i$ tal que $Proy_j\circ h=g_j,\ \forall\ j\in I$. Notemos que por lo anterior $Proy_j\circ h=Proy_j\circ g\ \forall\ j\in I$. Sea $n\in N$, $\arbtuple{y}{i}{I}=g\lrprth{n}$ y $\arbtuple{z}{i}{I}=h(n)$, entonces
+\begin{align*}
+	y_j&=Proy_j\lrprth{\arbtuple{y}{i}{I}}=Proy_j\lrprth{\lrprth{g_i\lrprth{n}}_{i\in I}}=Proy_j\lrprth{g\lrprth{n}}\\
+	&=Proy_j\lrprth{h\lrprth{n}}= z_j,\ \forall\ j\in I.\\
+	&\implies g\lrprth{n}=h\lrprth{n}\ \forall\ n\in N.\\
+	&\implies g=h.
+\end{align*}
+		\end{proof}
+	
+	%Ej 34%
+	\item Sea $\arbtfam{M}{i}{I}$ en $Mod\lrprth{R}$, $P \in Mod\lrprth{R}$ y $\lrbrack{\pi_{i}: P \longrightarrow M_{i}}_{i \in I}$. Pruebe que las siguientes condiciones son equivalentes.
+	\begin{enumerate}
+		\item Existe un isomorfismo $\varphi : \displaystyle\prod_{i \in I} Mi \longrightarrow P$ en $Mod(R)$ tal que para $i \in I$, $\pi_{i}\circ\varphi = Proy_{i}$
+		\item $P$ y $\lrbrack{\pi_{i}: P \longrightarrow M_{i}}_{i \in I}$ son un producto para $\arbtfam{M}{i}{I}$
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\lrprth{a}\Rightarrow\lrprth{b}}$ Sean $M \in Mod\lrprth{R}$ y $\{f_{i}:M \longrightarrow M_{i}\}{i \in I}$ una familia de morfismos en $Mod\lrprth{R}$. Dado que $\displaystyle\prod_{i \in I}M_{i}$ es un producto para $\arbtfam{M}{i}{I}$, existe un único morfismo $f:M\longrightarrow\displaystyle\prod_{i \in I}M_{i}$ tal que, para cada $i \in I$, $Proy_{i} \circ f = f_{i}$. Además, por hipótesis, existe $\varphi : \displaystyle\prod_{\in I} Mi \longrightarrow P$ en $Mod(R)$ tal que para $i \in I$, $\pi_{i}\circ\varphi = Proy_{i}$. De modo que 
+		\begin{align*}
+			\pi_{i}\circ\varphi\circ f = Proy_{i} \circ f = f_{i}
+		\end{align*}
+		Más aún, esta $\varphi \circ f$ es única. En efecto, si $g:M \longrightarrow P$ un morfismo tal que, para $i \in I$, $\pi_{i}\circ g = f_{i}$, entonces $\varphi^{-1}\circ g \in\ringmodhom{R}{M}{\displaystyle\prod_{i \in I}M_{1}}$ y
+		\begin{align*}
+			Proy_{i}\circ\varphi^{-1}\circ g &= \pi_{i}\circ\varphi\circ\varphi^{-1}\circ g\\
+			&= \pi_{i}\circ g\\
+			&= f_{i}
+		\end{align*}
+		Como $\displaystyle\prod_{i \in I}M_{i}$ y $\arbtfam{Proy}{i}{I}$ es un producto para $\arbtfam{M}{i}{I}$, $f=\varphi^{-1}\circ g$. Así, $\varphi\circ f=g$. En consecuencia, se tiene que $P$ y $\lrbrack{\pi_{i}: P \longrightarrow M_{i}}_{i \in I}$ son un producto para $\arbtfam{M}{i}{I}$.\\
+		
+		$\boxed{\lrprth{b}\Rightarrow\lrprth{a}}$ Observe que $\lrbrack{Proy_{i}:\displaystyle\prod_{i \in I} M_{i} \longrightarrow M_{i}}_{i \in I}$ es una familia de morfismos en $Mod\lrprth{R}$. En virtud de que $P$ y $\lrbrack{\pi_{i}:P \longrightarrow M_{i}}_{i \in I}$ son un producto para $\arbtfam{M}{i}{I}$ , existe un único morfismo $\varphi:\displaystyle\prod_{i \in I} M_{i} \longrightarrow P$ tal que, para cada $i \in I$, $\pi_{i}\circ\varphi = Proy_{i}$. En vista de ésto, se concluye el resultado.
+	\end{proof}
+	
+	
+%Ej 35%
+
+\item Sea $P=\displaystyle\prod_{i \in I}M_{i}$ en $Mod(R)$ via las proyecciones naturales \\$\{\pi_i\colon P\longrightarrow M_i\}_{i\in I}$. 
+Pruebe que, para cada $H\in Mod(R)$, la función $\phi_H\colon \operatorname{Hom}_R(H,\displaystyle\prod_{i \in I}M_{i})
+\longrightarrow \prod_{i \in I}\operatorname{Hom}_R(H,M_{i}),\,\,\,g\mapsto (\pi_i\circ g)_{i\in I},$ es un isomorfismo de grupos abelianos. 
+\begin{proof}
+Primero veamos que es morfismo.\\
+Como $\pi$ es morfismo $\forall i\in I$
+\begin{gather*}
+\phi_H(g+f)=[\pi_i\circ (g+f)]_{i\in I}=[(\pi_i\circ g)+(\pi_i\circ f)]_{i\in I}\\
+= (\pi_i\circ g)_{i\in I}+ (\pi_i\circ f)_{i\in I}=\phi_H(g)+\phi_H(f).
+\end{gather*}
+Por lo tanto en morfismo de grupos abelianos.\\
+
+Inyectividad y buena definición.\\
+
+Como $\phi_H(g)= (\mu_i\circ g)_{i\in I}$ entonces $\phi_H$ es el producto de composiciones de funciones, así que está bien definida. Ahora,
+si $\phi_H(f)=\phi_H(g)$ entonces $ f_i=(\mu_i\circ f)=(\mu_i\circ g)=g_i\quad \forall i\in I $ y se tienen los siguientes diagramas conmutativos
+
+\xymatrix {
+& &H\ar[r]^f\ar[d]_{f_i=\mu_i\circ f}&  \displaystyle\prod_{i\in I} M_i\ar[ld]_{\mu_i} & & &
+H \ar[r]^g\ar[d]_{g_i=\mu_i\circ g}&\displaystyle\prod_{i\in I} M_i\ar[ld]_{\mu_i} \\
+& & M_i& & & & M_i
+}
+
+por la propiedad universal del producto existe un único morfismo $h$ tal que $\mu_i\circ h=g_i=f_i=\mu_i\circ h$, por lo que $f=g$.\\
+
+Suprayectividad:\\
+Sea $h\in \displaystyle\prod_{i\in I} \operatorname{Hom_R}(H,M_i)$, entonces $h=(h_i)_{i\in I}$ con $h_i\in \operatorname{Hom_R}(H,M_i)$,
+así por la propiedad universar del producto existe un único $g\colon H\longrightarrow P$ tal que $\pi_i\circ g=h_i$, por lo que 
+$\phi_H(g)=(\pi_i\circ g)_{i\in I}=(h_i)_{i\in I}=h$. Entonces $\phi_H$ es isomorfismo de grupos.
+
+
+\end{proof}
+	%Ej 36%
+	\item Sea $\lrbrack{\pi_i:M\to M_i}_{i=1}^n\subseteq Mod\lrprth{R}$. Las siguientes condiciones son equivalentes:
+	\begin{enumerate}[label=\alph*)]
+		\item $\lrbrack{\pi_i:M\to M_i}_{i=1}^n$ es un producto para $\arbtfam{M}{i}{I}$;
+		\item $\exists\ \lrbrack{\mu_i:M_i\to M}_{i=1}^n\in Mod\lrbrack{R}$ tal que $\sum_{i=1}^n\mu_i\pi_i=Id_M$ y $\pi_i\mu_i={\delta_{ij}}^M$ $\forall\ i,j\in[1,n]$.
+	\end{enumerate}
+	\begin{proof}
+		Sea $I=[1,n]$.\\
+		\boxed{\implies} La propiedad universal del producto aplicada a cada elemento de la familia (de familias en $Mod\lrprth{R}$) $\lrbrack{\lrbrack{{\delta_{ij}}^M:M_i\to M_i}_{i\in I}}_{j\in I}$ garantiza que $\forall\ j\in I$ $\exists\ \mu_j:$ $\exists !$ $\mu_j:M_j\to M$ tal que \begin{equation*}
+			\pi_i\mu_j=\delta_{ij}^M\quad \forall\ i\in I.
+		\end{equation*}
+	Así pues, consideremos $\arbtfam{\mu}{i}{I}$. Notemos que nuevamente por la propiedad universal del producto, $f:M\to M\in Mod\lrprth{R}$ es tal que $\forall\ i' I$ $\pi_i\circ f=\pi_i$ si, y sólo si, $f=Id_M$; y que
+	\begin{align*}
+		\pi_i\sum_{j=1}^n\lrprth{\mu_j\pi_j}&=\sum_{j=1}^n\lrprth{\lrprth{\pi_i\pi_j}\pi_j}=\sum_{j=1}^n\lrprth{\lrprth{\delta_{ij}^M}\pi_j}=\delta_{ii}^M\pi_i=Id_{M_i}\pi_i\\
+		&=\pi_i.\\
+		&\implies \sum_{j=1}^n\lrprth{\mu_j\pi_j}=Id_M.
+	\end{align*} 
+	\boxed{\impliedby} Sea $\lrbrack{\eta:N\to M_i}_{i\in I}\subseteq Mod\lrprth{R}$ y 
+	\begin{align*}
+		\descapp{f}{N}{M}{n}{\lrprth{\sum_{i=1}^n\mu_i\eta_i}\lrprth{n}}{}
+	\end{align*}. Así $f:N\to M\in Mod\lrprth{R}$ y, si $j\in I$,
+\begin{align*}
+	\pi_j\circ f&=\pi_j\lrprth{\sum_{i=1}^n\mu_i\eta_i}=\lrprth{\sum_{i=1}^n\lrprth{\pi_j\mu_i}\eta_i}=\sum_{i=1}^n\delta_{ji}\eta_i=\eta_j.\\
+	&\implies\pi_j f=\eta_j\ \forall\ j\in I.
+\end{align*}
+Finalmente, sea $g:N\to M\in Mod\lrprth{R}$ tal que $\pi_i g=\eta_i\ \forall\ i\in I$. Así
+\begin{align*}
+	g&=Id_M g=\lrprth{\sum_{i=1}^n{\mu_i\pi_i}}g=\lrprth{\sum_{i=1}^n\mu_i\lrprth{\pi_i g}}=\lrprth{\sum_{i=1}^n\mu_i\eta_i}=f.\\
+	&\implies g=f.
+\end{align*}
+	\end{proof}
+\item %Ej 37% 
+Para $M \in f.l.\lrprth{R}$, pruebe que:
+\begin{enumerate}
+	\item $l\lrprth{M}=0$ si y sólo si $M=0$
+	\item $l\lrprth{M}=1$ si y sólo si $M$ es simple
+\end{enumerate}
+\begin{proof}
+	$\boxed{\text{(a)}}$ Observe que si $M=0$, entonces $0=M_{0}=M$ es la única serie de composición de $M$, salvo repeticiones. De esta manera $l\lrprth{M}=0$. Inversamente, si $l\lrprth{M}=0$, entonces la única serie de composición de $M$, salvo repeticiones, es $0=M_{0}=M$. $\therefore M=0$.\\
+	
+	$\boxed{\text{(b)}}$ Para este inciso suponga que $M$ es un $R$-módulo simple. En consecuencia, $L(M)=\{0,M\}$. Con lo cual, $M$ tiene una serie de composición $0=M_{0} \leq M_{1}=M$. De modo que $l\lrprth{M}=1$. Por otro lado, suponga que $l\lrprth{M}=1$, y sea $0=M_{0} \leq M_{1}=M$ una serie de composición para $M$. $\therefore M \cong M/0 \cong M_{1}/M_{0}$ es simple.
+\end{proof}
+
+
+%Ej.38%
+\item Para un anillo $R$ pruebe que 
+\begin{itemize}
+\item[a)] Una sucesión de la forma
+\begin{tikzcd}
+	0\arrow{r} & X \arrow{r}{f} & Y \arrow{r}{g} & Z\arrow[r]&0
+\end{tikzcd}
+en $Mod(R)$ es exacta si y sólo si $Ker(f)=0=CoKer(g)$ y \\$Im(f)=Ker(g)$.\\
+
+\item[b)] Consideremos el siguiente diagrama conmutativo y exacto, (i.e. las filas y las columnas son sucesiones exactas) en $Mod (R)$
+
+\begin{center}
+\xymatrix {
+&0\ar[d]&0\ar[d]&0\ar[d]\\
+0\ar[r] & X\ar[r]^f\ar[d]^{\alpha}& Y\ar[d]^{\alpha'}\ar[r]^g & Z\ar[d]^{\alpha''}\ar[r]&0\\
+0\ar[r] & X'\ar[r]^{f'}\ar[d]^{\beta}& Y'\ar[d]^{\beta'}\ar[r]^{g'} & Z'\ar[d]^{\beta''}\ar[r]&0\\
+ & X''\ar[d]& Y''\ar[d] & Z''\ar[d]&\\
+&0&0&0
+}
+\end{center}
+Pruebe que existen morfismos
+\begin{tikzcd}
+	X'' \arrow{r}{f''} & Y'' \arrow{r}{g''} & Z''
+\end{tikzcd}
+en $Mod(R)$ (además son únicos) tales que dicho diagrama se completa al siguiente diagrama conmutativo y exacto en $Mod(R)$
+\begin{center}
+\xymatrix {
+&0\ar[d]&0\ar[d]&0\ar[d]\\
+0\ar[r] & X\ar[r]^f\ar[d]^{\alpha}& Y\ar[d]^{\alpha'}\ar[r]^g & Z\ar[d]^{\alpha''}\ar[r]&0\\
+0\ar[r] & X'\ar[r]^{f'}\ar[d]^{\beta}& Y'\ar[d]^{\beta'}\ar[r]^{g'} & Z'\ar[d]^{\beta''}\ar[r]&0\\
+ 0\ar[r] & X''\ar[d]\ar[r]^{f''}& Y''\ar[d]\ar[r]^{g''} & Z''\ar[d]\ar[r]&0\\
+&0&0&0
+}
+\end{center}
+
+\item[c)] Pruebe que 
+\begin{tikzcd}
+	0\arrow{r} & A \arrow{r}{\varphi} & B \arrow{r}&0
+\end{tikzcd}
+es exacta si y sólo si $\varphi$ es un isomorfismo en $Mod(R)$.
+\end{itemize}
+\begin{proof} 
+\boxed{a)} Definimos $CoKer(g):=\faktor{Z}{Im(g)}$, así, como la sucesión es exacta, $Ker(f)=Im(0)=0,\,\,Im(f)=Ker(g)$ y \\
+$Im(g)=Ker(0)=Z$, es decir, $\faktor{Z}{Im(g)}=0$ y así $CoKer(g)=0$.\\
+
+Ahora, si $Ker(f)=0=CoKer(g)$ y $Im(f)=Ker(g)$, entonces la función $0_f\colon 0\longrightarrow X$ y $0_g\colon Z\longrightarrow 0$ son
+morfismos tales que\\ $m(0_f)=Ker(f),\, Ker(0_g)=Z$ y, como $0=CoKer(g)=\faktor{Z}{Im(g)}$, y\\$Ker(0_g)=Im(g)$, se tiene que la sucesión 
+\begin{tikzcd}
+		0\arrow{r} & X \arrow{r}{f} & Y \arrow{r}{g} & Z\arrow[r]&0
+\end{tikzcd}
+es exacta.\\
+
+\boxed{b)} Para este ejercicio se usará el siguiente lema.\\
+Lema de la serpiente:\\
+Sea $R$ un anillo y considere el siguiente diagrama de $R$-Módulos donde los renglones son exactos
+
+\begin{center}
+\xymatrix {
+           & A\ar[r]^f\ar[d]^{\alpha}& B\ar[d]^{\beta}\ar[r]^g & C\ar[d]^{\gamma}\ar[r]&0\\
+0\ar[r] & A'\ar[r]^{f'} & B'\ar[r]^{g'} & C'&
+}.
+\end{center}
+Entonces existe un morfismo de conexión $\eta\colon Ker(\gamma)\longrightarrow CoKer(\alpha)$, y la sucesión \quad
+\begin{tikzcd}
+	 Ker(\alpha) \arrow{r}{f|_{Ker(\alpha)}} & Ker(\beta) \arrow{r}{g|_{Ker(\beta)}} &Ker(\gamma)\arrow{r}{}& \,
+\end{tikzcd}\\
+\begin{tikzcd}
+	\arrow{r}{}& CoKer(\alpha) \arrow{r}{\bar{f}'} & CoKer(\beta) \arrow{r}{\bar{g}'} & CoKer(\gamma)
+\end{tikzcd}
+es exacta.\\
+Más aun, si $f$ es inyectiva entonces $f|_{Ker(\alpha)}$ también lo es. Dualmente si $g'$ es suprayectiva, entonces $\bar{g}'$ también.\\
+
+Con este lema en mente es muy sencillo probar el inciso b), pues por el lema de la serpiente los dos primeros renglones inducen la
+sucesión exacta \\
+\begin{tikzcd}
+	0\arrow{r}{}& Ker(\alpha) \arrow{r}{} & Ker(\alpha') \arrow{r}{} &Ker(\alpha'')\arrow{r}{}& \,
+\end{tikzcd}\\
+\begin{tikzcd}
+	\arrow{r}{}& CoKer(\alpha) \arrow{r}{f''} & CoKer(\alpha') \arrow{r}{g''} & CoKer(\alpha'')\arrow{r}{}&0
+\end{tikzcd}.\\
+Como las columnas del diagrama son sucesiones exactas, entonces $\alpha, \alpha'$ y $\alpha''$ son monomorfismos, es decir, 
+$Ker(\alpha)=Ker(\alpha')=Ker(\alpha'')=0$ y, como las columnas son exactas, $CoKer(\alpha')=\faktor{X'}{Ker(\beta)}=X''$
+pues $\beta$ es epimorfismo. Análogamente $CoKer(\alpha')=Y''$ y $CoKer(\alpha'')=Z''$, así tenemos que la siguiente sucesión 
+es exacta
+\begin{center}
+\begin{tikzcd}
+ 0\arrow{r}{} & X'' \arrow{r}{f''} & Y'' \arrow{r}{g''} & Z''
+\end{tikzcd}.
+\end{center}
+Mas aún, la construcción de $f''$ y $g''$ dadas en el lema de la serpiente aseguran que $f''\beta=\beta'f'$ y $g''\beta'=\beta''g'$ lo 
+cual hace conmutar el diagrama del ejercicio.\\
+\newpage
+\boxed{c)} 
+\begin{center}
+\begin{tikzcd}
+0\arrow{r} & A \arrow{r}{\varphi} & B \arrow{r}&0
+\end{tikzcd}, es exacta
+\end{center}
+\begin{align*}
+			 &\iff Ker(\varphi)=Im(0)=0\text{\quad y}\\
+			& \hspace{1.5cm} CoKer(\varphi)=\faktor{B}{Im(\varphi)}=\faktor{B}{Ker(0)}=\faktor{B}{B}=0\\
+			&\iff  \varphi \text{\,es monomorfismo y epimorfismo}\\
+			&\iff \varphi \text{\,es isomorfismo}.
+\end{align*}
+\end{proof}
+
+
+%Ej 39%
+\item Sea
+\begin{center}
+	\begin{tikzcd}
+		0\arrow{r} & A \arrow{r}{f} & B \arrow{r}{g} & C\arrow[r]&0
+	\end{tikzcd}
+\end{center}
+una sucesión exacta en $Mod\lrprth{R}$ y $F:=\arbtfam{F}{i}{I}$ una filración en $B$. Entonces $f^{-1}\lrprth{F}:=\lrbrack{f^{-1}\lrprth{F_i}}_{i\in I}$ y $g\lrprth{F}:=\lrbrack{g\lrprth{F_i}}_{i\in I}$ son, respectivamente, filtraciones en $A$ y en $C$.
+\begin{proof}
+	Se tiene que $g$ es sobre y $f$ es inyectiva, por ser exacta la sucesión.\\
+	$g$, al ser un morfismo de $R$-módulos, necesariamente es un morfismo de CPO de $\lrprth{B,\leq}$ en $\lrprth{C,\leq}$, además $g\lrprth{\genmod{0_B}{R}}=\genmod{0_C}{R}$ $g\lrprth{B}=\genmod{C}{R}$. Por lo anterior se tiene que $g\lrprth{F}$ es una filtración de $C$.\\
+	Por su parte, se tiene  que, $\forall\ M,N\in\genlin{B}$,  $f^{-1}\lrprth{M}\in\genlin{A}$ y $f^{-1}\lrprth{M}\leq f^{-1}\lrprth{N}$,  y además $f^{-1}\lrprth{\genmod{0_B}{R}}=Ker\lrprth{f}=\genmod{0_A}{R}$ y $f^{-1}\lrprth{B}=A$. Por lo tanto $f^{-1}\lrprth{F}$ es una filtración de $A$.\\
+\end{proof}
+\item %Ej 40%
+Para una sucesión exacta
+\begin{tikzcd}
+	0 \arrow{r} & A \arrow{r}{f} & B \arrow{r}{g} & C \arrow{r} & 0
+\end{tikzcd}
+en $Mod\lrprth{R}$, pruebe que: $B \in f.l.\lrprth{R}$ si y sólo si $A,C \in f.l.\lrprth{R}$
+\begin{proof}
+	$\boxed{\Rightarrow )}$ Suponga que $B \in f.l.\lrprth{R}$. Entonces $B$ tiene una serie de composición $\mathfrak{F}$. Por el \textbf{Lema 2.1.1.a)}, tanto $f^{-1}\lrprth{\mathfrak{F}}$ como $g\lrprth{\mathbb{F}}$ son series de composición de $A$ y de $C$ respectivamente. En consecuencia, $A,C \in f.l.\lrprth{R}$.\\
+	
+	$\boxed{\Leftarrow )}$ Sean $\mathfrak{A}=\fntfam{A}{i}{n}$ y $\mathfrak{C}=\fntfam{C}{j}{m}$ series de composición para $A$ y $C$, respectivamente. Luego, los $f(A_{i})$ y los $g^{-1}(C_{j})$ son submódulos de $B$. Definimos la serie $\mathfrak{B}=\fntfam{B}{t}{m+n}$, donde $B_{t}=f(A_{t})$ si $t \leq n$ y $B_{t}=g^{-1}(C_{t-n})$ si $n+1 \leq t \leq n+m$.\\
+	
+	Ahora, dado que $f$ es un monomorfismo, se tiene que $B_{t} \cong A_{t}$, para $t \leq n$. Y por otro lado, el teorema de la correspondencia y el tercer teorema de isomorfismo garantizan que $\displaystyle\frac{B_{t+1}}{B_{t}} = \displaystyle\frac{g^{-1}(C_{t+1})}{g^{-1}(C_{t})} \cong \displaystyle\frac{C_{t-n+1}}{C_{t-n}}$ para cada $n+1 \leq t \leq n+m$. Más aún, tenemos que los cocientes $\displaystyle\frac{B_{t+1}}{B_{t}}$ son simples, toda vez que los cocientes $\displaystyle\frac{A_{i+1}}{A_{i}}$ y $\displaystyle\frac{C_{j+1}}{C_{j}}$ lo son. De esta forma $\mathfrak{B}$ es una serie de composición para $B$. $\therefore B \in f.l.\lrprth{R}$
+\end{proof}
+
+
+%Ej 41%
+\item Pruebe que las siguientes condiciones se satisfacen para un anillo $R$.\\
+\begin{itemize}
+\item[a)] Sean $M\in f.l(R)$ y $N\leq M$. Entonces 
+\[M=N\iff l(M)=l(N)\iff l(\faktor{M}{N})=0.\]
+\item[b)] Sean $M\in f.l(R)$ y $f\in \operatorname{End}(\prescript{}{R}{M})$. Entonces $f$ es un isomorfismo $\iff$ $f$ es un 
+monomorfismo $\iff$ $f$ es un epimorfismo.
+\end{itemize}
+\begin{proof}
+a) $\left(M=N\Rightarrow l(M)=l(N)\right)$ es claro.\\
+Supongamos que $l(M)=l(N)$, entonces como $0\to N\to M\to \faktor{M}{N}\to 0$ es exacta, por el ej. 40 $N$ y $\faktor{M}{N}$ están en $f.l.(R)$
+y por el corolario 2.13b), $l(M)=l(N)+l(\faktor{M}{N})$, y como $l(M)=l(N)$ entonces $0=l(\faktor{M}{N})$.\\
+Por último, por el ej. 37      $l(\faktor{M}{N})=0\iff \faktor{M}{N}=0$ por lo tanto $M=N$ demostrando así  todas las implicaciones en a).\\
+
+b) supongamos $f$ es monomorfismo, entonces la siguiente sucesión es exacta 
+\[0\longrightarrow M \stackrel{f}{\longrightarrow} f(M) \stackrel{g}{\longrightarrow} \faktor{M}{f(M)}\longrightarrow 0,\]
+donde $g$ es la proyección de $f(M)$ en $M$.\\
+
+Como $M$ es $f.l.$ entonces existe una serie de composición $\{F_i\}_{i=0}^n$ de $M$. Así $\{f(F_i)\}_{i=0}^n$ cumple que \quad
+$\faktor{f(F_i)}{f(F_{i-1})}\cong f(\faktor{F_i}{F_{i-1}})\quad$ (por ser $f$ inyectiva) que es simple para toda $i\in \{1,\ldots, n\}$.
+Por lo tanto $\{f(F_i)\}_{i=0}^n$ es una serie de composición y $l(f(M))=n=l(M)$. Por a) $M=f(M)$ y así la sucesión 
+$0\longrightarrow M \stackrel{f}{\longrightarrow} M\longrightarrow 0 $ es exacta, implicando que $f$ sea isomorfismo.\\
+
+Ahora, si $g$ es supra, la sucesión \\$0\longrightarrow Ker(g) \stackrel{i}{\longrightarrow} M
+ \stackrel{g}{\longrightarrow} Im(g)=M \longrightarrow 0$ es exacta, por lo que\\ $l(M)=l(M)+l(Ker(g))$, y como $l(M)$ es finita, entonces 
+ $l(Ker(g))=0$, es decir, $Ker(g)=0$ entonces $g$ es inyectiva.
+\end{proof}
+
+%Ej 42%
+\item Si $M\in Mod\lrprth{R}$ entonces las siguientes condiciones son equivalentes:
+\begin{enumerate}
+	\item $M$ es noetheriano,
+	\item $\genlin{M}\subseteq mod\lrprth{R}$,
+	\item si $\mathcal{J}\subseteq\genlin{M}$, $\mathcal{J}\neq\varnothing$, entonces $\lrprth{\mathcal{J},\leq}$ posee por lo menos un elemento maximal.
+\end{enumerate}
+\begin{proof}
+	\boxed{a)\implies b)} Sea $A\leq M$. Si $A$ es finito la proposición es inmediata, pues $A=\genmod{A}{R}$. Supongamos que $A$ es infinito y sea  $a_1\in A\setminus\genmod{0}{R}$. Si $A=\genmod{a_1}{R}$ se tiene lo deseado, en caso contrario sea $a_2\in A\setminus\lrbrack{0,a_1}$. Si $A=\genmod{a_1,a_2}{R}$, se tiene lo deseado, en caso contrario, consideremos $a_3\in A\setminus\lrbrack{0,a_1,a_2}$. Notemos que este proceso se puede efectuar solo una cantidad finita, i.e. $\exists\ n\in\mathbb{N}\setminus\lrbrack{0}$ y $a_1,\dotsc,a_n\in A$ tales que $A=\genmod{a_1,\dotsc,a_n}{R}$, y por lo tanto $A\in mod\lrprth{R}$, ya que si no fuera el caso, por el axioma de elección dependiente, existiría una cadena ascendente
+	\begin{equation*}
+		\genmod{a_1}{R}\leq \genmod{a_1,a_2}{R}\leq \genmod{a_1,a_2,a_3}{R}\leq\dots 
+	\end{equation*}
+que no se estabilizaría y por lo tanto $M$ no sería noetheriano.\\
+\boxed{b)\implies c)} Procedamos por el contrapositivo. Supongamos que $\exists\ \mathcal{J}$ una familia no vacía de submódulos de $M$ tal $\lrprth{\mathcal{J},\leq}$ que no posee elementos maximales. Así sea $J_1\in\mathcal{J}$, luego $J_1$ no es maximal en $\lrprth{\mathcal{J},\leq}$ y por lo tanto $\exists\ J_2\in\mathcal{J}$ tal que $J_1\lneq J_2$. Por su parte, $J_2$ no es maximal en $\lrprth{\mathcal{J},\leq}$ y por lo tanto $\exists\ J_3\in\mathcal{J}$ tal que $J_2\lneq J_3$. Aplicando el axioma de elección dependiente a este procedimiento se obtiene la cadena ascendente de submódulos $\arbtfam{J}{n}{\mathbb{N}}$. $J:=\bigcup_{n\in\mathbb{N}}J_n\in\genlin{M}$,pues la unión de una cadena ascendente de submódulos es un submódulo. Supongamos que $J$ es finitamente generado, luego $\exists\ j_1,\dotsc,j_k\in J$ tales que $J=\genmod{j_1,\dotsc,j_k}{R}$. Notemos que, $\forall\ i\in[1,k]$, $\exists\ l_i\in\mathbb{N}$ tal que $j_i\in J_{l_i}$, y así, si $t:=max\lrbrack{l_i\ \vline\ i\in{1,k}}$ entonces $j_i\in J_t$, $\forall\ i\in{1,k}$. De modo que
+\begin{align*}
+	\genmod{j_1,\dotsc,j_k}{R}\leq J_t\lneq J =\genmod{j_1,\dotsc,j_k}{R},
+\end{align*}
+ lo cual es absurdo ($J_t$ es un submódulo estricto de $J$ pues $\arbtfam{J}{n}{\mathbb{N}}$ es una cadena estrictamente ascendente) y por lo tanto $J$ no es finitamente generado.\\
+\boxed{c)\implies a)} Sea $\arbtfam{A}{n}{\mathbb{N}}$ una cadena ascendente de submódulos. Luego $\varnothing\neq\arbtfam{A}{n}{\mathbb{N}}\subseteq\genlin{M}$ y por lo tanto $\lrprth{\arbtfam{A}{n}{\mathbb{N}},\leq}$ posee al menos un elemento maximal. De modo que $\exists\ k\in\mathbb{N}$ tal que $A_k$ es maximal en $\lrprth{\arbtfam{A}{n}{\mathbb{N}},\leq}$. Si $\forall\ l>k$ $A_l=A_k$ se tiene lo deseado. Supongamos que $\exists\ l>k$ tal que $A_k\lneq A_l$, por ser maximal, se tiene que $A_l=M$ y por lo tanto $A_r=M$, $\forall\ r\geq l$. Así, en cualquier caso, se tiene que la cadena se estabiliza y por lo tanto $M$ es noetheriano.\\
+\end{proof}
+\item %Ej 43% 
+Para $M \in Mod\lrprth{R}$, pruebe que las siguientes condiciones son equivalentes.
+\begin{enumerate}
+	\item $M$ es artiniano
+	\item Para toda $\mathfrak{F}\subseteq L\lrprth{M}$, con $\mathfrak{F}\neq\emptyset$, existe un elemento mínimo en en $\lrprth{\mathfrak{F},\leq}$
+\end{enumerate}
+\begin{proof}
+	$\boxed{\text{(a)}\Rightarrow\text{(b)}}$ Dada $\mathfrak{F}$ una familia no vacía de submódulos de $M$, sea $N_{1}\in\mathfrak{F}$. Suponga que $N_{1}$ no es un elemento mínimo de $\mathfrak{F}$, de este modo existe $N_{2}\in\mathfrak{F}$ tal que $N_{2} \lneqq N_{1}$. Repitiendo este argumento, obtenemos una cadena de submódulos $N_{1} \geq N_{2} \geq \cdots$ en $\mathfrak{F}$. En virtud de que $M$ es artiniano, existe $k\in\mathbb{N}$ tal que para cada $t\in\mathbb{N}$, $N_{k}=N_{k+t}$. $\therefore N_{k}$ es un elemento mínimo de $\mathfrak{F}$.\\
+	
+	$\boxed{\text{(b)}\Rightarrow\text{(a)}}$ Sea $N_{1} \gneqq N_{2} \gneqq \cdots$ una cadena de submódulos de $M$. Considere $\mathfrak{F}=\arbtfam{N}{k}{\mathbb{N}}$. Entonces, por hipótesis, $\mathfrak{F}$ tiene elementos mínimos. Sea $N_{k}$ uno de dichos mínimos. Dado que $\mathfrak{F}$ es una cadena, $N_{k}=N_{k+t}$, para toda $t\in\mathbb{N}$. $\therefore M$ es artiniano.
+\end{proof}
+
+%Ej 45%
+\item (Modularidad) Para $M\in Mod(R)$ y $H,K,L\in \genlin{M} $ pruebe que 
+\[K\leq H\iff H\cap (K+L)=K+(H\cap L).\]
+\begin{proof}
+Sea $x\in H\cap(K+L)$ entonces $x=k+l$ con $k\in K, x\in H$ y $l\in L$, pero $k\in H$ pues $K\leq H$, entonces $l\in H$. Por lo tanto
+$x=k+l$ con $k\in K$ y $l\in H\cap L$, es decir, $x\in K+(H\cap L)$.\\
+
+Sea $y\in K+(H\cap L)$, entonces $x=k+r$ para alguna $r\in H\cap L$, por lo que $x\in K+H=H$ pues $K\leq H$, así $x\in H$ y $x=k+r$
+con $k\in K$ y $r\in L$, por lo que $x\in H\cap(K+L)$.
+\end{proof}
+
+%Ej 45%
+\item Sea
+\begin{center}
+	\begin{tikzcd}
+		0\arrow{r} & K \arrow{r}{f} & M \arrow{r}{g} & N\arrow[r]&0
+	\end{tikzcd}
+\end{center} 
+una sucesión exacta en $Mod\lrprth{R}$. Entonces $M$ es noetheriano (respect. artiniano) si y sólo si $K$ y $N$ lo son.
+\begin{proof}
+	Verifiquemos primeramente la afirmación para el caso de módulos noetherianos.\\
+	\boxed{\implies} Sea $A\in\genlin{K}$, luego $f\lrprth{A}\in\genlin{M}$ y, dado que $M$ es noetheriano, $f\lrprth{A}\in\genlin{M}$ es finitamente generado, con lo cual $\exists\ x_1,\dotsc,x_l\in f\lrprth{A}$ tales que $f\lrprth{A}=\genmod{x_1,\dotsc,x_l}{R}$; notemos que $\forall\ i\in[1,l]$ $\exists\ k_i\in A$ tal que $x_i=f\lrprth{k_i}$. Así si $Y:=\fntfam{k}{i}{l}$ y $a\in A$, entonces $f\lrprth{a}\in f\lrprth{K}$ y por lo tanto $\exists\ r_1\dots,r_l\in R$ tales que
+	\begin{align*}
+		f\lrprth{a}&=\sum_{i=1}^{l}r_ix_i=\sum_{i=1}^{l}r_if\lrprth{k_i}=f\lrprth{\sum_{i=1}^{l}r_ik_i}\\
+		\implies a&=\sum_{i=1}^{l}r_ik_i, && Ker\lrprth{f}=\genmod{0_K}{R}\\
+		\implies A&=\genmod{Y}{R}.\\
+		\implies A&\text{ es finitamente generado}.
+	\end{align*} 
+Por su parte sea $C\in\genlin{N}$, luego $g^{-1}\lrprth{C}\in\genlin{M}$ y así $\exists\ m_1,\dotsc,m_o\in g^{-1}\lrprth{C}$ tales que $g^{-1}\lrprth{C}=\genmod{m_1,\dotsc,m_l}{R}$; notemos que $\forall\ i\in[1,o]$ $g\lrprth{m_i}\in C$, con lo cual  si $Z:=\lrbrack{c\lrprth{m_i}}_{i=1}^{o}$ y $c\in C$ entonces $Z\subseteq C$ y, dado que $g$ es sobre, $\exists\ m\in M$ tal que $g\lrprth{m}=c$. Luego $m\in g^{-1}\lrprth{C}$, por lo cual $\exists r_i,\dotsc,r_o\in R$ tales que $m= \sum_{i=1}^{0}r_im_i$ y así
+\begin{align*}
+	c&=\sum_{i=1}^{o}r_if\lrprth{m_i}\\
+	\implies C&=\genmod{Z}{R}.\\
+	\implies C&\text{ es finitamente generado}.
+\end{align*} 
+Por lo tanto $K$ y $N$ son noetherianos.\\
+\boxed{\impliedby} Sea $S\leq M$, entonces $f^{-1}\lrprth{S}\leq K$ y $g\lrprth{S}\leq N$. Como $K$ y $N$ son noetherianos $\exists\ a_1,\dotsc, a_t\in f^{-1}\lrprth{S}$ y $\exists\ c_1,\dotsc, c_u\in g\lrprth{S}$ tales que $f^{-1}\lrprth{S}=\genmod{a_1,\dotsc, a_t}{R}$ y $g\lrprth{S}=\genmod{c_1,\dotsc, c_u}{R}$. En partícular se tiene que $f\lrprth{a_1},\dotsc, f\lrprth{a_t}\in S$ y $\exists\ b_1,\dotsc,b_u\in S$ tales que $\forall\ i\in[1,u]$ $c_i=g\lrprth{b_i}$, con lo cual $g\lrprth{S}=\genmod{g\lrprth{b_1},\dotsc, g\lrprth{b_u}}{R}$ y por lo tanto, si $X:=\lrbrack{f\lrprth{a_1},\dotsc, f\lrprth{a_t},b_1,\dotsc,b_u}$, $X\subseteq S$. Sea $s\in S$, luego $g\lrprth{s}\in g\lrprth{S}$, por lo cual $\exists\ r_1,\dotsc,r_u\in R$ tales que
+\begin{align*}
+	g\lrprth{s}&=\sum_{i=1}^{u}r_ig\lrprth{b_i}=g\lrprth{\sum_{i=1}^{u}r_ib_i}\\
+	&\implies g\lrprth{s-\sum_{i=1}^{u}r_ib_i}=0\\
+	&\implies s-\sum_{i=1}^{u}r_ib_i\in Ker\lrprth{g}=Im\lrprth{f}\\
+	&\implies \exists\ a\in K\ \text{tal que }f\lrprth{a}=s-\sum_{i=1}^{u}r_ib_i.
+	\intertext{
+		Notemos que $s-\sum_{i=1}^{u}r_ib_i\in S$ pues $S$ es un submódulo de $M$, con lo cual $a\in f^{-1}\lrprth{S}$ y así $\exists\ r'_1,\dotsc,r'_t\in R$ tales que}
+	f\lrprth{\sum_{j=1}^{t}r'_ta_j}&=s-\sum_{i=1}^{u}r_ib_i\\
+	\implies s&=f\lrprth{\sum_{j=1}^{t}r'_ta_j}+\sum_{i=1}^{u}r_ib_i\\
+	\implies s&\in\genmod{X}{R}\\
+	\implies S&=\genmod{X}{R}.\\
+	&\implies S\text{ es finitamente generado.}
+\end{align*}
+Por lo tanto  $M$ es noetheriano.\\
+Para el caso de módulos artianos:\\
+\boxed{\implies} Sea $A_1\geq A_2\geq\dots$ una cadena descendente en $\genlin{K}$, luego $f\lrprth{A_1}\geq f\lrprth{A_2}\geq\dots$ es una cadena descendente en $\genlin{M}$ y, como $M$ es artiniano, $\exists\ L\in\mathbb{N}$ tal que $\forall\ k\geq L$ $f\lrprth{A_k}=f\lrprth{A_L}$. Sea $k\geq L$ y notemos que dado que $A_L\geq A_k$ basta con probar que $A_L\leq A_k$. Sea $a\in A_L$, luego $f\lrprth{a}\inf\lrprth{A_L}=\lrprth{A_k}$ y por tanto $\exists\ b\in A_k$ tal que $f\lrprth{a}=f\lrprth{b}$. Como $f$ es inyectiva se sigue que $a=b$ y por lo tanto $a\in A_k$, con lo cual se tiene que $A_L\leq A_k$. Así, $K$ es artiniano.\\
+Por su parte, sea $C_1\geq C_2\geq\dots$ una cadena descendente en $\genlin{N}$, luego $g^{-1}\lrprth{C_1}\geq g^{-1}\lrprth{C_2}\geq\dots$ es una cadena descendente en $\genlin{M}$ y, como $M$ es artiniano, $\exists\ L'\in\mathbb{N}$ tal que $\forall\ k\geq L'$ $g^{-1}\lrprth{C_k}=g^{-1}\lrprth{C_{L'}}$. Sea $k\geq L'$ y notemos que dado que $C_{L'}\geq C_k$ basta con probar que $C_{L'}\geq C_k$ basta con probar que $C_{L'}\leq C_k$. Sea $c\in C_{L'}$, como $g$ es sobre $\exists\ b\in M$ tal que $g\lrprth{b}=c$, con lo cual $b\in g^{-1}\lrprth{C_{L'}}$, por tanto $b\in g^{-1}\lrprth{C_k}$ y así $c=g\lrprth{b}\in C_k$. Por lo anterior se sique que $C_{L'}\leq C_k$ y así se tiene lo deseado.\\
+\boxed{\impliedby} Sea $B_1\geq B_2\geq\dots$ una cadena descendente en $\genlin{M}$, luego $f^{-1}\lrprth{B_1}\geq f^{-1}\lrprth{B_2}\geq\dots$ y $g\lrprth{B_1}\geq g\lrprth{B_2}\geq\dots$ son, respectivamente, cadenas descendientes en $\genlin{K}$ y en $\genlin{N}$ y por tanto $\exists\ r,s\in\mathbb{N}$ tales que
+\begin{align*}
+	\forall\ k\geq r&\ f^{-1}\lrprth{B_k}=f^{-1}\lrprth{B_r}\tag{*}\label{stblinK}
+	\intertext{y}
+	\forall\ k\geq s&\ g\lrprth{B_k}=g\lrprth{B_s}.\tag{**}\label{stblinN}
+\end{align*}
+Así, sea $t=\max\lrbrack{r,s}$, $k\geq t$ y $m\in B_t$. Luego $g\lrprth{m}\in g\lrprth{B_t}g\lrprth{B_t}=g\lrprth{B_k}$, por $\lrprth{\ref{stblinN}}$. Así $\exists\ b\in B_k$ tal que $g(m)=g(b)$, con lo cual $m-b\in Ker\lrprth{g}=Im\lrprth{f}$, por lo cual $\exists\ a\in K$ tal que $m-b=f\lrprth{a}$. Notemos que, en partícular, $b\in C_t$, así que $m-b\in C_t$ y por lo tanto $a\in f^{-1}\lrprth{C_t}$. Luego 
+\begin{align*}
+	a&\in f^{-1}\lrprth{C_k}, && \lrprth{\ref{stblinK}}\\
+	&\implies f(a)\in C_k\\
+	&\implies m-b\in C_k\\
+	&\implies m\in C_k, && b\in C_k.\\
+	\implies & C_t\leq C_k.
+\end{align*}
+Por lo tanto $M$ es artiniano.\\
+\end{proof}
+\item %46%
+Para $M,N \in f.l.\lrprth{R}$, pruebe que $M \coprod N \in f.l.\lrprth{R}$ y que $l\lrprth{M \coprod N}=l\lrprth{M}+l\lrprth{N}$.
+\begin{proof}
+	Primero, del \textbf{Ejercicio 40} y de la exactitud de la sucesión
+	\begin{tikzcd}
+		0 \arrow{r} & M \arrow{r}{f} & M \coprod N \arrow{r}{g} & N \arrow{r} & 0
+	\end{tikzcd}
+	, se tiene que $M \coprod N \in f.l.\lrprth{R}$, ya que $M,N$ tienen longitud finita. Más aún, dada una serie de composición $\mathfrak{F}$ para $M \coprod N$, el \textbf{Lema 2.1.1.b)} garantiza que 
+	\begin{align*}
+		l_{\mathfrak{F}}\lrprth{M \coprod N}=l_{f^{-1}\lrprth{\mathfrak{F}}}\lrprth{M}+l_{g\lrprth{\mathfrak{F}}}\lrprth{N}
+	\end{align*}
+	$\therefore l\lrprth{M \coprod N}=l\lrprth{M}+l\lrprth{N}$.
+\end{proof}
+
+
+%47%
+\item Sea $M\in Mod(R)$. Pruebe que 
+\begin{itemize}
+\item[a)] Si $M\simeq N$ en $Mod(R)$ con $N$ semisimple, entonces $M$ es semisimple.
+
+\item[b)] $M$ es semisimple si y sólo si $\exists\{S_i\}_{i\in I}$ en $\genlin{M}$ de módulos simples tal que $M=\displaystyle\bigoplus_{i\in I}S_i$.
+
+\end{itemize}
+\begin{proof}
+\boxed{a)} Sea $\varphi \colon N\longrightarrow M$ un isomorfismo y $N=\displaystyle\coprod_{i\in I}S_i$ con inclusiones naturales 
+$\{\mu_i\colon S_i\longrightarrow N\}$ y $\{S_i\}_{i\in I}$ una familia de modulos simples.\\
+Consideremos la familia $\{\varphi\circ \mu_i\colon S_i\longrightarrow M\}$, entonces, si $\{g_i\colon S_i\longrightarrow M\}$ es una 
+familia de morfismos en $Mod(R)$, tenemos el siguiente diagrama
+
+\xymatrix {
+   N\ar[rd]^{\exists !\,g}\\
+  M\ar[u]^{\varphi^{-1}}\ar[r] & Z\\
+  S_i\ar[u]^{\varphi\circ\mu_i}\ar[ru]_{g_i}        
+}
+Por la propiedad universal del coproducto $\exists !\,g\colon N\longrightarrow Z$ tal que \\
+$g\circ \varphi^{-1}\circ\varphi\circ \mu_i=g_i \,\, \forall i\in I$, es decir, $g\circ\mu_i=g_i\quad \forall i\in I$.\\
+Así $g\circ \varphi^{-1}\colon M\longrightarrow Z$ es tal que $(g\circ \varphi^{-1})(\varphi\circ \mu_i)=g_i\quad \forall i\in I$.\\
+Ahora, si $h(\varphi\circ \mu_i)=g_i$ con $h\colon M\longrightarrow Z$, entonces 
+\[(h\circ\varphi)\circ \mu_i=h(\varphi\circ \mu_i)=(g\circ \varphi^{-1})(\varphi\circ \mu_i)=g_i\]
+pero $g$ es el único con esta propiedad, entonces $h\varphi=g$ y así $h=g\circ \varphi^{-1}$. Por lo tanto $M$ es semisimple,
+$M=\displaystyle\coprod_{i\in I}S_i$, con la familia\\ $\{\varphi\circ\mu_i\colon S_i\longrightarrow M\}$.\\
+
+\boxed{b)} Supongamos que $M$ es semisimple, entonces $M=\displaystyle\coprod_{i\in I}S_i'$ con $\{S_i'\}_{i\in I}$ simples y 
+morfismos $\{\mu_i\colon S_i'\longrightarrow M\}$.\\
+Tomaremos la familia $\{S_i\}_{i\in I}$ con $\mu_i(S_i')=S_i$, como $\mu_i$ es monomorfismo para toda $i\in I$, entonces
+$S_i\neq 0$\quad $\forall i\in I$, mas aún, como $S_i'$ es simple se tiene que $S_i $ también lo será. Por esto
+$\mu:\displaystyle\coprod_{i\in I}S_i'\longrightarrow \displaystyle\coprod_{i\in I}S_i$ con \\$\mu=(\mu_i)_{i\in I}$ es isomorfismo
+ y $\{S_i\}_{i\in I}\subseteq\genlin{M}$ es una familia ajena dos a dos. Entonces 
+\[\bigoplus_{i\in I}S_i=\coprod_{i\in I}S_i\simeq \coprod_{i\in I}S_i'=M.\]
+La otra implicación es trivial.
+\end{proof}
+	\end{enumerate}
+\end{document}
