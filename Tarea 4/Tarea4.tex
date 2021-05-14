@@ -1,0 +1,225 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{eufrak}
+\usepackage{nicefrac}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{tikz-cd}
+\usepackage{comment}%Paquete para añadir comentarios largos.}
+
+\include{Comandos Anillos Artin}
+
+\title{Lista 4}
+\author{Arruti, Sergio, Jesús}
+\date{}
+
+\newcommand\equivalencia{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny \sim}}}{\longrightarrow}}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+	%%%%%%%%% Ej 49 %%%%%%%5
+	\item Sean $M \in Mod\lrprth{R}$ y $X \subseteq M$. Considere el morfismo de $R$-módulos $\overline{\varepsilon}_{X,M}:F(X) \longrightarrow M$, dado por $\overline{\varepsilon}_{X,M}\lrprth{\arbtfam{t}{x}{X}}=\displaystyle\Sigma_{x \in X}t_{x}x$. Note que la composición
+	\begin{tikzcd}
+		X \arrow{r}{\varepsilon_{x}} & F(X) \arrow{r}{\overline{\varepsilon}_{X,M}} & M
+	\end{tikzcd}
+	coincide con la inclusión $X \subseteq M$. Pruebe que:
+	\begin{enumerate}
+		\item $im\lrprth{\overline{\varepsilon}_{X,M}}=\genmod{x}{R}$
+		\item $M=\genmod{x}{R}\Leftrightarrow\overline{\varepsilon}_{X,M}$ es un epimorfismo.
+		\item $X$ es $R$-linealmente independiente$\Leftrightarrow\overline{\varepsilon}_{X,M}$ es un monomorfismo.
+		\item $X$ es una $R$-base$\Leftrightarrow\overline{\varepsilon}_{X,M}$ es un isomorfismo.
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{a}}$ Primero, como $\genmod{x}{R}$ es un submódulo de $M$, se tiene que $im\lrprth{\overline{\varepsilon}_{X,M}}\subseteq\genmod{x}{R}$. Por otro lado, sea $m\in\genmod{x}{R}$. Entonces $m$ tiene una descomposición $m=\displaystyle\Sigma_{x \in X}t_{x}x$, donde $t_{x} \in F(X)$. En consecuencia, $\overline{\varepsilon}_{X,M}\lrprth{\arbtfam{t}{x}{X}}=\displaystyle\Sigma_{x \in X}t_{x}x=m$. $\therefore im\lrprth{\overline{\varepsilon}_{X,M}}=\genmod{x}{R}$\\
+		
+		$\boxed{\text{(b)}}$ Este inciso se deduce del anteior. $M=\genmod{x}{R}\Leftrightarrow M=im\lrprth{\overline{\varepsilon}_{X,M}}\Leftrightarrow\overline{\varepsilon}_{X,M}$ es un epimorfismo.\\
+		
+		$\boxed{\text{(c)}} \boxed{\Rightarrow )}$ Suponga que $\arbtfam{t}{x}{X} \in Ker\lrprth{\overline{\varepsilon}_{X,M}}$. De modo que $\displaystyle\Sigma_{x \in X}t_{x}x=\overline{\varepsilon}_{X,M}\lrprth{\arbtfam{t}{x}{X}}=0$. Dado que $X$ es $R$-linealmente independiente, para cada $x \in X$, $t_{x}=0$. Por tanto, $Ker\lrprth{\overline{\varepsilon}_{X,M}}=0$. $\therefore\overline{\varepsilon}_{X,M}$ es monomorfismo.\\
+		
+		$\boxed{\Leftarrow )}$ Sean $x_{1},...,x_{n} \in X$ y $r_{x_{1}},...r_{x_{n}} \in R$ tales que $\displaystyle\Sigma_{k=1}^{n}r_{x_{k}}x_{k}=0$. Completamos a un elemento de $F(X)$ como $r_{x}=0$, con $x\not\in\lrbrack{x_{1},...,x_{n}}$. Con lo cual tenemos que:
+		\begin{align*}
+			\overline{\varepsilon}_{X,M}\lrprth{\arbtfam{r}{x}{X}} &= \displaystyle\Sigma_{x \in X}r_{x}x\\
+			&=\displaystyle\Sigma_{k=1}^{n}r_{x_{k}}x_{k}\\
+			&=0
+		\end{align*}
+		Entonces $\lrbrack{r}{x}{X} \in Ker\lrprth{\overline{\varepsilon}_{X,M}} = 0$. Por tanto, $r_{x_{1}}=...=r_{x_{n}}=0$.\\
+		$\therefore X$ es $R$-linealmente independiente.\\
+		
+		$\boxed{\text{(d)}}$ Este resultado se concluye de los anteriores. En efecto,
+		\begin{align*}
+			\overline{\varepsilon}_{X,M}\ es\ un\ isomorfismo & \Leftrightarrow\overline{\varepsilon}_{X,M}\ es\ un\ epimorfismo\ y\ monomorfismo\\
+			& \Leftrightarrow M=im\lrprth{\overline{\varepsilon}_{X,M}}\ y\ X\ es\ R-l.i.\\
+			& \Leftrightarrow X\ es\ una\ R-base.
+		\end{align*}
+	\end{proof}
+	
+	%%%%%%% Ej 52 %%%%%%
+	\item Sean $\psi : B' \longrightarrow B$ un isomorfismo y $f:B \longrightarrow C$ es $Mod\lrprth{R}$. Pruebe que: Si $f$ es minimal a derecha, entonces $f\circ\psi :B' \longrightarrow C$ es minimal a derecha.
+	\begin{proof}
+		Sea $g:f\circ\psi \longrightarrow f\circ\psi$ un morfismo en $Mod\lrprth{R}/C$. Entonces, por el \textbf{ejercicio 50}., $g:B' \longrightarrow B'$ es un homomorfismo en $Mod\lrprth{R}$. Más aún, $\psi \circ g:B' \longrightarrow B$ también es un homomorfismo. Dado que $f$ es minimal a derecha, se tiene que $\psi \circ g$ es un isomorfismo en $Mod\lrprth{R}$. En virtud de que $\psi$ es un isomorfismo, $g:B' \longrightarrow B'$ es un isomorfismo en $Mod\lrprth{R}$. Aplicando el \textbf{ejercicio 50.}, se tiene que $g:f\circ\psi \longrightarrow f\circ\psi$ es un isomorfismo. $\therefore f\circ\psi$ es minimal a derecha.
+	\end{proof}
+	
+	%%%%%% Ej 55 %%%%%%%
+	\item Sea $\eta:$
+	\begin{tikzcd}
+		0 \arrow{r} & M_{1} \arrow{r}{f_{1}} & M \arrow{r}{g_{2}} & M_{2} \arrow{r} & 0
+	\end{tikzcd}
+	una sucesión en $Mod\lrprth{R}$. Pruebe que las siguientes condiciones son equivalentes
+	\begin{enumerate}
+		\item $\eta$ es una sucesión que se parte.
+		\item Existe una sucesión
+		\begin{tikzcd}
+				0 \arrow{r} & M_{2} \arrow{r}{f_{2}} & M \arrow{r}{g_{1}} & M_{1} \arrow{r} & 0
+		\end{tikzcd}
+		en $Mod\lrprth{R}$ tal que $g_{1}f_{1}=1_{M_{1}}$, $g_{2}f_{2}=1_{M_{2}}$, $g_{2}f_{1}=g_{1}f_{2}=0$ y $g_{1}f_{1}+g_{2}f_{2}=1_{M}$.
+		\item Existe un isomorfismo $h:M_{1} \times M_{2} \longrightarrow M$ tal que el siguiente diagrama conmuta\\
+		\begin{tikzcd}
+				0 \arrow{r} & M_{1} \arrow{r}{i_{1}}\arrow{d} & M_{1} \times M_{2} \arrow{r}{\pi_{2}}\arrow{d}{h} & M_{2} \arrow{r}\arrow{d} & 0\\
+				0 \arrow{r} & M_{1} \arrow{r}{f_{1}} & M \arrow{r}{g_{2}} & M_{2} \arrow{r} & 0
+		\end{tikzcd}
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{a)}\Rightarrow\text{c)}}$ Dado que $\eta$ es una sucesión que se parte, existe un morfismo de $R$-módulos, $f_{2}:M_{2} \longrightarrow M$, tal que $g_{2}f_{2}=1_{M_{2}}$. Luego, $g_{2}$, $f_{2}$ inducen un isomorfismo $h:M_{1} \times M_{2} \longrightarrow M$. En efecto, definimos $h$ como el morfismo $h\lrprth{m_{1},m_{2}}=f_{1}\lrprth{m_{1}}+f_{2}\lrprth{m_{2}}$.\\
+		
+		En primer lugar, veremos que $h$ es un monomorfismo. En este sentido, sea $\lrprth{m_{1},m_{2}} \in Ker\lrprth{h}$, entonces $0=h\lrprth{m_{1},m_{2}}=f_{1}\lrprth{m_{1}}+f_{2}\lrprth{m_{2}}$. En consecuencia, $f_{2}\lrprth{m_{2}}=-f_{1}\lrprth{m_{1}}\in Im\lrprth{f_{1}}=Ker\lrprth{g_{2}}$. Así, 
+		\begin{align*}
+			m_{2}=g_{2}f_{2}\lrprth{m_{2}}=0
+		\end{align*}
+		Por consiguiente, $f_{1}\lrprth{m_{1}}=h\lrprth{m_{1},m_{2}}=0$. Dado que $f_{1}$ es mono, $m_{1}=0$. Por lo que $h$ es mono.\\
+		
+		Ahora, $h$ es epi. Sea $m \in M$. Entonces 
+		\begin{align*}
+			g_{2}\lrprth{m-f_{2}g_{2}\lrprth{m}}=g_{2}\lrprth{m}-g_{2}\lrprth{m}=0
+		\end{align*}
+		De esta forma, $m-f_{2}g_{2}\lrprth{m} \in Im\lrprth{f_{1}}$. Ésto aunado a la exactitud de $\eta$ garantiza la existencia de un elemento $x \in M_{1}$ tal que $f_{1}\lrprth{x}=m-f_{2}g_{2}\lrprth{m}$, con lo cual,
+		\begin{align*}
+			h\lrprth{x,g_{2}\lrprth{m}}&=f_{1}\lrprth{x}+f_{2}\lrprth{g_{2}\lrprth{m}}\\
+			&=m
+		\end{align*}
+		
+		Una vez demostrado que $h$ es un isomorfismo, podemos proceder a mostrar que el diagrama presentado anteriormente conmuta bajo este isomorfismo. Primero, note que para $m \in M_{1}$ se tiene que 
+		\begin{align*}
+			h\textit{i}_{1}\lrprth{m}&=h\lrprth{m,0}\\
+			&=f_{1}\lrprth{m}\\
+			&=f_{1}1_{M_{1}}\lrprth{m}
+		\end{align*}
+		Por el otro lado, dado $\lrprth{m_{1},m_{2}} \in M_{1} \times M_{2}$, se satisface que
+		\begin{align*}
+			g_{2}h\lrprth{m_{1},m_{2}}&=g_{2}\lrprth{f_{1}\lrprth{m_{1}}+f_{2}\lrprth{m_{2}}}\\
+			&=g_{2}f_{1}\lrprth{m_{1}}+g_{2}f_{2}\lrprth{m_{2}}\\
+			&=0+m_{2}\\
+			&=m_{2}\\
+			&=1_{M_{2}}\pi_{2}\lrprth{m_{1},m_{2}}
+		\end{align*}
+		
+		$\boxed{\text{c)}\Rightarrow\text{b)}}$ Sea $h:M_{1} \times M_{2} \longrightarrow M$ el morfismo proporcionado por la hipótesis. Además, la sucesión
+		\begin{tikzcd}
+				0 \arrow{r} & M_{2} \arrow{r}{i_{2}} & M_{1} \times M_{2} \arrow{r}{\pi_{1}} & M_{1} \arrow{r} & 0
+		\end{tikzcd}
+		se parte. Definimos $f_{2}:M_{2} \longrightarrow M$ como $f_{2}=hi_{2}$, y $g_{1}:M \longrightarrow M_{1}$ como $g_{1}=\pi_{1}h^{-1}$.\\
+		
+		Luego, se satisfacen las siguientes igualdades
+		\begin{align*}
+			& g_{1}f_{1}=g_{1}hi_{1}=\pi_{1}h^{-1}hi_{1}=\pi_{1}i_{1}=1_{M_{1}}\\
+			& g_{2}f_{2}=g_{2}hi_{2}=\pi_{2}i_{2}=1_{M_{2}}\\
+			& g_{1}f_{2}=g_{1}hi_{2}=\pi_{1}h^{-1}hi_{2}=\pi_{1}i_{2}=0\\
+			& g_{2}f_{1}=g_{2}hi_{1}=\pi_{2}h^{-1}hi_{1}=\pi_{2}i_{1}=0\\
+			& g_{1}f_{1}+g_{2}f_{2}=1_{M_{1}}+1_{M_{2}}=1_{M_{1} \times M_{2}}=1_{M}
+		\end{align*}
+		
+		$\boxed{\text{b)}\Rightarrow\text{a)}}$ Por hipótesis, existe un morfismo de $R$-módulos $f_{2}:M_{2} \longrightarrow M$ tal que $g_{2}f_{2}=1_{M_{2}}$. Por tanto, $\eta$ es una sucesión que se parte.
+	\end{proof}
+	
+	%%%%%%%% Ej 58 %%%%%%%
+	\item Sean $\varphi_{i}:A_{i} \longrightarrow B_{i}$, con $i=1,2$, minimales a derecha en $Mod\lrprth{R}$. Pruebe que $\varphi_{1}\coprod\varphi_{2}:A_{1} \coprod A_{2} \longrightarrow B_{1} \coprod B_{2}$ es minimal a derecha.
+	\begin{proof}
+		Sea $\psi:\varphi_{1}\coprod\varphi_{2}\longrightarrow\varphi_{1}\coprod\varphi_{2}$. Entonces $\psi$ es de la forma $\psi = \psi_{1}\coprod\psi_{2}$, con $\psi_{i}:A_{i} \longrightarrow B_{i}$, $i=1,2$. En efecto, si denotamos por $\eta_{i}:A_{1} \coprod A_{2} \longrightarrow B_{i}$, $i=1,2$, a la proyección canónica, entonces $\psi = \eta_{1}\psi\coprod\eta_{2}\psi$.\\
+		
+		Suponga, así, que $\psi = \psi_{1}\coprod\psi_{2}$. Luego, $\psi_{i} \in Hom\lrprth{\varphi_{i},\varphi_{i}}$, con $i=1,2$. Por la minimalidad a derecha de cada $\varphi_{1}$, se satisface que $\psi_{1}$ y $\psi_{2}$ son isomorfismos. Por lo que $\psi$ es un isomorfismo.\\
+		$\therefore\varphi_{1}\coprod\varphi_{2}$ es minimal a derecha.
+	\end{proof}
+	
+	%%%%%%%% Ej 61 %%%%%%%
+	\item Sea $X\in\ringbimod{R}{S}{Mod}{lr}$. Pruebe que:
+	\begin{enumerate}
+		\item $\ringmodhom{R}{-}{X}: Mod\lrprth{R} \longrightarrow Mod\lrprth{\opst{S}}$ es un funtor contravariante aditivo.
+		\item Para $\fntfam{M}{i}{n}$ en $Mod\lrprth{R}$ se tiene que
+		\begin{align*}
+			\ringmodhom{R}{\displaystyle\coprod_{i=1}^{n}M_{i}}{\ringbimod{R}{S}{X}{lr}}=\displaystyle\coprod_{i=1}^{n}\ringmodhom{R}{\ringmod{R}{M_{i}}{l}}{\ringbimod{R}{S}{X}{lr}}
+		\end{align*}
+		en $Mod\lrprth{\opst{S}}$
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{\text{(a)}}$ Primeramente, ya sabemos que $\ringmodhom{R}{-}{X}$ es un funtor contravariante. Entonces bastará probar que éste es aditivo.\\
+		
+		Sean $M,N \in Mod\lrprth{R}$. Veremos que $\varphi=\ringmodhom{R}{-}{X}$, con
+		\begin{align*}
+			\varphi:\ringmodhom{R}{M}{N}\longrightarrow\ringmodhom{\opst{S}}{\ringmodhom{R}{N}{X}}{\ringmodhom{R}{M}{X}},
+		\end{align*}
+		es un isomorfismo.\\
+		
+		Sea $f\in\ringmodhom{R}{M}{N}$. Entonces $\varphi\lrprth{f}\ringmodhom{\opst{S}}{\ringmodhom{R}{N}{X}}{\ringmodhom{R}{M}{X}}$ es el morfismo $\varphi\lrprth{f}\lrprth{g}=g \circ f$. De esta manera, $\varphi$ es un morfismo. En efecto, sean $f,g\in\ringmodhom{R}{M}{N}$, $r \in R$ y $h\in\ringmodhom{R}{N}{X}$, entonces
+		\begin{align*}
+			\varphi\lrprth{f+rg}\lrprth{h} &= \lrprth{f+rg} \circ h\\
+			&=f \circ h + \lrprth{rg} \circ h\\
+			&=f \circ h + r\lrprth{g \circ h}\\
+			&=\varphi\lrprth{f}\lrprth{h}+r\varphi\lrprth{g}\lrprth{h}\\
+			&=\lrprth{\varphi\lrprth{f}+r\varphi\lrprth{g}}\lrprth{h}
+		\end{align*}
+		Por tanto, $\varphi$ es morfismo. $\therefore\ringmodhom{R}{-}{X}$ es aditivo.
+	
+		$\boxed{\text{(b)}}$ Definimos $\rho : \ringmodhom{R}{\displaystyle\coprod_{i=1}^{n}M_{i}}{\ringbimod{R}{S}{X}{lr}} \longrightarrow \displaystyle\coprod_{i=1}^{n}\ringmodhom{R}{\ringmod{R}{M_{i}}{l}}{\ringbimod{R}{S}{X}{lr}}$ como $\rho\lrprth{\varphi}=\fntuple{\varphi\iota}{i}{n}$.\\
+		
+		Veamos que $\rho$ es un morfismo en $Mod\lrprth{\opst{S}}$. Para dicho fin, considere $\varphi , \psi \in \ringmodhom{R}{\displaystyle\coprod_{i=1}^{n}M_{i}}{\ringbimod{R}{S}{X}{lr}}$ y $s \in S$.
+		\begin{align*}
+			\rho\lrprth{\varphi + \psi s} &= \fntuple{\lrprth{\varphi + \psi s}\iota}{i}{n}\\
+			&= \fntuple{\varphi\iota}{i}{n} + \fntuple{\lrprth{\psi s}\iota}{i}{n}\\
+			&= \fntuple{\varphi\iota}{i}{n} + \fntuple{\psi\iota}{i}{n} s\\
+			&= \rho\lrprth{\varphi} + \rho\lrprth{\psi} s
+		\end{align*}
+		
+		Por otro lado, $\rho$ es un inyectivo. En efecto, si $\rho\lrprth{\varphi}=0$, entonces se tiene que $\fntuple{\varphi\iota}{i}{n}=0$. Luego, $\varphi=0$. Por tanto $Ker\lrprth{\rho}=0$.\\
+		
+		Ahora, sea $\fntuple{\varphi}{i}{n} \in \displaystyle\coprod_{i=1}^{n}\ringmodhom{R}{\ringmod{R}{M_{i}}{l}}{\ringbimod{R}{S}{X}{lr}}$. Entonces cada $\varphi_{i}$ es un morfismo $\varphi_{i}:M_{i} \longrightarrow X$. Así, por la propiedad universal del coproducto, existe $\varphi:\displaystyle\coprod_{i=1}^{n}M_{i} \longrightarrow X$ tal que $\varphi\iota_{i}=\varphi_{i}$. De esta manera, $\rho\lrprth{\varphi}=\fntuple{\varphi}{i}{n}$. Por tanto, $\rho$ es un isomorfismo.\\
+		$\therefore\ringmodhom{R}{\displaystyle\coprod_{i=1}^{n}M_{i}}{\ringbimod{R}{S}{X}{lr}}=\displaystyle\coprod_{i=1}^{n}\ringmodhom{R}{\ringmod{R}{M_{i}}{l}}{\ringbimod{R}{S}{X}{lr}}$
+	\end{proof}
+	
+	%%%%%%%% Ej 64 %%%%%%%%%
+	\item Sea $M \in Mod\lrprth{R}$. Pruebe que:\\
+	$M$ es proyectivo y f.g.$\Leftrightarrow$existe $n\in\mathbb{N}$ tal que $M$ es isomorfo a un sumando directo de $\ringmod{R}{R^{n}}{l}$.
+	\begin{proof}
+		$\boxed{\Rightarrow )}$ Puesto que $M$ es f.g., existe $n\in\mathbb{N}$ tal que la siguiente sucesión en $Mod\lrprth{R}$
+		\begin{tikzcd}
+			0 \arrow{r} & Ker(f) \arrow{r} & R^{n} \arrow{r}{f} & M \arrow{r} & 0
+		\end{tikzcd}
+		es exacta. Ésta a su vez se parte, toda vez que $M$ es proyectivo.\\
+		$\therefore M$ es sumando directo de $R^{n}$.\\
+		
+		$\boxed{\Leftarrow )}$ Suponga que $\ringmod{R}{R^{n}}{l} \simeq M \oplus K$. Entonces $M$ es f.g., y la sucesión en $Mod\lrprth{R}$
+		\begin{tikzcd}
+			0 \arrow{r} & K \arrow{r} & R^{n} \arrow{r} & M \arrow{r} & 0
+		\end{tikzcd}
+		se parte.\\
+		$\therefore M$ es proyectivo y f.g.
+	\end{proof}
+	
+	%%%%%%%%% Ej 67 %%%%%%%%%
+	\item Sea $R$ un anillo no trivial. Pruebe que:\\
+	$R$ es semisimple y conmutativo$\Leftrightarrow R \simeq \displaystyle\bigtimes_{i=1}^{t} K_{i}$ como anillos, donde $K_{i}$ es un campo $\forall i \in [1,t]$
+	\begin{proof}
+		$\boxed{\Leftarrow )}$ Dado que cada $K_{i}$ es un campo y $R \simeq \displaystyle\bigtimes_{i=1}^{t} K_{i}$, se satisface que $R$ es semisimple y conmutativo.\\
+		
+		$\boxed{\Rightarrow )}$ En virtud del teorema de \textbf{Wedderburn-Artin}, $R$ es isomorfo a $\displaystyle\bigtimes_{i=1}^{t} Mat_{n_{i} \times n_{i}} \lrprth{D_{i}}$, con $n_{i}\in\mathbb{N}$ y $D_{i}$ un anillo con división. Ahora, por la conmutatividad de $R$, la única posibilidad es que $n_{i}=1$ y $D_{i}$ sea conmutativo, para $i \in [1,t]$.\\
+		$\therefore R \simeq \displaystyle\bigtimes_{i=1}^{t} K_{i}$, con $K_{i}$ un campo, $\forall i \in [1,t]$
+	\end{proof}
+\end{enumerate}
+\end{document}
