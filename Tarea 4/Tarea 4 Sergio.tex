@@ -1,0 +1,239 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{xparse, tikz-cd, pgfplots}
+\usepackage{comment}
+\usepackage{faktor}
+\usepackage[all]{xy}
+
+\input{Comandos Anillos Artin}
+\title{Lista 4}
+\author{Arruti, Sergio, Jesús}
+\date{}
+
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+		\setcounter{enumi}{47}
+\item 
+\item
+\item Sean $f\colon B\rightarrow C$ en $Mod(R)$ y $g\colon B\longrightarrow B$ tales que $fg=f$. Pruebe que:\\
+$g\colon f\longrightarrow f$ es un isomorfismo en \,\,$\faktor{Mod(R)}{C}$ \,\,si y sólo si $g\colon B\longrightarrow B$ es un isomorismo en $Mod(R)$.
+\begin{proof}
+
+$g\colon f\longrightarrow f$ es un isomorfismo en \,\,$\faktor{Mod(R)}{C}$\,\,\\
+$\iff \,\,\,\exists g^{-1}\colon f\longrightarrow f$  tal que $g^{-1}g=1_f$ y $gg^{-1}=1_f$\\
+$\iff \,\,\,\exists g^{-1}\colon f\longrightarrow f$  tal que $g^{-1}g=Id_B$ y $gg^{-1}=Id_B$\\
+$\iff \,\,\,\exists g^{-1}\in \operatorname{Hom}_R(B,B)$ tal que $g^{-1}g=Id_B$ y $gg^{-1}=Id_B$\\
+$\iff \,\,\,g\colon B\longrightarrow B$ es isomorfismo en $Mod(R)$.
+\end{proof}
+
+\item
+\item
+\item Sean 
+\begin{tikzcd}
+ M \arrow{r}{f} & N \arrow{r}{f'} & M
+\end{tikzcd}
+en $Mod(R)$ tal que $ff'=1_N.$ Pruebe que $M=Ker(f)\oplus Im(f')$.
+\begin{proof}
+Como $ff'=1_N$, entonces $Ker(f')=0$ y $Im(f)=N$, es decir, $f'$ es monomorfismo, $f$ es epimorfismo y  $Im(f')+Ker(f)\leq M$.\\
+Si $x\in Im(f')\cap Ker(f)$ entonces existe $y\in N$ tal que $f'(y)=x$ y además $f(x)=0$ entonces $0=f(x)=ff'(y)=1_N(y)$
+por lo que $x=0$ y así $Im(f´)\cap Ker(f)=0$.\\
+
+Si $x\in M$ entoces $f(x-f'f(x))=f(x)-f(x)=0$, \quad y \\
+$x=x+(x-f'f(x))+f'f(x)\in Ker (f)+Im(f').$
+\end{proof}
+
+\item
+\item
+\item Sean $f\colon A\longrightarrow B$ y $g\colon B\longrightarrow B$ en $Mod(R)$ tal que $gf=f$. Prueba que\\
+
+\begin{tikzcd}
+g\colon f \arrow{r}{\sim} & f
+\end{tikzcd}
+en $Mod(R)\backslash A$\quad $\iff$ \quad 
+\begin{tikzcd}
+g\colon B \arrow{r}{\sim} & B
+\end{tikzcd}
+en $Mod(R)$.
+
+\begin{proof}
+\begin{tikzcd}
+g\colon f \arrow{r}{\sim} & f
+\end{tikzcd}
+en $Mod(R)\backslash A$\\
+ $\iff \exists g^{-1}\colon f\longrightarrow f$ tal que $g^{-1}g=1_f$ y $gg^{-1}=1_f$\\
+ $\iff \exists g^{-1}\colon f\longrightarrow f$ tal que $g^{-1}g=Id_B$ y $gg^{-1}=Id_B$\\
+ $\iff \exists g^{-1}\in \operatorname{Hom}_R(B,B)$ tal que $g^{-1}g=Id_B$ y $gg^{-1}=Id_B$\\
+$\iff$ \quad 
+\begin{tikzcd}
+g\colon B \arrow{r}{} & B
+\end{tikzcd}
+es isomorfismo en $Mod(R)$.
+\end{proof}
+\item
+\item
+\item Sean $F\colon A\longrightarrow B$ un funtor contravariante aditivo entre categorías preaditivas. Pruebe que si $F$ es fiel y pleno, entonces\\
+$F\colon End_\mathcal{A}(A) \longrightarrow End_\mathcal{B} (F(A))^{op}$ es isomorismo de anillos.
+\begin{proof}
+Como $F$ es funtor contravariante aditivo, entonces es un morfismo de grupos abelianos. Considerando la composición, tenemos que 
+$End_ \mathcal{A}(A)$ y $End_\mathcal{B}(F(A))$ son anillos, así $End_\mathcal{A}(F(A))^{op}$ es anillo.\\
+
+Por definición de funtor contravariate para cada $f,g\in End_ \mathcal{A}(A)$ se tiene que 
+\[F(f\circ g)=F(g)\circ F(f)\quad \text{y}\quad F(1_A)=1_{F(A)}\quad \forall A\in Obj(\mathcal{A}).
+\]
+Entonces $F$ es morfismo de anillos entre $End_\mathcal{A}(A)$ y $End_\mathcal{B}(F(A))^{op}$.
+\end{proof}
+
+\item
+\item \,\\ \,
+
+\textbf{Lemma}*\\
+(Andeson, Fuller) 16.6\\
+El funtor $\operatorname{Hom}_R(M,Y)$ es exacto izquierdo. En particular si $U$ es un $R$-módulo, entonces para cada sucesión exacta 
+\begin{tikzcd}
+0 \arrow{r}{} &K \arrow{r}{f} & M \arrow{r}{g} & N \arrow{r}{} &0
+\end{tikzcd}
+en $Mod(R)$ las sucesiones 
+\begin{tikzcd}\displaystyle
+0 \arrow{r}{} &\operatorname{Hom}_R(U,K) \arrow{r}{f_*} & 
+\operatorname{Hom}_R(U,M) \arrow{r}{g_*} & \operatorname{Hom}_R(U,N) \arrow{r}{} &0
+\end{tikzcd}\\
+y \,\,
+\begin{tikzcd}\displaystyle
+0 \arrow{r}{} &\operatorname{Hom}_R(M,X) \arrow{r}{g^*} & 
+\operatorname{Hom}_R(M,Y) \arrow{r}{f^*} & \operatorname{Hom}_R(M,Z) \arrow{r}{} &0
+\end{tikzcd}\\
+son exactas\\
+
+\item Para $M\in Mod(R)$ pruebe que las siguientes condiciones son equivalentes: 
+\begin{itemize}
+\item[a)] $M$ es proyectivo.
+\item[b)] Toda sucesión exacta 
+\begin{tikzcd}
+0 \arrow{r}{} &X \arrow{r}{} & Y \arrow{r}{} & M \arrow{r}{} &0
+\end{tikzcd}
+en $Mod(R)$ se escinde.
+\item[c)] $M$ es isomorfo a un sumando directo de $R$-módulos libre.
+\item[d)]Para toda sucesión exacta 
+\begin{tikzcd}
+0 \arrow{r}{} &X \arrow{r}{f} & Y \arrow{r}{g} & Z \arrow{r}{} &0
+\end{tikzcd}
+ en $Mod(R)$, se tiene que \\
+\begin{tikzcd}\displaystyle
+0 \arrow{r}{} &\operatorname{Hom}_R(M,X) \arrow{r}{f_*} & 
+\operatorname{Hom}_R(M,Y) \arrow{r}{g_*} & \operatorname{Hom}_R(M,Z) \arrow{r}{} &0
+\end{tikzcd}\\
+es exacta en $Mod(\Z)$, donde $f_*=\operatorname{Hom}_R(M,f)$\quad y \quad $g_*=\operatorname{Hom}_R(M,g)$.
+\end{itemize}
+\begin{proof}
+\boxed{a)\Rightarrow b)}\\
+Sea $M$ proyectivo y 
+\begin{tikzcd}
+0 \arrow{r}{} &X \arrow{r}{} & Y \arrow{r}{} & M \arrow{r}{} &0
+\end{tikzcd}
+una sucesión exacta en $Mod(R)$. Como $Y \stackrel{h}{\longrightarrow} M$ es epi, entonces el morfismo $I_M\colon M\longrightarrow M$
+se puede factorizar a través de $h$, es decir, existe $g\colon M\longrightarrow Y$ tal que $Id_M=hg$. Por lo tanto $h$ es split-epi y por el 
+ejercicio 54 la sucesión se escinde.
+\boxed{b)\Rightarrow c)} \\
+Sea $\displaystyle F=\bigoplus_{y\in M}Ry$ el módulo libre generado por los elementos de $M$, entonces existe un epimorfismo 
+$g\colon F\longrightarrow M$, por lo que \\
+\begin{tikzcd}
+0 \arrow{r}{} &Ker(g) \arrow{r}{i} & F \arrow{r}{g} & M \arrow{r}{} &0
+\end{tikzcd}
+es exacta con $i$ la inclusión.\\
+Por hipótesis esta sucesión exacta se escinde, por lo tanto $M\oplus Ker(g)=F$, es decir, $M$ es un sumando directo de un módulo libre.\\
+\boxed{c)\Rightarrow a)}\\
+Supongamos que tenemos el siguiente diagrama con $g$ epi:\\
+\xymatrix {
+	X\ar[r]^{g}& Y\ar[r]& 0\\
+	                 & M\ar[u]^{h}      
+}
+\\
+Por c) sabemos que existe $F,K$ módulos tales que $M\oplus K=F$ con $F$ un móduulo libre. Ahora,  como todo módulo libre es proyectivo y 
+considerando a $\pi\colon F\longrightarrow M$, se tiene que existe $f\colon F\longrightarrow X$ tal que $h\pi=fg$, así
+$h\pi i=gfi$ con $i$ la inclusión de $M$ en $F$, por lo que $h=g\circ f_0$ con $f_0\colon M\longrightarrow X$.\\
+\boxed{a)\iff d)}\\
+Por el lema* la condición d) se cumple si y sólo si por cada epimorfismo 
+\begin{tikzcd}
+Y \arrow{r}{f} &Z \arrow{r}{g} & 0
+\end{tikzcd}
+la sucesión 
+\begin{tikzcd}
+\operatorname{Hom}_R(M,Y) \arrow{r}{f_*} &\operatorname{Hom}_R(M,Z) \arrow{r}{} & 0
+\end{tikzcd}
+es exacta. Pero $f_*$ es epi si y sólo si por cada $\gamma\in \operatorname{Hom}_R(M,Z)$ existe un $\hat{\gamma}\in \operatorname{Hom}_R(U,M)$
+tal que $\gamma=f_*(\hat{\gamma})=f\hat{\gamma}.$
+
+\end{proof}
+\item
+\item
+\item Para $M\in Mod(R)$, pruebe que las siguientes condiciones son equivalentes.
+\begin{itemize}
+\item[a)] $M$ es inyectivo.
+\item[b)] Toda sucesión exacta 
+\begin{tikzcd}
+0 \arrow{r}{} &M \arrow{r}{} & X \arrow{r}{} & Y \arrow{r}{} &0
+\end{tikzcd}
+en $Mod(R)$ se escinde.
+\item[c)] Para toda sucesión exacta 
+\begin{tikzcd}
+0 \arrow{r}{} &X \arrow{r}{f} & Y \arrow{r}{g} & Z \arrow{r}{} &0
+\end{tikzcd}
+ en $Mod(R)$, se tiene que \\
+\begin{tikzcd}\displaystyle
+0 \arrow{r}{} &\operatorname{Hom}_R(Z,M) \arrow{r}{g^*} & 
+\operatorname{Hom}_R(Y,M) \arrow{r}{f^*} & \operatorname{Hom}_R(X,M) \arrow{r}{} &0
+\end{tikzcd}\\
+es exacta en $Mod(\Z)$, donde $f^*=\operatorname{Hom}_R(f,M)$\quad y \quad $g^*=\operatorname{Hom}_R(g,M)$.
+\end{itemize}
+\begin{proof}
+\boxed{a)\Rightarrow b)} \\
+Sea \begin{tikzcd}
+0 \arrow{r}{} &M \arrow{r}{f} & X \arrow{r}{} & Y \arrow{r}{} &0
+\end{tikzcd}
+exacta en $Mod(R)$. Como $f$ es mono, entonces, considerando $I_M\colon M\longrightarrow M$, tenemos que existe $h\colon M\longrightarrow Y$
+tal que $I_M$ se factoriza de $f$, es decir, $I_M=hf$ por lo tanto 
+\begin{tikzcd}
+0 \arrow{r}{} &M \arrow{r}{f} & X \arrow{r}{} & Y \arrow{r}{} &0
+\end{tikzcd}
+es split-mono y por el ejercicio 54 se escinde.\\
+\boxed{b)\Rightarrow a)} \\
+Sean $X,Y$ $R$-módulos y $f\colon X\longrightarrow Y$ mono. Si $h\in \operatorname{Hom}_R(X,Y)$ tenemos el siguiente diagrama\quad
+\xymatrix {
+	0\ar[r] & X\ar[r]^{f}& Y\\
+	           & M\ar[u]^{h}
+}\\
+que se extiende a un pushout \quad\quad
+\xymatrix {
+	0\ar[r] & X\ar[r]^{f}\ar[d]^{h}& Y\ar[d]^{h'}\\
+	           & M\ar[r]_{f'} & D
+}\\
+donde $D=(\faktor{X\oplus Y}{W}),\,\, W=\{(fa-ga):a\in R\}, \quad h'(b)=(0,b)+W$ y $g'(c)=(c,0)+W$.\\
+
+Así $f'$ es mono. Por hipótesis existe un morfismo $\beta\colon D\longrightarrow M$ con $\beta f'=1_M$. Definamos $g=\beta  h'$ entonces 
+$g\colon Y\longrightarrow M$ y $gf=\beta  h'f=\beta f'h=h$, por lo que $M$ es inyectivo.\\
+\boxed{a)\iff c)}\\
+Como $\operatorname{Hom}_R(\cdot,M)$ es contravariante exacto izquierdo, es suficiente mostrar que $M$ es inyectivo si y sólo si
+$\operatorname{Hom}_R(\cdot,M)$ convierte monomorfismos en epimorfismos:\\
+Si $\alpha\colon A\longrightarrow B$ es mono, entonces $\alpha^*\colon\operatorname{Hom}_R(B,M)\longrightarrow \operatorname{Hom}_R(A,M)$
+es epi si y sólo si para cada $f\in \operatorname{Hom}_R(A,M)$ existe $g\in \operatorname{Hom}_R(B,M)$ tal que $\alpha^*(g)=f$, y esto pasa si y sólo si para cada $f\in \operatorname{Hom}_R(A,M)$
+ existe $g\in \operatorname{Hom}_R(B,M)$ tal que $g\alpha=f$, es decir, $M$ es inyectivo.
+\end{proof}
+
+
+
+
+
+
+\end{enumerate}
+\end{document}
