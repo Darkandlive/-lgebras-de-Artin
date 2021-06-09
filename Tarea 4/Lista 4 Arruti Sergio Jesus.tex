@@ -1,0 +1,795 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{xparse, tikz-cd, pgfplots}
+\usepackage{faktor}
+\usepackage[all]{xy}
+
+
+\input{Comandos Anillos Artin}
+\title{Lista 4}
+\author{Arruti, Sergio, Jesús}
+\date{}
+
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+		\setcounter{enumi}{47}
+		\item Sea $F\in Mod\lrprth{R}$ un $R$-módulo libre con base $X$ y $f:X\to N$ una función, con $N\in Mod\lrprth{R}$. Entonces $\exists !$ $\overline{f}:F\to N\in Mod\lrprth{R}$ tal que $\restrict{\overline{f}}{X}=f$.
+		\begin{proof}
+			Dado que $X$ es base de $F$ se tiene que $F=\bigoplus_{x\in X}R x$ y así cada $a\in F$ se descompone de forma única en $\sum\limits_{x\in X}R x$ como $a=\sum\limits_{x\in X_a}r_x x$, con $X_a\subseteq X$ finito y $r_x\in R$; por lo tanto la aplicación
+			\begin{align*}
+				\descapp{\overline{f}}{F}{N}{a}{\sum\limits_{x\in X_a}r_x f(x)}{}
+			\end{align*}
+			es una función bien definida. Sean $r\in R$ y $m, n\in F$, con $\sum\limits_{x\in X_m}r_x x$, $\sum\limits_{x\in X_n}s_x x$, $X':=X_m \cup X_n$ y
+			\begin{equation*}\label{rellenar}\tag{*}
+				\begin{split}
+					r_x=0,\quad\text{si }x\in X'\setminus X_m,\\
+					s_x=0,\quad\text{si }x\in X'\setminus X_n,
+				\end{split}
+			\end{equation*}
+			entonces, por la unicidad de la descomposición en $\sum\limits_{x\in X}R x$, la descomposición de $ra+b$ es $\sum_{x\in X'}\lrprth{rr_x +s_x}x$. Así
+			\begin{align*}
+				\overline{f}\lrprth{ra+b}&=\sum_{x\in X'}\lrprth{rr_x +s_x}f(x)\\
+				&=\sum_{x\in X'}\lrprth{rr_x}f(x)+\sum_{x\in X'}s_x f(x)\\
+				&=r\sum_{x\in X_m}r_x f(x)+\sum_{x\in X_n}s_x f(x), && \lrprth{\ref{rellenar}}\\
+				&=r\overline{f}(a)+\overline{f}(b).\\
+				\implies & \overline{f}:F\to N \in Mod\lrprth{R}.
+			\end{align*}
+			Sea $x\in X$, entonces la descomposición de $x$ en $\sum_{x\in X}R x$ es $1_Rx$, con lo cual 
+			\begin{align*}
+				\overline{f}(x)&=\sum_{x\in \lrbrack{x}}1_R f(x)\\
+				&=f(x).\\
+				\implies & \restrict{\overline{f}}{X}=f.
+			\end{align*}
+			Finalmente, sea $g:F\to N$ un morfismo de $R$-módulos tal que $\restrict{g}{X}=f$ y $a\in F$. Se tiene lo siguiente:
+			\begin{align*}
+				g\lrprth{a}&=g\lrprth{\sum_{x\in X_a}r_x x}\\
+				&=\sum_{x\in X_a}r_x g\lrprth{x}\\
+				&=\sum_{x\in X_a}r_x f\lrprth{x}\\
+				&=\overline{f}(x).\\
+				\implies & g=\overline{f}.
+			\end{align*}
+		\end{proof}
+		%%%%%%%%% Ej 49 %%%%%%%5
+		\item Sean $M \in Mod\lrprth{R}$ y $X \subseteq M$. Considere el morfismo de $R$-módulos $\overline{\varepsilon}_{X,M}:F(X) \longrightarrow M$, dado por $\overline{\varepsilon}_{X,M}\lrprth{\arbtfam{t}{x}{X}}=\displaystyle\Sigma_{x \in X}t_{x}x$. Note que la composición
+		\begin{tikzcd}
+			X \arrow{r}{\varepsilon_{x}} & F(X) \arrow{r}{\overline{\varepsilon}_{X,M}} & M
+		\end{tikzcd}
+		coincide con la inclusión $X \subseteq M$. Pruebe que:
+		\begin{enumerate}
+			\item $im\lrprth{\overline{\varepsilon}_{X,M}}=\genmod{x}{R}$
+			\item $M=\genmod{x}{R}\Leftrightarrow\overline{\varepsilon}_{X,M}$ es un epimorfismo.
+			\item $X$ es $R$-linealmente independiente$\Leftrightarrow\overline{\varepsilon}_{X,M}$ es un monomorfismo.
+			\item $X$ es una $R$-base$\Leftrightarrow\overline{\varepsilon}_{X,M}$ es un isomorfismo.
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{a}}$ Primero, como $\genmod{x}{R}$ es un submódulo de $M$, se tiene que $im\lrprth{\overline{\varepsilon}_{X,M}}\subseteq\genmod{x}{R}$. Por otro lado, sea $m\in\genmod{x}{R}$. Entonces $m$ tiene una descomposición $m=\displaystyle\Sigma_{x \in X}t_{x}x$, donde $t_{x} \in F(X)$. En consecuencia, $\overline{\varepsilon}_{X,M}\lrprth{\arbtfam{t}{x}{X}}=\displaystyle\Sigma_{x \in X}t_{x}x=m$. $\therefore im\lrprth{\overline{\varepsilon}_{X,M}}=\genmod{x}{R}$\\
+			
+			$\boxed{\text{(b)}}$ Este inciso se deduce del anterior. $M=\genmod{x}{R}\Leftrightarrow M=im\lrprth{\overline{\varepsilon}_{X,M}}\Leftrightarrow\overline{\varepsilon}_{X,M}$ es un epimorfismo.\\
+			
+			$\boxed{\text{(c)}} \boxed{\Rightarrow )}$ Suponga que $\arbtfam{t}{x}{X} \in Ker\lrprth{\overline{\varepsilon}_{X,M}}$. De modo que $\displaystyle\Sigma_{x \in X}t_{x}x=\overline{\varepsilon}_{X,M}\lrprth{\arbtfam{t}{x}{X}}=0$. Dado que $X$ es $R$-linealmente independiente, para cada $x \in X$, $t_{x}=0$. Por tanto, $Ker\lrprth{\overline{\varepsilon}_{X,M}}=0$. $\therefore\overline{\varepsilon}_{X,M}$ es monomorfismo.\\
+			
+			$\boxed{\Leftarrow )}$ Sean $x_{1},...,x_{n} \in X$ y $r_{x_{1}},...r_{x_{n}} \in R$ tales que $\displaystyle\Sigma_{k=1}^{n}r_{x_{k}}x_{k}=0$. Completamos a un elemento de $F(X)$ como $r_{x}=0$, con $x\not\in\lrbrack{x_{1},...,x_{n}}$. Con lo cual tenemos que:
+			\begin{align*}
+				\overline{\varepsilon}_{X,M}\lrprth{\arbtfam{r}{x}{X}} &= \displaystyle\Sigma_{x \in X}r_{x}x\\
+				&=\displaystyle\Sigma_{k=1}^{n}r_{x_{k}}x_{k}\\
+				&=0
+			\end{align*}
+			Entonces $\lrbrack{r}{x}{X} \in Ker\lrprth{\overline{\varepsilon}_{X,M}} = 0$. Por tanto, $r_{x_{1}}=...=r_{x_{n}}=0$.\\
+			$\therefore X$ es $R$-linealmente independiente.\\
+			
+			$\boxed{\text{(d)}}$ Este resultado se concluye de los anteriores. En efecto,
+			\begin{align*}
+				\overline{\varepsilon}_{X,M}\ es\ un\ isomorfismo & \Leftrightarrow\overline{\varepsilon}_{X,M}\ es\ un\ epimorfismo\ y\ monomorfismo\\
+				& \Leftrightarrow M=im\lrprth{\overline{\varepsilon}_{X,M}}\ y\ X\ es\ R-l.i.\\
+				& \Leftrightarrow X\ es\ una\ R-base.
+			\end{align*}
+		\end{proof}
+		\item Sean $f\colon B\rightarrow C$ en $Mod(R)$ y $g\colon B\longrightarrow B$ tales que $fg=f$. Pruebe que:\\
+		$g\colon f\longrightarrow f$ es un isomorfismo en \,\,$\faktor{Mod(R)}{C}$ \,\,si y sólo si $g\colon B\longrightarrow B$ es un isomorismo en $Mod(R)$.
+		\begin{proof}
+			
+			$g\colon f\longrightarrow f$ es un isomorfismo en \,\,$\faktor{Mod(R)}{C}$\,\,\\
+			$\iff \,\,\,\exists g^{-1}\colon f\longrightarrow f$  tal que $g^{-1}g=1_f$ y $gg^{-1}=1_f$\\
+			$\iff \,\,\,\exists g^{-1}\colon f\longrightarrow f$  tal que $g^{-1}g=Id_B$ y $gg^{-1}=Id_B$\\
+			$\iff \,\,\,\exists g^{-1}\in \operatorname{Hom}_R(B,B)$ tal que $g^{-1}g=Id_B$, $gg^{-1}=Id_B$y  $f=fg^{-1}$\\
+			$\iff \,\,\,g\colon B\longrightarrow B$ es isomorfismo en $Mod(R)$ tal que $fg=f$.
+		\end{proof} 
+		\item Sea $C\in Mod\lrprth{Mod\lrprth{R}}$ y $\sim$ una relación en $Obj\lrprth{\faktor{Mod\lrprth{R}}{C}}$ dada por
+		\begin{equation*}
+			f\sim f'\iff Hom\lrprth{f,f'}\neq\varnothing\neq Hom\lrprth{f',f}.
+		\end{equation*}
+		Entonces $\sim$ es un relación de equivalencia en $Obj\lrprth{\faktor{Mod\lrprth{R}}{C}}$.
+		\begin{proof}
+			\boxed{\text{Reflexividad}} Sea $f:A\to C\in Obj\lrprth{\faktor{Mod\lrprth{R}}{C}}$. Notemos que $Id_A\in \ringmodhom{R}{A}{A}$ y $f\circ Id_A=f$, así $Id_a\in Hom\lrprth{f,f}$ y por lo tanto $Hom\lrprth{f,f}\neq\varnothing$.\\
+			\boxed{\text{Simetría}}
+			\begin{align*}
+				f\sim f'&\iff  Hom\lrprth{f,f'}\neq\varnothing\neq Hom\lrprth{f',f}\\
+				&\iff  Hom\lrprth{f',f}\neq\varnothing\neq Hom\lrprth{f,f'}\\
+				&\iff f'\sim f.
+			\end{align*}
+			\boxed{\text{Transitividad}} Sean $f:A\to C,g:A'\to C, h:B\to C\in Obj\lrprth{\faktor{Mod\lrprth{R}}{C}}$ tales que $f\sim g$ y $g\sim h$. De la definición de $\sim$ se sigue que $\exists\ p\in\ringmodhom{R}{A}{A'}$, $q\in\ringmodhom{R}{A'}{A}$, $p'\in\ringmodhom{R}{A'}{B}$, $q'\in\ringmodhom{R}{B}{A'}$ tales que
+			\begin{equation*}\label{fsimg}\tag{*}
+				\begin{split}
+					gp&=f\\
+					fq&=g.
+				\end{split}
+			\end{equation*}
+			\begin{equation*}\label{gsimh}\tag{**}
+				\begin{split}
+					hp'&=g\\
+					gq'&=h.
+				\end{split}
+			\end{equation*}
+			Así $p'p\in\ringmodhom{R}{A}{B}$, $qq'\in\ringmodhom{R}{B}{A}$ y
+			\begin{equation*}
+				\begin{split}
+					h\lrprth{p'p}&=f\\
+					f\lrprth{qq'}&=h,\\			
+					\therefore\ f&\sim h.
+				\end{split}
+			\end{equation*}
+		\end{proof}
+		%%%%%%% Ej 52 %%%%%%
+		\item Sean $\psi : B' \longrightarrow B$ un isomorfismo y $f:B \longrightarrow C$ es $Mod\lrprth{R}$. Pruebe que: Si $f$ es minimal a derecha, entonces $f\circ\psi :B' \longrightarrow C$ es minimal a derecha.
+		\begin{proof}
+			Sea $g:f\circ\psi \longrightarrow f\circ\psi$ un morfismo en $Mod\lrprth{R}/C$. Entonces, por el \textbf{ejercicio 50}., $g:B' \longrightarrow B'$ es un homomorfismo en $Mod\lrprth{R}$. Más aún, $\psi \circ g:B' \longrightarrow B$ también es un homomorfismo. Dado que $f$ es minimal a derecha, se tiene que $\psi \circ g$ es un isomorfismo en $Mod\lrprth{R}$. En virtud de que $\psi$ es un isomorfismo, $g:B' \longrightarrow B'$ es un isomorfismo en $Mod\lrprth{R}$. Aplicando el \textbf{ejercicio 50.}, se tiene que $g:f\circ\psi \longrightarrow f\circ\psi$ es un isomorfismo. $\therefore f\circ\psi$ es minimal a derecha.
+		\end{proof}
+		\item Sean 
+		\begin{tikzcd}
+			M \arrow{r}{f} & N \arrow{r}{f'} & M
+		\end{tikzcd}
+		en $Mod(R)$ tal que $ff'=1_N.$ Pruebe que $M=Ker(f)\oplus Im(f')$.
+		\begin{proof}
+			Como $ff'=1_N$, entonces $Ker(f')=0$ y $Im(f)=N$, es decir, $f'$ es monomorfismo, $f$ es epimorfismo y  $Im(f')+Ker(f)\leq M$.\\
+			Si $x\in Im(f')\cap Ker(f)$ entonces existe $y\in N$ tal que $f'(y)=x$ y además $f(x)=0$ entonces $0=f(x)=ff'(y)=1_N(y)$
+			por lo que $x=0$ y así $Im(f´)\cap Ker(f)=0$.\\
+			
+			Si $x\in M$ entoces $f(x-f'f(x))=f(x)-f(x)=0$, \quad y \\
+			$x=(x-f'f(x))+f'f(x)\in Ker (f)+Im(f').$
+		\end{proof}
+		
+	\end{enumerate}
+	\begin{define}
+		Decimos que una sucesión exacta en $Mod\lrprth{R}$, $\eta$, \begin{center}
+			\shortseq{	
+				AtoB=f,
+				BtoC=g,
+			}.
+		\end{center}
+		se escinde, o bien que se parte, si $f$ es un split-mono y $g$ es un split-epi.			
+	\end{define}
+	\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+		\setcounter{enumi}{53}
+		\item Sea $\eta$:\shortseq{
+			A=M_1,
+			B=M,
+			C=M_2,
+			AtoB=f,
+			BtoC=g,
+		}
+		exacta en $Mod\lrprth{R}$. Las siguientes condiciones son equivalentes
+		\begin{enumerate}
+			\item $\eta$ se escinde,
+			\item $f$ es un split-mono,
+			\item $g$ es un split epi
+			\item $Im\lrprth{f}=Ker\lrprth{g}$ y $Im\lrprth{f}$ es un sumando directo de $M$.
+		\end{enumerate}
+		\begin{proof}
+			La demostración se realizará siguiendo el siguiente esquema:
+			\begin{center}
+				\begin{tikzcd}
+					& b)\arrow[rd,Rightarrow] & & \\
+					a)\arrow[ru,Rightarrow]\arrow[rd,Rightarrow] &  & d)\arrow[r,Rightarrow]& a)\\
+					& c)\arrow[ru,Rightarrow] & & 
+				\end{tikzcd}
+			\end{center}
+			$a)\implies b)$ y $a)\implies c)$ se siguen en forma inmediata de la definición de sucesión exacta que se escinde.\\
+			En adelante, sean $N:=Im\lrprth{f}$ y $N':=Ker\lrprth{g}$.\\
+			\boxed{b)\implies d)} $N=N'$ se sigue del hecho de que $\eta$ es una sucesión exacta. Sean $i$ la inclusión de $N$ en $M$, $\alpha:M\to M_1$ un morfismo de $R$-módulos tal que $\alpha f=Id_{M_1}$ (cuya existencia se tiene garantizada dado que $f$ es un split-mono) y la función
+			\begin{align*}
+				\descapp{\gamma}{M}{N}{m}{f\alpha\lrprth{m}}{.}
+			\end{align*}
+			$\gamma$ es un morfismo de $R$-módulos pues $f$ y $\alpha$ lo son, y más aún si $f\lrprth{a}\in N$ se satisface que
+			\begin{align*}
+				\gamma i\lrprth{f\lrprth{a}}&= f\lrprth{\alpha f\lrprth{a}}\\
+				&=f\lrprth{a}.\\
+				\implies & \gamma i=Id_N ,\\
+				\implies & i:N\to M\text{ es un split-mono.}\\
+				\implies & N\text{ es un sumando directo de }M. && \text{Teorema 1.12.5}b)
+			\end{align*}
+			\boxed{c)\implies d)} Sean  $\pi$ el epimorfismo canónico de $M$ sobre $N'$, $\beta:M_2\to M$ un morfismo de $R$-módulos tal que $g \beta =Id_{M_2}$ y la aplicación
+			\begin{align*}
+				\descapp{\delta}{N'}{M}{m+N'}{\beta g\lrprth{m}}{.}
+			\end{align*}
+			Afirmamos que $\delta$ es una función bien definida. En efecto: sean $m'\in m+N'$, así
+			\begin{align*}
+				m-m'&\in N'\\
+				\implies & g\lrprth{m-m'}=0\\
+				\implies & g\lrprth{m}=g\lrprth{m'}\\
+				\implies & hg\lrprth{m} =hg\lrprth{m'}.
+			\end{align*}
+			Más aún, $\delta$ es un morfismo de $R$-módulos pues $h$ y $g$ lo son, y si $m\in M$ entonces
+			\begin{align*}
+				\pi\delta\lrprth{m+N'}&= \beta g\lrprth{m}+N',
+				\intertext{con}
+				g\lrprth{\beta g\lrprth{m}-m}&=g\beta\lrprth{g(m)}-g(m)\\
+				&=g\lrprth{m}-g\lrprth{m}\\
+				&=0.\\
+				\implies & \beta g\lrprth{m}-m\in N'\\
+				\implies & \beta g\lrprth{m}+N'=m+N'\\
+				\implies & \pi\delta\lrprth{m+N'}= m+N'.\\
+				\implies & \pi\delta=Id_{N'},
+			\end{align*}
+			con lo cual $\pi$ es un split-epi. Así, por el Teorema 1.12.5$c)$ y dado que $N=N'$ por ser $\eta$ exacta, se tiene lo deseado.\\
+			\boxed{d)\implies a)} Verificaremos primeramente que $f$ es un split-mono. Se tiene que $\exists\ J\in\genlin{M}$ tal que $M=N\oplus J$, con lo cual para cada $m\in M$ $\exists !$ $n_m\in N$ y $j_m\in J$ tales que $m=n_m+j_m$. Lo anterior en conjunto al hecho de que $f$ es en partícular inyectiva, por ser $\eta$ exacta, garantiza que 
+			\begin{equation*}\label{unicidadsdf}\tag{*}
+				\forall\ m\in M\ \exists !\ a_m\in M_1, j_m\in J\text{ tales que } m=f\lrprth{a_m}+j_m.
+			\end{equation*} Así
+			\begin{align*}
+				\descapp{\varphi}{M}{M_1}{m}{a_m}{}
+			\end{align*}
+			es una función bien definida. Afirmamos que $\varphi$ es un morfismo de $R$-módulos. En efecto, sean $r\in R$, $z,w\in M$, tales que $z=f\lrprth{a_z}+j_z$ y $w=f\lrprth{a_w}+j_w$, entonces 
+			\begin{align*}
+				rz+w&=r\lrprth{f\lrprth{a_z}+j_z}+f\lrprth{a_w}+j_w\\
+				&=f\lrprth{ra_z+a_w}+rj_z+j_w.
+			\end{align*}
+			Aplicando el hecho de que $J$ es un submódulo de $M$ y $\lrprth{\ref{unicidadsdf}}$ a lo anterior se sigue que 
+			\begin{align*}
+				\varphi\lrprth{rz+w}&=ra_z+a_w\\
+				&=rf(z)+f(w).
+				\intertext{Finalmente notemos que, si $a\in M_1$, $\varphi f\lrprth{a}=\varphi\lrprth{f\lrprth{a}+0}=a$, así que $\varphi f=Id_{M_1}$}
+				\therefore &\ f\text{ es un split-mono.} 
+			\end{align*}
+			Por otro lado, como $N=N'$, se tiene que $M=N'\oplus J$ y así
+			\begin{align*}
+				Ker\lrprth{\restrict{g}{J}}&=Ker\lrprth{g}\cap J\\
+				&=N'\cap J=\genmod{0}{R},\\
+				\intertext{y como $g$ es sobre}
+				M_2&=g\lrprth{M}\\
+				&=g\lrprth{\lrbrack{g(a+b)\ \vline\ a\in Ker\lrprth{g}, b\in J}}\\
+				&=g\lrprth{\lrbrack{g(b)\ \vline\ b\in J}}\\
+				&=g\lrprth{J}\\
+				&=\restrict{g}{J}(J),\\
+				&\implies \restrict{g}{J}:J\to M_2 \text{ es un isomorfismo.}
+			\end{align*}
+			Por lo anterior $\exists\ h\in\ringmodhom{R}{M_2}{J}$ tal que $h\restrict{g}{J}=Id_J$ y $\restrict{g}{J}h=Id_{M_2}$, con lo cual $Im\lrprth{h}=J$. Así $gh=\restrict{g}{J}h$ y por lo tanto $g$ es un split-epi.\\
+		\end{proof}
+		%%%%%% Ej 55 %%%%%%%
+		\item Sea $\eta:$
+		\begin{tikzcd}
+			0 \arrow{r} & M_{1} \arrow{r}{f_{1}} & M \arrow{r}{g_{2}} & M_{2} \arrow{r} & 0
+		\end{tikzcd}
+		una sucesión en $Mod\lrprth{R}$. Pruebe que las siguientes condiciones son equivalentes
+		\begin{enumerate}
+			\item $\eta$ es una sucesión que se parte.
+			\item Existe una sucesión
+			\begin{tikzcd}
+				0 \arrow{r} & M_{2} \arrow{r}{f_{2}} & M \arrow{r}{g_{1}} & M_{1} \arrow{r} & 0
+			\end{tikzcd}
+			en $Mod\lrprth{R}$ tal que $g_{1}f_{1}=1_{M_{1}}$, $g_{2}f_{2}=1_{M_{2}}$, $g_{2}f_{1}=g_{1}f_{2}=0$ y $g_{1}f_{1}+g_{2}f_{2}=1_{M}$.
+			\item Existe un isomorfismo $h:M_{1} \times M_{2} \longrightarrow M$ tal que el siguiente diagrama conmuta\\
+			\begin{tikzcd}
+				0 \arrow{r} & M_{1} \arrow{r}{i_{1}}\arrow{d} & M_{1} \times M_{2} \arrow{r}{\pi_{2}}\arrow{d}{h} & M_{2} \arrow{r}\arrow{d} & 0\\
+				0 \arrow{r} & M_{1} \arrow{r}{f_{1}} & M \arrow{r}{g_{2}} & M_{2} \arrow{r} & 0
+			\end{tikzcd}
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{a)}\Rightarrow\text{c)}}$ Dado que $\eta$ es una sucesión que se parte, existe un morfismo de $R$-módulos, $f_{2}:M_{2} \longrightarrow M$, tal que $g_{2}f_{2}=1_{M_{2}}$. Luego, $g_{2}$, $f_{2}$ inducen un isomorfismo $h:M_{1} \times M_{2} \longrightarrow M$. En efecto, definimos $h$ como el morfismo $h\lrprth{m_{1},m_{2}}=f_{1}\lrprth{m_{1}}+f_{2}\lrprth{m_{2}}$.\\
+			
+			En primer lugar, veremos que $h$ es un monomorfismo. En este sentido, sea $\lrprth{m_{1},m_{2}} \in Ker\lrprth{h}$, entonces $0=h\lrprth{m_{1},m_{2}}=f_{1}\lrprth{m_{1}}+f_{2}\lrprth{m_{2}}$. En consecuencia, $f_{2}\lrprth{m_{2}}=-f_{1}\lrprth{m_{1}}\in Im\lrprth{f_{1}}=Ker\lrprth{g_{2}}$. Así, 
+			\begin{align*}
+				m_{2}=g_{2}f_{2}\lrprth{m_{2}}=0
+			\end{align*}
+			Por consiguiente, $f_{1}\lrprth{m_{1}}=h\lrprth{m_{1},m_{2}}=0$. Dado que $f_{1}$ es mono, $m_{1}=0$. Por lo que $h$ es mono.\\
+			
+			Ahora, $h$ es epi. Sea $m \in M$. Entonces 
+			\begin{align*}
+				g_{2}\lrprth{m-f_{2}g_{2}\lrprth{m}}=g_{2}\lrprth{m}-g_{2}\lrprth{m}=0
+			\end{align*}
+			De esta forma, $m-f_{2}g_{2}\lrprth{m} \in Im\lrprth{f_{1}}$. Ésto aunado a la exactitud de $\eta$ garantiza la existencia de un elemento $x \in M_{1}$ tal que $f_{1}\lrprth{x}=m-f_{2}g_{2}\lrprth{m}$, con lo cual,
+			\begin{align*}
+				h\lrprth{x,g_{2}\lrprth{m}}&=f_{1}\lrprth{x}+f_{2}\lrprth{g_{2}\lrprth{m}}\\
+				&=m
+			\end{align*}
+			
+			Una vez demostrado que $h$ es un isomorfismo, podemos proceder a mostrar que el diagrama presentado anteriormente conmuta bajo este isomorfismo. Primero, note que para $m \in M_{1}$ se tiene que 
+			\begin{align*}
+				h\textit{i}_{1}\lrprth{m}&=h\lrprth{m,0}\\
+				&=f_{1}\lrprth{m}\\
+				&=f_{1}1_{M_{1}}\lrprth{m}
+			\end{align*}
+			Por el otro lado, dado $\lrprth{m_{1},m_{2}} \in M_{1} \times M_{2}$, se satisface que
+			\begin{align*}
+				g_{2}h\lrprth{m_{1},m_{2}}&=g_{2}\lrprth{f_{1}\lrprth{m_{1}}+f_{2}\lrprth{m_{2}}}\\
+				&=g_{2}f_{1}\lrprth{m_{1}}+g_{2}f_{2}\lrprth{m_{2}}\\
+				&=0+m_{2}\\
+				&=m_{2}\\
+				&=1_{M_{2}}\pi_{2}\lrprth{m_{1},m_{2}}
+			\end{align*}
+			
+			$\boxed{\text{c)}\Rightarrow\text{b)}}$ Sea $h:M_{1} \times M_{2} \longrightarrow M$ el morfismo proporcionado por la hipótesis. Además, la sucesión
+			\begin{tikzcd}
+				0 \arrow{r} & M_{2} \arrow{r}{i_{2}} & M_{1} \times M_{2} \arrow{r}{\pi_{1}} & M_{1} \arrow{r} & 0
+			\end{tikzcd}
+			se parte. Definimos $f_{2}:M_{2} \longrightarrow M$ como $f_{2}=hi_{2}$, y $g_{1}:M \longrightarrow M_{1}$ como $g_{1}=\pi_{1}h^{-1}$.\\
+			
+			Luego, se satisfacen las siguientes igualdades
+			\begin{align*}
+				& g_{1}f_{1}=g_{1}hi_{1}=\pi_{1}h^{-1}hi_{1}=\pi_{1}i_{1}=1_{M_{1}}\\
+				& g_{2}f_{2}=g_{2}hi_{2}=\pi_{2}i_{2}=1_{M_{2}}\\
+				& g_{1}f_{2}=g_{1}hi_{2}=\pi_{1}h^{-1}hi_{2}=\pi_{1}i_{2}=0\\
+				& g_{2}f_{1}=g_{2}hi_{1}=\pi_{2}h^{-1}hi_{1}=\pi_{2}i_{1}=0\\
+				& g_{1}f_{1}+g_{2}f_{2}=1_{M_{1}}+1_{M_{2}}=1_{M_{1} \times M_{2}}=1_{M}
+			\end{align*}
+			
+			$\boxed{\text{b)}\Rightarrow\text{a)}}$ Por hipótesis, existe un morfismo de $R$-módulos $f_{2}:M_{2} \longrightarrow M$ tal que $g_{2}f_{2}=1_{M_{2}}$. Por tanto, $\eta$ es una sucesión que se parte.
+		\end{proof}
+
+		\item Sean $f\colon A\longrightarrow B$ y $g\colon B\longrightarrow B$ en $Mod(R)$ tal que $gf=f$. Prueba que\\
+		
+		\begin{tikzcd}
+			g\colon f \arrow{r}{\sim} & f
+		\end{tikzcd}
+		en $Mod(R)\backslash A$\quad $\iff$ \quad 
+		\begin{tikzcd}
+			g\colon B \arrow{r}{\sim} & B
+		\end{tikzcd}
+		en $Mod(R)$.
+		
+		\begin{proof}
+			\begin{tikzcd}
+				g\colon f \arrow{r}{\sim} & f
+			\end{tikzcd}
+			en $Mod(R)\backslash A$\\
+			$\iff \exists g^{-1}\colon f\longrightarrow f$ tal que $g^{-1}g=1_f$ y $gg^{-1}=1_f$\\
+			$\iff \exists g^{-1}\colon f\longrightarrow f$ tal que $g^{-1}g=Id_B$ y $gg^{-1}=Id_B$\\
+			$\iff \exists g^{-1}\in \operatorname{Hom}_R(B,B)$ tal que $g^{-1}g=Id_B$, $gg^{-1}=Id_B$ y $f=g^{-1}f$\\
+			$\iff$ 
+			\begin{tikzcd}
+				g\colon B \arrow{r}{} & B
+			\end{tikzcd}
+			es isomorfismo en $Mod(R)$ tal que $gf=f$.
+		\end{proof}
+		\item Sea $\sim$ una relación en $Obj\lrprth{Mod\lrprth{R}\setminus A}$ dada por
+		\begin{equation*}
+			f\sim f'\iff Hom\lrprth{f,f'}\neq\varnothing\neq Hom\lrprth{f',f}.
+		\end{equation*}
+		Entonces $\sim$ es un relación de equivalencia en $Obj\lrprth{Mod\lrprth{R}\setminus A}$.
+		\begin{proof}
+			La simetría de $\sim$ se sigue inmediatamente de su definición, mientras que la reflexividad se sigue del hecho de que si $f:A\to B\in Obj\lrprth{Mod\lrprth{R}\setminus A}$ entonces $Id_B\in\ringmodhom{R}{B}{B}$ y $Id_B f=f$. Así resta verificar que $\sim$ es transitiva.\\
+			Sean $f:A\to B,g:A\to B', h:A\to C\in Obj\lrprth{Mod\lrprth{R}\setminus C}$ tales que $f\sim g$ y $g\sim h$, por lo tanto $\exists\ p\in\ringmodhom{R}{B}{B'}$, $q\in\ringmodhom{R}{B'}{B}$, $p'\in\ringmodhom{R}{B'}{C}$, $q'\in\ringmodhom{R}{C}{B'}$ tales que
+			\begin{equation*}
+				\begin{split}
+					pf&=g\\
+					qg&=f,
+				\end{split}
+			\end{equation*}
+			\begin{equation*}
+				\begin{split}
+					p'g&=h\\
+					q'h&=g.
+				\end{split}
+			\end{equation*}
+			Así $p'p\in\ringmodhom{R}{B}{C}$, $qq'\in\ringmodhom{R}{C}{B}$ y
+			\begin{equation*}
+				\begin{split}
+					\lrprth{p'p}f&=h\\
+					\lrprth{qq'}h&=f,\\			
+					\therefore\ f&\sim h.
+				\end{split}
+			\end{equation*}
+		\end{proof}
+		%%%%%%%% Ej 58 %%%%%%%
+		\item Sean $\varphi_{i}:A_{i} \longrightarrow B_{i}$, con $i=1,2$, minimales a derecha en $Mod\lrprth{R}$. Pruebe que $\varphi_{1}\coprod\varphi_{2}:A_{1} \coprod A_{2} \longrightarrow B_{1} \coprod B_{2}$ es minimal a derecha.
+		\begin{proof}
+			Sea $\psi:\varphi_{1}\coprod\varphi_{2}\longrightarrow\varphi_{1}\coprod\varphi_{2}$. Entonces $\psi$ es de la forma $\psi = \psi_{1}\coprod\psi_{2}$, con $\psi_{i}:A_{i} \longrightarrow B_{i}$, $i=1,2$. En efecto, si denotamos por $\eta_{i}:A_{1} \coprod A_{2} \longrightarrow B_{i}$, $i=1,2$, a la proyección canónica, entonces $\psi = \eta_{1}\psi\coprod\eta_{2}\psi$.\\
+			
+			Suponga, así, que $\psi = \psi_{1}\coprod\psi_{2}$. Luego, $\psi_{i} \in Hom\lrprth{\varphi_{i},\varphi_{i}}$, con $i=1,2$. Por la minimalidad a derecha de cada $\varphi_{1}$, se satisface que $\psi_{1}$ y $\psi_{2}$ son isomorfismos. Por lo que $\psi$ es un isomorfismo.\\
+			$\therefore\varphi_{1}\coprod\varphi_{2}$ es minimal a derecha.
+		\end{proof}
+		
+		\item Sean $F\colon A\longrightarrow B$ un funtor contravariante aditivo entre categorías preaditivas. Pruebe que si $F$ es fiel y pleno, entonces\\
+		$F\colon End_\mathcal{A}(A) \longrightarrow End_\mathcal{B} (F(A))^{op}$ es isomorfismo de anillos.
+		\begin{proof}
+			Como $F$ es funtor contravariante aditivo, entonces es un morfismo de grupos abelianos. Considerando la composición, tenemos que 
+			$End_ \mathcal{A}(A)$ y $End_\mathcal{B}(F(A))$ son anillos, así $End_\mathcal{A}(F(A))^{op}$ es anillo.\\
+			
+			Por definición de funtor contravariate para cada $f,g\in End_ \mathcal{A}(A)$ se tiene que 
+			\[F(f\circ g)=F(g)\circ F(f)\quad \text{y}\quad F(1_A)=1_{F(A)}\quad \forall A\in Obj(\mathcal{A}).
+			\]
+			Entonces $F$ es morfismo de anillos entre $End_\mathcal{A}(A)$ y $End_\mathcal{B}(F(A))^{op}$, y como $F$ es fiel y pleno, la correspondencia debe ser
+			biyectiva, es decir, $F$ es un isomorfismo de anillos.
+		\end{proof}
+		\item Sea $\mathcal{A}$ una categoría preaditiva y $A\in\mathcal{A}$. Entonces
+		\begin{enumerate}
+			\item La correspondencia Hom-covariante $Hom_\mathcal{A}\lrprth{A,-}:\mathcal{A}\to Ab$ es un funtor covariante aditivo.
+			\item La correspondencia Hom-contravariante $Hom_\mathcal{A}\lrprth{-,A}\mathcal{A}\to Ab$ es un funtor contravariante aditivo.
+		\end{enumerate}
+		\begin{proof}
+			\boxed{a)} $Hom_\mathcal{A}\lrprth{A,-}$ está dado por la siguiente correspondencia
+			\begin{center}
+				\functor{
+					name=Hom_\mathcal{A}\lrprth{A,-}, dom=\mathcal{A}, codom=Ab, source=B, target=C, arrow=f, Fsource=\ringmodhom{\mathcal{A}}{A}{B}, Ftarget=\ringmodhom{\mathcal{A}}{A}{C}, Farrow=Ff,
+				}
+			\end{center}
+			con 
+			\begin{align*}
+				\descapp{Ff}{\ringmodhom{\mathcal{A}}{A}{B}}{\ringmodhom{\mathcal{A}}{A}{C}}{\alpha}{f\alpha}{.}
+			\end{align*}
+			Notemos que $f\in\ringmodhom{\mathcal{A}}{B}{C}$, $\alpha\in\ringmodhom{\mathcal{A}}{A}{B}$, de lo cual se sigue que $f\alpha\in\ringmodhom{\mathcal{A}}{A}{C}$ y por lo tanto $Ff$ está bien definida. Por otro lado como $\mathcal{A}$ es preaditiva entonces $\ringmodhom{\mathcal{A}}{A}{B}$ y $\ringmodhom{\mathcal{A}}{A}{C}$ son grupos abelianos aditivos. Finalmente si $\alpha,\beta\in \ringmodhom{\mathcal{A}}{A}{B}$ como la composición de morfismos en $Hom\lrprth{\mathcal{A}}$ es $\mathbb{Z}$-bilineal, entonces
+			\begin{align*}
+				Ff\lrprth{\alpha+\beta}&=f\lrprth{\alpha+\beta}\\
+				&=f\alpha+f\beta\\
+				&=Ff(\alpha)+Ff(\beta),\\
+				&\implies Ff\text{ es un morfismo de grupos abelianos}.
+			\end{align*}
+			Por todo lo anterior $\functhom{A}{}{\mathcal{A}}$ es una correspondencia bien definida.\\
+			Afirmamos que $\functhom{A}{}{\mathcal{A}}$ es un funtor covariante. En efecto, sean 
+			\begin{align*}
+				f,g&\in\functhom{B}{C}{\mathcal{A}},\\ \eta&\in\functhom{Z}{\functhom{A}{B}{\mathcal{A}}}{Ab},\\ \mu&\in\functhom{\functhom{A}{B}{\mathcal{A}}}{Z}{Ab}.\\
+			\end{align*}
+			Asi si $z\in Z$, entonces
+			\begin{align*}
+				\functhom{A}{-}{\mathcal{A}}\lrprth{Id_B}\eta(z)&=FId_B\lrprth{\eta(z)}\\
+				&=Id_B\eta\lrprth{z}\\
+				&=\eta\lrprth{z}, && \eta(z)\in\functhom{A}{B}{\mathcal{A}}\\
+				\implies \functhom{A}{-}{\mathcal{A}}\lrprth{Id_B}&=\eta.
+				\intertext{Por su parte}				
+				\mu\functhom{A}{-}{\mathcal{A}}\lrprth{Id_B}\lrprth{\alpha}&=\mu\lrprth{FId_B(\alpha)}\\
+				&=\mu\lrprth{Id_B\alpha}Id_B\eta\lrprth{z}\\
+				&=\mu\lrprth{\alpha}, && \alpha\in\functhom{A}{B}{\mathcal{A}}\\
+				\implies \mu\functhom{A}{-}{\mathcal{A}}\lrprth{Id_B}&=\mu.\\
+				\therefore\ \functhom{A}{-}{\mathcal{A}}\lrprth{Id_B}&=Id_{\functhom{A}{B}{\mathcal{A}}}=Id_{\functhom{A}{}{\mathcal{A}}(B)}
+			\end{align*}
+			Por su parte 
+			\begin{align*}			
+				\functhom{A}{}{\mathcal{A}}\lrprth{gf}\lrprth{\alpha}&=\lrprth{Fgf}\lrprth{\alpha}\\
+				&=gf\lrprth{\alpha}=g\lrprth{f\alpha}\\
+				&=Fg\lrprth{Ff(\alpha)}, && f\alpha\in\functhom{A}{C}{\mathcal{A}}\\
+				&=FgFf\lrprth{\alpha} \\
+				\therefore\  \functhom{A}{}{\mathcal{A}}\lrprth{gf}=\functhom{A}{}{\mathcal{A}}\lrprth{g}&\functhom{A}{}{\mathcal{A}}\lrprth{f}.
+			\end{align*}
+			Con lo cual se ha verificado que $\functhom{A}{-}{\mathcal{A}}$ es un funtor covariante.\\
+			Finalmente, dado que la composición en $Hom\lrprth{\mathcal{A}}$ es $\mathbb{Z}$-bilineal se tiene que
+			\begin{align*}
+				\functhom{A}{-}{\mathcal{A}}\lrprth{f+g}\lrprth{\alpha}&=F\lrprth{f+g}\lrprth{\alpha}\\
+				&=\lrprth{f+g}\alpha=f\alpha+g\alpha\\
+				&=Ff\lrprth{\alpha}+Fg\lrprth{\alpha}\\
+				\implies \functhom{A}{-}{\mathcal{A}}\lrprth{f+g}&=\functhom{A}{-}{\mathcal{A}}\lrprth{f}+\functhom{A}{-}{\mathcal{A}}\lrprth{g}
+			\end{align*}
+			De modo que \begin{equation*}
+				\functhom{A}{}{\mathcal{A}}:\functhom{B}{C}{\mathcal{A}}\to\functhom{\functhom{A}{B}{\mathcal{A}}}{\functhom{A}{C}{\mathcal{A}}}{Ab}
+			\end{equation*}es un morfismo de grupos abelianos. Con lo cual, dado que $Ab$ es una categoría preaditiva (esto ya que la composición de morfismos de grupos abelianos es $\mathbb{Z}$-bilineal), se tiene que $\functhom{A}{}{\mathcal{A}}$ es un funtor aditivo.\\
+			La demostración de $b)$ se realiza en forma análoga.\\
+		\end{proof}
+		%%%%%%%% Ej 61 %%%%%%%
+		\item Sea $X\in\ringbimod{R}{S}{Mod}{lr}$. Pruebe que:
+		\begin{enumerate}
+			\item $\ringmodhom{R}{-}{X}: Mod\lrprth{R} \longrightarrow Mod\lrprth{\opst{S}}$ es un funtor contravariante aditivo.
+			\item Para $\fntfam{M}{i}{n}$ en $Mod\lrprth{R}$ se tiene que
+			\begin{align*}
+				\ringmodhom{R}{\displaystyle\coprod_{i=1}^{n}M_{i}}{\ringbimod{R}{S}{X}{lr}}=\displaystyle\coprod_{i=1}^{n}\ringmodhom{R}{\ringmod{R}{M_{i}}{l}}{\ringbimod{R}{S}{X}{lr}}
+			\end{align*}
+			en $Mod\lrprth{\opst{S}}$
+		\end{enumerate}
+		\begin{proof}
+			$\boxed{\text{(a)}}$ Primeramente, ya sabemos que $\ringmodhom{R}{-}{X}$ es un funtor contravariante. Entonces bastará probar que éste es aditivo.\\
+			
+			Sean $M,N \in Mod\lrprth{R}$. Veremos que $\varphi=\ringmodhom{R}{-}{X}$, con
+			\begin{align*}
+				\varphi:\ringmodhom{R}{M}{N}\longrightarrow\ringmodhom{\opst{S}}{\ringmodhom{R}{N}{X}}{\ringmodhom{R}{M}{X}},
+			\end{align*}
+			es un isomorfismo.\\
+			
+			Sea $f\in\ringmodhom{R}{M}{N}$. Entonces $\varphi\lrprth{f}\ringmodhom{\opst{S}}{\ringmodhom{R}{N}{X}}{\ringmodhom{R}{M}{X}}$ es el morfismo $\varphi\lrprth{f}\lrprth{g}=g \circ f$. De esta manera, $\varphi$ es un morfismo. En efecto, sean $f,g\in\ringmodhom{R}{M}{N}$, $r \in R$ y $h\in\ringmodhom{R}{N}{X}$, entonces
+			\begin{align*}
+				\varphi\lrprth{f+rg}\lrprth{h} &= \lrprth{f+rg} \circ h\\
+				&=f \circ h + \lrprth{rg} \circ h\\
+				&=f \circ h + r\lrprth{g \circ h}\\
+				&=\varphi\lrprth{f}\lrprth{h}+r\varphi\lrprth{g}\lrprth{h}\\
+				&=\lrprth{\varphi\lrprth{f}+r\varphi\lrprth{g}}\lrprth{h}
+			\end{align*}
+			Por tanto, $\varphi$ es morfismo. $\therefore\ringmodhom{R}{-}{X}$ es aditivo.
+			
+			$\boxed{\text{(b)}}$ Definimos $\rho : \ringmodhom{R}{\displaystyle\coprod_{i=1}^{n}M_{i}}{\ringbimod{R}{S}{X}{lr}} \longrightarrow \displaystyle\coprod_{i=1}^{n}\ringmodhom{R}{\ringmod{R}{M_{i}}{l}}{\ringbimod{R}{S}{X}{lr}}$ como $\rho\lrprth{\varphi}=\fntuple{\varphi\iota}{i}{n}$.\\
+			
+			Veamos que $\rho$ es un morfismo en $Mod\lrprth{\opst{S}}$. Para dicho fin, considere $\varphi , \psi \in \ringmodhom{R}{\displaystyle\coprod_{i=1}^{n}M_{i}}{\ringbimod{R}{S}{X}{lr}}$ y $s \in S$.
+			\begin{align*}
+				\rho\lrprth{\varphi + \psi s} &= \fntuple{\lrprth{\varphi + \psi s}\iota}{i}{n}\\
+				&= \fntuple{\varphi\iota}{i}{n} + \fntuple{\lrprth{\psi s}\iota}{i}{n}\\
+				&= \fntuple{\varphi\iota}{i}{n} + \fntuple{\psi\iota}{i}{n} s\\
+				&= \rho\lrprth{\varphi} + \rho\lrprth{\psi} s
+			\end{align*}
+			
+			Por otro lado, $\rho$ es un inyectivo. En efecto, si $\rho\lrprth{\varphi}=0$, entonces se tiene que $\fntuple{\varphi\iota}{i}{n}=0$. Luego, $\varphi=0$. Por tanto $Ker\lrprth{\rho}=0$.\\
+			
+			Ahora, sea $\fntuple{\varphi}{i}{n} \in \displaystyle\coprod_{i=1}^{n}\ringmodhom{R}{\ringmod{R}{M_{i}}{l}}{\ringbimod{R}{S}{X}{lr}}$. Entonces cada $\varphi_{i}$ es un morfismo $\varphi_{i}:M_{i} \longrightarrow X$. Así, por la propiedad universal del coproducto, existe $\varphi:\displaystyle\coprod_{i=1}^{n}M_{i} \longrightarrow X$ tal que $\varphi\iota_{i}=\varphi_{i}$. De esta manera, $\rho\lrprth{\varphi}=\fntuple{\varphi}{i}{n}$. Por tanto, $\rho$ es un isomorfismo.\\
+			$\therefore\ringmodhom{R}{\displaystyle\coprod_{i=1}^{n}M_{i}}{\ringbimod{R}{S}{X}{lr}}=\displaystyle\coprod_{i=1}^{n}\ringmodhom{R}{\ringmod{R}{M_{i}}{l}}{\ringbimod{R}{S}{X}{lr}}$
+		\end{proof}
+		
+				\textbf{Lemma}*\\
+		(Anderson, Fuller) 16.6\\
+		El funtor $\operatorname{Hom}_R(M,Y)$ es exacto izquierdo. En particular si $U$ es un $R$-módulo, entonces para cada sucesión exacta 
+		\begin{tikzcd}
+			0 \arrow{r}{} &K \arrow{r}{f} & M \arrow{r}{g} & N \arrow{r}{} &0
+		\end{tikzcd}
+		en $Mod(R)$ las sucesiones 
+		\begin{tikzcd}\displaystyle
+			0 \arrow{r}{} &\operatorname{Hom}_R(U,K) \arrow{r}{f_*} & 
+			\operatorname{Hom}_R(U,M) \arrow{r}{g_*} & \operatorname{Hom}_R(U,N) \arrow{r}{} &0
+		\end{tikzcd}\\
+		y \,\,
+		\begin{tikzcd}\displaystyle
+			0 \arrow{r}{} &\operatorname{Hom}_R(M,X) \arrow{r}{g^*} & 
+			\operatorname{Hom}_R(M,Y) \arrow{r}{f^*} & \operatorname{Hom}_R(M,Z) \arrow{r}{} &0
+		\end{tikzcd}\\
+		son exactas\\
+		
+		\item Para $M\in Mod(R)$ pruebe que las siguientes condiciones son equivalentes: 
+		\begin{itemize}
+			\item[a)] $M$ es proyectivo.
+			\item[b)] Toda sucesión exacta 
+			\begin{tikzcd}
+				0 \arrow{r}{} &X \arrow{r}{} & Y \arrow{r}{} & M \arrow{r}{} &0
+			\end{tikzcd}
+			en $Mod(R)$ se escinde.
+			\item[c)] $M$ es isomorfo a un sumando directo de $R$-módulos libre.
+			\item[d)]Para toda sucesión exacta 
+			\begin{tikzcd}
+				0 \arrow{r}{} &X \arrow{r}{f} & Y \arrow{r}{g} & Z \arrow{r}{} &0
+			\end{tikzcd}
+			en $Mod(R)$, se tiene que \\
+			\begin{tikzcd}\displaystyle
+				0 \arrow{r}{} &\operatorname{Hom}_R(M,X) \arrow{r}{f_*} & 
+				\operatorname{Hom}_R(M,Y) \arrow{r}{g_*} & \operatorname{Hom}_R(M,Z) \arrow{r}{} &0
+			\end{tikzcd}\\
+			es exacta en $Mod(\Z)$, donde $f_*=\operatorname{Hom}_R(M,f)$\quad y \quad $g_*=\operatorname{Hom}_R(M,g)$.
+		\end{itemize}
+		\begin{proof}
+			\boxed{a)\Rightarrow b)}\\
+			Sea $M$ proyectivo y 
+			\begin{tikzcd}
+				0 \arrow{r}{} &X \arrow{r}{} & Y \arrow{r}{} & M \arrow{r}{} &0
+			\end{tikzcd}
+			una sucesión exacta en $Mod(R)$. Como $Y \stackrel{h}{\longrightarrow} M$ es epi, entonces el morfismo $I_M\colon M\longrightarrow M$
+			se puede factorizar a través de $h$, es decir, existe $g\colon M\longrightarrow Y$ tal que $Id_M=hg$. Por lo tanto $h$ es split-epi y por el 
+			ejercicio 54 la sucesión se escinde.
+			\boxed{b)\Rightarrow c)} \\
+			Sea $\displaystyle F=\bigoplus_{y\in M}Ry$ el módulo libre generado por los elementos de $M$, entonces existe un epimorfismo 
+			$g\colon F\longrightarrow M$, por lo que \\
+			\begin{tikzcd}
+				0 \arrow{r}{} &Ker(g) \arrow{r}{i} & F \arrow{r}{g} & M \arrow{r}{} &0
+			\end{tikzcd}
+			es exacta con $i$ la inclusión.\\
+			Por hipótesis esta sucesión exacta se escinde, por lo tanto $M\oplus Ker(g)=F$, es decir, $M$ es un sumando directo de un módulo libre.\\
+			\boxed{c)\Rightarrow a)}\\
+			Supongamos que tenemos el siguiente diagrama con $g$ epi:\\
+			\xymatrix {
+				X\ar[r]^{g}& Y\ar[r]& 0\\
+				& M\ar[u]^{h}      
+			}
+			\\
+			Por c) sabemos que existe $F,K$ módulos tales que $M\oplus K=F$ con $F$ un móduulo libre. Ahora,  como todo módulo libre es proyectivo y 
+			considerando a $\pi\colon F\longrightarrow M$, se tiene que existe $f\colon F\longrightarrow X$ tal que $h\pi=fg$, así
+			$h\pi i=gfi$ con $i$ la inclusión de $M$ en $F$, por lo que $h=g\circ f_0$ con $f_0\colon M\longrightarrow X$.\\
+			\boxed{a)\iff d)}\\
+			Por el lema* la condición d) se cumple si y sólo si por cada epimorfismo 
+			\begin{tikzcd}
+				Y \arrow{r}{f} &Z \arrow{r}{g} & 0
+			\end{tikzcd}
+			la sucesión 
+			\begin{tikzcd}
+				\operatorname{Hom}_R(M,Y) \arrow{r}{f_*} &\operatorname{Hom}_R(M,Z) \arrow{r}{} & 0
+			\end{tikzcd}
+			es exacta. Pero $f_*$ es epi si y sólo si por cada $\gamma\in \operatorname{Hom}_R(M,Z)$ existe un $\hat{\gamma}\in \operatorname{Hom}_R(U,M)$
+			tal que $\gamma=f_*(\hat{\gamma})=f\hat{\gamma}.$
+			
+		\end{proof}
+		\item Sea $\arbtfam{M}{i}{I}$ en $Mod\lrprth{R}$. Entonces $\coprod\limits_{i\in I}M_i$ es proyectivo si y sólo si $\forall\ i\in I$ $M_i$  es proyectivo.
+		\begin{proof}
+			Sea $C$ un coproducto para $\arbtfam{M}{i}{I}$ por medio de las funciones $\arbtfam{\mu}{i}{I}$.
+			\boxed{\implies} Sean $f:X\to Y$ un epimorfismo en $Mod\lrprth{R}$ y, para cada $i\in I$, $g_i\in\functhom{M_i}{Y}{R}$. Por la propiedad universal del coproducto $\exists !\ g:C\to Y$ tal que, $\forall\ i\in I$, $g\mu_i=g_i$. Dado que $C$ es proyectivo entonces $\exists\ h:C\to X$ en $Mod(R)$ tal que $fh=g$, con lo cual si $h_i:=h\mu_i$ entonces
+			\begin{align*}
+				fh_i&=f\lrprth{h\mu_i}\\
+				&=\lrprth{fh}\mu_i\\
+				&=g\mu_i\\
+				&=g_i.\\
+				\implies g_i&\text{ se factoriza a través de }f,\quad\forall\ i\in I.\\
+				\therefore\ M_i&\text{ es proyectivo},\quad\forall\ i\in I.
+			\end{align*} 
+			\boxed{\impliedby} Verifcaremos primeramente los siguientes resultados:
+			\begin{lem}
+				Sean $\arbtfam{X}{i}{I}$, $\arbtfam{Y}{i}{I}$ y $\arbtfam{Z}{i}{I}$ familias en $Mod(R)$ tales que $\forall\ i\in I$
+				\begin{equation*}\label{famsucex}\tag{L1A}
+					\shortseq{A=X_i,B=Y_i,C=Z_i,AtoB=f_i,BtoC=g_i,}
+				\end{equation*}
+				es una sucesión exacta. Entonces $\exists\ f,\ g\in Hom\lrprth{Mod(R)}$ tales que
+				\begin{equation*}\label{copsucex}\tag{L1B}
+					\shortseq{A=\prod\limits_{i\in I}X_i,B=\prod\limits_{i\in I}Y_i,C=\prod\limits_{i\in I}Z_i,AtoB=f,BtoC=g,}
+				\end{equation*}
+				es una sucesión exacta. Los productos que aparecen en la expresión anterior son aquellos cuyos elementos son $i$-adas.
+			\end{lem}
+			\begin{proof}
+				Sean 
+				\begin{align*}
+					\descapp{f}{\prod\limits_{i\in I}X_i}{\prod\limits_{i\in I}Y_i}{\arbtuple{x}{i}{I}}{\lrprth{f\lrprth{x_i}}_{i\in I}}{}
+					\intertext{y}
+					\descapp{g}{\prod\limits_{i\in I}Y_i}{\prod\limits_{i\in I}Z_i}{\arbtuple{y}{i}{I}}{\lrprth{g\lrprth{y_i}}_{i\in I}}{.}
+				\end{align*}
+				$f\in Hom\lrprth{Mod(R)}$ pues $\forall\ i\in I$ $f_i\in Hom\lrprth{Mod(R)}$, similarmente se tiene que $g$ es un morfismo de $R$-módulos.\\
+				\boxed{f\text{ es inyectiva}} Sea $\arbtuple{x}{i}{I}\in Ker(f)$, entonces $\forall\ i\in I$ $f_i \lrprth{x_i}=0$ y por lo tanto $\forall\ i\in I$ $x_i=0$, pues $\arbtfam{f}{i}{I}$ es una familia de monomorfismos en $Mod(R)$.\\
+				\boxed{g\text{ es sobre}} Sea $\arbtuple{z}{i}{I}\in\coprod\limits_{i\in I}Z_i$. Como $\arbtfam{g}{i}{I}$ es una familia de epimorfismos en $Mod(R)$, entonces $\forall\ i\in I$ $\exists\ y_i\in Y_i$ tal que $g_i \lrprth{y_i}=z_i$ y por lo tanto $g\lrprth{\arbtuple{y}{i}{I}}=\arbtuple{z}{i}{I}$.\\
+				\boxed{Im(f)=Ker(g)} Sea $\arbtuple{x}{i}{I}\in \coprod\limits_{i\in I}X_i$. Dado que $\lrprth{\ref{famsucex}}$ es exacta se tiene que $\forall\ i\in I$ $Im(f_i)=Ker(g_i)$ y que, en partícular, $g_i f_i=0$. Así
+				\begin{align*}
+					gf\lrprth{\arbtuple{x}{i}{I}}&=\lrprth{g_if_i\lrprth{x_i}}_{i\in I}\\
+					&=0.\\
+					\implies gf&=0\\
+					\implies Im(f)&\subseteq Ker(g).
+				\end{align*}
+				Por su parte, si $\arbtuple{y}{i}{I}\in Ker(g)$, entonces $\forall\ i\in I$ $y_i\in Ker(g_i)=Im(f_i)$, con lo cual para cada $i\in I$ $\exists$ $x_i\in X_i$ tal que $y_i=f_i \lrprth{x_i}$. De modo que $\arbtuple{y}{i}{I}=f\lrprth{\arbtuple{x}{i}{I}}$, y por lo tanto $Ker(g)\subseteq Im(f)$.\\
+				Por todo lo anterior $\lrprth{\ref{copsucex}}$ es exacta.\\
+			\end{proof}
+			\begin{lem}
+				Sean $\fntfam{A}{i}{3}$, $\fntfam{B}{i}{3}$ en $Mod(R)$ tales que $\forall\ i\ in [1,3]$ $A_i\simeq B_i$ y
+				\begin{equation*}\label{sucexbase}\tag{L2A}
+					\shortseq{A=A_1,B=A_2,C=A_3,AtoB=f,BtoC=g,}
+				\end{equation*} una sucesión exacta. Entonces 
+				$\exists\ \overline{f},\ \overline{g}\in Hom\lrprth{Mod(R)}$ tales que
+				\begin{equation*}\label{sucexiso}\tag{L2B}
+					\shortseq{A=B_1,B=B_2,C=B_3,AtoB=\overline{f},BtoC=\overline{g},}
+				\end{equation*}
+				es una sucesión exacta.
+			\end{lem}
+			\begin{proof}
+				Sean $\varphi_i:A_i\to B_i$ isomorfismo $\forall\ i\in[1,3]$, $\overline{f}:=\varphi_2f{\varphi_1}^{-1}$ y $\overline{g}:=\varphi_3
+				g{\varphi_2}^{-1}$. Dado que $f,\ \varphi_1$ y $\varphi_2$ son monomorfismos en $Mod(R)$, entonces $\overline{f}$ lo es; análogamente $\overline{g}$ es un epimorfismo puesto que $\varphi_2,\ g$ y $\varphi_3$ lo son. \\
+				Notemos que
+				\begin{align*}
+					\overline{g}\overline{f}&=\varphi_3
+					g{\varphi_2}^{-1}\varphi_2 f{\varphi_1}^{-1}\\
+					&=\varphi_3
+					gf{\varphi_1}^{-1}\\
+					&=\varphi_3 0 {\varphi_1}^{-1}\\
+					&=0,\\
+					\implies Im\lrprth{\overline{f}}&\subseteq Ker\lrprth{\overline{g}}.
+				\end{align*}
+				Por su parte, si $v\in Ker\lrprth{\overline{g}}$ se tiene que
+				\begin{align*}
+					0&=\overline{g}(v)=\varphi_3
+					\lrprth{g{\varphi_2}^{-1}(v)}\\
+					&\implies g\lrprth{{\varphi_2}^{-1}(v)}=0, && \varphi_3\text{ es inyectiva}\\
+					&\implies{\varphi_2}^{-1}(v)\in Ker(g)=Im(f).
+				\end{align*}
+				Con lo cual $\exists\ u\in B_1$ tal que ${\varphi_2}^{-1}(v)=f(u)$, y así \begin{align*}
+					v&=\varphi_2 f(u)\\
+					&=\varphi_2 f{\varphi_1}^{-1}\lrprth{\varphi_1(u)}\\
+					&=\overline{f}\lrprth{\overline{u}}, && \overline{u}:=\varphi_1(u)\\
+					&\implies Ker\lrprth{\overline{g}}\subseteq Im\lrprth{\overline{f}}.\\
+					&\therefore\ (L2B)\text{ es exacta.}
+				\end{align*}
+			\end{proof}
+			\begin{lem}
+				Sean $M,N\in Mod(R)$ tales que $M$ es proyectivo y $M\simeq N$. Entonces $N$ es proyectivo.
+			\end{lem}
+			\begin{proof}
+				Sean $\varphi:M\to N$ un isomorfismo en $Mod(R)$, $f:X\to Y$ un epimorfismo en $Mod(R)$ y $g\in\functhom{N}{Y}{R}$. Como $g\varphi \in\functhom{M}{Y}{R}$ y $M$ es proyectivo, entonces $\exists\ h\in\functhom{M}{X}{R}$ tal que $fh=g\varphi$, luego $f\lrprth{h\varphi^{-1}}=g$, con lo cual $g$ se factoriza a través de $f$. Por lo tanto $N$ es proyectivo.\\
+			\end{proof}
+			Ahora, sean $\coprod\limits_{i\in I}M_i$ el coproducto para $\arbtfam{M}{i}{I}$ cuyos elementos son $i$-adas de soporte finito, \shortseq{A=X,B=Y,C=Z, AtoB=f, BtoC=g,} una sucesión exacta en $Mod\lrprth{R}$ y, para cada $i\in I$, $F_i:=\functhom{M_i}{}{R}$ funtor covariante definido como en el Ej. 60. Por el Ej. 62 $d)$ $\forall\ i\in I$ se tiene que
+			\begin{center}
+				\shortseq{A=F_i\lrprth{X}, B=F_i\lrprth{Y}, C=F_i\lrprth{Z}, AtoB=F_i (f), BtoC=F_i(g),}
+			\end{center} es una sucesión exacta en $Mod\lrprth{\mathbb{Z}}$ y así, por el Lema 1,
+			\begin{center}
+				\shortseq{A=\prod\limits_{i\in I}F_i\lrprth{X},B=\prod\limits_{i\in I}F_i\lrprth{Y},C=\prod\limits_{i\in I}F_i\lrprth{Z}}
+			\end{center}
+			es una sucesión exacta. Se tiene que
+			\begin{align*}
+				\prod\limits_{i\in I}F_i\lrprth{X}&=\prod\limits_{i\in I}\functhom{M_i}{X}{R}\\ &\simeq\functhom{\coprod\limits_{i\in I}M_i}{X}{R}.  && \text{Ej. 32}
+				\intertext{Similarmente se encuentra que}
+				\prod\limits_{i\in I}F_i\lrprth{Y} &\simeq\functhom{\coprod\limits_{i\in I}M_i}{Y}{R},\\
+				\prod\limits_{i\in I}F_i\lrprth{Z} &\simeq\functhom{\coprod\limits_{i\in I}M_i}{Z}{R}.
+			\end{align*}
+			Con lo cual, por el Lema 2, 
+			\begin{center}
+				\shortseq{A=\functhom{\coprod\limits_{i\in I}M_i}{X}{R}, B=\functhom{\coprod\limits_{i\in I}M_i}{Y}{R}, C=\functhom{\coprod\limits_{i\in I}M_i}{Z}{R}}
+			\end{center}
+			es una sucesión exacta y así, nuevamente por el Ej. 62 $d)$, $\coprod\limits_{i\in I} M_i$ es un módulo proyectivo. Finalmente como $C\simeq\coprod\limits_{i\in I}M_i$ en $Mod(R)$, por el Lema 3, se sigue que $C$ es proyectivo y así se tiene lo deseado.\\
+		\end{proof}
+		%%%%%%%% Ej 64 %%%%%%%%%
+		\item Sea $M \in Mod\lrprth{R}$. Pruebe que:\\
+		$M$ es proyectivo y f.g.$\Leftrightarrow$existe $n\in\mathbb{N}$ tal que $M$ es isomorfo a un sumando directo de $\ringmod{R}{R^{n}}{l}$.
+		\begin{proof}
+			$\boxed{\Rightarrow )}$ Puesto que $M$ es f.g., existe $n\in\mathbb{N}$ tal que la siguiente sucesión en $Mod\lrprth{R}$
+			\begin{tikzcd}
+				0 \arrow{r} & Ker(f) \arrow{r} & R^{n} \arrow{r}{f} & M \arrow{r} & 0
+			\end{tikzcd}
+			es exacta. Ésta a su vez se parte, toda vez que $M$ es proyectivo.\\
+			$\therefore M$ es sumando directo de $R^{n}$.\\
+			
+			$\boxed{\Leftarrow )}$ Suponga que $\ringmod{R}{R^{n}}{l} \simeq M \oplus K$. Entonces $M$ es f.g., y la sucesión en $Mod\lrprth{R}$
+			\begin{tikzcd}
+				0 \arrow{r} & K \arrow{r} & R^{n} \arrow{r} & M \arrow{r} & 0
+			\end{tikzcd}
+			se parte.\\
+			$\therefore M$ es proyectivo y f.g.
+		\end{proof}
+		\item Para $M\in Mod(R)$, pruebe que las siguientes condiciones son equivalentes.
+		\begin{itemize}
+			\item[a)] $M$ es inyectivo.
+			\item[b)] Toda sucesión exacta 
+			\begin{tikzcd}
+				0 \arrow{r}{} &M \arrow{r}{} & X \arrow{r}{} & Y \arrow{r}{} &0
+			\end{tikzcd}
+			en $Mod(R)$ se escinde.
+			\item[c)] Para toda sucesión exacta 
+			\begin{tikzcd}
+				0 \arrow{r}{} &X \arrow{r}{f} & Y \arrow{r}{g} & Z \arrow{r}{} &0
+			\end{tikzcd}
+			en $Mod(R)$, se tiene que \\
+			\begin{tikzcd}\displaystyle
+				0 \arrow{r}{} &\operatorname{Hom}_R(Z,M) \arrow{r}{g^*} & 
+				\operatorname{Hom}_R(Y,M) \arrow{r}{f^*} & \operatorname{Hom}_R(X,M) \arrow{r}{} &0
+			\end{tikzcd}\\
+			es exacta en $Mod(\Z)$, donde $f^*=\operatorname{Hom}_R(f,M)$\quad y \quad $g^*=\operatorname{Hom}_R(g,M)$.
+		\end{itemize}
+		\begin{proof}
+			\boxed{a)\Rightarrow b)} \\
+			Sea \begin{tikzcd}
+				0 \arrow{r}{} &M \arrow{r}{f} & X \arrow{r}{} & Y \arrow{r}{} &0
+			\end{tikzcd}
+			exacta en $Mod(R)$. Como $f$ es mono, entonces, considerando $I_M\colon M\longrightarrow M$, tenemos que existe $h\colon M\longrightarrow Y$
+			tal que $I_M$ se factoriza de $f$, es decir, $I_M=hf$ por lo tanto 
+			\begin{tikzcd}
+				0 \arrow{r}{} &M \arrow{r}{f} & X \arrow{r}{} & Y \arrow{r}{} &0
+			\end{tikzcd}
+			es split-mono y por el ejercicio 54 se escinde.\\
+			\boxed{b)\Rightarrow a)} \\
+			Sean $X,Y$ $R$-módulos y $f\colon X\longrightarrow Y$ mono. Si $h\in \operatorname{Hom}_R(X,Y)$ tenemos el siguiente diagrama\quad
+			\xymatrix {
+				0\ar[r] & X\ar[r]^{f}& Y\\
+				& M\ar[u]^{h}
+			}\\
+			que se extiende a un pushout \quad\quad
+			\xymatrix {
+				0\ar[r] & X\ar[r]^{f}\ar[d]^{h}& Y\ar[d]^{h'}\\
+				& M\ar[r]_{f'} & D
+			}\\
+			donde $D=(\faktor{X\oplus Y}{W}),\,\, W=\{(fa-ga):a\in R\}, \quad h'(b)=(0,b)+W$ y $g'(c)=(c,0)+W$.\\
+			
+			Así $f'$ es mono. Por hipótesis existe un morfismo $\beta\colon D\longrightarrow M$ con $\beta f'=1_M$. Definamos $g=\beta  h'$ entonces 
+			$g\colon Y\longrightarrow M$ y $gf=\beta  h'f=\beta f'h=h$, por lo que $M$ es inyectivo.\\
+			\boxed{a)\iff c)}\\
+			Como $\operatorname{Hom}_R(\cdot,M)$ es contravariante exacto izquierdo, es suficiente mostrar que $M$ es inyectivo si y sólo si
+			$\operatorname{Hom}_R(\cdot,M)$ convierte monomorfismos en epimorfismos:\\
+			Si $\alpha\colon A\longrightarrow B$ es mono, entonces $\alpha^*\colon\operatorname{Hom}_R(B,M)\longrightarrow \operatorname{Hom}_R(A,M)$
+			es epi si y sólo si para cada $f\in \operatorname{Hom}_R(A,M)$ existe $g\in \operatorname{Hom}_R(B,M)$ tal que $\alpha^*(g)=f$, y esto pasa si y sólo si para cada $f\in \operatorname{Hom}_R(A,M)$
+			existe $g\in \operatorname{Hom}_R(B,M)$ tal que $g\alpha=f$, es decir, $M$ es inyectivo.
+		\end{proof}
+		\item Sea $\arbtfam{M}{i}{I}$ en $Mod\lrprth{R}$. Entonces $\prod\limits_{i\in I}M_i$ es inyectivo si y sólo si, $\forall\ i\in I$, $M_i$  es inyectivo.
+		\begin{proof}
+			La demostración es análoga a lo realizado en el Ej. 63: se emplea la propiedad universal del producto para verificar la necesidad, mientras que los lemas 1 y 2 probados en el Ej. 63, en conjunto a que $\forall\ H\in Mod(R)$ se tiene que $\prod\limits_{i\in I}\functhom{H}{M_i}{R}\simeq\functhom{H}{\prod\limits_{i\in I}M_i}{R}$ (ver Ej. 35), y el siguiente resultado  verifican la suficiencia ()cuya desmotración es análoga a aquella del Lema 3 del Ej. 63)
+			\begin{lem}
+				Sean $M,N\in Mod(R)$ tales que $M$ es inyectivo y $M\simeq N$. Entonces $N$ es inyectivo.
+			\end{lem}
+		\end{proof}
+		%%%%%%%%% Ej 67 %%%%%%%%%
+		\item Sea $R$ un anillo no trivial. Pruebe que:\\
+		$R$ es semisimple y conmutativo$\Leftrightarrow R \simeq \displaystyle\bigtimes_{i=1}^{t} K_{i}$ como anillos, donde $K_{i}$ es un campo $\forall i \in [1,t]$
+		\begin{proof}
+			$\boxed{\Leftarrow )}$ Dado que cada $K_{i}$ es un campo y $R \simeq \displaystyle\bigtimes_{i=1}^{t} K_{i}$, se satisface que $R$ es semisimple y conmutativo.\\
+			
+			$\boxed{\Rightarrow )}$ En virtud del teorema de \textbf{Wedderburn-Artin}, $R$ es isomorfo a $\displaystyle\bigtimes_{i=1}^{t} Mat_{n_{i} \times n_{i}} \lrprth{D_{i}}$, con $n_{i}\in\mathbb{N}$ y $D_{i}$ un anillo con división. Ahora, por la conmutatividad de $R$, la única posibilidad es que $n_{i}=1$ y $D_{i}$ sea conmutativo, para $i \in [1,t]$.\\
+			$\therefore R \simeq \displaystyle\bigtimes_{i=1}^{t} K_{i}$, con $K_{i}$ un campo, $\forall i \in [1,t]$
+		\end{proof}
+	\end{enumerate}
+\end{document}
