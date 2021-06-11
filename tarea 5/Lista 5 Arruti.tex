@@ -1,0 +1,133 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{xparse, tikz-cd, pgfplots}
+\usepackage{faktor}
+\usepackage[all]{xy}
+
+
+\input{Comandos Anillos Artin}
+\title{Lista 5}
+\author{Arruti, Sergio, Jesús}
+\date{}
+
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+		\setcounter{enumi}{67}
+		\item	 
+		\item Sean $R$ artiniano a izquierda y $M\in mod\lrprth{R}$. Entonces
+		$\forall\ N\in\genlin{M}$ 
+		\begin{equation*}
+			\faktor{M}{N}\text{ es semisimple }\implies rad\lrprth{M}\subseteq N.
+		\end{equation*}
+		\begin{proof}
+			Sea $\mathscr{R}:=J(R)$. Como $M\in mod\lrprth{R}$, entonces por el Ej. 18 $\exists\ n\in\mathbb{N}$ y $f:R^n\to M$ un epimorfismo en  $Mod(R)$. Así, sí $\pi$ es el epimorfismo canónico en $Mod(R)$ de $M$ en $\faktor{M}{N}$, se tiene que $\pi f:R^n\to \faktor{M}{N}$ es un epimorfismo en $Mod(R)$ y por lo tanto, nuevamente por el Ej. 18, $\faktor{M}{N}\in mod(R)$ . Por lo anterior, dado que $S\in mod(R)\text{ es semisimple }\iff \mathscr{R}S=0$ (véase 2.7.13 (c)) y que $rad\lrprth{M}=\mathscr{R}M$ (véase 2.7.17 (b)), basta con verificar la siguiente implicación:
+			\begin{equation*}
+				\mathscr{R}\faktor{M}{N}=0\implies \mathscr{R} M\subseteq N.
+			\end{equation*}
+			Se tiene que
+			\begin{align*}
+				x\in\mathscr{R}M&\implies \exists\ t\in\mathbb{N}\text{ t.q. } x=\sum\limits_{i=1}^{t}r_im_i,\ r_i\in\mathscr{R}\text{ y } m_i\in M\ \forall\ i\in[1,t]\\
+				&\implies \pi\lrprth{x}=\sum\limits_{i=1}^{t}r_i\pi\lrprth{m_i},\ r_i\in\mathscr{R}\text{ y } \pi\lrprth{m_i}\in \faktor{M}{N}\ \forall\ i\in[1,t]\\\\
+				&\implies \pi\lrprth{x}\in\mathscr{R}\faktor{M}{N}=0\\
+				&\implies x\in Ker\lrprth{\pi}=N.\\
+				\implies \mathscr{R} M&\subseteq N.
+			\end{align*}
+		\end{proof}
+		\item 
+		\item
+		\item Sean $f:P\to M$ y $g:Q\to M$ 	cubiertas proyectivas de $M\in Nod\lrprth{R}$. Entonces $\exists\ h:P\to Q$ isomorfismo en $Mod\lrprth{R}$ tal que $gh=f$.
+		\begin{proof}
+			Se tiene el siguiente esquema
+			\begin{center}
+				\begin{tikzcd}
+					& \ar[dashrightarrow]{dl}[swap]{\exists\ h}P\ar{d}{f}\\
+					Q\ar{r}[swap]{g}&M
+				\end{tikzcd}
+			\end{center}
+			con $P$ proyectivo y $g$, en partícular por ser un epi-esencial, un epimorfismo en $Mod(R)$. Por lo tanto $\exists\ h\in\functhom{P}{Q}{R}$ tal que \begin{equation*}\tag{*}\label{factproy}
+				gh=f.
+			\end{equation*} Así pues, basta con verificar que $h$ es un isomorfismo en $Mod(R)$. De (\ref{factproy}) se sigue que, como $g$ es un epi-esencial y $f$ es en  partícular un epimorfismo en $Mod(R)$,  $h$ es un epimorfismo en $Mod(R)$. Con lo cual, si $i$ es la inclusión natural de $Ker\lrprth{h}$ en $P$, la sucesión
+			\begin{center}
+				\shortseq{
+					A=Ker\lrprth{h}, B=P, C=Q, AtoB=i, BtoC=h
+				}
+			\end{center}
+			es exacta. Más aún es una sucesión exacta que se parte, puesto que $Q$ es proyectivo (Ej. 62), con lo cual $h$ es un split-epi (Ej. 54) i.e. $\exists$ $j\in\functhom{Q}{P}{R}$ tal que $hj=Id_Q$. Notemos que lo anterior garantiza que $j$ es un split-mono y así en partícular es un monomorfismo. Además
+			\begin{align*}
+				gh=f&\implies fj=g,
+			\end{align*}
+			con lo cual $j$ es un epimorfismo, pues $g$ lo es y $f$ es un epi-esencial. Así $j$ es un isomorfismo en $Mod(R)$ y por lo tanto $h=j^{-1}$ también lo es.\\
+		\end{proof}
+		\item 
+		\item
+		\item Sean $R$ un anillo no trivial.
+		\begin{enumerate}
+			\item Sean $e\in R\setminus\lrbrack{0}$ un idempotente, $\fntfam{P}{i}{n}$ una familia en $\genlin{Re}$ y $\mathcal{A}:=\fntfam{e}{i}{n}\subseteq R$. Si $Re=\bigoplus\limits_{i=1}^n P_i$ $\forall\ i\in[1,n]$ $e_i\in P_i$ y $e=\sum\limits_{i=1}^ne_i$, entonces $\mathcal{A}$ es una familia de idempotentes ortogonales. Más aún $\forall\ i\in[1,n]$ $Re_i=P_i$.
+			\item Si $\fntfam{e}{i}{n}$ es una familia de idempotentes ortogonales en $R$ y $e:=\sum\limits_{i=1}^ne_i$, entonces $\forall\ i\in[1,n]$ $Re_i\in\genlin{\ringmod{R}{Re}{l}}$ y $Re=\bigoplus\limits_{i=1}^n Re_i$.
+		\end{enumerate}
+		\begin{proof}
+			\boxed{a)} Sea $u\in[1,n]$. Notemos primeramente que como $e_u\in Re$, entonces $\exists\ r_u\in R$ tal que $e_u=r_ue$, y así
+			\begin{align*}
+				e_ue&=\lrprth{r_ue}e=r_u\lrprth{ee}\\
+				&=r_ue, && e^2=e\\
+				&=e_u.
+			\end{align*}
+			Así
+			\begin{align*}
+				e_u&=e_ue=e_u\sum\limits_{i=1}^ne_i\\
+				&=\sum\limits_{i=1}^n e_ue_i\\
+				&=e_u^2+\sum\limits_{\substack{i=1\\i\neq u}}^n e_ue_i.
+			\end{align*}			
+			Como $e_u\in P_u$, $\forall\ i\in [1,n]$ $e_ue_i\in P_i$ y la desomposición en suma en $\sum\limits_{i=1}^nP_i$ es única, por formar $\fntfam{P}{i}{n}$ una suma directa para $Re$, lo anterior garantiza que
+			$e_u=e_u^2$ y que $\forall\ i\neq u$ $e_ue_i=0$. Por lo tanto $\fntfam{e}{i}{n}$ es una familia de idempotentes ortogonales (f.i.o.). \\
+			Por su parte, como $e_u\in P_u\leq Re$ entonces $Re_u\subseteq P_u$, así que basta con probar que $P_u\subseteq Re_u$. Sea $p\in P_u\leq Re$, entonces $\exists\ q\in R$ tal que \\
+			\begin{align*}
+				p&=qe=q\sum\limits_{i=1}^ne_i\\
+				\implies &p-qe_u=\sum\limits_{\substack{i=1\\i\neq u}}^nqe_i, 
+				\intertext{con}
+				p-qe_u&\in P_u,\ \sum\limits_{\substack{i=1\\i\neq u}}^nqe_i\in \sum\limits_{\substack{i=1\\i\neq u}}^nP_i.
+			\end{align*}
+			Dado que $P_u\cap\sum\limits_{\substack{i=1\\i\neq u}}^nP_i=\gengroup{0}$, se sigue que $p=qe_u\in Re_u$\\
+			\boxed{b)} Sea $r\in R$. Como $\forall\ i\in I$ $Re_i\in Mod(R)$, para verificar que $Re_i\in\genlin{\ringmod{R}{Re}{l}}$ basta con probar que $Re_i\subseteq Re$, y esto último es consecuencia de que si $re_i\in Re_i$ entonces $\lrprth{re_i}e\in Re$ y
+			\begin{align*}
+				\lrprth{re_i}e&=r\lrprth{e_ie}\\
+				&=r\lrprth{e_i\sum_{j=1}^{n}e_j}\\
+				&=re_i. && \fntfam{e}{j}{n}\text{ es una f. i. o.}
+			\end{align*}
+			Más aún, así se tiene que $\sum\limits_{i=1}^nRe_i\subseteq Re$. Notemos que $re=\sum\limits_{i=1}^nre_i\in\sum\limits_{i=1}^nRe_i$, así para verificar que $Re=\bigoplus\limits_{i=1}^nRe_i$ basta con verificar que esta descomposición es única. Sea $s\in R$ tal que $re=\sum\limits_{i=1}^n se_i$, entonces
+			\begin{align*}
+				\sum\limits_{i=1}^n re_i&=\sum\limits_{i=1}^n se_i\\
+				\implies \sum\limits_{i=1}^n \lrprth{r-s}e_i&=0.\\
+				\intertext{Sea $j\in[1,n]$. Multiplicando a ambos lados de la igualdad por $e_j$ y empleando nuevamente que $\fntfam{e}{j}{n}$ es una f. i. o. se obtiene que}
+				\lrprth{r-s}e_j&=0,\ \forall\ j\in[1,n]\\
+				\implies re_j&=se_j ,\ \forall\ j\in[1,n]
+			\end{align*}
+			y así se tiene lo deseado.\\
+		\end{proof}
+		\item 
+		\item
+		\item Sea $R$ un anillo. $R$ es semisimple si y sólo si $gldim\lrprth{R}=0$.
+		\begin{proof}
+			Afirmamos que $M$ es proyectivo, $\forall\ M\in Mod\lrprth{R}$, si y sólo sí $gldim\lrprth{R}=0$. En efecto:\\
+			\boxed{\implies} Se tiene que si $M$ es proyectivo, entonces por el Ej. 77$a)$ $pd\lrprth{M}=0$. Luego bajo estas condiciones, como por el Teorema $2.9.1\ (a)$ \begin{equation*}
+				gldim\lrprth{R}=\sup\limits_{M\in Mod\lrprth{R}}\lrbrack{pd\lrbrack{M}},
+			\end{equation*} se tiene que $gldim\lrprth{R}=\sup\limits_{M\in Mod\lrprth{R}}\lrbrack{0}=0$.\\
+			\boxed{\impliedby} Sea $M\in Mod\lrprth{R}$. Como en partícular $gldim\lrprth{R}$ es cota superior de $\lrbrack{pd\lrbrack{M}\ \vline\ M\in Mod\lrprth{R}}$, entonces $pd\lrprth{M}\leq 0$. En tal caso $pd\lrprth{M}\in\mathbb{N}$ y por tanto $pd\lrprth{M}\geq 0$. Con lo cual $pd\lrprth{M}=0$, así que, por el Ej. 77$a)$, $M$ es proyectivo.\\
+			Por la equivalencia previamente demostrada, y dado que por la Proposición 2.6.8 \begin{equation*}
+				 M \text{ es proyectivo, }\forall\ M\in Mod\lrprth{R} \iff R\text{ es semisimple,}
+			\end{equation*}se tiene lo deseado.\\
+		\end{proof}
+
+	\end{enumerate}
+\end{document}
