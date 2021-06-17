@@ -475,16 +475,15 @@ $Soc(\displaystyle\coprod_{i\in A}M_i)=\displaystyle\coprod_{i\in A}Soc(M_i).$
 \item[d)] $Soc\left(\faktor{\Z}{n\Z}\right)\cong \faktor{\Z}{(p_1\ldots p_k)\Z}$ donde $n=p_1^{m_1}\ldots p_k^{m_k}$ en la descomposición
 en productos de primos con $p_i\neq p_j$ para toda $i\neq j$.
 \end{itemize}
-\begin{proof}\boxed{a)}\\
+\begin{proof}}\boxed{a)}\\
 Por una parte, como $\prescript{}{\Z}{\Z}$ no tiene submódulos simples, entonces\\ $Soc\left(\prescript{}{\Z}{\Z}\right)=0.$\\
-Por otra, $Soc\left(\prescript{}{\Z}{\mathbb{Q}}\right)$ es un campo, por lo que tampoco tiene submódulos simples propios, así que 
- $Soc\left(\prescript{}{\Z}{\Z}\right)=Soc\left(\prescript{}{\Z}{\mathbb{Q}}\right)=0.$\\
+Por otra, Como $\Z$ es mono-escencial en $\Q$ (como se aprecia en el ejercicio anterior) entonces todo módulo $M$ de 
+$\prescript{}{\Z}{\Q}$ cumple que $\Z\cap M\neq \emptyset$ y como $\Z$ no es simple, entonces $\prescript{}{\Z}{\Q}$ no tiene
+submódulos simples, es decir \\$Soc\left(\prescript{}{\Z}{\Z}\right)=Soc\left(\prescript{}{\Z}{\Q}\right)=0.$\\
 \boxed{b)}\\
-Supongamos $\faktor{\Z}{m\Z}$ es un $\Z$-módulo simple entonces $k\,\faktor{\Z}{m\Z}=\faktor{\Z}{m\Z},$\\
-
- $\forall k\in \Z$, en particular si $m=ab$ con $a,b\neq 1$ entonces $a\,\faktor{\Z}{m\Z}=\faktor{\Z}{m\Z}$ 
-y esto pasa sólo si $\left|\faktor{\Z}{m\Z}\right|=b<m$ lo cual
-es una contradicción, por lo tanto $m$ debe ser primo. Si $m$ es primo $\faktor{\Z}{m\Z}$ es campo y por lo tanto simple.\\
+Como $M$ es submódulo de  $\faktor{\Z}{m\Z}$ si y sólo si $M=k\faktor{\Z}{m\Z}$ donde $k|m$, entonces si $\faktor{\Z}{m\Z}$ es simple
+$k$ sólo puede ser $1$ o $m$, es decir, $m$ tiene que ser primo.\\
+Si $m$ es primo $\faktor{\Z}{m\Z}$ es campo y por lo tanto simple.\\
 \boxed{c)}\\
 Sea $p$ primo y $n\geq 2$, entonces $\faktor{\Z}{p\Z}$ es simple en $\faktor{\Z}{p^n\Z}$, sin embrgo es el único simple, pues
 si $M\leq \faktor{\Z}{p^n\Z}$ es simple, entonces $M=\faktor{\Z}{p^k\Z}$ y esto pasa sólo si $p^k$  es primo, es decir, si $k=1$.
