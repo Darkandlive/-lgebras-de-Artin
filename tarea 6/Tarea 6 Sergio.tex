@@ -1,0 +1,288 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{xparse, tikz-cd, pgfplots}
+\usepackage{comment}
+\usepackage{faktor}
+\usepackage[all]{xy}
+
+\input{Comandos Anillos Artin}
+\title{Lista 4}
+\author{Arruti, Sergio, Jesús}
+\date{}
+
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+		\setcounter{enumi}{78}
+\item
+\item Sea $\Lambda$ una $R$-Álgebra de Artín y 
+\begin{tikzcd}
+0\arrow{r}{} & A\arrow{r}{f} &B\arrow{r}{g}& C\arrow{r}{}& 0
+\end{tikzcd}
+
+una sucesión exacta en $Mod(\Lambda)$ (respectivamente en $mod(\Lambda)$). Pruebe que $\forall X\in Mod(\Lambda)$ (respectivamente 
+$\forall X\in mod(\Lambda)$), se tienen las siguientes sucesiones exactas en $Mod(R)$ (respectivamente en $mod(R)$).
+
+a)
+\[\begin{tikzcd}
+0\arrow{r}{} & \operatorname{Hom}_\Lambda(X,A)\arrow{r}{f_*} & \operatorname{Hom}_\Lambda(X,B)\arrow{r}{g_*}&
+ \operatorname{Hom}_\Lambda(X,C)\arrow{r}{}& 0.
+\end{tikzcd}
+\]
+b)
+\[\begin{tikzcd}
+0\arrow{r}{} & \operatorname{Hom}_\Lambda(C,X)\arrow{r}{g^*} & \operatorname{Hom}_\Lambda(B,X)\arrow{r}{f^*}&
+ \operatorname{Hom}_\Lambda(A,X)\arrow{r}{}& 0.
+\end{tikzcd}
+\]
+donde 
+\begin{align*}
+f_*= \operatorname{Hom}_\Lambda(X,f)\,,\quad
+f^*= \operatorname{Hom}_\Lambda(f,X)\\
+g_*= \operatorname{Hom}_\Lambda(X,g)\quad \text{y}\quad
+g^*= \operatorname{Hom}_\Lambda(g,X)
+\end{align*}
+\begin{proof}
+Como $\Lambda$ es una $R$-Álgebra de Artín, entonces por el ejercicio 79 $\Lambda$ es un anillo artiniano, así 
+$ \operatorname{Hom}_\Lambda(X,\bullet)$ es un funtor exacto covariante y $ \operatorname{Hom}_\Lambda(\bullet,X)$ es un 
+funtor exacto contravariante. Por esto se tiene que las sucesiones a) y b) son exactas en $Mod(\Lambda)$, y por 3.1.1 se tiene que para todo 
+$J,K\in Mod(\Lambda),\,\,\, \operatorname{Hom}_\Lambda(J,K)$ es un $R$-submódulo de $ \operatorname{Hom}_R(J,K)$. Así a) y b)
+ son sucesiones exactas en $Mod(R)$.\\
+
+Por otra parte si nuestra sucesión es exacta en $mod(\Lambda)$ y $X\in mod(\Lambda)$, por la proposición 3.1.3 y lo anterior, las sucesiones
+exactas a) y b) estarán compuestas por $R$-módulos finitamente generados, por lo que a) y b) son sucesiones exactas en $mod(R)$.
+\end{proof}
+\item
+\item
+\item Pruebe que para un anillo artiniano a izquierda $R$, se tiene que\\ $mod(\prescript{}{R}{R})=mod(R)$
+\begin{proof}
+Por definición $mod(\prescript{}{R}{R})$ es la subcategoría plena de $mod(R)$ cuyos objetos son los $A\in mod(R)$ tales que existe una 
+sucesión exacta 
+\begin{tikzcd}
+P_1\arrow{r}{}&P_0\arrow{r}{}&A\arrow{r}{}&0
+\end{tikzcd}
+en $mod(R)$ con $P_1,P_0\in add(R)$.\\
+
+Como $mod(\prescript{}{R}{R})$ es subcategoría plena de $mod(R)$, basta ver que si\\ $M\in mod(R)$, entonces $M\in mod(\prescript{}{R}{R})$.\\
+Sea $M\in mod(R)$ entonces $M=\displaystyle\bigoplus_{m\in A}Rm$ con $A\subset M$ finito, así, considerando $|A|=n$, se tiene
+la sucesión exacta 
+\[
+\begin{tikzcd}
+A_1\oplus A_2\oplus M\arrow{r}{\pi_1}& A_2\oplus M\arrow{r}{\pi_2}&M\arrow{r}{}&0.
+\end{tikzcd}
+\]
+Donde $A_1\cong A_2\cong R$ y $\pi_1,\pi_2$ son proyecciones canonicas, en particular $A_1$ y $A_2$ son objetos en $add(R)$ pues 
+$A_1\coprod A_2\cong R\coprod R=R^2$, así $M\in mod(\prescript{}{R}{R})$. \\
+\end{proof}
+
+\item
+\item
+\item    ??????
+
+
+\item
+\item
+\item Para un anillo $R$, pruebe que la correspondencia\\ $Soc:Mod(R)\longrightarrow Mod(R)$ donde\\
+\xymatrix{
+X\ar[dd]_f   &\,& Soc(X)   \ar[dd]^{Soc(f):=f|_{Soc(X)}}                \\
+         \,  \ar[rr] & \,       &                \\
+Y &\,& Soc(Y)
+}
+
+es un funtor aditivo que conmuta con productos arbitrarios y preserva monomorfismos.
+\begin{proof}
+Funtor aditivo:\\
+Sean $f,g\in  \operatorname{Hom}_R(X,Y)$ con $X,Y\in Mod(R)$, entonces $f+g\in \operatorname{Hom}_R(X,Y)$ y 
+\begin{tikzcd}
+F(X\arrow{r}{f+g}&Y)=(Soc(X)\arrow{r}{(f+g)|_{Soc(X)}}& Soc(Y))
+\end{tikzcd}
+pero \[F(f+g)=(f+g)|_{Soc(X)}=f|_{Soc(X)}+g|_{Soc(X)}=F(f)+F(g),
+\]
+pues por 3.3.6 b), $f(Soc(X))\subset Soc(Y)$\quad y \quad $g(Soc(X))\subset Soc(Y).$\\
+
+Conmuta con coproductos arbitrarios:\\
+
+Basta mostrar que $\displaystyle\coprod_{i\in A}Soc(M_i)$ es el submódulo simple más grande contenido en $\displaystyle\coprod_{i\in A}M_i$.\\
+Supongamos $N$ es semisimple en $\displaystyle\coprod_{i\in A}M_i$, entonces $N=\displaystyle\bigoplus_{j\in F}S_j$ donde $S_k$ es simple en
+$\displaystyle\coprod_{i\in A}M_i$ para toda $k\in A$ y $F\neq \emptyset$.\\
+
+Como todo simple en $\displaystyle\coprod_{i\in A}M_i$ es de la forma $\displaystyle\coprod_{i\in A}S_i$ con $S_i\leq M_i$ simple o cero, 
+entonces
+\[
+N=\bigoplus_{i\in F}\coprod_{j\in A}S_{ij}=\coprod_{j\in A}\bigoplus_{i\in F}S_{ij}\subset \coprod_{i\in A}Soc(M_i), 
+\]
+pues $Soc(M_i)$ es el submódulo semisimple mas grande contenido en $M_i$, por lo tanto 
+$Soc(\displaystyle\coprod_{i\in A}M_i)=\displaystyle\coprod_{i\in A}Soc(M_i).$
+
+\end{proof}
+
+\item
+\item
+\item Pruebe que 
+\begin{itemize}
+\item[a)] $Soc\left(\prescript{}{\Z}{\Z}\right)=Soc\left(\prescript{}{\Z}{\Q}\right)=0.$
+\item[b)] $\faktor{\Z}{m\Z}$ es un $\Z$-módulo simple $\iff$ $m$ es primo.
+\item[c)] $Soc\left(\faktor{\Z}{p^n\Z}\right)=\faktor{p^{n-1}\Z}{p^n\Z}\cong \faktor{\Z}{p\Z}$ para todo primo $p$ y $n\geq 0$.
+\item[d)] $Soc\left(\faktor{\Z}{n\Z}\right)\cong \faktor{\Z}{(p_1\ldots p_k)\Z}$ donde $n=p_1^{m_1}\ldots p_k^{m_k}$ en la descomposición
+en productos de primos con $p_i\neq p_j$ para toda $i\neq j$.
+\end{itemize}
+\begin{proof}\boxed{a)}\\
+Por una parte, como $\prescript{}{\Z}{\Z}$ no tiene submódulos simples, entonces\\ $Soc\left(\prescript{}{\Z}{\Z}\right)=0.$\\
+Por otra, Como $\Z$ es mono-escencial en $\Q$ (como se aprecia en el ejercicio anterior) entonces todo módulo $M$ de 
+$\prescript{}{\Z}{\Q}$ cumple que $\Z\cap M\neq \emptyset$ y como $\Z$ no es simple, entonces $\prescript{}{\Z}{\Q}$ no tiene
+submódulos simples, es decir \\$Soc\left(\prescript{}{\Z}{\Z}\right)=Soc\left(\prescript{}{\Z}{\Q}\right)=0.$\\
+\boxed{b)}\\
+Como $M$ es submódulo de  $\faktor{\Z}{m\Z}$ si y sólo si $M=k\faktor{\Z}{m\Z}$ donde $k|m$, entonces si $\faktor{\Z}{m\Z}$ es simple
+$k$ sólo puede ser $1$ o $m$, es decir, $m$ tiene que ser primo.\\
+Si $m$ es primo $\faktor{\Z}{m\Z}$ es campo y por lo tanto simple.\\
+\boxed{c)}\\
+Sea $p$ primo y $n\geq 2$, entonces $\faktor{\Z}{p\Z}$ es simple en $\faktor{\Z}{p^n\Z}$, sin embrgo es el único simple, pues
+si $M\leq \faktor{\Z}{p^n\Z}$ es simple, entonces $M=\faktor{\Z}{p^k\Z}$ y esto pasa sólo si $p^k$  es primo, es decir, si $k=1$.
+Por lo tanto \\$Soc\left(\faktor{\Z}{p^n\Z}\right)=\faktor{\Z}{p\Z}$.\\
+\boxed{d)}\\
+Sea $n=p_1^{m_1}\ldots p_k^{m_k}$ su descomposición en primos.\\
+Como $n\Z=p_1^{m_1}\ldots p_k^{m_k}\Z$ entonces $\faktor{\Z}{n\Z}=\faktor{\Z}{p_1^{m_1}\ldots p_k^{m_k}\Z}$, en particular 
+$\faktor{\Z}{p_j\Z}\leq \faktor{\Z}{n\Z}$ es simple para toda $j\in \{1,\ldots , k\}$, pues $p_j\Z\geq n\Z$.\\
+Por otra parte si $M$ es simple en $\faktor{\Z}{n\Z}$, entonces $M=\faktor{\Z}{p\Z}$ para algún $p$ primo y $p\Z\geq n\Z$, por lo que $p|n$
+es decir, existe $j\in \{1,\ldots , k\}$ tal que $p|p_j^{m_j}$, entonces $p=p_j$ y así $M=\faktor{\Z}{p_j\Z}$ para algún  $j\in \{1,\ldots , k\}$.
+Por lo tanto, como $p_j\Z\geq n\Z$ para toda $j\in \{1,\ldots , k\}$,
+\[ Soc\left(\faktor{\Z}{n\Z}\right)\cong \displaystyle\sum_{i\leq k}
+\faktor{\Z}{p_j\Z}=\displaystyle\bigoplus_{j\leq k}\faktor{\Z}{p_j\Z}\cong \faktor{\Z}{(p_1\ldots p_k)\Z}.\]
+\end{proof}
+
+\item
+\item
+\item Para un anillo $R$ y $M\in Mod(R)$, pruebe que 
+\begin{itemize}
+\item[a)] $ann_R(M)\unlhd R$.
+\item[b)] $M$ es un $\left(\faktor{R}{ann_R(M)}\right)$-módulo fiel.
+\item[c)] $\forall f\in \operatorname{Hom}_R(R,M)$,\quad $ann_R(M)\leq Ker(f)$.
+\item[d)] $\forall N\in Mod(R)$,\quad $N\cong M\Longrightarrow ann_R(M)=ann_R(N)$.
+\end{itemize}
+\begin{proof}
+\boxed{a)}\\
+$ann_R(M)=\{r\in R\,|\,r\cdot m=0\,\,\forall m\in M\}$.\\
+Sean $r,s\in ann_R(M)$, entonces $(r+s)\cdot m=r\cdot m+s\cdot m=0$ por lo que $(r+s)\in ann_R(M)$.\\
+
+Ahora, si $a\in R$, $(zr)\cdot m=z\cdot(r\cdot m)=z\cdot 0=0$. Por lo tanto $ann_R(M)\unlhd R$.\\
+\boxed{b)}\\
+$\displaystyle ann_{\faktor{R}{ann_R(M)}}(M)=\{r\in \faktor{R}{ann_R(M)}\,|\, [r]\cdot m=0\}$ con $[r]$ denotando la clase de $r\in R$ bajo la
+relación de equivalencia. Ahora, como $[r]\cdot m=0,$ entonces 
+\[0=(r+ann_R(M))\cdot m=r\cdot m+0,\]
+y así $r\in ann_R(M)$, es decir, $[r]=0$. Por lo tanto $M$ es un \\ $\faktor{R}{ann_R(M)}$-módulo fiel.\\
+\boxed{c)}\\
+Sean $f\in\operatorname{Hom}_R(R,M)$ y $r\in ann_R(M)$, entonces $r\cdot m=0\,\,\forall m\in M$ así, como $f$ es morfismo
+$f(r)=r\cdot f(1)=0$ pues $f(1)\in M$. Por lo tanto $ann_R(M)\leq Ker(f)$.\\
+\boxed{d)}\\
+Sea $N\in Mod(R)$ tal que existe $h\in \operatorname{Hom}_R(M,N)$ isomorfismo. Entonces para cada $n\in N$ existe un único $m\in M$
+tal que $h(m)=n$, así 
+\begin{align*}
+r\in ann_R(M) &\iff r\cdot m=0\,\,\,\forall m\in M\\
+&\iff h(r\cdot m)=0\,\,\,\forall m\in M\\
+&\iff r\cdot h(m)=0\,\,\,\forall m\in M\\
+&\iff r\cdot n=0\,\,\,\forall n\in N\\
+& \iff r\in ann_R(N).
+\end{align*}
+\end{proof}
+\item
+\item
+\item Sea $\Lambda$ una $R$-álgebra de Artin. Pruebe que, $\forall M\in mod(\Lambda)$ se tiene que: 
+\begin{itemize}
+\item[a)] $M$ es inescindible $\iff$ $D_\Lambda(M)$ es inescindible.
+\item[b)] $M$ es simple $\iff D_\Lambda(M)$ es simple.
+\item[c)] $I_0(D_\Lambda(M))\in mod(\Lambda^{op})$.
+\item[d)] $I_0(M)\in mod(\Lambda)$.
+\item[e)] $l_{\Lambda^{op}}(D_\Lambda(M))=l_\Lambda(M).$
+\end{itemize}
+\begin{proof}
+\boxed{a)}\\
+Supongamos $M\neq 0$ es inescindible y supongamos además que\\ $D_\Lambda(M))=D_1\oplus D_2$. Como $D_\Lambda$ y 
+$D_{\Lambda^{op}}$ son equivalencias de categorías y $D_\Lambda(M)=D_1\oplus D_2$, entonces 
+\[M=D_{\Lambda^{op}}(D_1\oplus D_2)=D_{\Lambda^{op}}(D_1)\oplus D_{\Lambda^{op}}(D_2).\]
+Pero $M$ es inescindible, entonces $D_{\Lambda^{op}}(D_1)=0$ o  $D_{\Lambda^{op}}(D_2)=0$, así $D_1=0$ o $D_2=0$, por lo que
+$D_\Lambda(M)$ es inescindible.\\
+
+Si $D_\Lambda(M)$ es inescindible y $M=M_1\oplus M_2$, entonces 
+\[M=D_{\Lambda^{op}}(M_1\oplus M_2)=D_{\Lambda^{op}}(M_1)\oplus D_{\Lambda^{op}}(M_2),\]
+y como $D_{\Lambda}(M)$ es inescindible entonces $D_{\Lambda^{op}}(M_1)=0$ o $D_{\Lambda^{op}}(M_2)=0$ por lo tanto 
+$M_1=0$ o $M_2=0$ lo cual implica que $M$  es inescindible.\\
+\boxed{b)}\\
+Como $D_\Lambda$ y $D_{\Lambda^{op}}$ son equivalencias de categorías, a todo submódulo propio de $K$ de $M$ le corresponde 
+un submódulo propio $S$ de $D_\Lambda(M)$, así
+\begin{align*}
+D_\Lambda\,\,\text{es simple}\,\,&\iff \forall K\lneq D_\Lambda (M)\,\,\,K=0\\
+&\iff  S=D_{\Lambda^{op}}(K)\lneq  M\cong D_{\Lambda^{op}}(D_\Lambda (M))\quad K=0=S\\
+&\iff \forall S\lneq M\quad S=0\\
+&\iff M \text{\,\,\,es simple.}
+\end{align*}
+\boxed{d)}\\
+Como $M\in mod(\Lambda)$ y como $\Lambda$ es un $R$-álgebra de artín, $M=\displaystyle\coprod_{i=1}^nRx_i$ con $x_i\in M$. Entonces,
+aplicando 3.3.5, $I_0(M)\cong\displaystyle\coprod_{i=1}^nI_0(Rx_i)$, es decir, $I_0(M)\in mod(\Lambda)$.\\
+\boxed{c)}\\
+Como $D_\Lambda(M)\in \Lambda^{op}$, entonces aplicando c) en  $D_\Lambda(M)$ se tiene el resultado.\\
+\boxed{e}\\
+Como $\Lambda$ es una $R$-álgebra de artín, $D_\Lambda(M)$ y $M$ son artinianos y finitamente generados, por lo que ambos son de 
+longitud finita. Sea $F$ una serie generalizada de composición de $M$ con longitud mínima, entonces tomaremos por $D_\Lambda(F)$ como
+la filtración resultante de aplicar $D_\Lambda$ a cada terimino de $F$. \\
+Observamos que $D_\Lambda(F_i)\leq D_\Lambda(F_{i-1})$ para toda $0\leq i\leq l(M)$ y además por ser equivalencia de categorias
+$\faktor{D_\Lambda(F_i)}{D_\Lambda\left(F_{i-1}\right)}\cong D_\Lambda\left(\faktor{F_i}{F_{i-1}}\right)$ que es simple por b), así 
+$D_\Lambda(F)$ es una serie generalizada de descomposición de longitud $l(M)$.\\
+
+Análogamente $D_{\Lambda^{op}}(G)$ con $G$ una serie generalizada de composición de $D_\Lambda(M)$ define una serie generalizada de 
+composición de longitud $l(D_{\Lambda^{op}}(G))$ en $M$, por lo que  $l_{\Lambda^{op}}(D_\Lambda(M))=l_\Lambda(M).$
+
+\end{proof}
+
+\item
+\item
+\item 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+\end{document}
