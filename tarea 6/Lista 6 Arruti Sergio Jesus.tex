@@ -1,0 +1,774 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage[spanish,es-lcroman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath,stackengine,scalerel,mathtools}
+\usepackage{xparse, tikz-cd, pgfplots}
+\usepackage{faktor}
+\usepackage{xstring}
+\usepackage[all]{xy}
+
+\include{Comandos Anillos Artin}
+\title{Lista 6}
+\author{Arruti, Sergio, Jesús}
+\date{}
+
+\usepackage{comment}
+\usepackage{eufrak}
+\usepackage{nicefrac}
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}[label=\textbf{Ej \arabic*.}]
+		\setcounter{enumi}{78}
+		%%%%% Ej.79 %%%%%
+		\item Para una $R$-álgebra de Artin $\Lambda$, vía $\varphi : R \longrightarrow \Lambda$, pruebe que:
+		\begin{itemize}
+			\item[a)] $\Lambda$ es un anillo artiniano.
+			\item[b)] $\ringcenter{\Lambda}$ es un anillo conmutativo artiniano.
+			\item[c)] $\Lambda$ es una $\ringcenter{\Lambda}$-álgebra de Artin, vía la inclusión $\ringcenter{\Lambda}\hookrightarrow\Lambda$.
+			\item[d)] $\opst{\Lambda}$ es un $R$-álgebra de Artin, vía la composición de morfismo de anillos $R \longrightarrow Im\lrprth{\varphi}\hookrightarrow\ringcenter{\Lambda}\hookrightarrow\opst{\Lambda}$.
+			\item[e)] Para todo $M \in Mod\lrprth{\Lambda}$, por cambio de anillos $\varphi : R \longrightarrow \Lambda$, se tiene que $M \in {}_{\Lambda - R}Mod \cap {}_{R}Mod_{R}$. Más aún, $Mod\lrprth{\Lambda}$ es una subcategoría de $Mod\lrprth{R}$.
+		\end{itemize}
+		\begin{proof}
+			$\boxed{\text{a)}}$ En virtud de que $\Lambda \in mod\lrprth{R}$, existen $n\in\mathbb{N}$ y $\varepsilon:R^{n}\longrightarrow\Lambda$ un epimorfismo. Adicionalmente, como $R$ es artiniano, tenemos que $R^{n}$ es artiniano. Entonces $\Lambda$ es artiniano como $R$-módulo.\\
+			$\therefore\Lambda$ es artiniano como anillo.\\
+			
+			$\boxed{\text{b)}}$ Se deduce del inciso anterior, de la inclusión $\ringcenter{\Lambda}\hookrightarrow\Lambda$ y de que la familia de anillos artinianos es cerrada bajo subobjetos.\\
+			$\therefore\ringcenter{\Lambda}$ es conmutativo artiniano.\\
+			
+			$\boxed{\text{c)}}$ Primero, por el inciso anterior, $\ringcenter{\Lambda}$ es un anillo artiniano. Además, dado que $\Lambda \in mod\lrprth{R}$, existe $n\in\mathbb{N}$ tal que $R^{n}\longrightarrow\Lambda$ es epimorfismo. También, como $Im\lrprth{\varphi}\subseteq\ringcenter{\Lambda}$, podemos restringirnos a $\ringcenter{\Lambda}^{n}\longrightarrow\Lambda$ de tal manera que éste es un epimorfismo. Luego, $\Lambda \in mod\lrprth{\ringcenter{\Lambda}}$.\\
+			$\therefore\Lambda$ es un $\ringcenter{\Lambda}$-álgebra de Artin.\\
+			
+			$\boxed{\text{d)}}$ Por la propia definición de álgebra de Artin, $R$ es anillo artiniano. Además, como $\Lambda \in mod\lrprth{R}$, existen $n\in\mathbb{N}$ y $\varepsilon:R^{n}\longrightarrow\Lambda$ un epimorfismo. Este epimorfismo y la composición $R \longrightarrow Im\lrprth{\varphi}\hookrightarrow\ringcenter{\Lambda}\hookrightarrow\opst{\Lambda}$ inducen un epimorfismo $\opst{\varepsilon}:R^{n}\longrightarrow\opst{\Lambda}$.\\
+			$\therefore\opst{\Lambda}$ es un álgebra de Artin.\\
+			
+			$\boxed{\text{e)}}$ Dado que $\Lambda$ es un $R$-álgebra de Artin vía $\varphi : R \longrightarrow \Lambda$, podemos definir la acción
+			\begin{align*}
+				\descapp{*}{R \times M}{M}{\lrprth{r,m}}{r*m=\varphi\lrprth{r}m}{}
+			\end{align*}
+			de tal forma que $M$ es un $R$-módulo a izquierda. En efecto:
+			\begin{itemize}
+				\item[1.-] Sean $r,s \in R$ y $m \in M$. Entonces
+				\begin{align*}
+					(r+s)*m&=\varphi\lrprth{r+s}m\\
+					&=[\varphi\lrprth{r}+\varphi\lrprth{s}]m\\
+					&=\varphi\lrprth{r}m+\varphi\lrprth{s}m\\
+					&=r*m+s*m
+				\end{align*}
+				\item[2.-] Sean $r \in R$ y $m,x \in M$. Entonces
+				\begin{align*}
+					r*(m+x)&=\varphi\lrprth{r}\lrprth{m+x}\\
+					&=\varphi\lrprth{r}m+\varphi\lrprth{r}x\\
+					&=r*m+r*x
+				\end{align*}
+				\item[3.-] Sean $r,s \in R$ y $m \in M$. Entonces
+				\begin{align*}
+					\lrprth{rs}*m&=\varphi\lrprth{rs}m\\
+					&=[\varphi\lrprth{r}\varphi\lrprth{s}]m\\
+					&=\varphi\lrprth{r}[\varphi\lrprth{s}m]\\
+					&=r*[\varphi\lrprth{s}m]\\
+					&=r*\lrprth{s*m}
+				\end{align*}
+				\item[4.-] Finalmente, sea $m \in M$. Entonces
+				\begin{align*}
+					1_{R}*m=\varphi\lrprth{1_{R}}m=1_{\Lambda}m=m
+				\end{align*}
+			\end{itemize}
+			Por lo que $M$ es un $\Lambda$-módulo a izquierda.\\
+			
+			Por otro lado, dado que $Im\lrprth{\varphi}\subseteq\ringcenter{\Lambda}$, podemos definir sobre $M$ una acción 
+			\begin{align*}
+				\descapp{*}{M \times R}{M}{\lrprth{m,r}}{m*r=\varphi\lrprth{r}m}{}
+			\end{align*}
+			Más aún, bajo esta acción, heredada por la acción de $\Lambda$, $M$ es un $R$-módulo a izquierda, del cuál bastará probar la propiedad: $m*\lrprth{rs}=\lrprth{m*r}*s,\ \forall r,s,m$. En efecto, si $r,s \in R$, $m \in M$, entonces
+			\begin{align*}
+				m*\lrprth{rs}&=\varphi\lrprth{rs}m\\
+				&=\varphi\lrprth{r}\varphi\lrprth{s}m\\
+				&=\varphi\lrprth{s}\varphi\lrprth{r}m\\
+				&=[\varphi\lrprth{r}m]*s\\
+				&=\lrprth{m*r}*s
+			\end{align*}
+			Por consiguiente, $M \in {}_{\Lambda - R}Mod \cap {}_{R}Mod_{R}$.\\
+			
+			Por último, mediante el funtor de cambio de anillos
+			\begin{align*}
+				F_{\varphi}:Mod\lrprth{\Lambda}\longrightarrow Mod\lrprth{R}
+			\end{align*}
+			tenemos que todo $\Lambda$-módulo a izquierda es un $R$-módulo a izquierda y todo morfismo de $\Lambda$-módulos es, a su vez, un morfismo de $R$-módulos.\\
+			$\therefore Mod\lrprth{\Lambda}$ es una subcategoría de $Mod\lrprth{R}$.
+		\end{proof}
+		
+		%%%% Ej.80 %%%%%
+		\item Sea $\Lambda$ una $R$-Álgebra de Artín y 
+		\begin{tikzcd}
+			0\arrow{r}{} & A\arrow{r}{f} &B\arrow{r}{g}& C\arrow{r}{}& 0
+		\end{tikzcd}
+		
+		una sucesión exacta en $Mod(\Lambda)$ (respectivamente en $mod(\Lambda)$). Pruebe que $\forall X\in Mod(\Lambda)$ (respectivamente 
+		$\forall X\in mod(\Lambda)$), se tienen las siguientes sucesiones exactas en $Mod(R)$ (respectivamente en $mod(R)$).
+		
+		a)
+		\[\begin{tikzcd}
+			0\arrow{r}{} & \operatorname{Hom}_\Lambda(X,A)\arrow{r}{f_*} & \operatorname{Hom}_\Lambda(X,B)\arrow{r}{g_*}&
+			\operatorname{Hom}_\Lambda(X,C)\arrow{r}{}& 0.
+		\end{tikzcd}
+		\]
+		b)
+		\[\begin{tikzcd}
+			0\arrow{r}{} & \operatorname{Hom}_\Lambda(C,X)\arrow{r}{g^*} & \operatorname{Hom}_\Lambda(B,X)\arrow{r}{f^*}&
+			\operatorname{Hom}_\Lambda(A,X)\arrow{r}{}& 0.
+		\end{tikzcd}
+		\]
+		donde 
+		\begin{align*}
+			f_*= \operatorname{Hom}_\Lambda(X,f)\,,\quad
+			f^*= \operatorname{Hom}_\Lambda(f,X)\\
+			g_*= \operatorname{Hom}_\Lambda(X,g)\quad \text{y}\quad
+			g^*= \operatorname{Hom}_\Lambda(g,X)
+		\end{align*}
+		\begin{proof}
+			Como $\Lambda$ es una $R$-Álgebra de Artín, entonces por el ejercicio 79 $\Lambda$ es un anillo artiniano, así 
+			$ \operatorname{Hom}_\Lambda(X,\bullet)$ es un funtor exacto covariante y $ \operatorname{Hom}_\Lambda(\bullet,X)$ es un 
+			funtor exacto contravariante. Por esto se tiene que las sucesiones a) y b) son exactas en $Mod(\Lambda)$, y por 3.1.1 se tiene que para todo 
+			$J,K\in Mod(\Lambda),\,\,\, \operatorname{Hom}_\Lambda(J,K)$ es un $R$-submódulo de $ \operatorname{Hom}_R(J,K)$. Así a) y b)
+			son sucesiones exactas en $Mod(R)$.\\
+			
+			Por otra parte si nuestra sucesión es exacta en $mod(\Lambda)$ y $X\in mod(\Lambda)$, por la proposición 3.1.3 y lo anterior, las sucesiones
+			exactas a) y b) estarán compuestas por $R$-módulos finitamente generados, por lo que a) y b) son sucesiones exactas en $mod(R)$.
+		\end{proof}
+		
+		%%%% Ej.81 %%%%%
+		\item Sean $R$ un anillo conmutativo artiniano, $\mathcal{C}$ una categoría tal que $Obj\lrprth{\mathcal{C}}=\lrprth{*}$ y $\circ$ la composición en $Hom\lrprth{\mathcal{C}}$. Entonces
+		\begin{enumerate}
+			\item $\mathcal{C}$ es una $R$-categoría $\iff$ $End_{\mathcal{C}}\lrbrack{*}$, con $\circ$ como producto, es una $R$-álgebra;
+			\item $\mathcal{C}$ es una $R$-categoría $Hom$-finita $\iff$ $End_{\mathcal{C}}\lrbrack{*}$, con $\circ$ como producto, $End_{\mathcal{C}}\lrbrack{*}$, con $\circ$ como producto, es una $R$-álgebra de Artin.
+		\end{enumerate}
+		\begin{proof}
+			Sea $S:=End_{\mathcal{C}}\lrbrack{*}$.\\
+			\boxed{a)\implies} Dado que $Obj\lrprth{\mathcal{C}}=\lrprth{*}$ entonces el que $\mathcal{C}$ sea una $R$-categoría es equivalente a:
+			\begin{enumerate}[label=\roman*)]
+				\item $S\in Mod\lrprth{R}$,
+				\item La operación $\circ$ es $R$-bilineal en $S$.
+			\end{enumerate} 
+			Notemos que de i) se sigue que $\exists\ \bullet:R\times S\to S$ una acción que hace de $S$ un $R$-módulo, y así en partícular existe una operación $+$ tal que $\lrprth{End_{\mathcal{C}}\lrbrack{*},+}$ es un grupo abeliano. De ii) se sigue que en partícular $\circ$ se distribuye con respecto a $+$ (es $\mathbb{Z}$-bilinieal). Dado que $S$ posee identidad con respecto a $\circ$, $Id_{\lrbrack{*}}$, y $\circ$ es asociativa se sigue que $S$ posee estructura de anillo con $+$ como suma y $\circ$ como producto.\\
+			Notemos que ii) también garantiza que si $r\in R$ y $f,g\in S$, entonces
+			\begin{align*}
+				\lrprth{r\bullet f}\circ g=r\bullet\lrprth{f\circ g}=f\circ\lrprth{r\bullet g},
+			\end{align*}
+			de modo que $\bullet$ es una acción compatible del anillo conmutativo $R$ sobre $S$. Luego, por el Ej. 4, $\bullet$ permite inducir un morfismo de anillos 
+			\begin{align*}
+				\descapp{\varphi_\bullet}{R}{S}{r}{r\bullet Id_{*}}{}
+			\end{align*}
+			por medio del cual $\lrprth{S,+,\circ}$ es una $R$-álgebra.\\
+			\boxed{a)\impliedby} Supongamos que $S$, con $\circ$ como producto, es una $R$-álgebra por medio del morfismo $\varphi$. Entonces necesariamente $\exists$  $+$ operación en $S$ tal que $S:=\lrprth{End_{\mathcal{C}}\lrbrack{*},+,\circ}$ es un anillo y, por el Ej. 3, $\varphi$ induce una acción compatible del anillo conmutativo $R$ en $S$, $\bullet_\varphi$. Notemos que las propiedades de las acciones compatibles garantizan que por medio de $\bullet_\varphi$ $S\in Mod\lrprth{R}$ y que, si $r\in R$ y $f,g,h\in S$
+			\begin{align*}
+				\lrprth{r\bullet_\varphi f+g}\circ h&=\lrprth{r\bullet_\varphi f}\circ h+g\circ h=r\bullet_\varphi\lrprth{f\circ h}+ g\circ h,\\
+				f\circ\lrprth{r\bullet_\varphi g+ h}&=f\circ\lrprth{r\bullet_\varphi g}+ f\circ h=r\bullet_\varphi\lrprth{f\circ h}+ f\circ h.
+			\end{align*}
+			Con lo cual se satisfacen las condiciones i) y ii) enunciadas en la demostración de la necesidad, y por lo tanto $\mathcal{C}$ es una $R$-categoría.
+			\begin{obs}
+				Notemos que tanto en la necesidad como en la suficiencia de lo previamente demostrado $S$ posee una estructura de anillo, por medio de la cual puede obtener una estructura natural de $S$-módulo. Más aún, por el Ej. 5, la estructura que posee $S$ cómo $R$-módulo  coincide con aquella que se puede obtener aplicando un cambio de anillos $\gamma:R\to S$ a $\ringmod{S}{S}{l}$  ($\gamma=\varphi_\bullet$ en la necesidad y $\gamma=\varphi$ en la suficiencia).
+			\end{obs}
+			\boxed{b)} Como $R$ es artiniano, por el Teorema 2.7.15$a)$ se tiene que
+			\begin{align*}
+				S\in f.l.\lrprth{R}\iff S&\in mod\lrprth{R}.
+			\end{align*}
+			De lo anterior, el inciso $a)$ y la Observación, se tiene lo deseado.\\			
+		\end{proof}
+		%%%% Ej.82 %%%%%
+		\item Sea $R$ un anillo y $f:M \longrightarrow N$ en $Mod\lrprth{R}$. Considere $\overline{f}$ la factorización de $f$ a través de su imagen. Pruebe que $\overline{f}:M \longrightarrow Im\lrprth{f}$ es minimal a derecha si y sólo si $f$ es minimal a derecha.
+		\begin{proof}
+			$\boxed{\Rightarrow )}$ Sea $g \in Hom\lrprth{\overline{f},\overline{f}}$. Entonces $g \in End_{R}\lrprth{M}$ y $\overline{f}g=\overline{f}$. Sin embargo, $Dom\lrprth{f}=Dom\lrprth{\overline{f}}=M$ y $\overline{f}=f\mid^{Im\lrprth{f}}$. Luego, $fg=f$, y así $g \in Hom\lrprth{f,f}$. En virtud de que $f$ es minimal a derecha, $g$ es un isomorfismo. $\therefore\overline{f}$ es minimal a derecha.\\
+			
+			$\boxed{\Leftarrow )}$ Sea $g \in Hom\lrprth{f,f}$. En consecuencia, $g \in End_{R}\lrprth{M}$ y $fg=f$. Por consiguiente, $\overline{f}g=f\mid^{Im\lrprth{f}}g=f\mid^{Im\lrprth{f}}=\overline{f}$. Lo cual implica que $g \in Hom\lrprth{\overline{f},\overline{f}}$. Más aún, $g$ es un isomorfismo, toda vez que $\overline{f}$ es minimal a derecha. $\therefore f$ es minimal a derecha.
+		\end{proof}
+		
+		%%%% Ej.83 %%%%%
+		\item Pruebe que para un anillo artiniano a izquierda $R$, se tiene que\\ $mod(\prescript{}{R}{R})=mod(R)$
+		\begin{proof}
+			Por definición $mod(\prescript{}{R}{R})$ es la subcategoría plena de $mod(R)$ cuyos objetos son los $A\in mod(R)$ tales que existe una 
+			sucesión exacta 
+			\begin{tikzcd}
+				P_1\arrow{r}{}&P_0\arrow{r}{}&A\arrow{r}{}&0
+			\end{tikzcd}
+			en $mod(R)$ con $P_1,P_0\in add(R)$.\\
+			
+			Como $mod(\prescript{}{R}{R})$ es subcategoría plena de $mod(R)$, basta ver que si\\ $M\in mod(R)$, entonces $M\in mod(\prescript{}{R}{R})$.\\
+			Sea $M\in mod(R)$ entonces $M=\displaystyle\bigoplus_{m\in A}Rm$ con $A\subset M$ finito, así, considerando $|A|=n$, se tiene
+			la sucesión exacta 
+			\[
+			\begin{tikzcd}
+				A_1\oplus A_2\oplus M\arrow{r}{\pi_1}& A_2\oplus M\arrow{r}{\pi_2}&M\arrow{r}{}&0.
+			\end{tikzcd}
+			\]
+			Donde $A_1\cong A_2\cong R$ y $\pi_1,\pi_2$ son proyecciones canonicas, en particular $A_1$ y $A_2$ son objetos en $add(R)$ pues 
+			$A_1\coprod A_2\cong R\coprod R=R^2$, así $M\in mod(\prescript{}{R}{R})$. \\
+		\end{proof}
+		
+		%%%% Ej.84 %%%%%
+		\item Sean $R$ un anillo y \begin{equation*}\tag{*}\label{exact}
+			\shortseq{A=M_1,B=M_0,C=M, AtoB=f, BtoC=g,lcr=r,}
+		\end{equation*} una sucesión exacta en $Mod(R)$. Entonces, $\forall\ N\in Mod\lrprth{R}$
+		\begin{equation*}\tag{**}\label{cfexact}
+			\shortseq{A=\functhom{M}{N}{R},B=\functhom{M_0}{N}{R},C=\functhom{M_1}{N}{R}, AtoB=\lrprth{g,N}, BtoC=\lrprth{f,N},lcr=l,}
+		\end{equation*}
+		es una sucesión exacta de grupos abelianos.
+		\begin{proof}
+			Sea $N\in Mod\lrprth{R}$. Notemos que (\ref{cfexact}) se obtiene de aplicar el funtor contravariante $F_N:=\functhom{}{N}{R}$ a (\ref{exact}). Bajo esta notación se tiene $(g,N)=F_N\lrprth{g}$ y $\lrprth{f,N}=F_N\lrprth{f}$. Como $Mod\lrprth{R}$ es una categoría preaditiva entonces (\ref{cfexact}) es una sucesión en $Ab$ (ver Ej. 60) y por tanto únicamente resta verificar que 
+			\begin{enumerate}
+				\item $F_N\lrprth{g}$ es un monomorfismo (de grupos abelianos),
+				\item $Im\lrprth{F_N\lrprth{g}}=Ker\lrprth{F_N\lrprth{f}}$.
+			\end{enumerate}
+			\boxed{a)} Sean $\alpha,\beta\in F_N\lrprth{M}$ tales que $F_N\lrprth{g}\lrprth{\alpha}=F_N\lrprth{g}\lrprth{\beta}$, entonces 
+			$\alpha g=\beta g$. Dado que $g$ es en partícular sobre por ser (\ref{exact}) exacta, entonces esta es invertible por la derecha, lo cual aplicado a la igualdad anterior garantiza que $\alpha=\beta$. \\
+			\boxed{b)} Sea $\alpha\in F_N\lrprth{M}$, entonces 
+			\begin{align*}
+				F_N\lrprth{f}\circ F_N\lrprth{g}\lrprth{\alpha}&=\alpha\circ\lrprth{gf}\\
+				&=\alpha\circ\lrprth{0}, && (\ref{exact})\text{ es exacta}\\
+				&=0,\\
+				\implies F_N\lrprth{f}\circ F_N\lrprth{g}&=0,\\
+				\implies Im\lrprth{F_N\lrprth{g}}&\subseteq Ker\lrprth{F_N\lrprth{f}}.
+			\end{align*}
+			Verifiquemos ahora que $Ker\lrprth{F_N\lrprth{f}}\subseteq Im\lrprth{F_N\lrprth{g}}$, esto es que si $\nu\in F_N\lrprth{M_0}$ es tal que $F_N\lrprth{f}\lrprth{\nu}=0$, entonces $\exists\ \mu\in F_N\lrprth{M}$ tal que $\nu=F_N\lrprth{g}\lrprth{\mu}$. Lo anterior es equivalente a verificar que si $\nu\in\functhom{M_0}{N}{R}$ es tal que \begin{equation*}\tag{I}\label{kernelement}
+				\nu f=0,
+			\end{equation*} entonces el siguiente diagrama conmuta
+			\begin{center}
+				\begin{tikzcd}
+					& N\\
+					M_0\ar{ur}{\nu}\ar{r}[swap]{g}&M\ar[dashrightarrow]{u}[swap]{\exists\ \mu}
+				\end{tikzcd}
+			\end{center}			
+			Notemos primeramente que si $a,b\in M$ son tales que $a-b\in Im\lrprth{f}$, entonces $\exists\ c\in M_1$ tal que
+			\begin{align*}
+				a-b&=f\lrprth{c}\\
+				\implies \nu\lrprth{a-b}&=\nu f \lrprth{c}=0, && (\text{\ref{kernelement}})\\
+				\implies \nu\lrprth{a}&=\nu\lrprth{b}.
+			\end{align*} 
+			Por lo tanto la correspondencia
+			\begin{align*}
+				\descapp{\overline{\nu}}{\faktor{M_0}{Im\lrprth{f}}}{M}{a+Im\lrprth{f}}{\nu\lrprth{a}}{}
+			\end{align*}
+			es una función bien definida y más aún es un morfismo de $R$-módulos, pues $\nu$ lo es.\\
+			Por otra parte, dado que $g$ es epi en $Mod(R)$ por el Primer Teorema de Isomorfisomos para $R$-módulos se tiene que la función
+			\begin{align*}
+				\descapp{\overline{g}}{\faktor{M_0}{Ker\lrprth{g}}}{M}{x+Ker\lrprth{g}}{g(x)}{}
+				\intertext{es un isomorfismo en $Mod(R)$, con inversa}
+				\descapp{\overline{g}^{-1}}{M}{\faktor{M_0}{Ker\lrprth{g}}}{g(x)}{x+Ker\lrprth{g}}{.}
+			\end{align*} 
+			Dado que $Im\lrprth{f}=Ker\lrprth{g}$ por ser (\ref{exact}) exacta, se tiene que 
+			\begin{align*}
+				\faktor{M_0}{Ker\lrprth{g}}&=\faktor{M_0}{Im\lrprth{f}}
+				\intertext{y así si $m\in M_0$ y $\mu:=\overline{\nu}\circ\overline{g}^{-1}$, entonces}
+				\mu g\lrprth{m}&=\overline{\nu}\lrprth{m+Ker\lrprth{g}}=\overline{\nu}\lrprth{m+Im\lrprth{f}}\\
+				&=\nu\lrprth{m}.\\
+				\therefore\ \mu g=\nu.
+			\end{align*}
+		\end{proof}
+		
+		%%%% Ej.85 %%%%%
+		\item Sean $\Lambda$ un álgebra de Artin, $P\in\mathcal{P}\lrprth{\Lambda}$, $\Gamma = \opst{End\lrprth{_{\Lambda}P}}$ y el funtor de evaluación
+		\begin{align*}
+			e_{P}:mod\lrprth{\Lambda}\longrightarrow mod\lrprth{\Gamma}
+		\end{align*}
+		Pruebe que si
+		\begin{align*}
+			P_{0} \longrightarrow P_{1} \longrightarrow X \longrightarrow 0
+		\end{align*}
+		es una presentación en $add\lrprth{P}$ de $X \in mod\lrprth{\Lambda}$, entonces 
+		\begin{align*}
+			e_{P}\lrprth{P_{0}} \longrightarrow e_{P}\lrprth{P_{1}} \longrightarrow e_{P}\lrprth{X} \longrightarrow 0
+		\end{align*}
+		es una presentación proyectiva en $mod\lrprth{\Gamma}$ de $e_{P}\lrprth{X}$.
+		\begin{proof}
+			Sea	$P_{0} \longrightarrow P_{1} \longrightarrow X \longrightarrow 0$ una presentación en $add\lrprth{P}$ de $X$. Como $P\in\mathcal{P}\lrprth{\Lambda}$,  se tiene que $P \in mod\lrprth{\Lambda}$. Entonces, el teorema \textbf{3.2.2.b)}, $e_{P}\mid_{add\lrprth{P}}:add\lrprth{P}\longrightarrow\mathcal{P}\lrprth{\Gamma}$ es una $R$-equivalencia. De tal manera que, y usando el teorema \textbf{3.2.2.a)}, $e_{P}\lrprth{P_{0}},\ e_{P}\lrprth{P_{1}}$ son $\Gamma$-módulos proyectivos.\\
+			
+			Por otro lado, puesto que $P_{0} \longrightarrow P_{1} \longrightarrow X \longrightarrow 0$ es exacta y el funtor covariante $\ringmodhom{\Lambda}{\ringbimod{\Lambda}{\Gamma}{P}{lr}}{*}$ es exacto derecho en $mod\lrprth{\Lambda}$, entonces
+			\begin{align*}
+				e_{P}\lrprth{P_{0}} \longrightarrow e_{P}\lrprth{P_{1}} \longrightarrow e_{P}\lrprth{X} \longrightarrow 0
+			\end{align*}
+			es exacta.\\
+			$\therefore e_{P}\lrprth{P_{0}} \longrightarrow e_{P}\lrprth{P_{1}} \longrightarrow e_{P}\lrprth{X} \longrightarrow 0$ es una presentación proyectiva en $Mod\lrprth{\Gamma}$.
+		\end{proof}
+		
+		%%%% Ej.86 %%%%%
+		\item Para $\Lambda$ una $R$-álgebra de Artin, pruebe que:\\
+		$\Lambda$ es básica $\Leftrightarrow l_{\Lambda}\lrprth{top\lrprth{\Lambda}}=rkK_{0}\lrprth{\Lambda}$.
+		\begin{proof}
+			$\boxed{\Rightarrow )}$ Suponga que $\Lambda$ es básica. Sea $\Lambda=\displaystyle\coprod_{i=1}^{n}P_{i}$ una descomposición en proyectivos inescindibles, con $P_{i} \not\cong P_{j}$. Luego,
+			\begin{align*}
+				l_{\Lambda}\lrprth{top\lrprth{\Lambda}}&=l_{\Lambda}\lrprth{\displaystyle\coprod_{i=1}^{n}top\lrprth{P_{i}}}\\
+				&=\displaystyle\Sigma_{i=1}^{n}l_{\Lambda}\lrprth{top\lrprth{P_{i}}}
+			\end{align*}
+			
+			Además, como $\Lambda$ es f.g., se tiene que $P_{i}\in\mathcal{P}$. Ahora, por el \textbf{teorema 2.8.10.}, la colección $\{top\lrprth{P_{i}}\}_{i=1}^{n}$ es una familia completa de clases de isomorfismo de $\Lambda$-módulos simples. Así, $l_{\Lambda}\lrprth{top\lrprth{\Lambda}}=n$\\
+			
+			Por otro lado, en virtud del \textbf{teorema 2.3.1b)}, $K_{0}\lrprth{\Lambda}$ es un $\mathbb{Z}$-módulo con base $\{\pi\lrprth{top\lrprth{P_{i}}}\}_{i=1}^{n}$. De manera que $rkK_{0}\lrprth{\Lambda}=\crdnlty{\{\pi\lrprth{top\lrprth{P_{i}}}\}_{i=1}^{n}}=n$.\\
+			$\therefore l_{\Lambda}\lrprth{top\lrprth{\Lambda}}=rkK_{0}\lrprth{\Lambda}$.\\
+			
+			$\boxed{\Leftarrow )}$ Suponga que $l_{\Lambda}\lrprth{top\lrprth{\Lambda}}=rkK_{0}\lrprth{\Lambda}$. Sea $\Lambda=\displaystyle\coprod_{i=1}^{n}P_{i}^{m_{i}}$ una descomposición en proyectivos inescindibles, con $P_{i} \not\cong P_{j}$. Entonces
+			\begin{align*}
+				rkK_{0}\lrprth{\Lambda}&=l_{\Lambda}\lrprth{top\lrprth{\Lambda}}\\
+				&=l_{\Lambda}\lrprth{\displaystyle\coprod_{i=1}^{n}top\lrprth{P_{i}}^{m_{i}}}\\
+				&=l_{\Lambda}\lrprth{\displaystyle\coprod_{i=1}^{n}top\lrprth{P_{i}}}^{m_{i}}\\
+				&=\displaystyle\Sigma_{i=1}^{n}l_{\Lambda}\lrprth{top\lrprth{P_{i}}^{m_{i}}}\\
+				&=\displaystyle\Sigma_{i=1}^{n}\displaystyle\Sigma_{j=1}^{m_{i}}l_{\Lambda}\lrprth{top\lrprth{P_{i}}}\\
+				&=\displaystyle\Sigma_{i=1}^{n}m_{i}\\
+				&=m_{1}+...+m_{n}
+			\end{align*}
+			
+			Por otro lado, como $\{\pi\lrprth{top\lrprth{P_{i}}}\}_{i=1}^{n}$ es una base para $K_{0}\lrprth{\Lambda}$, se tiene que $rkK_{0}\lrprth{\Lambda}=n$. De esta manera, $n=m_{1}+...+m_{n}$. Ahora, como $\displaystyle\coprod_{i=1}^{n}P_{i}^{m_{i}}$ es una descomposición de $\Lambda$, entonces $m_{i} \geq 1$, para toda $i\in\lrbrack{1,...,n}$. Finalmente, dado que $m_{i}\in\mathbb{N}$, tenemos que $m_{1}=...=m_{n}=1$.\\
+			$\therefore\Lambda$ es básica.
+		\end{proof}
+		
+		%%%% Ej.87 %%%%%
+		\item Sean $f:M\to I$ y $f':M\to I'$ cubiertas inyectivas de $M\in Mod\lrprth{R}$. Entonces $\exists\ t:I\overset{\sim}{\to} I'$ en $Mod\lrprth{R}$ tal que $tf=f'$.
+		\begin{proof}
+			Se tiene el siguiente esquema
+			\begin{center}
+				\begin{tikzcd}					
+					M\ar{d}[swap]{f'}\ar{r}{f}&I\ar[dashrightarrow]{dl}{\exists\ t}\\
+					I'& 
+				\end{tikzcd}
+			\end{center}
+			con $I'$ inyectivo y $f$, en partícular, un monomorfismo en $Mod(R)$ por ser un mono-esencial. Por lo tanto $\exists\ t\in\functhom{I}{I'}{R}$ tal que \begin{equation*}
+				tf=f'.
+			\end{equation*} 
+			Como $f$ es un mono-esencial y $f'$ es en  partícular un monomorfismo en $Mod(R)$, de la igualdad anterior se sigue que $t$ es un monomorfismo en $Mod(R)$. Con lo cual, si $\pi$ es el epi canónico de $I'$ en $\faktor{I'}{Im\lrprth{t}}$, la sucesión
+			\begin{center}
+				\shortseq{
+					A=I, B=I', C=\faktor{I'}{Im\lrprth{t}}, AtoB=t, BtoC=\pi,
+				}
+			\end{center}
+			es exacta. De modo que es una sucesión exacta que se parte, puesto que $I$ es inyectivo (ver Ej. 65), con lo cual $t$ es un split-mono (ver Ej. 54) i.e. $\exists$ $t'\in\functhom{I'}{I}{R}$ tal que $t't=Id_I$. La igualdad anterior garantiza que $j$ es un split-epi. Además
+			\begin{align*}
+				tf=f'&\implies f=t'f',
+			\end{align*}
+			con lo cual $t'$ es un monomorfismo, pues $f$ lo es y $f'$ es un mono-esencial. Así $t'$ es un isomorfismo en $Mod(R)$ y por lo tanto $t=\lrprth{t'}^{-1}$ también lo es.\\
+		\end{proof}
+		
+		%%%% Ej.88 %%%%%
+		\item Sea $h:I_{1} \longrightarrow I_{2}$ un mono-esencial en $Mod\lrprth{R}$. Pruebe que si $I_{1}$ y $I_{2}$ son inyectivos, entonces $h$ es isomorfismo.
+		\begin{proof}
+			En virtud de que $I_{2}$ es inyectivo y $h$ es mono-esencial, $h$ es una envolvente inyectiva de $I_{1}$. Por otra parte, sea $f:I_{1} \longrightarrow I_{1}$ un isomorfismo. Entonces $f$ es minimal a izquierda. En efecto, sea $g \in Hom\lrprth{f,f}$. De esta forma, $g \in End_{R}\lrprth{I_{1}}$ y $gf=f$. Luego, $gf$ es un isomorfismo. Más aún, $g$ es un isomorfismo, puesto que $f$ lo es. Así, efectivamente, $f$ es minimal a izquierda; y por el \textbf{Lema 3.3.2}, $f$ es mono-esencial.\\
+			
+			En resumen, $h:I_{1} \longrightarrow I_{2}$ y $f:I_{1} \longrightarrow I_{1}$ son envolventes inyectivas de $I_{1}$. Por el ejercicio anterior, existe $g:I_{1} \longrightarrow I_{2}$ un isomorfismo en $Mod\lrprth{R}$ tal que $gf=h$. $\therefore h$ es isomorfismo.
+		\end{proof}
+		
+		%%%% Ej.89 %%%%%
+		\item 
+		Para un anillo $R$, pruebe que la correspondencia\\ $Soc:Mod(R)\longrightarrow Mod(R)$ donde\\
+		\xymatrix{
+			X\ar[dd]_f   &\,& Soc(X)   \ar[dd]^{Soc(f):=f|_{Soc(X)}}                \\
+			\,  \ar[rr] & \,       &                \\
+			Y &\,& Soc(Y)
+		}
+		
+		es un funtor aditivo que conmuta con productos arbitrarios y preserva monomorfismos.
+		\begin{proof}
+			Funtor aditivo:\\
+			Sean $f,g\in  \operatorname{Hom}_R(X,Y)$ con $X,Y\in Mod(R)$, entonces $f+g\in \operatorname{Hom}_R(X,Y)$ y 
+			\begin{tikzcd}
+				F(X\arrow{r}{f+g}&Y)=(Soc(X)\arrow{r}{(f+g)|_{Soc(X)}}& Soc(Y))
+			\end{tikzcd}
+			pero \[F(f+g)=(f+g)|_{Soc(X)}=f|_{Soc(X)}+g|_{Soc(X)}=F(f)+F(g),
+			\]
+			pues por 3.3.6 b), $f(Soc(X))\subset Soc(Y)$\quad y \quad $g(Soc(X))\subset Soc(Y).$\\
+			
+			Conmuta con coproductos arbitrarios:\\
+			
+			Basta mostrar que $\displaystyle\coprod_{i\in A}Soc(M_i)$ es el submódulo simple más grande contenido en $\displaystyle\coprod_{i\in A}M_i$.\\
+			Supongamos $N$ es semisimple en $\displaystyle\coprod_{i\in A}M_i$, entonces $N=\displaystyle\bigoplus_{j\in F}S_j$ donde $S_k$ es simple en
+			$\displaystyle\coprod_{i\in A}M_i$ para toda $k\in A$ y $F\neq \emptyset$.\\
+			
+			Como todo simple en $\displaystyle\coprod_{i\in A}M_i$ es de la forma $\displaystyle\coprod_{i\in A}S_i$ con $S_i\leq M_i$ simple o cero, 
+			entonces
+			\[
+			N=\bigoplus_{i\in F}\coprod_{j\in A}S_{ij}=\coprod_{j\in A}\bigoplus_{i\in F}S_{ij}\subset \coprod_{i\in A}Soc(M_i), 
+			\]
+			pues $Soc(M_i)$ es el submódulo semisimple mas grande contenido en $M_i$, por lo tanto 
+			$Soc(\displaystyle\coprod_{i\in A}M_i)=\displaystyle\coprod_{i\in A}Soc(M_i).$
+			
+		\end{proof}
+		
+		%%%% Ej.90 %%%%%
+		\item Sean $R$ un anillo y $M\in Mod(R)$. Entonces
+		\begin{enumerate}
+			\item $M$ es simple $\implies M$ es irreducible $\implies M$ es indescomponible;
+			\item $\mathbb{\ringmod{\mathbb{Z}}{\mathbb{Z}}{l}}$ es irreducible pero no simple;
+			\item $M$ es irreducible $\implies$ $Soc\lrprth{M}=\gengroup{0}$ ó $Soc\lrprth{M}$ es simple;
+			\item $M$ es semisimple $\iff$ $Soc\lrprth{M}=M$;
+			\item $Soc\lrprth{Soc\lrprth{M}}=Soc\lrprth{M}$.
+		\end{enumerate}
+		\begin{proof}
+			\boxed{a)} Supongamos que $M$ es simple. Entonces $M\neq\gengroup{0}$ y $\genlin{M}\setminus\lrbrack{\gengroup{0}}=\lrbrack{M}$, y, dado que la inclusión $i$ de $M$ en sí mismo es $Id_M$, así se tiene que si $X\in Mod(R)$ y $f\in\functhom{M}{X}{R}$, entonces
+			\begin{align*}
+				f\circ i\text{ es monomorfismo } \iff				f\text{ es monomorfismo }.
+			\end{align*}
+			i.e. $i$ es un mono-esencial y por lo tanto $M$ es irreducible.\\
+			
+			Supongamos ahora que $M$ es irreducible.  Sean $M_1, M_2\in\genlin{M}$ tales que $M=M_1\oplus M_2$ y supongamos, sin pérdida de generalidad que $M_1\neq\gengroup{0}$. Como $M_1$ es un sumando directo de $M$ entonces la inclusión $i$ de $M_1$ en $M$ es un split-mono (ver el Teorema 1.12.5), es decir, $\exists\ j\in\functhom{M}{M_1}{R}$ tal que \begin{equation*}\tag{*}\label{jessplitepi}
+				ji=Id_{M_1}.
+			\end{equation*} Como $i$ es un mono-esencial, por ser $M$ irreducible, y $Id_{M_1}$ es un monomorfismo, entonces $j$ es un monomorfismo y, por (\ref{jessplitepi}), un split-epi. De modo que $j$ es en partícular biyectiva y por lo tanto $i=j^{-1}$ también lo es. Así $M_1=M$ y
+			\begin{align*}
+				M_2&=M\cap M_2=M_1\cap M_2=\gengroup{0}.\\
+				&\therefore\ M\text{ es indescomponible.}
+			\end{align*}
+			\boxed{b)} Sea $M:=\ringmod{\mathbb{Z}}{\mathbb{Z}}{l}$. Dado que la estructura que posee $M$ como $\mathbb{Z}$-módulo viene dada por su multiplicación, la cual es conmutativa, entonces 
+			\begin{align*}
+				\genlin{M}&=\lrbrack{I\subseteq \mathbb{Z}\ \vline\ I\subnormeq \mathbb{Z}}\\
+				&=\lrbrack{n\mathbb{Z}\ \vline\ n\in\mathbb{N}}.
+				\intertext{Así}
+				\genlin{M}\setminus\lrbrack{\gengroup{0}}&=\lrbrack{n\mathbb{Z}\ \vline\ n\in\mathbb{N}\setminus\lrbrack{1}}.
+			\end{align*}
+			Sean $n,m\in\mathbb{N}$ con $n\neq 1$, $i$ la inclusión de $n\mathbb{Z}$ en $\mathbb{Z}$. Supongamos que $i^{-1}\lrprth{m\mathbb{Z}}=\gengroup{0}$, entonces
+			\begin{align*}
+				\gengroup{0}&=i^{-1}\lrprth{m\mathbb{Z}}=\lrbrack{a\in n\mathbb{Z}\ \vline\ i(a)\in m\mathbb{Z}}=n\mathbb{Z}\cap m\mathbb{Z}\\
+				&=mcm\lrprth{n,m}\mathbb{Z},\\
+				\implies 0&=mcm\lrprth{n,m}\\
+				\implies m=0, && n\neq 0
+			\end{align*}
+			Así $m\mathbb{Z}=\gengroup{0}$, de modo que por la Proposición 3.3.1 $i$ es un mono-esencial. Por lo tanto $M$ es irreducible.\\
+			Finalmente si $n\in\mathbb{N}\setminus\lrbrack{0,1}$, entonces $\gengroup{0}\subsetneq n\mathbb{Z}\subsetneq \mathbb{Z}$ y por tanto $M$ no es simple.\\
+			
+			\boxed{c)} Supongamos que $Soc\lrprth{M}\neq\gengroup{0}$, entonces $Simp\lrprth{M}\neq\varnothing$ y así sea $N\in\genlin{M}\neq\lrbrack{\gengroup{0}}$ simple. Como  $N\subseteq Soc\lrprth{M}$, pues $Soc\lrprth{M}$ está generado por $\bigcup Simp\lrprth{M}$, entonces si $i_N$ es la inclusión de $N$ en $M$, ${i_N}'$ la de $N$ en $Soc\lrprth{M}$ e $i_{\socle{M}}$ la de $Soc\lrprth{M}$ en $M$, se tiene la siguiente sucesión
+			\begin{equation*}
+				\shortseq{A=N, B=\socle{M},C=M, AtoB={i_N}', BtoC=i_{\socle{M}},lcr=c,},
+			\end{equation*} con $i_N=i_{\socle{M}}{i_N}'$. Por lo anterior, como $i_N$ es un mono-esencial por ser $M$ irreducible y todas las inclusiones antes mencionadas son monomorfismos, aplicando la Proposición 3.3.3 $a)$ se tiene que, en partícular, ${i_N}'$ es un mono-esencial. Así, dado que $\socle{M}$ es semisimple, de la Proposición 3.3.3 $b)$ se tiene que ${i_N}'$ es un isomorfismo. De modo que $\socle{M}=N$ y por lo tanto es simple.\\
+			
+			\boxed{d)} Se tiene que $\socle{M}$ es semisimple, de lo cual se sigue la sucificiencia. Más aún se tiene que $\socle{M}$ es el máximo submódulo semisimple de $M$ (ver la Proposición 3.3.6$a)$), de modo que $M\leq \socle{M}$ si $M$ es semisimple y así se verifica la necesidad. \\
+			
+			\boxed{e)} Se sigue de aplicar el inciso anterior al modulo semisimple $M':=\socle{M}$.\\
+		\end{proof}
+		
+		%%%% Ej.91 %%%%%
+		\item Pruebe que:
+		\begin{itemize}
+			\item[a)] ${}_{\mathbb{Z}}\mathbb{Q}$ es inyectivo e inescindible.
+			\item[b)] Para todo $M\in\genlin{{}_{\mathbb{Z}}\mathbb{Q}}\setminus\lrbrack{0}$, $I_{0}\lrprth{M}\cong\mathbb{Q}$
+		\end{itemize}
+		\begin{proof}
+			$\boxed{\text{a)}}$ Primero, $\mathbb{Q}$ es divisible. En efecto, si $n\in\mathbb{Z}\setminus\lrbrack{0}$ y $x\in\mathbb{Q}$, entonces $x/n\in\mathbb{Q}$ y $x=n(x/n)$. Ahora, aunado a la divisibilidad, por la \textbf{Proposición 3.3.8.}, $\mathbb{Q}$ es inyectivo.\\
+			
+			Por otra parte, por el ejercicio anterior, $\mathbb{Z}$ es irreducible. Además, $\mathbb{Z}\subseteq\mathbb{Q}$ es mono-esencial. En efecto, sea $X\subseteq\mathbb{Q}$ tal que $X\cap\mathbb{Z}=0$ y sea $x \in X$. Entonces existe $0 \neq n\in\mathbb{Z}$ tal que $nx\in\mathbb{Z}$. Luego $nx \in X\cap\mathbb{Z}=0$. Como $\mathbb{Q}$ es dominio entero, $x=0$. Así, $X=0$.\\
+			
+			Finalmente, puesto que $\mathbb{Z}$ es irreducible y que $\mathbb{Z}\subseteq\mathbb{Q}$ es mono-esencial, se satisface la \textbf{Proposición 3.3.7.d)}. $\therefore\mathbb{Q}$ es inyectivo e inescindible.\\
+			
+			$\boxed{\text{b)}}$ Sea $0 \neq M \leq Q$. Por la \textbf{Proposición 3.3.5.c)}, $I_{0}\lrprth{M}\leq\mathbb{Q}$. Como $I_{0}\lrprth{M}$ es inyectivo, existe $K\leq\mathbb{Q}$ tal que $\mathbb{Q} \cong K \oplus I_{0}\lrprth{M}$. Dado que $\mathbb{Q}$ es inescindible, $K=0$. $\therefore I_{0}\lrprth{M}\cong\mathbb{Q}$
+		\end{proof}
+		
+		%%%% Ej.92 %%%%%
+		\item Pruebe que 
+		\begin{itemize}
+			\item[a)] $Soc\left(\prescript{}{\Z}{\Z}\right)=Soc\left(\prescript{}{\Z}{\mathbb{Q}}\right)=0.$
+			\item[b)] $\faktor{\Z}{m\Z}$ es un $\Z$-módulo simple $\iff$ $m$ es primo.
+			\item[c)] $Soc\left(\faktor{\Z}{p^n\Z}\right)=\faktor{p^{n-1}\Z}{p^n\Z}\cong \faktor{\Z}{p\Z}$ para todo primo $p$ y $n\geq 0$.
+			\item[d)] $Soc\left(\faktor{\Z}{n\Z}\right)\cong \faktor{\Z}{(p_1\ldots p_k)\Z}$ donde $n=p_1^{m_1}\ldots p_k^{m_k}$ en la descomposición
+			en productos de primos con $p_i\neq p_j$ para toda $i\neq j$.
+		\end{itemize}
+		\begin{proof}\boxed{a)}\\
+		Por una parte, como $\prescript{}{\Z}{\Z}$ no tiene submódulos simples, entonces\\ $Soc\left(\prescript{}{\Z}{\Z}\right)=0.$\\
+		Por otra, Como $\Z$ es mono-escencial en $\Q$ (como se aprecia en el ejercicio anterior) entonces todo módulo $M$ de 
+		$\prescript{}{\Z}{\Q}$ cumple que $\Z\cap M\neq \emptyset$ y como $\Z$ no contiene submódulos simples, entonces $\prescript{}{\Z}{\Q}$ no tiene
+		submódulos simples, es decir \\$Soc\left(\prescript{}{\Z}{\Z}\right)=Soc\left(\prescript{}{\Z}{\Q}\right)=0.$\\
+		\boxed{b)}\\
+		Como $M$ es submódulo de  $\faktor{\Z}{m\Z}$ si y sólo si $M=k\faktor{\Z}{m\Z}$ donde $k|m$, entonces si $\faktor{\Z}{m\Z}$ es simple
+		$k$ sólo puede ser $1$ o $m$, es decir, $m$ tiene que ser primo.\\
+		Si $m$ es primo $\faktor{\Z}{m\Z}$ es campo y por lo tanto simple.\\
+		\boxed{c)}\\
+		Sea $p$ primo y $n\geq 2$, entonces $\faktor{\Z}{p\Z}$ es simple en $\faktor{\Z}{p^n\Z}$, sin embrgo es el único simple, pues
+		si $M\leq \faktor{\Z}{p^n\Z}$ es simple, entonces $M=\faktor{\Z}{p^k\Z}$ y esto pasa sólo si $p^k$  es primo, es decir, si $k=1$.
+		Por lo tanto \\$Soc\left(\faktor{\Z}{p^n\Z}\right)=\faktor{\Z}{p\Z}$.\\
+		\boxed{d)}\\
+		Sea $n=p_1^{m_1}\ldots p_k^{m_k}$ su descomposición en primos.\\
+		Como $n\Z=p_1^{m_1}\ldots p_k^{m_k}\Z$ entonces $\faktor{\Z}{n\Z}=\faktor{\Z}{p_1^{m_1}\ldots p_k^{m_k}\Z}$, en particular 
+		$\faktor{\Z}{p_j\Z}\leq \faktor{\Z}{n\Z}$ es simple para toda $j\in \{1,\ldots , k\}$, pues $p_j\Z\geq n\Z$.\\
+		Por otra parte si $M$ es simple en $\faktor{\Z}{n\Z}$, entonces $M=\faktor{\Z}{p\Z}$ para algún $p$ primo y $p\Z\geq n\Z$, por lo que $p|n$
+		es decir, existe $j\in \{1,\ldots , k\}$ tal que $p|p_j^{m_j}$, entonces $p=p_j$ y así $M=\faktor{\Z}{p_j\Z}$ para algún  $j\in \{1,\ldots , k\}$.
+		Por lo tanto, como $p_j\Z\geq n\Z$ para toda $j\in \{1,\ldots , k\}$,
+		\[ Soc\left(\faktor{\Z}{n\Z}\right)\cong \displaystyle\sum_{i\leq k}
+		\faktor{\Z}{p_j\Z}=\displaystyle\bigoplus_{j\leq k}\faktor{\Z}{p_j\Z}\cong \faktor{\Z}{(p_1\ldots p_k)\Z}.\]
+	\end{proof}
+	
+	%%%% Ej.93 %%%%%
+	\item Sean $R$ un anillo artiniano a izquierda y $M\in Mod\lrprth{R}$. Si $M\neq 0$ es no trivial, entonces $Soc(M)\neq 0$ . 
+	\begin{proof}
+		Basta con verificar que $Simp\lrprth{M}\neq\varnothing$. Sea $0\neq m\in M$, luego $0\neq\gengroup{m}\in mod\lrprth{R}=f.l.\lrprth{R}$ (pues $R$ es artiniano a izquierda) y por lo tanto $\gengroup{m}$ es en partícular artiniano (ver la Proposición 2.1.4). Así, por el Ej. 43, $\lrprth{\genlin{\gengroup{m}},\leq}$ posee por lo menos un elemento mínimal, digamos $S$. La minimalidad de $S$ con respecto a $\leq$ junto al hecho de que $\genlin{S}\subseteq\genlin{\gengroup{m}}$ garantizan que $S$ es un submódulo simple de $M$.\\
+	\end{proof}
+	
+	%%%% Ej.94 %%%%%
+	\item Para un anillo artiniano a izquierda $R$, pruebe que las siguientes condiciones se satisfacen:
+	\begin{enumerate}
+		\item[a)] Sea $\fntfam{f_{i}:A_{i} \longrightarrow B}{i}{n}$ una familia de morfismos en $Mod\lrprth{R}$. Entonces $\displaystyle\coprod_{i=1}^{n}f_{i}:\displaystyle\coprod_{i=1}^{n}A_{i}\longrightarrow\displaystyle\coprod_{i=1}^{n}B_{i}$ es mono-esencial$\Leftrightarrow f_{i}:A_{i} \longrightarrow B_{i}$ es mono-esencial $\forall i \in [1,n]$.
+		\item[b)] $\forall Q,Q'\in Mod\lrprth{R}$ inyectivos, $Q \cong Q' \Leftrightarrow soc\lrprth{Q} \cong soc\lrprth{Q'}$.
+		\item[c)] Si $\fntfam{S}{i}{n}$ es una familia completa de simples en $Mod\lrprth{R}$ no isomorfos dos a dos, entonces $\lrbrack{I_{0}\lrprth{S_{j}}}_{j=1}^{n}$ es una familia completa de inyectivos inescindibles en $Mod\lrprth{R}$ no isomorfos dos a dos.
+	\end{enumerate}
+	\begin{proof}
+		$\boxed{a)}$ $\boxed{\Rightarrow )}$ Supongamos que el morfismo $\displaystyle\coprod_{i=1}^{n}f_{i}$ es mono-esencial. Sea $i \in [1,n]$ y sea $Y_{i}\in\genlin{B_{i}}$ tal que $f_{i}^{-1}\lrprth{Y_{i}}=0$. Definimos $Y=\displaystyle\coprod_{j=1}^{n}Y_{j}\in\genlin{\displaystyle\coprod_{j=1}^{n}B_{j}}$ como $Y_{j}=\delta_{ji}Y_{i}$. De manera que $\displaystyle\coprod_{j=1}^{n}f_{j}^{-1}\lrprth{Y}=0$. Como $\displaystyle\coprod_{j=1}^{n}f_{j}$ es mono-esencial, $Y=0$, y en particular $Y_{i}=0$.\\
+		$\therefore f_{i}$ es mono-esencial.\\
+		
+		$\boxed{\Leftarrow )}$ Suponga que todo $f_{i}$ es mono-esencial. Sea $Y\in\genlin{\displaystyle\coprod_{i=1}^{n}B_{i}}$ tal que $\lrprth{\displaystyle\coprod_{i=1}^{n}f_{i}}^{-1}\lrprth{Y}=0$. Denote por $\eta_{i}:\displaystyle\coprod_{i=1}^{n}B_{i} \longrightarrow B_{i}$ la $i$-ésima proyección canónica. Entonces $\displaystyle\coprod_{i=1}^{n}f_{i}^{-1}\lrprth{\eta_{i}\lrprth{Y}}=0$. Luego, $f_{i}^{-1}\lrprth{\eta_{i}\lrprth{Y}}=0$. En virtud de que $f_{i}$ es mono-esencial, $\eta_{i}\lrprth{Y}=0$. De modo que $Y=0$.\\
+		$\therefore\displaystyle\coprod_{i=1}^{n}f_{i}$ es mono-esencial.
+		
+		$\boxed{b)}$ $\boxed{\Rightarrow )}$ Sean $Q,Q' \in Mod\lrprth{R}$ inyectivos. Si $Q \cong Q'$, entonces $soc\lrprth{Q} \cong soc\lrprth{Q'}$, pues $soc\lrprth{*}$ es un funtor.\\
+		
+		$\boxed{\Leftarrow )}$ Sean $Q,Q' \in Mod\lrprth{R}$. Suponga que $soc\lrprth{Q} \cong soc\lrprth{Q'}$. Como $R$ es artiniano a izquierda, $soc\lrprth{Q} \hookrightarrow Q$ y $soc\lrprth{Q'} \hookrightarrow Q'$ son mono-esencial. Dado que $Q$ y $Q'$ son inyectivos, $soc\lrprth{Q} \hookrightarrow Q$ y $soc\lrprth{Q'} \hookrightarrow Q'$ son envolventes inyectivas. Ahora, puesto que $soc\lrprth{Q} \cong soc\lrprth{Q'}$, $soc\lrprth{Q} \hookrightarrow Q$ y $soc\lrprth{Q} \hookrightarrow Q'$ son envolventes inyectivas de $Q$. Usando el \textbf{Ejercicio 88.}, $Q$ y $Q'$ son inyectivos.\\
+		$\therefore Q\cong Q'$
+		
+		$\boxed{c)}$ Como $S_{i}$ es simple, por la \textbf{Proposición 3.3.9.a)}, $I_{0}\lrprth{S_{i}}$ es inyectivo inescindible.\\
+		
+		Por otro lado, considere $S_{i}$, $S_{j}$ dos $R$-módulos simples no isomorfos. Entonces, por la \textbf{Proposición 3.3.9.b)}, $soc\lrprth{I_{0}\lrprth{S_{i}}} \cong S_{i}$ y $soc\lrprth{I_{0}\lrprth{S_{j}}} \cong S_{j}$. Luego, por el inciso anterior, $I_{0}\lrprth{S_{i}} \not\cong I_{0}\lrprth{S_{j}}$.\\
+		
+		Por último, suponga que $Q$ es inyectivo inescindible. Por la \textbf{Proposición 3.3.9.b)}, $soc\lrprth{Q} \cong S_{i}$, para algún $i \in [1,n]$. Por el inciso anterior, $Q \cong I_{0}\lrprth{S_{i}}$.\\
+		$\therefore\lrbrack{I_{0}\lrprth{S_{j}}}_{j=1}^{n}$ es una familia completa de inyectivos inescindibles en $Mod\lrprth{R}$ no isomorfos dos a dos.
+	\end{proof}
+	
+	%%%% Ej.95 %%%%%
+	\item Para un anillo $R$ y $M\in Mod(R)$, pruebe que 
+	\begin{itemize}
+		\item[a)] $ann_R(M)\unlhd R$.
+		\item[b)] $M$ es un $\left(\faktor{R}{ann_R(M)}\right)$-módulo fiel.
+		\item[c)] $\forall f\in \operatorname{Hom}_R(R,M)$,\quad $ann_R(M)\leq Ker(f)$.
+		\item[d)] $\forall N\in Mod(R)$,\quad $N\cong M\Longrightarrow ann_R(M)=ann_R(N)$.
+	\end{itemize}
+	\begin{proof}
+		\boxed{a)}\\
+		$ann_R(M)=\{r\in R\,|\,r\cdot m=0\,\,\forall m\in M\}$.\\
+		Sean $r,s\in ann_R(M)$, entonces $(r+s)\cdot m=r\cdot m+s\cdot m=0$ por lo que $(r+s)\in ann_R(M)$.\\
+		
+		Ahora, si $a\in R$, $(zr)\cdot m=z\cdot(r\cdot m)=z\cdot 0=0$. Por lo tanto $ann_R(M)\unlhd R$.\\
+		\boxed{b)}\\
+		$\displaystyle ann_{\faktor{R}{ann_R(M)}}(M)=\{r\in \faktor{R}{ann_R(M)}\,|\, [r]\cdot m=0\}$ con $[r]$ denotando la clase de $r\in R$ bajo la
+		relación de equivalencia. Ahora, como $[r]\cdot m=0,$ entonces 
+		\[0=(r+ann_R(M))\cdot m=r\cdot m+0,\]
+		y así $r\in ann_R(M)$, es decir, $[r]=0$. Por lo tanto $M$ es un \\ $\faktor{R}{ann_R(M)}$-módulo fiel.\\
+		\boxed{c)}\\
+		Sean $f\in\operatorname{Hom}_R(R,M)$ y $r\in ann_R(M)$, entonces $r\cdot m=0\,\,\forall m\in M$ así, como $f$ es morfismo
+		$f(r)=r\cdot f(1)=0$ pues $f(1)\in M$. Por lo tanto $ann_R(M)\leq Ker(f)$.\\
+		\boxed{d)}\\
+		Sea $N\in Mod(R)$ tal que existe $h\in \operatorname{Hom}_R(M,N)$ isomorfismo. Entonces para cada $n\in N$ existe un único $m\in M$
+		tal que $h(m)=n$, así 
+		\begin{align*}
+			r\in ann_R(M) &\iff r\cdot m=0\,\,\,\forall m\in M\\
+			&\iff h(r\cdot m)=0\,\,\,\forall m\in M\\
+			&\iff r\cdot h(m)=0\,\,\,\forall m\in M\\
+			&\iff r\cdot n=0\,\,\,\forall n\in N\\
+			& \iff r\in ann_R(N).
+		\end{align*}
+	\end{proof}
+	
+	%%%% Ej.96 %%%%%
+	\item Sean $R$ un anillo, $I\subnormeq R$, $\pi:R\to\faktor{R}{I}$ el epi-canónico de anillos y $M\in Mod\lrprth{\faktor{R}{I}}$. Se tiene que
+	\begin{enumerate}
+		\item $\pi\lrprth{ann_R\lrprth{M}}=ann_{\faktor{R}{I}}\lrprth{M}$;
+		\item $\ringmod{\faktor{R}{I}}{M}{l}$ es fiel $\iff I=ann_R \lrprth{M}$.
+	\end{enumerate}
+	\begin{proof}
+		Consideraremos la estructura de $M$ como $R$-módulo como aquella obtenida a partir del cambio de anillos dado por $\pi$.\\
+		\boxed{a)} Notemos que
+		\begin{align*}
+			a\in\pi\lrprth{ann_R\lrprth{M}}&\iff  a=r+I, r\in ann_{R}\lrprth{M}\\
+			&\iff  a=r+I, rm=0\ \forall\ m\in M\\
+			&\iff  a=r+I, \lrprth{r+I}m=\pi\lrprth{r}m=0\ \forall\ m\in M\\
+			&\iff  a\in ann_{\faktor{R}{I}}.
+		\end{align*}
+		De lo anterior se tiene lo deseado.\\
+		
+		\boxed{b)} Notemos primeramente que, si $r\in I$ y $m\in M$, entonces $rm=\lrprth{r+I}m=\lrprth{I}m=0$, pues $I$ es el neutro aditivo de $\faktor{R}{I}$. Así \begin{equation*}\tag{*}\label{IcontAnn}
+			I\subseteq ann_R\lrprth{M}.
+		\end{equation*}
+		Ahora
+		\begin{align*}
+			\ringmod{\faktor{R}{I}}{M}{l}\text{ es fiel }&\iff ann_{\faktor{R}{I}}\lrprth{M}=\gengroup{I}\\
+			&\iff \pi\lrprth{ann_R\lrprth{M}}=\gengroup{I}, && a)\\
+			&\iff ann_R\lrprth{M}\subseteq Ker\lrprth{\pi}=I\\
+			&\iff ann_R\lrprth{M}=I. && \lrprth{\text{\ref{IcontAnn}}}
+		\end{align*}
+	\end{proof}
+	
+	%%%% Ej.97 %%%%%
+	\item Sean $R$ anillo y $n \geq 1$. Pruebe que la correspondencia
+	\begin{align*}
+		\lrbrack{Ideales\ de\ R} &\longrightarrow \lrbrack{Ideales\ de\ Mat_{n \times n}\lrprth{R}}\\
+		I &\mapsto Mat_{n \times n}\lrprth{I}
+	\end{align*}
+	es una biyección. En particular, si $D$ es un anillo de división, se tiene que el anillo $Mat_{n \times n}\lrprth{D}$ es simple $\forall n \geq 1$.
+	\begin{proof}
+		Sean $\begin{pmatrix} a & b \\ c & d \end{pmatrix} \in Mat_{n \times n}\lrprth{I}$ y $\begin{pmatrix} x & y \\ z & w \end{pmatrix} \in Mat_{n \times n}\lrprth{R}$. Entonces
+		\begin{align*}
+			\begin{pmatrix} a & b \\ c & d \end{pmatrix}\begin{pmatrix} x & y \\ z & w \end{pmatrix} &= \begin{pmatrix} ax+bz & ay+bw \\ cx+dz & cy+dw \end{pmatrix}
+			\intertext{y}
+			\begin{pmatrix} x & y \\ z & w \end{pmatrix}\begin{pmatrix} a & b \\ c & d \end{pmatrix} &= \begin{pmatrix} xa+yc & xb+yd \\ za+wc & zb+wd \end{pmatrix}
+		\end{align*}
+		Ahora, en virtud de que $I$ es un ideal de $R$, se tiene que
+		\begin{align*}
+			ax+bz,ay+bw,cx+dz,cy+dw \in I\\
+			xa+yc,xb+yd,za+wc,zb+wd \in I
+		\end{align*}
+		Luego, $\begin{pmatrix} a & b \\ c & d \end{pmatrix},\ \begin{pmatrix} x & y \\ z & w \end{pmatrix} \in Mat_{n \times n}\lrprth{I}$.\\
+		
+		Por otra parte, sea $J$ un ideal de $Mat_{n \times n}\lrprth{R}$. Consideremos el conjunto $I_{J}=\lrbrack{r \in R:r\mathbb{I} \in J}$, donde $\mathbb{I}=\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$. Veamos que $I_{J}$ es un ideal de $Mat_{n \times n}\lrprth{R}$.
+		\begin{enumerate}
+			\item Primero, $0\cdot\mathbb{I}=\begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix} \in J$. Por lo que $0 \in I_{J}$.
+			\item Sean $r,s \in I_{J}$. Entonces
+			\begin{align*}
+				(r+s)\mathbb{I}&=(r+s)\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}\\
+				&=\begin{pmatrix} r+s & 0 \\ 0 & r+s \end{pmatrix}\\
+				&=\begin{pmatrix} r & 0 \\ 0 & r \end{pmatrix}+\begin{pmatrix} s & 0 \\ 0 & s \end{pmatrix}\\
+				&=r\mathbb{I}+s\mathbb{I} \in J
+			\end{align*}
+			En consecuencia, $r+s \in I_{J}$; y así $I_{J}$ es un subgrupo abeliano de $R$.
+			
+			\item Sean $r \in R$, $x \in I_{J}$. De modo que
+			\begin{align*}
+				(rx)\mathbb{I}=\begin{pmatrix} rx & 0 \\ 0 & rx \end{pmatrix} \in J
+				\intertext{y}
+				(xr)\mathbb{I}=\begin{pmatrix} xr & 0 \\ 0 & xr \end{pmatrix} \in J
+			\end{align*}
+			Luego, $rx,xr \in I_{J}$.
+		\end{enumerate}
+		Por lo que $I_{J}$ es un ideal de $R$.\\
+		
+		En resumen, todo ideal $I$ de $R$ genera un ideal $Mat_{n \times n}\lrprth{R}$ y viceversa, todo ideal $J$ de $Mat_{n \times n}\lrprth{R}$ induce un ideal de $R$. Por tanto, hay una correspondencia biunívoca
+		\begin{align*}
+			\lrbrack{Ideales\ de\ R} &\longrightarrow \lrbrack{Ideales\ de\ Mat_{n \times n}\lrprth{R}}\\
+			I &\mapsto Mat_{n \times n}\lrprth{I}
+		\end{align*}
+		
+		Finalmente, sea $D$ un anillo con división. Entonces los únicos ideales de $D$ son $0$ y $D$. Por la correspondencia biyectiva entre ideales de $D$ e ideales de $Mat_{n \times n}\lrprth{D}$, se tiene que $Mat_{n \times n}\lrprth{D}$ no tiene ideales propios no triviales.\\
+		$\therefore Mat_{n \times n}\lrprth{D}$ es un anillo simple.
+	\end{proof}
+	
+	%%%% Ej.98 %%%%%
+	\item Sea $\Lambda$ una $R$-álgebra de Artin. Pruebe que, $\forall M\in mod(\Lambda)$ se tiene que: 
+	\begin{itemize}
+		\item[a)] $M$ es inescindible $\iff$ $D_\Lambda(M)$ es inescindible.
+		\item[b)] $M$ es simple $\iff D_\Lambda(M)$ es simple.
+		\item[c)] $I_0(D_\Lambda(M))\in mod(\Lambda^{op})$.
+		\item[d)] $I_0(M)\in mod(\Lambda)$.
+		\item[e)] $l_{\Lambda^{op}}(D_\Lambda(M))=l_\Lambda(M).$
+	\end{itemize}
+	\begin{proof}
+		\boxed{a)}\\
+		Supongamos $M\neq 0$ es inescindible y supongamos además que\\ $D_\Lambda(M))=D_1\oplus D_2$. Como $D_\Lambda$ y 
+		$D_{\Lambda^{op}}$ son equivalencias de categorías y $D_\Lambda(M)=D_1\oplus D_2$, entonces 
+		\[M=D_{\Lambda^{op}}(D_1\oplus D_2)=D_{\Lambda^{op}}(D_1)\oplus D_{\Lambda^{op}}(D_2).\]
+		Pero $M$ es inescindible, entonces $D_{\Lambda^{op}}(D_1)=0$ o  $D_{\Lambda^{op}}(D_2)=0$, así $D_1=0$ o $D_2=0$, por lo que
+		$D_\Lambda(M)$ es inescindible.\\
+		
+		Si $D_\Lambda(M)$ es inescindible y $M=M_1\oplus M_2$, entonces 
+		\[M=D_{\Lambda^{op}}(M_1\oplus M_2)=D_{\Lambda^{op}}(M_1)\oplus D_{\Lambda^{op}}(M_2),\]
+		y como $D_{\Lambda}(M)$ es inescindible entonces $D_{\Lambda^{op}}(M_1)=0$ o $D_{\Lambda^{op}}(M_2)=0$ por lo tanto 
+		$M_1=0$ o $M_2=0$ lo cual implica que $M$  es inescindible.\\
+		\boxed{b)}\\
+		Como $D_\Lambda$ y $D_{\Lambda^{op}}$ son equivalencias de categorías, a todo submódulo propio de $K$ de $M$ le corresponde 
+		un submódulo propio $S$ de $D_\Lambda(M)$, así
+		\begin{align*}
+			D_\Lambda\,\,\text{es simple}\,\,&\iff \forall K\lneq D_\Lambda (M)\,\,\,K=0\\
+			&\iff  S=D_{\Lambda^{op}}(K)\lneq  M\cong D_{\Lambda^{op}}(D_\Lambda (M))\quad K=0=S\\
+			&\iff \forall S\lneq M\quad S=0\\
+			&\iff M \text{\,\,\,es simple.}
+		\end{align*}
+		\boxed{d)}\\
+		Como $M\in mod(\Lambda)$ y como $\Lambda$ es un $R$-álgebra de artín, $M=\displaystyle\coprod_{i=1}^nRx_i$ con $x_i\in M$. Entonces,
+		aplicando 3.3.5, $I_0(M)\cong\displaystyle\coprod_{i=1}^nI_0(Rx_i)$, es decir, $I_0(M)\in mod(\Lambda)$.\\
+		\boxed{c)}\\
+		Como $D_\Lambda(M)\in \Lambda^{op}$, entonces aplicando c) en  $D_\Lambda(M)$ se tiene el resultado.\\
+		\boxed{e}\\
+		Como $\Lambda$ es una $R$-álgebra de artín, $D_\Lambda(M)$ y $M$ son artinianos y finitamente generados, por lo que ambos son de 
+		longitud finita. Sea $F$ una serie generalizada de composición de $M$ con longitud mínima, entonces tomaremos por $D_\Lambda(F)$ como
+		la filtración resultante de aplicar $D_\Lambda$ a cada terimino de $F$. \\
+		Observamos que $D_\Lambda(F_i)\leq D_\Lambda(F_{i-1})$ para toda $0\leq i\leq l(M)$ y además por ser equivalencia de categorias
+		$\faktor{D_\Lambda(F_i)}{D_\Lambda\left(F_{i-1}\right)}\cong D_\Lambda\left(\faktor{F_i}{F_{i-1}}\right)$ que es simple por b), así 
+		$D_\Lambda(F)$ es una serie generalizada de descomposición de longitud $l(M)$.\\
+		
+		Análogamente $D_{\Lambda^{op}}(G)$ con $G$ una serie generalizada de composición de $D_\Lambda(M)$ define una serie generalizada de 
+		composición de longitud $l(D_{\Lambda^{op}}(G))$ en $M$, por lo que  $l_{\Lambda^{op}}(D_\Lambda(M))=l_\Lambda(M)$.
+	\end{proof}
+	
+	%%%% Ej.99 %%%%%
+	\item Sean $\Lambda$ una $R$-álgebra de Artin, $D_{\Lambda}=\functhom{}{I}{R}:mod\lrprth{\lambda}\to mod\lrprth{\opst{\lambda}}$ la dualidad usual, $M\in mod\lrprth{\Lambda}$ y $N\in mod\lrprth{\opst{\Lambda}}$. Entonces
+	\begin{enumerate}
+		\item  $\opst{\lrprth{ann_{\Lambda}\lrprth{M}}}=ann_{\opst{\Lambda}}\lrprth{D_{\Lambda}\lrprth{M}}$;
+		\item $\opst{ann_{\Lambda}\lrprth{D_{\opst{\Lambda}}\lrprth{N}}}=ann_{\opst{\Lambda}}\lrprth{N}$.
+	\end{enumerate}
+	\begin{proof}
+		Recordemos que $D_{\Lambda}\lrprth{M}\in mod\lrprth{\opst{\Lambda}}$ via la acción $\opst{\lambda}\bullet f$, con $\opst{\lambda}\bullet f\lrprth{m}:=f\lrprth{\lambda m}$ y $\lambda m$ dado por la acción de $\lambda$ sobre $M$. Sea $\lambda\in\Lambda$, entonces
+		\begin{align*}
+			\lambda\in ann_{\Lambda}\lrprth{M}&\implies \lambda m=0, \forall\ m\in M\\
+			&\implies f\lrprth{\lambda m}=f\lrprth{0}=0,\forall\ m\in M, \forall\ f\in D_{\Lambda}\lrprth{M}\\\
+			&\implies \opst{\lambda}\bullet f=0, \forall\ f\in D_{\Lambda}\lrprth{M}\\
+			&\implies \lambda\in \opst{\lrprth{ann_{\opst{\Lambda}}\lrprth{D_{\Lambda}\lrprth{M}}}}\\
+			&\implies ann_{\Lambda}\lrprth{M}\subseteq \opst{\lrprth{ann_{\opst{\Lambda}}\lrprth{D_{\Lambda}\lrprth{M}}}},\tag{*}\label{contarbt}\\
+			&\therefore\ \opst{\lrprth{ann_{\Lambda}\lrprth{M}}}\subseteq ann_{\opst{\Lambda}}\lrprth{D_{\Lambda}\lrprth{M}}.
+		\end{align*}
+		Dado que $\Lambda$ es un álgebra de Artin arbitraria y $M$ es un $\Lambda$-módulo arbitrario, le contención (\ref{contarbt}) es válida para $\opst{\Lambda}$ y $D_{\Lambda}\lrprth{M}\in mod\lrprth{\opst{\Lambda}}$, de modo que
+		\begin{align*}
+			ann_{\opst{\Lambda}}\lrprth{D_{\Lambda}\lrprth{M}}&\subseteq \opst{\lrprth{ann_{\Lambda}\lrprth{D_{\opst{\Lambda}}\lrprth{D_{\Lambda}\lrprth{M}}}}}\\
+			&=\opst{ann_{\Lambda}\lrprth{M}}.
+		\end{align*}
+		\boxed{b)} Se sigue de $a)$ aplicado a $D_{\opst{\Lambda}}\lrprth{N}\in mod\lrprth{\Lambda}$.\\
+	\end{proof}
+	
+	%%%% Ej.100 %%%%%
+	\item 
+	
+	%%%% Ej.101 %%%%%
+	\item Sean $\Lambda$ una $R$-álgebra de Artin, $_{\Lambda}S$ simple y $e=e^{2}\in\Lambda$ primitivo. Pruebe que:
+	\begin{itemize}
+		\item[a)] $\Lambda e \cong P_{0}\lrprth{S} \Leftrightarrow e \cdot S \neq 0$
+		\item[b)] $\varphi : \ringmodhom{\Lambda}{\Lambda e}{\Lambda} \longrightarrow e \Lambda$, con $\varphi\lrprth{f}=f\lrprth{e}$, es un $\opst{\Lambda}$-isomorfismo.
+		\item[c)] $\Lambda e \cong P_{0}\lrprth{S} \Leftrightarrow e\Lambda \cong P_{0}\lrprth{D_{\Lambda}\lrprth{S}}$.
+	\end{itemize}
+	\begin{proof}
+		$\boxed{\text{a)}}\boxed{\Rightarrow )}$ Dado que $\Lambda e \cong P_{0}\lrprth{S}$, se tiene que $top\lrprth{\Lambda e} \cong top\lrprth{P_{0}\lrprth{S}} \cong top\lrprth{S}$ por la \textbf{proposición 2.8.7.a)}. Ademas, en virtud de que $S$ es simple, $top\lrprth{S}$ es simple. Más aún, $top\lrprth{S} = S/rad\lrprth{S} \cong S$. De esta forma, $S \cong top\lrprth{\Lambda e}$. Entonces $e \cdot S \cong e \cdot top\lrprth{\Lambda e} \neq 0$.\\
+		$\therefore e \cdot S \neq 0$.\\
+		
+		$\boxed{\Leftarrow )}$ Primero, como $e$ es idempotente primitivo, $\Lambda e\in\mathcal{P}\lrprth{\Lambda}$ es inescindible. Además, como $e \cdot S \neq 0$, se tiene que $top\lrprth{P_{0}\lrprth{S}} \cong S \cong top\lrprth{\Lambda e}$. Finalmente, por el \textbf{teorema 2.8.10.b)}, $P_{0}\lrprth{S}\cong\Lambda e$.\\
+		
+		$\boxed{\text{b)}}$ Comencemos observando que $\ringmodhom{\Lambda}{\Lambda e}{\Lambda}$ y $e\Lambda$ tienen estructura de $\opst{\Lambda}$-módulo, vía $\opst{\lambda}f\lrprth{re}=f\lrprth{\lambda re}$ y $\opst{\lambda}er=er\lambda$, respectivamente.\\
+		
+		Veremos que $\varphi$ es un morfismo de $\opst{\Lambda}$-módulos. En efecto:
+		\begin{enumerate}
+			\item Sean $f,g\in\ringmodhom{\Lambda}{\Lambda e}{\Lambda}$. Entonces:
+			\begin{align*}
+				\varphi\lrprth{f+g}&=\lrprth{f+g}\lrprth{e}\\
+				&=f\lrprth{e}+g\lrprth{e}\\
+				&=\varphi\lrprth{f}+\varphi\lrprth{g}
+			\end{align*}
+			\item Sean $\lambda\in\Lambda$ y $f\in\ringmodhom{\Lambda}{\Lambda e}{\Lambda}$. Luego,
+			\begin{align*}
+				\varphi\lrprth{\opst{\lambda}f}&=\lrprth{\opst{\lambda}f}\lrprth{e}\\
+				&=\opst{\lambda}f\lrprth{e}\\
+				&=\opst{\lambda}\varphi\lrprth{f}
+			\end{align*}
+		\end{enumerate}
+		Por lo que $\varphi$ es un morfismo.\\
+		
+		Por último, probaremos que $\varphi$ es un isomorfismo. En efecto:
+		\begin{enumerate}
+			\item Sea $f \in Ker\lrprth{\varphi}$. Entonces $0=\varphi\lrprth{f}=f\lrprth{e}$. De modo que $e \in Ker\lrprth{f}$. Lo cuál implica que $Ker\lrprth{f}=\Lambda e$. Así, $f=0$. $\therefore\varphi$ es mono.
+			\item Sea $\lambda \in \Lambda$. Entonces $e\lambda\in\Lambda$. Ahora definimos $f:\Lambda e \longrightarrow\Lambda$ como $f\lrprth{re}=e\lambda r$. De esta forma, $\varphi\lrprth{f}=f\lrprth{e}=e\lambda$. $\therefore\varphi$ es epi.
+		\end{enumerate}
+		$\therefore\varphi$ un isomorfismo.\\
+		
+		$\boxed{\text{c)}}$ Este inciso es consecuencia de los anteriores.\\
+		$\boxed{\Rightarrow )}$ Dado que $\Lambda e \cong P_{0}\lrprth{S}$, se tiene que $\ringmodhom{\Lambda}{\Lambda e}{\Lambda}\cong\ringmodhom{\Lambda}{P_{0}\lrprth{S}}{\Lambda}$. Ahora, por definición del funtor $\_^{*}$ se tiene que $\ringmodhom{\Lambda}{\Lambda e}{\Lambda}\cong P_{0}\lrprth{S}^{*}$. Por otro lado, por el inciso anterior, $e\Lambda\cong\ringmodhom{\Lambda}{\Lambda e}{\Lambda}\cong P_{0}\lrprth{S}^{*}$. Por el \textbf{teorema 3.5.7.b)}, $I_{0}\lrprth{S} \cong D_{\opst{\Lambda}}\lrprth{P_{0}\lrprth{S}^{*}} \cong D_{\opst{\Lambda}}\lrprth{e\Lambda}$. Aplicando el funtor de Nakayama, se tiene que
+		\begin{align*}
+			P_{0}\lrprth{D_{\Lambda}\lrprth{S}}&\cong\mathcal{N}^{-1}\lrprth{I_{0}\lrprth{D_{\Lambda}\lrprth{S}}}\\
+			&\cong D_{\Lambda}\lrprth{I_{0}\lrprth{S}}\\
+			&\cong D_{\Lambda}D_{\opst{\Lambda}}\lrprth{e\Lambda}\\
+			&\cong e\Lambda
+		\end{align*}
+		$\therefore P_{0}\lrprth{D_{\Lambda}\lrprth{S}} \cong e\Lambda$.\\
+		
+		$\boxed{\Leftarrow )}$ Suponga que $e\Lambda \cong P_{0}\lrprth{D_{\Lambda}\lrprth{S}}$. Luego $top\lrprth{D_{\Lambda}\lrprth{S}} \cong top\lrprth{P_{0}\lrprth{D_{\Lambda}\lrprth{S}}} \cong top\lrprth{e\Lambda}$. Como $e \cdot top\lrprth{e\Lambda} \neq 0$, entonces $e \cdot top\lrprth{P_{0}\lrprth{D_{\Lambda}\lrprth{S}}} \neq 0$. De este modo, $e \cong D_{\Lambda}\lrprth{S} \neq 0$. Lo cual implica que $eS \neq 0$. Por el inciso $a)$, $\Lambda e \cong P_{0}\lrprth{S}$.
+	\end{proof}
+\end{enumerate}
+\end{document}
